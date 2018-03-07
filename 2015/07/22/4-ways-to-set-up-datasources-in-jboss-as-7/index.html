@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>A Morsel Of Code</title>
+
+  
+  
+  <meta name="author" content="Dinesh" />
+  <meta name="description" content="Last year my company decided to move from JBoss 4.x/5.x to Jboss AS 7. We use Maven and IZPack plugin to create automated deployment to Jboss 4. As a part of IZPack plugin, we would write the install.xmls for various environment, which would help us deploy war files, log.xml, jars, properties file in respective folders. So the advantage was that Jboss-4 allows you to deploy several xxx-ds.xml files in deploy folder and you can have multiple apps deployed in same Jboss and each app uses it&amp;#8217;s respective xxx-ds." />
+
+
+
+
+
+<meta name="generator" content="Hugo 0.37" />
+
+
+<link rel="canonical" href="/2015/07/22/4-ways-to-set-up-datasources-in-jboss-as-7/" />
+<link rel="alternative" href="/index.xml" title="A Morsel Of Code" type="application/atom+xml" />
+
+<link href="https://cdn.bootcss.com/semantic-ui/2.2.14/semantic.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/site.css" />
+
+
+</head>
+
+<body>
+  <div class="flip-container">
+    <div class="flipper">
+      <section class="front">
+        
+<nav class="ui top secondary menu">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="Flip it!"></i>
+  </div>
+  <div class="item">
+    <a href="/">
+      <i class="inverted big link home icon" title="Home"></i>
+    </a>
+  </div>
+</nav>
+ 
+<div class="ui centered grid">
+  <div class="fifteen wide mobile fifteen wide tablet eleven wide computer column post-list">
+
+    <section class="ui secondary top attached black segment">
+      <header>
+        <h1 class="ui header">
+          4 ways to set up datasources in Jboss AS 7
+          <div class="sub header">@ Dinesh · Jul 22, 2015 · 5 min read · Update at Jul 22, 2015</div>
+        </h1>
+      </header>
+      <article class="post-content" style="margin-top: 2rem; font-size: 1.4rem;"><p>Last year my company decided to move from JBoss 4.x/5.x to Jboss AS 7. We use Maven and IZPack plugin to create automated deployment to Jboss 4. As a part of IZPack plugin, we would write the install.xmls for various environment, which would help us deploy war files, log.xml, jars, properties file in respective folders. So the advantage was that Jboss-4 allows you to deploy several xxx-ds.xml files in deploy folder and you can have multiple apps deployed in same Jboss and each app uses it&#8217;s respective xxx-ds.xml file.</p>
+
+<p>When we started with Jboss AS 7 we learnt that all datasource setting had to be done in <strong>standalone.xml</strong> file. <strong>Jboss 7.0 </strong> got rid of <strong>xxx-ds.xml</strong> file concept.  The problem with this approach was that we could not use <strong>IZPack</strong> plugin to replace the environment variable if we were deploying multiple apps in the Jboss because every IZPack installation would overwrite the previous <strong>standalone.xml</strong> setting for datasource section. So our deployment engineer had to manually go and configure each datasource in <strong>standalone.xml.</strong> God forbid when we have to update expiring passwords for database every few months, then changing all these passwords would have created a havoc.</p>
+
+<p>As a result, we abandoned or let&#8217;s say delayed the Jboss4 to Jboss AS 7 upgrade. I was not involved in this first attempt however last week I had some time on hand so I started looking into the issue. It turns out the newer version of Jboss AS 7.1.1-FINAL had re-introduced the concept of deployable datasources.</p>
+
+<p>&nbsp;</p>
+
+<p>Let me walk you through <span style="text-decoration: underline;"><em><strong>4 ways</strong></em></span> of configuring the datasources in Jboss AS 7.1.1-FINAL.</p>
+
+<p><strong>METHOD 1: Standard way. Setting up datasource using standalone.xml(</strong>Not preferred if you have multiple apps in the deployments folder). In this example let&#8217;s assume we are using <strong>Oracle database.</strong></p>
+
+<p><strong>Step 1: </strong>Add the Ojdbc14.x.x  jar file in the folder</p>
+
+<blockquote>
+<p><code>Jboss/modules/com/oracle/jdbc/main</code></p>
+</blockquote>
+
+<p>Keep in mind that the folder structure is really important.</p>
+
+<p><strong>Step 2:</strong> Create a file <strong>module.xml</strong> and it along with for jdbc jar file. Add the below xml in the module.xml file.</p>
+
+<p id="rPkluam">
+  <img class="alignnone size-full wp-image-830 " src="http://javahabit.com/wp-content/uploads/2015/07/img_55af119e4110d.png" alt="" />
+</p>
+
+<p>So in the above file, we are defining the location of the jar file in &lt;<strong>resource-root&gt; </strong>tag. You can actually put the jar file in some other folder as well and define the path here but that is not an advisable approach as you will have to provide the full path of the jar file which will cause issues if you have to move the Jboss folder to some other server location.</p>
+
+<p><strong>Step 3: </strong>Open the <strong>standalone.xml</strong> file under jboss-as-7.1.0.Final\standalone\configuration folder. In the datasources section define datasources. EX:</p>
+
+<p id="YfbyjeY">
+  <img class="alignnone size-full wp-image-832 " src="http://javahabit.com/wp-content/uploads/2015/07/img_55af14ad4001c.png" alt="" />
+</p>
+
+<p>That&#8217;s it. But this is the standard way of adding the datasource. The next time I want to deploy another application in the same Jboss which uses MySQl, I would have to manually update the <strong>standalone.xml </strong>so that I do not change mess up the datasource set up for Oracle.</p>
+
+<p>&nbsp;</p>
+
+<p><strong>Method 2: Deploy datasource in stanadalone jar.</strong> Assume we are configuring for Oracle datasource.</p>
+
+<p><strong>Step 1: </strong>Copy  ojdbc14.xx.jar in the Jboss/standalone/deployments folder.</p>
+
+<blockquote>
+<p><strong><code>cp ojdbc14.10.1.05.jar /usr/jboss-as-7.1.1.Final/standalone/deployments</code></strong></p>
+</blockquote>
+
+<p><strong>Step 3:</strong> Start the Jboss server to see if the jar file is successfully deployed.</p>
+
+<p><code>&lt;strong&gt;09:32:10,400 INFO [org.jboss.as.server] (DeploymentScanner-threads - 2) JBAS018559:&lt;br /&gt;
+Deployed &quot;mysql-connector-java-5.1.18-bin.jar&quot;&lt;/strong&gt;</code></p>
+
+<p><strong>Step 4:</strong> Deploy the datasource file</p>
+
+<p>Just fill in an xml file which ends (as we used to do) in -ds.xml, for example this is a oracle-ds.xml which is suitable for Oracle database. <strong> </strong></p>
+
+<p id="tWWAqtZ">
+  <img class="alignnone size-full wp-image-835 " src="http://javahabit.com/wp-content/uploads/2015/07/img_55af199091f99.png" alt="" />
+</p>
+
+<p><strong>Step 5:</strong> Deploy your web app and you are good to go.</p>
+
+<p><strong>At this point you might wonder if there is any pitfall when using the older -ds.xml approach ? well actually if you &#8220;bypass&#8221; the management interface and deploy the datasource in the old way, you will not be able to manage it through the CLI or Web admin interface. As you can see from this snapshot, our datasource is not enlisted through the manageable resources of the Web interface.</strong></p>
+
+<p>&nbsp;</p>
+
+<p><strong>METHOD 3: Deploying the datasource along with your application</strong></p>
+
+<p>You can actually deploy your datasource along with your application, just you used to do in the past.</p>
+
+<p>Here&#8217;s a sample Web application Structure which ships with a datasource (in the WEB-INF folder). For other a JAR archive you would rather need copying the datasource in the META-INF folder:</p>
+
+<p id="AlrPDRU">
+  <img class="alignnone size-full wp-image-836 " src="http://javahabit.com/wp-content/uploads/2015/07/img_55af1b7284aa8.png" alt="" />
+</p>
+
+<p><strong>Method 4: Hybrid approach using *-ds.xml + standalone.xml</strong></p>
+
+<p>I found this approach to be the best because I do not like put jar files inside a WAR applcation which is written in MAVEN. I also do not like to drop JDBC jar files in deployments folder as it I consider it a sacred place for WAR files only. So I figured out a hybrid approach.</p>
+
+<p><strong>Step 1: </strong>Add the Ojdbc14.x.x  jar file in the folder</p>
+
+<blockquote>
+<p><code>Jboss/modules/com/oracle/jdbc/main</code></p>
+</blockquote>
+
+<p>Keep in mind that the folder structure is really important.</p>
+
+<p><strong>Step 2:</strong> Create a file <strong>module.xml</strong> and it along with for jdbc jar file. Add the below xml in the module.xml file.</p>
+
+<p id="rPkluam">
+  <img class="alignnone size-full wp-image-830 " src="http://javahabit.com/wp-content/uploads/2015/07/img_55af119e4110d.png" alt="" />
+</p>
+
+<p>So in the above file, we are defining the location of the jar file in &lt;<strong>resource-root&gt; </strong>tag. You can actually put the jar file in some other folder as well and define the path here but that is not an advisable approach as you will have to provide the full path of the jar file which will cause issues if you have to move the Jboss folder to some other server location.</p>
+
+<p><strong>Step 3: </strong>Open the <strong>standalone.xml</strong> file under jboss-as-7.1.0.Final\standalone\configuration folder. In the datasources section define datasources. Here you only define the drivers in the datasources section.</p>
+
+<p id="oWTMQmR">
+  <img class="alignnone size-full wp-image-837 " src="http://javahabit.com/wp-content/uploads/2015/07/img_55af1cb4962dc.png" alt="" />
+</p>
+
+<p>Notice that I have defined 2 drivers and have named them as &#8220;<strong>mssql</strong>&#8221; and &#8220;<strong>oracle</strong>&#8220;. Also notice the module, this is suppose to be exactly like the folder structure of jar file under <strong>jboss/modules </strong> section.</p>
+
+<p><strong>Step 4: </strong>Create a <strong>xx-ds.xml </strong>file and drop it in deployments folder.</p>
+
+<p id="QTrNkpa">
+  <img class="alignnone size-full wp-image-838 " src="http://javahabit.com/wp-content/uploads/2015/07/img_55af1dc878ffc.png" alt="" />
+</p>
+
+<p>Notice that I have commented out the <strong><drivers> section. </strong>The way Jboss figures out the driver is by looking at tag name <strong><driver>oracle</driver> </strong>in my <strong>xx-ds.xml.</strong></p>
+
+<p>&nbsp;</p>
+
+<p>That&#8217;s it.</p>
+
+<p>~Ciao</p>
+</article>
+    </section>
+
+    <footer class="ui secondary attached segment dream-tags">
+      
+      <span>No Tag</span>
+      
+    </footer>
+
+    
+
+    
+
+  </div>
+  <div class="fifteen wide mobile fifteen wide tablet four wide computer column">
+
+    <section class="ui top attached center aligned inverted segment">
+  <div class="ui small circular image">
+    
+    <img src="/img/avatar1.svg">
+    
+  </div>
+  <h3 class="ui header">Dinesh AroraDinesh&#39;s blog<div class="sub header" style="color: white;"></div>
+  </h3>
+  <a id="tag-category-pop" class="ui red right corner label">
+    <i class="pointing down icon" title="Click this to pop tags and categories"></i>
+  </a>
+</section>
+
+
+
+
+<section class="ui attached inverted segment dream-categories">
+  <div class="ui inverted accordion">
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/tech-notes" class="item" style="color: white;">tech-notes</a>
+    </div>
+    <div class="content">
+      <div class="ui link inverted list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2017/03/20/scala-tail-recursion/" class="item">Scala: Tail Recursion</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2016/06/16/understanding-java-8-lambda-final-finally-variable/" class="item">Understanding Java 8 Lambda final finally variable</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/12/26/how-to-set-up-apache-storm-on-mac-using-brew/" class="item">How to set up Apache Storm on mac using brew</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/09/27/waffle-windows-single-sign-on/" class="item">Waffle : Windows Single Sign On</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/07/22/4-ways-to-set-up-datasources-in-jboss-as-7/" class="item">4 ways to set up datasources in Jboss AS 7</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/03/30/install-or-manage-multiple-versions-of-java-on-os-x/" class="item">Install Or Manage multiple versions of Java on OS X</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/01/26/restful-webservice-7-steps-using-spring-boot/" class="item">Restful Webservice in 7 Steps using Spring boot</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/10/17/quick-tutorial-saaj-api/" class="item">A quick tutorial on SAAJ API</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/04/18/apache-poi-tutorial-reading-writing-excel-files-java/" class="item">Read / Write Excel file in Java using Apache POI</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/03/16/13-common-java-keytool-keystore-commands/" class="item">13 Most Common Java Keytool Keystore Commands</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/01/31/10-intellij-idea-keyboard-shortcuts-must-know/" class="item">10 IntelliJ IDEA Keyboard Shortcuts That You Must Know</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/12/16/apache-camel-how-to-call-an-external-webservice/" class="item">Apache Camel : How to call  java webservice</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/10/24/launch-website-in-amazon-ec2/" class="item">Launch Website in Amazon EC2</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/09/18/how-to-configure-jndi-with-spring-and-jboss45/" class="item">How to configure JNDI with Spring and Jboss4/5</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/08/01/rails-jquery-is-not-loading/" class="item">Rails: Jquery is not loading</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/05/15/how-to-post-parameters-to-a-url-using-ajaxjavascript-between-two-website/" class="item">How to post parameters to a url using Ajax/Javascript between two website</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/03/07/using-multiple-profiles-in-maven-eclipse/" class="item">Using multiple profiles in Maven &#43; Eclipse</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/09/23/how-to-send-email-in-phonegap-android-using-a-gmail-account/" class="item">How to send email in PhoneGap (Android) using a gmail account</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/07/13/share-any-folder-on-mac-via-built-in-web-server/" class="item">How To Share Any Folder On Mac Via Built-in Web Server</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/06/03/saving-files-in-amazon-s3-using-carrierwave-and-fog-gem/" class="item">Saving files in Amazon S3 using Carrierwave and Fog Gem</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/05/30/installing-rails-on-mac-osx/" class="item">Installing Rails on Mac OSX</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/05/29/setting-up-imap-settings-for-hotmail-account-on-iphone-and-android/" class="item">Setting up IMAP settings for hotmail account on Iphone and android</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/01/28/engineyard-rails-3-x-nginx-passenger-assets-not-displayed/" class="item">Engineyard, Rails 3.x, NGINX, PASSENGER ASSETS NOT DISPLAYED</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/uncategorized" class="item" style="color: white;">uncategorized</a>
+    </div>
+    <div class="content">
+      <div class="ui link inverted list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/04/23/powermock-how-to-test-a-private-method/" class="item">PowerMock : How to test a private method</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+
+<section class="ui bottom attached center aligned inverted segment">
+    
+    <p>© 2018 A Morsel Of Code</p>
+    
+    <p>Powered by <a href="http://www.javahabit.com" target="_blank">Dreams</a> </p>
+</section>
+
+
+  </div>
+</div>
+
+      </section>
+      <section class="back">
+        <nav class="ui top secondary menu" style="overflow-x: auto">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="Flip it!"></i>
+  </div>
+  
+  
+  
+  
+  
+</nav>
+
+<div class="ui centered grid about">
+  <div class="fifteen wide mobile fifteen wide tablet fifteen wide computer column">
+
+    <section class="ui stacked segments">
+      <header class="ui inverted segment">
+        <h2 class="ui header">
+          About
+        </h2>
+      </header>
+
+      <article class="ui inverted segment">
+        
+        
+        
+      </article>
+
+      
+
+      
+        
+      
+    </section>
+
+  </div>
+</div>
+
+      </section>
+    </div>
+  </div>
+
+  
+<script src="/js/jquery.min.js"></script>
+<script src="/js/semantic.min.js"></script>
+<script src="/js/bg.js"></script>
+<script src="/js/site.js"></script>
+
+
+
+</body>
+
+</html>

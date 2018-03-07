@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>A Morsel Of Code</title>
+
+  
+  
+  <meta name="author" content="Dinesh" />
+  <meta name="description" content="It’s possible that many of you already knew this but if not then here’ some basic info on Maven profiles. I have been using maven for over 2 and half years now, and have been copy pasting assembly and install files. I never bothered to know how Maven figures out how to read assembly and install file names. For example-
+PROBLEM:
+For all my projects I have been using assembly-jboss.xml to put the file/directory information and telling maven about my desired directory structure i." />
+
+
+
+
+
+<meta name="generator" content="Hugo 0.37" />
+
+
+<link rel="canonical" href="/2013/03/07/using-multiple-profiles-in-maven-eclipse/" />
+<link rel="alternative" href="/index.xml" title="A Morsel Of Code" type="application/atom+xml" />
+
+<link href="https://cdn.bootcss.com/semantic-ui/2.2.14/semantic.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/site.css" />
+
+
+</head>
+
+<body>
+  <div class="flip-container">
+    <div class="flipper">
+      <section class="front">
+        
+<nav class="ui top secondary menu">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="Flip it!"></i>
+  </div>
+  <div class="item">
+    <a href="/">
+      <i class="inverted big link home icon" title="Home"></i>
+    </a>
+  </div>
+</nav>
+ 
+<div class="ui centered grid">
+  <div class="fifteen wide mobile fifteen wide tablet eleven wide computer column post-list">
+
+    <section class="ui secondary top attached black segment">
+      <header>
+        <h1 class="ui header">
+          Using multiple profiles in Maven &#43; Eclipse
+          <div class="sub header">@ Dinesh · Mar 7, 2013 · 3 min read · Update at Mar 7, 2013</div>
+        </h1>
+      </header>
+      <article class="post-content" style="margin-top: 2rem; font-size: 1.4rem;"><p>It’s possible that many of you already knew this but if not then here’ some basic info on Maven profiles. I have been using maven for over 2 and half years now, and have been copy pasting assembly and install files. I never bothered to know how Maven figures out how to read assembly and install file names. For example-</p>
+
+<p><strong>PROBLEM:</strong></p>
+
+<p>For all my projects I have been using assembly-jboss.xml to put the file/directory information and telling maven about my desired directory structure i.e. Pick files from a/b directory and put it in out directory c/d. The second file install-jboss.xml where I specify my panels, target files etc. It never occurred to me what happens if I change the file names to assembly-zzz.xml and intsall-zzz.xml.</p>
+
+<p><a href="http://www.javahabit.com/wp-content/uploads/2013/03/image1.png"><img style="display:inline;border-width:0;" title="Image 1" border="0" alt="Image 1" src="http://www.javahabit.com/wp-content/uploads/2013/03/image1_thumb.png" width="401" height="216" /></a></p>
+
+<p>Well to cut the story short I checked out a fellow developer code on my machine and the command “mvn clean install” threw build error which said &#8211;</p>
+
+<p><font size="3" face="Ve"><strong>[1] [INFO] Searching for file location: C:Dineshworkspaceprov-ld-anin-trunkartifactssrcassemblyassembly-jboss4.xml </strong></font></p>
+
+<p><font size="3" face="Ve"><strong>[2] [INFO] File: C:Dineshworkspaceprov-ld-anin-trunkartifactssrcassemblyassembly-jboss4.xml does not exist. </strong></font></p>
+
+<p><font size="3" face="Ve"><strong>[3] [INFO] File: C:Dineshworkspaceprov-ld-anin-trunksrcassemblyassembly-jboss4.xml does not exist.</strong></font></p>
+
+<p>&nbsp;</p>
+
+<p>Now I was using IZPack plugin and always thought the assembly and install xmls are part of IZPack configuration, so for half an hour I was searching “IZPack assembly descriptor”. Needless to say I did not get any releveant search result. After scratching my head a little and doing a text search in Eclipse to figure out how am I telling maven to find the specific files (in my case the fellow developer had named them as assembly-wso2carbon40.xml and install-wso2carbon40.xml). No results.</p>
+
+<p><strong>SOLUTION:</strong></p>
+
+<p>In Maven you set up a profile in your .m2/settings.xml. For example my settings.xml looks like this</p>
+
+<blockquote>
+<p><settings><br />
+&nbsp;&nbsp;&nbsp; <profiles><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <profile><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <id>jboss4</id><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <properties><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <java.home></java.home><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <compileSource>1.5</compileSource><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <server>jboss4</server>**&nbsp;<br />
+** &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </properties><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </profile><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </profiles><br />
+&nbsp; </settings></p>
+</blockquote>
+
+<p>If you will notice I have specified that <strong><id>jboss4</id></strong> tag has value jboss4. When maven is building your app, it looks for two files <strong>assemby-xxx.xml</strong> and <strong>install-xxx.xml</strong>. Here xxxin assembly-xxx.xml is the profile name. So in my case it looks in the settings.xml and sees that profile is jboss, so it uses to find a file assembly-jboss.xml and install-jboss4.xml.</p>
+
+<p>So now the problem was that my developer friend had named the files as <strong>assembly-wso2Carbon40.xml</strong> and <strong>install-wso2Carbon40.xml.</strong> The first thing that came to my mind was let’s change the <strong><id>jboss4</id></strong>to ****<strong><id>wso2</id></strong>, that would resolve my issue. However I had other application where the file was named <strong>assembly-jboss.xml</strong> and <strong>install-jboss4.xml,</strong> which meant that my other application will error out on maven clean install and throw error message could not locate assembly file <strong>assembly-wso2Carbon40.xml</strong> .</p>
+
+<p>Here’s comes the neat part, you can have multiple profiles in your settings file. So I updated my <strong>.m2/settings.xml</strong></p>
+
+<blockquote>
+<p><settings><br />
+&nbsp;&nbsp;&nbsp; <profiles><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <profile><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong><id>jboss</id></strong><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <properties><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <svn.username></svn.username><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <svn.password></svn.password><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <java.home></java.home><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <compileSource>1.5</compileSource><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <server>jboss4</server><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <server.home>C:Program Filesjboss-eap-4.3</server.home><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <server.port>80</server.port><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </properties><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </profile><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <font color="#ff0000"><profile><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <id>wso2</id> <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <properties><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <compileSource>1.5</compileSource> <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <server>wso2carbon40</server> <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </properties><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </profile><br /></font>&nbsp;&nbsp;&nbsp; </profiles><br />
+&nbsp; </settings></p></p>
+</blockquote>
+
+<p>Now when you build the project using Eclipse, just got to Run As ==&gt; Maven Build …&nbsp; and enter Goals = clean install and Profile = wso2</p>
+
+<p><a href="http://www.javahabit.com/wp-content/uploads/2013/03/image4.png"><img style="border-bottom:0;border-left:0;display:inline;border-top:0;border-right:0;" title="Image 4" border="0" alt="Image 4" src="http://www.javahabit.com/wp-content/uploads/2013/03/image4_thumb.png" width="480" height="335" /></a></p>
+
+<p>&nbsp;</p>
+
+<p>That’s it!</p>
+
+<p>&nbsp;</p>
+
+<p>~~Cheers!</p>
+</article>
+    </section>
+
+    <footer class="ui secondary attached segment dream-tags">
+      
+      <span>No Tag</span>
+      
+    </footer>
+
+    
+
+    
+
+  </div>
+  <div class="fifteen wide mobile fifteen wide tablet four wide computer column">
+
+    <section class="ui top attached center aligned inverted segment">
+  <div class="ui small circular image">
+    
+    <img src="/img/avatar4.svg">
+    
+  </div>
+  <h3 class="ui header">Dinesh AroraDinesh&#39;s blog<div class="sub header" style="color: white;"></div>
+  </h3>
+  <a id="tag-category-pop" class="ui red right corner label">
+    <i class="pointing down icon" title="Click this to pop tags and categories"></i>
+  </a>
+</section>
+
+
+
+
+<section class="ui attached inverted segment dream-categories">
+  <div class="ui inverted accordion">
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/tech-notes" class="item" style="color: white;">tech-notes</a>
+    </div>
+    <div class="content">
+      <div class="ui link inverted list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2017/03/20/scala-tail-recursion/" class="item">Scala: Tail Recursion</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2016/06/16/understanding-java-8-lambda-final-finally-variable/" class="item">Understanding Java 8 Lambda final finally variable</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/12/26/how-to-set-up-apache-storm-on-mac-using-brew/" class="item">How to set up Apache Storm on mac using brew</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/09/27/waffle-windows-single-sign-on/" class="item">Waffle : Windows Single Sign On</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/07/22/4-ways-to-set-up-datasources-in-jboss-as-7/" class="item">4 ways to set up datasources in Jboss AS 7</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/03/30/install-or-manage-multiple-versions-of-java-on-os-x/" class="item">Install Or Manage multiple versions of Java on OS X</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/01/26/restful-webservice-7-steps-using-spring-boot/" class="item">Restful Webservice in 7 Steps using Spring boot</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/10/17/quick-tutorial-saaj-api/" class="item">A quick tutorial on SAAJ API</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/04/18/apache-poi-tutorial-reading-writing-excel-files-java/" class="item">Read / Write Excel file in Java using Apache POI</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/03/16/13-common-java-keytool-keystore-commands/" class="item">13 Most Common Java Keytool Keystore Commands</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/01/31/10-intellij-idea-keyboard-shortcuts-must-know/" class="item">10 IntelliJ IDEA Keyboard Shortcuts That You Must Know</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/12/16/apache-camel-how-to-call-an-external-webservice/" class="item">Apache Camel : How to call  java webservice</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/10/24/launch-website-in-amazon-ec2/" class="item">Launch Website in Amazon EC2</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/09/18/how-to-configure-jndi-with-spring-and-jboss45/" class="item">How to configure JNDI with Spring and Jboss4/5</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/08/01/rails-jquery-is-not-loading/" class="item">Rails: Jquery is not loading</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/05/15/how-to-post-parameters-to-a-url-using-ajaxjavascript-between-two-website/" class="item">How to post parameters to a url using Ajax/Javascript between two website</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/03/07/using-multiple-profiles-in-maven-eclipse/" class="item">Using multiple profiles in Maven &#43; Eclipse</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/09/23/how-to-send-email-in-phonegap-android-using-a-gmail-account/" class="item">How to send email in PhoneGap (Android) using a gmail account</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/07/13/share-any-folder-on-mac-via-built-in-web-server/" class="item">How To Share Any Folder On Mac Via Built-in Web Server</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/06/03/saving-files-in-amazon-s3-using-carrierwave-and-fog-gem/" class="item">Saving files in Amazon S3 using Carrierwave and Fog Gem</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/05/30/installing-rails-on-mac-osx/" class="item">Installing Rails on Mac OSX</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/05/29/setting-up-imap-settings-for-hotmail-account-on-iphone-and-android/" class="item">Setting up IMAP settings for hotmail account on Iphone and android</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/01/28/engineyard-rails-3-x-nginx-passenger-assets-not-displayed/" class="item">Engineyard, Rails 3.x, NGINX, PASSENGER ASSETS NOT DISPLAYED</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/uncategorized" class="item" style="color: white;">uncategorized</a>
+    </div>
+    <div class="content">
+      <div class="ui link inverted list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/04/23/powermock-how-to-test-a-private-method/" class="item">PowerMock : How to test a private method</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+
+<section class="ui bottom attached center aligned inverted segment">
+    
+    <p>© 2018 A Morsel Of Code</p>
+    
+    <p>Powered by <a href="http://www.javahabit.com" target="_blank">Dreams</a> </p>
+</section>
+
+
+  </div>
+</div>
+
+      </section>
+      <section class="back">
+        <nav class="ui top secondary menu" style="overflow-x: auto">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="Flip it!"></i>
+  </div>
+  
+  
+  
+  
+  
+</nav>
+
+<div class="ui centered grid about">
+  <div class="fifteen wide mobile fifteen wide tablet fifteen wide computer column">
+
+    <section class="ui stacked segments">
+      <header class="ui inverted segment">
+        <h2 class="ui header">
+          About
+        </h2>
+      </header>
+
+      <article class="ui inverted segment">
+        
+        
+        
+      </article>
+
+      
+
+      
+        
+      
+    </section>
+
+  </div>
+</div>
+
+      </section>
+    </div>
+  </div>
+
+  
+<script src="/js/jquery.min.js"></script>
+<script src="/js/semantic.min.js"></script>
+<script src="/js/bg.js"></script>
+<script src="/js/site.js"></script>
+
+
+
+</body>
+
+</html>

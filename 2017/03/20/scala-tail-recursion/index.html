@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>A Morsel Of Code</title>
+
+  
+  
+  <meta name="author" content="Dinesh" />
+  <meta name="description" content="Tail recursion is a basic but important concept in Functional programming. Recursive functions has always been a pain point for me. I would be eliminated out of several interview rounds if interviewers places emphasis on recursion. In Java world thankfully, most people I know hate recursion because when nesting goes too deep, it impacts the performance if the nested recursion is more than 100 levels deep.
+Unfortunately(Fortunately), functional programming languages like Scala and Haskell have solved this concept with the term Tail Recursion." />
+
+
+
+
+
+<meta name="generator" content="Hugo 0.37" />
+
+
+<link rel="canonical" href="/2017/03/20/scala-tail-recursion/" />
+<link rel="alternative" href="/index.xml" title="A Morsel Of Code" type="application/atom+xml" />
+
+<link href="https://cdn.bootcss.com/semantic-ui/2.2.14/semantic.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/site.css" />
+
+
+</head>
+
+<body>
+  <div class="flip-container">
+    <div class="flipper">
+      <section class="front">
+        
+<nav class="ui top secondary menu">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="Flip it!"></i>
+  </div>
+  <div class="item">
+    <a href="/">
+      <i class="inverted big link home icon" title="Home"></i>
+    </a>
+  </div>
+</nav>
+ 
+<div class="ui centered grid">
+  <div class="fifteen wide mobile fifteen wide tablet eleven wide computer column post-list">
+
+    <section class="ui secondary top attached black segment">
+      <header>
+        <h1 class="ui header">
+          Scala: Tail Recursion
+          <div class="sub header">@ Dinesh · Mar 20, 2017 · 3 min read · Update at Mar 20, 2017</div>
+        </h1>
+      </header>
+      <article class="post-content" style="margin-top: 2rem; font-size: 1.4rem;"><p>Tail recursion is a basic but important concept in Functional programming. Recursive functions has always been a pain point for me. I would be eliminated out of several interview rounds if interviewers places emphasis on recursion. In Java world thankfully, most people I know hate recursion because when nesting goes too deep, it impacts the performance if the nested recursion is more than 100 levels deep.</p>
+
+<p>Unfortunately(Fortunately), functional programming languages like Scala and Haskell have solved this concept with the term Tail Recursion. We will look into the concept of Tail recursion using a sample code below by implementing a function that calculates &#8220;factorial&#8221;.</p>
+
+<p>Regular Recursion code: Calculate factorial</p>
+
+<pre>def factorial(n:Int) :Int={
+   if(n&gt;0) n * factorial(n-1)
+   else 1 
+}
+
+</pre>
+
+<p>So the problem with above code is that if I pass a value <strong>factorial(5) ,</strong> then the code will create a series of wait to get the result back ex &#8211;</p>
+
+<p>Call 1: 5 * factorial(4)</p>
+
+<p>Call 2: 4*  factorial(3)</p>
+
+<p>Call 3: 3* factorial(2)</p>
+
+<p>Call 4: 2* factorial(1)</p>
+
+<p>Call 5: 1*1</p>
+
+<p>Now the call retraces the nested flow to jump back to Step 4 to provide the value as 2*1, which traces back to Step 3 &#8211; 3*(2*1) and so on.</p>
+
+<p>Imagine what will happen if you pass a <strong>factorial(100)??</strong></p>
+
+<p>Now let&#8217;s take a look at how it is done properly in Functional progaramming using <a href="https://www.scala-lang.org/">scala</a>.</p>
+
+<pre>def factorial(n:Int) :Int={
+  def calculateFactorial(n: Int, acc:Int){
+    if(n&lt;=0) acc
+    else calculateFactorial(n-1, n* acc)
+  }
+
+  calculateFactorial(n,1)
+}</pre>
+
+<p>Do you see the difference in code? No?. Let me explain what we just did. In Scala, you can define a local method inside another method. So I created a new method called &#8220;<strong>calcuateFactorial&#8221;</strong> that takes two parameter, <strong>n:Int</strong> and <strong>acc:Int, </strong>where acc is accumalor of the result. Now when I call the function <strong>factorial(5), </strong>the recursion code is not doing any processing or calculation on the method. It just returns the accumalator <strong>acc</strong> as a result. Ex &#8211;</p>
+
+<p>call 1 &#8211; Intput 5,1</p>
+
+<p>call 2 &#8211; Input 4, 5*1</p>
+
+<p>call 3 &#8211; Input 3, 4*(5*1)</p>
+
+<p>call 4 &#8211; Input 2, 3*(4*(5*1))</p>
+
+<p>call 6 &#8211; Input 1, 2*(3*(4*(5*1)))</p>
+
+<p>call 7 &#8211; Input 0, 1*(2*(3*(4*(5*1)))) &#8211;  **RETURN RESULT as 1*2*3*4*5 which is the second input param</p>
+
+<p>**</p>
+
+<p>That is when a recursion becomes tail recursion. The final call when nesting stops, just returns the result and the previous nested call is not waiting for a result to complete the call/result.</p>
+
+<p>Hope the concept will stay with me and with those of you who hated recursion earlier. It just got real so learn and deal with it 🙂</p>
+
+<p>~ Ciao</p>
+</article>
+    </section>
+
+    <footer class="ui secondary attached segment dream-tags">
+      
+      <span>No Tag</span>
+      
+    </footer>
+
+    
+
+    
+
+  </div>
+  <div class="fifteen wide mobile fifteen wide tablet four wide computer column">
+
+    <section class="ui top attached center aligned inverted segment">
+  <div class="ui small circular image">
+    
+    <img src="/img/avatar3.svg">
+    
+  </div>
+  <h3 class="ui header">Dinesh AroraDinesh&#39;s blog<div class="sub header" style="color: white;"></div>
+  </h3>
+  <a id="tag-category-pop" class="ui red right corner label">
+    <i class="pointing down icon" title="Click this to pop tags and categories"></i>
+  </a>
+</section>
+
+
+
+
+<section class="ui attached inverted segment dream-categories">
+  <div class="ui inverted accordion">
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/tech-notes" class="item" style="color: white;">tech-notes</a>
+    </div>
+    <div class="content">
+      <div class="ui link inverted list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2017/03/20/scala-tail-recursion/" class="item">Scala: Tail Recursion</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2016/06/16/understanding-java-8-lambda-final-finally-variable/" class="item">Understanding Java 8 Lambda final finally variable</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/12/26/how-to-set-up-apache-storm-on-mac-using-brew/" class="item">How to set up Apache Storm on mac using brew</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/09/27/waffle-windows-single-sign-on/" class="item">Waffle : Windows Single Sign On</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/07/22/4-ways-to-set-up-datasources-in-jboss-as-7/" class="item">4 ways to set up datasources in Jboss AS 7</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/03/30/install-or-manage-multiple-versions-of-java-on-os-x/" class="item">Install Or Manage multiple versions of Java on OS X</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/01/26/restful-webservice-7-steps-using-spring-boot/" class="item">Restful Webservice in 7 Steps using Spring boot</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/10/17/quick-tutorial-saaj-api/" class="item">A quick tutorial on SAAJ API</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/04/18/apache-poi-tutorial-reading-writing-excel-files-java/" class="item">Read / Write Excel file in Java using Apache POI</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/03/16/13-common-java-keytool-keystore-commands/" class="item">13 Most Common Java Keytool Keystore Commands</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/01/31/10-intellij-idea-keyboard-shortcuts-must-know/" class="item">10 IntelliJ IDEA Keyboard Shortcuts That You Must Know</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/12/16/apache-camel-how-to-call-an-external-webservice/" class="item">Apache Camel : How to call  java webservice</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/10/24/launch-website-in-amazon-ec2/" class="item">Launch Website in Amazon EC2</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/09/18/how-to-configure-jndi-with-spring-and-jboss45/" class="item">How to configure JNDI with Spring and Jboss4/5</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/08/01/rails-jquery-is-not-loading/" class="item">Rails: Jquery is not loading</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/05/15/how-to-post-parameters-to-a-url-using-ajaxjavascript-between-two-website/" class="item">How to post parameters to a url using Ajax/Javascript between two website</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/03/07/using-multiple-profiles-in-maven-eclipse/" class="item">Using multiple profiles in Maven &#43; Eclipse</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/09/23/how-to-send-email-in-phonegap-android-using-a-gmail-account/" class="item">How to send email in PhoneGap (Android) using a gmail account</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/07/13/share-any-folder-on-mac-via-built-in-web-server/" class="item">How To Share Any Folder On Mac Via Built-in Web Server</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/06/03/saving-files-in-amazon-s3-using-carrierwave-and-fog-gem/" class="item">Saving files in Amazon S3 using Carrierwave and Fog Gem</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/05/30/installing-rails-on-mac-osx/" class="item">Installing Rails on Mac OSX</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/05/29/setting-up-imap-settings-for-hotmail-account-on-iphone-and-android/" class="item">Setting up IMAP settings for hotmail account on Iphone and android</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/01/28/engineyard-rails-3-x-nginx-passenger-assets-not-displayed/" class="item">Engineyard, Rails 3.x, NGINX, PASSENGER ASSETS NOT DISPLAYED</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/uncategorized" class="item" style="color: white;">uncategorized</a>
+    </div>
+    <div class="content">
+      <div class="ui link inverted list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/04/23/powermock-how-to-test-a-private-method/" class="item">PowerMock : How to test a private method</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+
+<section class="ui bottom attached center aligned inverted segment">
+    
+    <p>© 2018 A Morsel Of Code</p>
+    
+    <p>Powered by <a href="http://www.javahabit.com" target="_blank">Dreams</a> </p>
+</section>
+
+
+  </div>
+</div>
+
+      </section>
+      <section class="back">
+        <nav class="ui top secondary menu" style="overflow-x: auto">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="Flip it!"></i>
+  </div>
+  
+  
+  
+  
+  
+</nav>
+
+<div class="ui centered grid about">
+  <div class="fifteen wide mobile fifteen wide tablet fifteen wide computer column">
+
+    <section class="ui stacked segments">
+      <header class="ui inverted segment">
+        <h2 class="ui header">
+          About
+        </h2>
+      </header>
+
+      <article class="ui inverted segment">
+        
+        
+        
+      </article>
+
+      
+
+      
+        
+      
+    </section>
+
+  </div>
+</div>
+
+      </section>
+    </div>
+  </div>
+
+  
+<script src="/js/jquery.min.js"></script>
+<script src="/js/semantic.min.js"></script>
+<script src="/js/bg.js"></script>
+<script src="/js/site.js"></script>
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>A Morsel Of Code</title>
+
+  
+  
+  <meta name="author" content="Dinesh" />
+  <meta name="description" content="Last week, I was working on an application where I had to do LDAP authentication. My cmpany has been using a very old jar file that had the required code for authenticating and authorizing users. There were two problems for me.
+ I had to revisit the documentation on LDAP setting in Jboss 4 and figure how to do the set up. Making changes in login-config.xml etc.
+ My new application is using Spring-boot, which comes with built in tomcat libraries." />
+
+
+
+
+
+<meta name="generator" content="Hugo 0.37" />
+
+
+<link rel="canonical" href="/2015/09/27/waffle-windows-single-sign-on/" />
+<link rel="alternative" href="/index.xml" title="A Morsel Of Code" type="application/atom+xml" />
+
+<link href="https://cdn.bootcss.com/semantic-ui/2.2.14/semantic.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/site.css" />
+
+
+</head>
+
+<body>
+  <div class="flip-container">
+    <div class="flipper">
+      <section class="front">
+        
+<nav class="ui top secondary menu">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="Flip it!"></i>
+  </div>
+  <div class="item">
+    <a href="/">
+      <i class="inverted big link home icon" title="Home"></i>
+    </a>
+  </div>
+</nav>
+ 
+<div class="ui centered grid">
+  <div class="fifteen wide mobile fifteen wide tablet eleven wide computer column post-list">
+
+    <section class="ui secondary top attached black segment">
+      <header>
+        <h1 class="ui header">
+          Waffle : Windows Single Sign On
+          <div class="sub header">@ Dinesh · Sep 27, 2015 · 4 min read · Update at Sep 27, 2015</div>
+        </h1>
+      </header>
+      <article class="post-content" style="margin-top: 2rem; font-size: 1.4rem;">
+
+<p>Last week, I was working on an application where I had to do LDAP authentication. My cmpany has been using a very old jar file that had the required code for authenticating and authorizing users. There were two problems for me.</p>
+
+<ol>
+<li><p>I had to revisit the documentation on LDAP setting in Jboss 4 and figure how to do the set up. Making changes in login-config.xml etc.</p></li>
+
+<li><p>My new application is using Spring-boot, which comes with built in tomcat libraries. I had to either find some documentation on Timcat with Spring boot 4 or build the app as war and deploy in Jboss 7 and not Jboss 4, which means going over documentation and tutorial.</p></li>
+</ol>
+
+<h3 id="what-is-waffle">What is waffle?</h3>
+
+<p>While trying to figure out a lazy way of doing things, I ran into Waffle project. <a href="https://github.com/dblock/waffle" target="_blank">WAFFLE </a>is a native Windows Authentication Framework consisting of two C# and Java libraries that perform functions related to Windows authentication, supporting Negotiate, NTLM and Kerberos. Waffle also includes libraries that enable drop-in Windows Single Sign On for popular Java web servers, when running on Windows. While Waffle makes it ridiculously easy to do Windows Authentication in Java, on Windows, Waffle does not work on *nix. In Short, if a user logs into his company computer, he would be authenticating over LDAP to make sure that he is authorized to use the computer. Waffle gives you an opportunity to make use of the exixsting infrastrutuce and help you authenticate and authorzie the user.</p>
+
+<h3 id="set-up">Set Up::</h3>
+
+<p>To use waffle in java, we just need to add the maven dependency:</p>
+
+<p><code>&lt;properties&gt;&lt;br /&gt;
+&lt;waffle.version&gt;1.5&lt;/waffle.version&gt;&lt;br /&gt;
+&lt;/properties&gt;</code></p>
+
+<p><dependency></p>
+
+<p><groupId>com.github.dblock.waffle</groupId></p>
+
+<p><artifactId>waffle-jna</artifactId></p>
+
+<p><version>${waffle.version}</version></p>
+
+<p></dependency></p>
+
+<pre>&lt;dependency&gt;
+ &lt;groupId&gt;net.java.dev.jna&lt;/&lt;wbr />groupId&gt;
+ &lt;artifactId&gt;platform&lt;/&lt;wbr />artifactId&gt;
+ &lt;version&gt;3.5.2&lt;/version&gt;
+ &lt;/dependency&gt;</pre>
+
+<p>Create a new instance of waffle.windows.auth.impl.WindowsAuthProviderImpl.</p>
+
+<p>Here are a couple of scenario that you can do without any nasty setup in Java, Jboss, Tomcat etc.</p>
+
+<h4 id="scenario-1-logon-a-user-and-get-his-domain-and-local-groups">Scenario 1: Logon a user and get his domain and local groups</h4>
+
+<p>This calls Win32-LogonUser, checks the user token and extracts all local domain information.</p>
+
+<p><code>IWindowsAuthProvider prov = new WindowsAuthProviderImpl();&lt;br /&gt;
+IWindowsIdentity identity = prov.logonUser(&quot;userName&quot;, &quot;pwd&quot;);&lt;br /&gt;
+System.out.println(&quot;User identity: &quot; + identity.getFqn());&lt;br /&gt;
+for(IWindowsAccount group : identity.getGroups()) {&lt;br /&gt;
+System.out.println(&quot; &quot; + group.getFqn() + &quot; (&quot; + group.getSidString() + &quot;)&quot;);&lt;br /&gt;
+}</code></p>
+
+<p>Output::</p>
+
+<p><code>&lt;br /&gt;
+User identity: acnna\darora&lt;br /&gt;
+acnna\\None (S-1-5-21-42300245183-42300245183-3597729351-513)&lt;br /&gt;
+Everyone (S-1-1-0)&lt;br /&gt;
+acnna\\HomeUsers (S-1-5-21-42300245183-42300245183-3597729351-2418)&lt;br /&gt;
+BUILTIN\Administrators (S-1-5-32-544)&lt;br /&gt;
+BUILTIN\Users (S-1-5-32-545)&lt;br /&gt;
+NT AUTHORITY\NETWORK (S-1-5-2)&lt;br /&gt;
+</code></p>
+
+<h4 id="scenario-2-active-directory-get-the-list-of-trusted-domains">Scenario 2: Active directory: get the list of trusted domains</h4>
+
+<p><code>IWindowsAuthProvider prov = new WindowsAuthProviderImpl();&lt;br /&gt;
+IWindowsDomain[] domains = prov.getDomains();&lt;br /&gt;
+for(IWindowsDomain domain : domains) {&lt;br /&gt;
+System.out.println(domain.getFqn() + &quot;: &quot; + domain.getTrustDirectionString());&lt;br /&gt;
+}</code></p>
+
+<p>Output::</p>
+
+<h4 id="scenario-3-is-computer-active-on-a-domain">Scenario 3:: Is computer active on a domain?</h4>
+
+<p><code>&lt;br /&gt;
+IWindowsAuthProvider prov = new WindowsAuthProviderImpl();&lt;br /&gt;
+IWindowsComputer computer = prov.getCurrentComputer();&lt;br /&gt;
+System.out.println(computer.getComputerName());&lt;br /&gt;
+System.out.println(computer.getJoinStatus());&lt;br /&gt;
+System.out.println(computer.getMemberOf());&lt;br /&gt;
+</code></p>
+
+<p>For systems that run both with and without active directory you need to programmatically figure out whether a computer is joined to a domain or a workgroup. If it’s joined to a domain or a workgroup you want to know what domain the computer is joined to.</p>
+
+<h4 id="scenario-4-negotiate-single-sign-on">Scenario 4: Negotiate Single Sign on</h4>
+
+<p>This lets both client and server side to negotatite the sign on protocol. The code below, gets the token which can be shared between client and server and be used to lookup its domains.</p>
+
+<p><code>&lt;br /&gt;
+String securityPackage = &quot;Negotiate&quot;;&lt;br /&gt;
+// client credentials handle&lt;br /&gt;
+IWindowsCredentialsHandle clientCredentials = WindowsCredentialsHandleImpl.getCurrent(securityPackage);&lt;br /&gt;
+clientCredentials.initialize();&lt;br /&gt;
+// initial client security context&lt;br /&gt;
+WindowsSecurityContextImpl clientContext = new WindowsSecurityContextImpl();&lt;br /&gt;
+clientContext.setPrincipalName(Advapi32Util.getUserName());&lt;br /&gt;
+clientContext.setCredentialsHandle(clientCredentials.getHandle());&lt;br /&gt;
+clientContext.setSecurityPackage(securityPackage);&lt;br /&gt;
+clientContext.initialize();&lt;br /&gt;
+// accept on the server&lt;br /&gt;
+WindowsAuthProviderImpl provider = new WindowsAuthProviderImpl();&lt;br /&gt;
+IWindowsSecurityContext serverContext = null;&lt;br /&gt;
+do&lt;br /&gt;
+{&lt;br /&gt;
+if (serverContext != null) {&lt;br /&gt;
+// initialize on the client&lt;br /&gt;
+SecBufferDesc continueToken = new SecBufferDesc(Sspi.SECBUFFER_TOKEN, serverContext.getToken());&lt;br /&gt;
+clientContext.initialize(clientContext.getHandle(), continueToken);&lt;br /&gt;
+}&lt;br /&gt;
+// accept the token on the server&lt;br /&gt;
+serverContext = provider.acceptSecurityToken(clientContext.getToken(), securityPackage);&lt;br /&gt;
+} while (clientContext.getContinue() || serverContext.getContinue());</code></p>
+
+<p>System.out.println(serverContext.getIdentity().getFqn());</p>
+
+<p>for (IWindowsAccount group : serverContext.getIdentity().getGroups()) {</p>
+
+<p>System.out.println(&#8221; &#8221; + group.getFqn());</p>
+
+<p>}</p>
+
+<p>serverContext.dispose();</p>
+
+<p>clientContext.dispose();</p>
+
+<p>clientCredentials.dispose();</p>
+
+<p>&nbsp;</p>
+
+<p>~Ciao</p>
+</article>
+    </section>
+
+    <footer class="ui secondary attached segment dream-tags">
+      
+      <span>No Tag</span>
+      
+    </footer>
+
+    
+
+    
+
+  </div>
+  <div class="fifteen wide mobile fifteen wide tablet four wide computer column">
+
+    <section class="ui top attached center aligned inverted segment">
+  <div class="ui small circular image">
+    
+    <img src="/img/avatar1.svg">
+    
+  </div>
+  <h3 class="ui header">Dinesh AroraDinesh&#39;s blog<div class="sub header" style="color: white;"></div>
+  </h3>
+  <a id="tag-category-pop" class="ui red right corner label">
+    <i class="pointing down icon" title="Click this to pop tags and categories"></i>
+  </a>
+</section>
+
+
+
+
+<section class="ui attached inverted segment dream-categories">
+  <div class="ui inverted accordion">
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/tech-notes" class="item" style="color: white;">tech-notes</a>
+    </div>
+    <div class="content">
+      <div class="ui link inverted list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2017/03/20/scala-tail-recursion/" class="item">Scala: Tail Recursion</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2016/06/16/understanding-java-8-lambda-final-finally-variable/" class="item">Understanding Java 8 Lambda final finally variable</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/12/26/how-to-set-up-apache-storm-on-mac-using-brew/" class="item">How to set up Apache Storm on mac using brew</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/09/27/waffle-windows-single-sign-on/" class="item">Waffle : Windows Single Sign On</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/07/22/4-ways-to-set-up-datasources-in-jboss-as-7/" class="item">4 ways to set up datasources in Jboss AS 7</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/03/30/install-or-manage-multiple-versions-of-java-on-os-x/" class="item">Install Or Manage multiple versions of Java on OS X</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/01/26/restful-webservice-7-steps-using-spring-boot/" class="item">Restful Webservice in 7 Steps using Spring boot</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/10/17/quick-tutorial-saaj-api/" class="item">A quick tutorial on SAAJ API</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/04/18/apache-poi-tutorial-reading-writing-excel-files-java/" class="item">Read / Write Excel file in Java using Apache POI</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/03/16/13-common-java-keytool-keystore-commands/" class="item">13 Most Common Java Keytool Keystore Commands</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/01/31/10-intellij-idea-keyboard-shortcuts-must-know/" class="item">10 IntelliJ IDEA Keyboard Shortcuts That You Must Know</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/12/16/apache-camel-how-to-call-an-external-webservice/" class="item">Apache Camel : How to call  java webservice</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/10/24/launch-website-in-amazon-ec2/" class="item">Launch Website in Amazon EC2</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/09/18/how-to-configure-jndi-with-spring-and-jboss45/" class="item">How to configure JNDI with Spring and Jboss4/5</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/08/01/rails-jquery-is-not-loading/" class="item">Rails: Jquery is not loading</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/05/15/how-to-post-parameters-to-a-url-using-ajaxjavascript-between-two-website/" class="item">How to post parameters to a url using Ajax/Javascript between two website</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/03/07/using-multiple-profiles-in-maven-eclipse/" class="item">Using multiple profiles in Maven &#43; Eclipse</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/09/23/how-to-send-email-in-phonegap-android-using-a-gmail-account/" class="item">How to send email in PhoneGap (Android) using a gmail account</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/07/13/share-any-folder-on-mac-via-built-in-web-server/" class="item">How To Share Any Folder On Mac Via Built-in Web Server</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/06/03/saving-files-in-amazon-s3-using-carrierwave-and-fog-gem/" class="item">Saving files in Amazon S3 using Carrierwave and Fog Gem</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/05/30/installing-rails-on-mac-osx/" class="item">Installing Rails on Mac OSX</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/05/29/setting-up-imap-settings-for-hotmail-account-on-iphone-and-android/" class="item">Setting up IMAP settings for hotmail account on Iphone and android</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/01/28/engineyard-rails-3-x-nginx-passenger-assets-not-displayed/" class="item">Engineyard, Rails 3.x, NGINX, PASSENGER ASSETS NOT DISPLAYED</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/uncategorized" class="item" style="color: white;">uncategorized</a>
+    </div>
+    <div class="content">
+      <div class="ui link inverted list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/04/23/powermock-how-to-test-a-private-method/" class="item">PowerMock : How to test a private method</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+
+<section class="ui bottom attached center aligned inverted segment">
+    
+    <p>© 2018 A Morsel Of Code</p>
+    
+    <p>Powered by <a href="http://www.javahabit.com" target="_blank">Dreams</a> </p>
+</section>
+
+
+  </div>
+</div>
+
+      </section>
+      <section class="back">
+        <nav class="ui top secondary menu" style="overflow-x: auto">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="Flip it!"></i>
+  </div>
+  
+  
+  
+  
+  
+</nav>
+
+<div class="ui centered grid about">
+  <div class="fifteen wide mobile fifteen wide tablet fifteen wide computer column">
+
+    <section class="ui stacked segments">
+      <header class="ui inverted segment">
+        <h2 class="ui header">
+          About
+        </h2>
+      </header>
+
+      <article class="ui inverted segment">
+        
+        
+        
+      </article>
+
+      
+
+      
+        
+      
+    </section>
+
+  </div>
+</div>
+
+      </section>
+    </div>
+  </div>
+
+  
+<script src="/js/jquery.min.js"></script>
+<script src="/js/semantic.min.js"></script>
+<script src="/js/bg.js"></script>
+<script src="/js/site.js"></script>
+
+
+
+</body>
+
+</html>

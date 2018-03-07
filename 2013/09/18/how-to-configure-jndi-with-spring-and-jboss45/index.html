@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>A Morsel Of Code</title>
+
+  
+  
+  <meta name="author" content="Dinesh" />
+  <meta name="description" content="This is a simple process but if you try and search on the web you will come across various incomplete solutions which will leave you more confused than you already were. This configuration involves just four simple steps that I will walk through to help you set up JNDI on Jboss. I am using Jboss 4.3, but this should be valid for other version of Jboss as well.
+I have a web application which is built on Spring 3." />
+
+
+
+
+
+<meta name="generator" content="Hugo 0.37" />
+
+
+<link rel="canonical" href="/2013/09/18/how-to-configure-jndi-with-spring-and-jboss45/" />
+<link rel="alternative" href="/index.xml" title="A Morsel Of Code" type="application/atom+xml" />
+
+<link href="https://cdn.bootcss.com/semantic-ui/2.2.14/semantic.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/site.css" />
+
+
+</head>
+
+<body>
+  <div class="flip-container">
+    <div class="flipper">
+      <section class="front">
+        
+<nav class="ui top secondary menu">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="Flip it!"></i>
+  </div>
+  <div class="item">
+    <a href="/">
+      <i class="inverted big link home icon" title="Home"></i>
+    </a>
+  </div>
+</nav>
+ 
+<div class="ui centered grid">
+  <div class="fifteen wide mobile fifteen wide tablet eleven wide computer column post-list">
+
+    <section class="ui secondary top attached black segment">
+      <header>
+        <h1 class="ui header">
+          How to configure JNDI with Spring and Jboss4/5
+          <div class="sub header">@ Dinesh · Sep 18, 2013 · 2 min read · Update at Sep 18, 2013</div>
+        </h1>
+      </header>
+      <article class="post-content" style="margin-top: 2rem; font-size: 1.4rem;"><p>This is a simple process but if you try and search on the web you will come across various incomplete solutions which will leave you more confused than you already were. This configuration involves just four simple steps that I will walk through to help you set up JNDI on Jboss. I am using Jboss 4.3, but this should be valid for other version of Jboss as well.</p>
+
+<p>I have a web application which is built on Spring 3.2 and uses Hibernate 4. To set up a new JNDI configuration we will first create a datasource xml file. This file needs to be deployed in Jboss/Deploy folder along with your war file.</p>
+
+<p><span style="text-decoration: underline;"><strong>Step 1:</strong></span></p>
+
+<p>Create a datasource file oracle-ds.xml. The content of the file will look like this</p>
+
+<p><span style="color: #008000;">&lt;?xml version=&#8221;1.0&#8243; encoding=&#8221;UTF-8&#8243;?&gt;</span></p>
+
+<p><span style="color: #008000;">&lt;!DOCTYPE datasources PUBLIC &#8220;-//JBoss//DTD JBOSS JCA Config 1.5//EN&#8221; &#8220;<a href="http://www.jboss.org/j2ee/dtd/jboss-ds_1_5.dtd&amp;#8221;&gt;">http://www.jboss.org/j2ee/dtd/jboss-ds_1_5.dtd&amp;#8221;&gt;</a></span></p>
+
+<p><span style="color: #008000;"><datasources></span></p>
+
+<p><span style="color: #008000;">  <local-tx-datasource></span></p>
+
+<p><span style="color: #008000;">    <jndi-name><strong>jdbc/listener-dss</strong></jndi-name></span></p>
+
+<p><span style="color: #008000;">    <connection-url>jdbc:oracle:thin:@dbsrvossdevl:1521:US91</connection-url></span></p>
+
+<p><span style="color: #008000;">    <driver-class>oracle.jdbc.driver.OracleDriver</driver-class></span></p>
+
+<p><span style="color: #008000;">    <user-name>myuser</user-name></span></p>
+
+<p><span style="color: #008000;">    <password>mypassword</password></span></p>
+
+<p><span style="color: #008000;">    <min-pool-size>5</min-pool-size></span></p>
+
+<p><span style="color: #008000;">    <max-pool-size>50</max-pool-size></span></p>
+
+<p><span style="color: #008000;">    <idle-timeout-minutes>10</idle-timeout-minutes></span></p>
+
+<p><span style="color: #008000;">    <exception-sorter-class-name>org.jboss.resource.adapter.jdbc.vendor.OracleExceptionSorter</exception-sorter-class-name></span></p>
+
+<p><span style="color: #008000;">    <metadata></span></p>
+
+<p><span style="color: #008000;">      <type-mapping>Oracle9i</type-mapping></span></p>
+
+<p><span style="color: #008000;">    </metadata></span></p>
+
+<p><span style="color: #008000;">  </local-tx-datasource></span></p>
+
+<p><span style="color: #008000;"></datasources></span></p>
+
+<p>&nbsp;</p>
+
+<p><span style="color: #000000;"><strong>Explanation:</strong> <jndi-name><strong style="color: #008000;">jdbc/listener-dss</strong></jndi-name> . This line tells what is the jndi name that we are going to use across configuration files.</span><span style="color: #008000;"><br /> </span></p>
+
+<p>&nbsp;</p>
+
+<p><span style="text-decoration: underline;"><strong><span style="color: #000000; text-decoration: underline;">Step</span></strong></span>** <span style="color: #000000;">2:</span>**<span style="color: #000000;"> Now open your web.xml file and add the resource-ref. This tells that jee container that your web application is using JNDI.</span></p>
+
+<p><span style="color: #000000;">Your web.xml should be under <strong>WEB-INF</strong> folder. Add the below lines in your web.xml (<strong>see the highlighted section</strong>). This step is common whether you use Jboss or Tomcat or Websphere or any other application server.</span></p>
+
+<p>&nbsp;</p>
+
+<p><span style="color: #008000;">&lt;?xml version=&#8221;1.0&#8243; encoding=&#8221;UTF-8&#8243;?&gt;</span></p>
+
+<p><span style="color: #008000;"><web-app version=&#8221;2.5&#8243; xmlns=&#8221;http://java.sun.com/xml/ns/javaee&#8221; xmlns:xsi=&#8221;http://www.w3.org/2001/XMLSchema-instance&#8221;</span></p>
+
+<p><span style="color: #008000;">  xsi:schemaLocation=&#8221;<a href="http://java.sun.com/xml/ns/javaee">http://java.sun.com/xml/ns/javaee</a></span></p>
+
+<p><span style="color: #008000;">  <a href="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd&amp;#8221;&gt;">http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd&amp;#8221;&gt;</a></span></p>
+
+<p><span style="color: #008000;">  <display-name>ACN Web Application</display-name></span></p>
+
+<p>&nbsp;</p>
+
+<p><span style="color: #008000;">    <servlet></span></p>
+
+<p><span style="color: #008000;">        <servlet-name>listener</servlet-name></span></p>
+
+<p><span style="color: #008000;">        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class></span></p>
+
+<p><span style="color: #008000;">        <load-on-startup>1</load-on-startup></span></p>
+
+<p><span style="color: #008000;">    </servlet></span></p>
+
+<p>&nbsp;</p>
+
+<p><span style="color: #008000;">    <servlet-mapping></span></p>
+
+<p><span style="color: #008000;">        <servlet-name>listener</servlet-name></span></p>
+
+<p><span style="color: #008000;">        <url-pattern>/</url-pattern></span></p>
+
+<p><span style="color: #008000;">    </servlet-mapping></span></p>
+
+<p>&nbsp;</p>
+
+<p><span style="color: #008000;">    <context-param></span></p>
+
+<p><span style="color: #008000;">        <param-name>contextConfigLocation</param-name></span></p>
+
+<p><span style="color: #008000;">        <param-value>/WEB-INF/listener-servlet.xml</param-value></span></p>
+
+<p><span style="color: #008000;">    </context-param></span></p>
+
+<p><span style="color: #008000;">    <strong><resource-ref></strong></span></p>
+
+<p><strong><span style="color: #008000;">        <description>Listener Database</description></span></strong></p>
+
+<p><strong><span style="color: #008000;">        <res-ref-name>jdbc/listener-dss</res-ref-name></span></strong></p>
+
+<p><strong><span style="color: #008000;">        <res-type>javax.sql.DataSource</res-type></span></strong></p>
+
+<p><strong><span style="color: #008000;">        <res-auth>Container</res-auth></span></strong></p>
+
+<p><strong><span style="color: #008000;">    </resource-ref></span></strong></p>
+
+<p>&nbsp;</p>
+
+<p><span style="color: #008000;">    <listener></span></p>
+
+<p><span style="color: #008000;">        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class></span></p>
+
+<p><span style="color: #008000;">    </listener></span></p>
+
+<p>&nbsp;</p>
+
+<p><span style="color: #008000;">  <welcome-file-list></span></p>
+
+<p><span style="color: #008000;">    <welcome-file>index.jsp</welcome-file></span></p>
+
+<p><span style="color: #008000;">  </welcome-file-list></span></p>
+
+<p>&nbsp;</p>
+
+<p><span style="color: #008000;"></web-app></span></p>
+
+<p>&nbsp;</p>
+
+<p><span style="text-decoration: underline;"><strong><span style="color: #000000; text-decoration: underline;">Step</span></strong></span>** <span style="color: #000000;">3:</span>** <span style="color: #000000;">Next we will update the Spring context xml file to tell the Spring container that it needs to do a JNDI look up. My Spring context file name is listener-servlet.xml and this is under <strong>WEB-INF</strong> folder. Add the following(See highlighted section)</span></p>
+
+<p>&nbsp;</p>
+
+<p><span style="color: #008000;"><beans xmlns=&#8221;http://www.springframework.org/schema/beans&#8221;</span></p>
+
+<p><span style="color: #008000;">       xmlns:context=&#8221;<a href="http://www.springframework.org/schema/context&amp;#8221">http://www.springframework.org/schema/context&amp;#8221</a>;</span></p>
+
+<p><span style="color: #008000;">       xmlns:mvc=&#8221;<a href="http://www.springframework.org/schema/mvc&amp;#8221">http://www.springframework.org/schema/mvc&amp;#8221</a>; xmlns:xsi=&#8221;<a href="http://www.w3.org/2001/XMLSchema-instance&amp;#8221">http://www.w3.org/2001/XMLSchema-instance&amp;#8221</a>;</span></p>
+
+<p><span style="color: #008000;">       xmlns:tx=&#8221;<a href="http://www.springframework.org/schema/tx&amp;#8221">http://www.springframework.org/schema/tx&amp;#8221</a>;</span></p>
+
+<p><span style="color: #008000;">       xmlns:p=&#8221;<a href="http://www.springframework.org/schema/p&amp;#8221">http://www.springframework.org/schema/p&amp;#8221</a>;</span></p>
+
+<p><span style="color: #008000;">       xsi:schemaLocation=&#8221;<a href="http://www.springframework.org/schema/beans">http://www.springframework.org/schema/beans</a></span></p>
+
+<p><span style="color: #008000;">        <a href="http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">http://www.springframework.org/schema/beans/spring-beans-3.0.xsd</a></span></p>
+
+<p><span style="color: #008000;">        <a href="http://www.springframework.org/schema/context">http://www.springframework.org/schema/context</a></span></p>
+
+<p><span style="color: #008000;">        <a href="http://www.springframework.org/schema/context/spring-context-3.0.xsd">http://www.springframework.org/schema/context/spring-context-3.0.xsd</a></span></p>
+
+<p><span style="color: #008000;">        <a href="http://www.springframework.org/schema/mvc">http://www.springframework.org/schema/mvc</a></span></p>
+
+<p><span style="color: #008000;">        <a href="http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd">http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd</a></span></p>
+
+<p><span style="color: #008000;">        <a href="http://www.springframework.org/schema/tx">http://www.springframework.org/schema/tx</a></span></p>
+
+<p><span style="color: #008000;">        <a href="http://www.springframework.org/schema/tx/spring-tx.xsd">http://www.springframework.org/schema/tx/spring-tx.xsd</a> &#8220;&gt;</span></p>
+
+<p><span style="color: #008000;">    <context:component-scan base-package=&#8221;com.acn.cslistener&#8221; /></span></p>
+
+<p><span style="color: #008000;">    <mvc:annotation-driven /></span></p>
+
+<p><span style="color: #008000;">    <a href="tx:annotation-driven/">tx:annotation-driven/</a></span></p>
+
+<p><span style="color: #008000;">    <bean</span></p>
+
+<p><span style="color: #008000;">            class=&#8221;org.springframework.web.servlet.view.InternalResourceViewResolver&#8221;&gt;</span></p>
+
+<p><span style="color: #008000;">        <property name=&#8221;prefix&#8221;></span></p>
+
+<p><span style="color: #008000;">            <value>/WEB-INF/pages/</value></span></p>
+
+<p><span style="color: #008000;">        </property></span></p>
+
+<p><span style="color: #008000;">        <property name=&#8221;suffix&#8221;></span></p>
+
+<p><span style="color: #008000;">            <value>.jsp</value></span></p>
+
+<p><span style="color: #008000;">        </property></span></p>
+
+<p><span style="color: #008000;">    </bean></span></p>
+
+<p><span style="color: #008000;">   <strong> <bean id=&#8221;sessionFactory&#8221; class=&#8221;org.springframework.orm.hibernate4.LocalSessionFactoryBean&#8221;></strong></span></p>
+
+<p><strong><span style="color: #008000;">        <property name=&#8221;dataSource&#8221; ref=&#8221;dataSource&#8221;/></span></strong></p>
+
+<p><strong><span style="color: #008000;">        <property name=&#8221;hibernateProperties&#8221;></span></strong></p>
+
+<p><strong><span style="color: #008000;">            <props></span></strong></p>
+
+<p><strong><span style="color: #008000;">                <prop key=&#8221;hibernate.dialect&#8221;>org.hibernate.dialect.Oracle10gDialect</prop></span></strong></p>
+
+<p><strong><span style="color: #008000;">                <prop key=&#8221;hibernate.show_sql&#8221;>true</prop></span></strong></p>
+
+<p><strong><span style="color: #008000;">            </props></span></strong></p>
+
+<p><strong><span style="color: #008000;">        </property></span></strong></p>
+
+<p><strong><span style="color: #008000;">        <property name=&#8221;packagesToScan&#8221; value=&#8221;com.acn.cslistener&#8221; /></span></strong></p>
+
+<p><strong><span style="color: #008000;">    </bean></span></strong></p>
+
+<p><strong><span style="color: #008000;">    <span style="color: #008080;"><bean id=&#8221;dataSource&#8221; class=&#8221;org.springframework.jndi.JndiObjectFactoryBean&#8221;></span></span></strong></p>
+
+<p><span style="color: #008080;"><strong>        <property name=&#8221;jndiName&#8221; value=&#8221;java:comp/env/jdbc/listener-dss&#8221;/></strong></span></p>
+
+<p><span style="color: #008080;"><strong>    </bean></strong></span></p>
+
+<p><strong><span style="color: #008000;">    <bean id=&#8221;transactionManager&#8221; class=&#8221;org.springframework.orm.hibernate4.HibernateTransactionManager&#8221;</span></strong></p>
+
+<p><strong><span style="color: #008000;">          p:sessionFactory-ref=&#8221;sessionFactory&#8221;&gt;</span></strong></p>
+
+<p><strong><span style="color: #008000;">    </bean></span></strong></p>
+
+<p><span style="color: #008000;">    <bean id=&#8221;persistenceAnnotation&#8221;    class=&#8221;org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor&#8221; /></span></p>
+
+<p><span style="color: #008000;"></beans></span></p>
+
+<p><span style="color: #000000;"> </span></p>
+
+<p><strong><span style="color: #000000;">Step 4: </span></strong><span style="color: #000000;">This is the crucial step. If you are using Jboss then it requires that you tell the web container that Jboss will provide the datasource .xml file where you have defined your jndi properties. Create a new file <strong>jboss-web.xml. </strong>Place this file under <strong>WEB-INF </strong>folder. The contents of the file whould like this.</span></p>
+
+<p><span style="color: #008000;">&lt;?xml version=&#8221;1.0&#8243; encoding=&#8221;UTF-8&#8243;?&gt;</span></p>
+
+<p><span style="color: #008000;"><jboss-web></span></p>
+
+<p><span style="color: #008000;">    <resource-ref></span></p>
+
+<p><span style="color: #008000;">        <res-ref-name>jdbc/listener-dss</res-ref-name></span></p>
+
+<p><span style="color: #008000;">        <res-type>javax.sql.DataSource</res-type></span></p>
+
+<p><span style="color: #008000;">        <jndi-name>java:/jdbc/listener-dss</jndi-name></span></p>
+
+<p><span style="color: #008000;">    </resource-ref></span></p>
+
+<p><span style="color: #008000;"></jboss-web></span></p>
+
+<p>That&#8217;s all we need to do.</p>
+
+<p>&nbsp;</p>
+
+<p>~~~~ Ciao.</p>
+
+<p>&nbsp;</p>
+</article>
+    </section>
+
+    <footer class="ui secondary attached segment dream-tags">
+      
+      <span>No Tag</span>
+      
+    </footer>
+
+    
+
+    
+
+  </div>
+  <div class="fifteen wide mobile fifteen wide tablet four wide computer column">
+
+    <section class="ui top attached center aligned inverted segment">
+  <div class="ui small circular image">
+    
+    <img src="/img/avatar1.svg">
+    
+  </div>
+  <h3 class="ui header">Dinesh AroraDinesh&#39;s blog<div class="sub header" style="color: white;"></div>
+  </h3>
+  <a id="tag-category-pop" class="ui red right corner label">
+    <i class="pointing down icon" title="Click this to pop tags and categories"></i>
+  </a>
+</section>
+
+
+
+
+<section class="ui attached inverted segment dream-categories">
+  <div class="ui inverted accordion">
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/tech-notes" class="item" style="color: white;">tech-notes</a>
+    </div>
+    <div class="content">
+      <div class="ui link inverted list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2017/03/20/scala-tail-recursion/" class="item">Scala: Tail Recursion</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2016/06/16/understanding-java-8-lambda-final-finally-variable/" class="item">Understanding Java 8 Lambda final finally variable</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/12/26/how-to-set-up-apache-storm-on-mac-using-brew/" class="item">How to set up Apache Storm on mac using brew</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/09/27/waffle-windows-single-sign-on/" class="item">Waffle : Windows Single Sign On</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/07/22/4-ways-to-set-up-datasources-in-jboss-as-7/" class="item">4 ways to set up datasources in Jboss AS 7</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/03/30/install-or-manage-multiple-versions-of-java-on-os-x/" class="item">Install Or Manage multiple versions of Java on OS X</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/01/26/restful-webservice-7-steps-using-spring-boot/" class="item">Restful Webservice in 7 Steps using Spring boot</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/10/17/quick-tutorial-saaj-api/" class="item">A quick tutorial on SAAJ API</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/04/18/apache-poi-tutorial-reading-writing-excel-files-java/" class="item">Read / Write Excel file in Java using Apache POI</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/03/16/13-common-java-keytool-keystore-commands/" class="item">13 Most Common Java Keytool Keystore Commands</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/01/31/10-intellij-idea-keyboard-shortcuts-must-know/" class="item">10 IntelliJ IDEA Keyboard Shortcuts That You Must Know</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/12/16/apache-camel-how-to-call-an-external-webservice/" class="item">Apache Camel : How to call  java webservice</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/10/24/launch-website-in-amazon-ec2/" class="item">Launch Website in Amazon EC2</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/09/18/how-to-configure-jndi-with-spring-and-jboss45/" class="item">How to configure JNDI with Spring and Jboss4/5</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/08/01/rails-jquery-is-not-loading/" class="item">Rails: Jquery is not loading</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/05/15/how-to-post-parameters-to-a-url-using-ajaxjavascript-between-two-website/" class="item">How to post parameters to a url using Ajax/Javascript between two website</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/03/07/using-multiple-profiles-in-maven-eclipse/" class="item">Using multiple profiles in Maven &#43; Eclipse</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/09/23/how-to-send-email-in-phonegap-android-using-a-gmail-account/" class="item">How to send email in PhoneGap (Android) using a gmail account</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/07/13/share-any-folder-on-mac-via-built-in-web-server/" class="item">How To Share Any Folder On Mac Via Built-in Web Server</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/06/03/saving-files-in-amazon-s3-using-carrierwave-and-fog-gem/" class="item">Saving files in Amazon S3 using Carrierwave and Fog Gem</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/05/30/installing-rails-on-mac-osx/" class="item">Installing Rails on Mac OSX</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/05/29/setting-up-imap-settings-for-hotmail-account-on-iphone-and-android/" class="item">Setting up IMAP settings for hotmail account on Iphone and android</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/01/28/engineyard-rails-3-x-nginx-passenger-assets-not-displayed/" class="item">Engineyard, Rails 3.x, NGINX, PASSENGER ASSETS NOT DISPLAYED</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/uncategorized" class="item" style="color: white;">uncategorized</a>
+    </div>
+    <div class="content">
+      <div class="ui link inverted list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/04/23/powermock-how-to-test-a-private-method/" class="item">PowerMock : How to test a private method</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+
+<section class="ui bottom attached center aligned inverted segment">
+    
+    <p>© 2018 A Morsel Of Code</p>
+    
+    <p>Powered by <a href="http://www.javahabit.com" target="_blank">Dreams</a> </p>
+</section>
+
+
+  </div>
+</div>
+
+      </section>
+      <section class="back">
+        <nav class="ui top secondary menu" style="overflow-x: auto">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="Flip it!"></i>
+  </div>
+  
+  
+  
+  
+  
+</nav>
+
+<div class="ui centered grid about">
+  <div class="fifteen wide mobile fifteen wide tablet fifteen wide computer column">
+
+    <section class="ui stacked segments">
+      <header class="ui inverted segment">
+        <h2 class="ui header">
+          About
+        </h2>
+      </header>
+
+      <article class="ui inverted segment">
+        
+        
+        
+      </article>
+
+      
+
+      
+        
+      
+    </section>
+
+  </div>
+</div>
+
+      </section>
+    </div>
+  </div>
+
+  
+<script src="/js/jquery.min.js"></script>
+<script src="/js/semantic.min.js"></script>
+<script src="/js/bg.js"></script>
+<script src="/js/site.js"></script>
+
+
+
+</body>
+
+</html>

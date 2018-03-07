@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>A Morsel Of Code</title>
+
+  
+  
+  <meta name="author" content="Dinesh" />
+  <meta name="description" content="CAUTION: Please excuse the diction/grammar/spelling. It&amp;#8217;s 3 AM and I am in a hurry to sleep as I need to drop my friends to airport in exactly 4 hrs.
+So I was trying to set up this new application for my wife. I was using galleria plugin to show a slide like image. Everything was working fine in development so I decided to see how it would look like in production environment if it was deployed in a cloud or virtual server." />
+
+
+
+
+
+<meta name="generator" content="Hugo 0.37" />
+
+
+<link rel="canonical" href="/2012/01/28/engineyard-rails-3-x-nginx-passenger-assets-not-displayed/" />
+<link rel="alternative" href="/index.xml" title="A Morsel Of Code" type="application/atom+xml" />
+
+<link href="https://cdn.bootcss.com/semantic-ui/2.2.14/semantic.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/site.css" />
+
+
+</head>
+
+<body>
+  <div class="flip-container">
+    <div class="flipper">
+      <section class="front">
+        
+<nav class="ui top secondary menu">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="Flip it!"></i>
+  </div>
+  <div class="item">
+    <a href="/">
+      <i class="inverted big link home icon" title="Home"></i>
+    </a>
+  </div>
+</nav>
+ 
+<div class="ui centered grid">
+  <div class="fifteen wide mobile fifteen wide tablet eleven wide computer column post-list">
+
+    <section class="ui secondary top attached black segment">
+      <header>
+        <h1 class="ui header">
+          Engineyard, Rails 3.x, NGINX, PASSENGER ASSETS NOT DISPLAYED
+          <div class="sub header">@ Dinesh · Jan 28, 2012 · 7 min read · Update at Jan 28, 2012</div>
+        </h1>
+      </header>
+      <article class="post-content" style="margin-top: 2rem; font-size: 1.4rem;"><p><span style="color:#ff0000;">CAUTION: Please excuse the diction/grammar/spelling. It&#8217;s 3 AM and I am in a hurry to sleep as I need to drop my friends to airport in exactly 4 hrs</span>.</p>
+
+<p>So I was trying to set up this new application for my wife. I was using <a href="http://galleria.io/download/">galleria plugin</a> to show a slide like image. Everything was working fine in development so I decided to see how it would look like in production environment if it was deployed in a cloud or virtual server. So I ended up choosing <a href="http://www.engineyard.com/">engineyard</a> because it gives you 500 free hours and you do not need to have dns name. Once the application is deployed on the server, you can view the application on temporary url.</p>
+
+<p>Installing a rails app on <a href="http://www.engineyard.com/">engineyard</a> is pretty easy, however tunneling (ssh) on to the server was a nightmare. I will cover the ssh experience in some other post. The main issue was my <a href="http://galleria.io/download/">galleria plugin</a> css, images and javascript was not showing correctly. After spending 2 days and mailing the <a href="http://www.engineyard.com/">engineyard</a> (They pretty responsive and quick!!) I realized that there was an issue with application configuration. So I tried to run the application on my mac in production mode and found that galleria javascripts and css files were not loaded. The <a href="http://www.engineyard.com/">engineyard</a> support told me that they were using <a href="http://www.modrails.com/">passenger and Nginx</a>. So I decided to install the same on my local and experiment.</p>
+
+<p>You can install passenger with Nginx or apache. I used apache version initially but had some issues so decided to use nginx instead.</p>
+
+<p>On an interesting note &#8211; While I was still struggling to load galleria assets using passenger, I searched a lot &#8211; site documentation, rails sites, forums etc., but none told me how to start and stop Nginx &#8230; call me dumb but that is something I did not find on any of the sites until I decided to go through the whole Nginx documentation and there it was&#8230;  buried deep half way through the documentation :-). It should have been there on there installation page.</p>
+
+<p>So this post is in two parts, the first part will walk you through <a href="http://www.modrails.com/">passenger and Nginx</a> installation and the second part will let you know the configuration changes in your rails app so that assets are loaded properly in production mode.</p>
+
+<p>PART 1: PASSENGER AND NGINX installation</p>
+
+<ol>
+<li>Install passenger: Run this in your command line &#8211;</li>
+</ol>
+
+<p><strong>gem install passenger</strong></p>
+
+<ol>
+<li>Install the Nginx: Run this in your command line</li>
+</ol>
+
+<p><strong>passenger-install-nginx-module .</strong> If you see permission errors which says that you do not have permission to install then try &#8211;  <strong>sudo</strong>  <strong>passenger-install-nginx-module. </strong></p>
+
+<p>If you still get error which says &#8211;</p>
+
+<p><strong>Could not find RubyGem passenger (&gt;= 0) (Gem::LoadError),</strong>  then you probably use rvm to maintain your ruby rails version. So in this case try &#8211;</p>
+
+<p><strong>rvmsudo passenger-install-nginx-module . </strong></p>
+
+<p>Now when the installation starts, it will ask you some basic question like should I install some file plugins or location of installation etc., just keep saying yes or hit enter to continue. The whole process will probably take 3-4 minutes to complete.</p>
+
+<ol>
+<li>Update the nginx configuration file</li>
+</ol>
+
+<p>By default nginx will be installed in /opt/nginx folder on your mac or linux system. I don&#8217;t know what is the default location for windows. On a lighter note do people actually use windows for RAILS development??? Seriously?? No offense but I have only met people who use windows to try out rails sample apps .</p>
+
+<p>Ok I am done with bashing Windows users 🙂 So to update the configuration file go to <strong>nginx.conf</strong> file under <strong>/opt/nginx/conf</strong> and update the code under <strong>server</strong> tag. You can find more details about nginx configuration <a href="http://www.modrails.com/documentation/Users%20guide%20Nginx.html">here</a>.</p>
+
+<p>server {</p>
+
+<p><strong>listen 80;</strong></p>
+
+<p><strong>server_name  localhost;</strong></p>
+
+<p><strong>root /Users/dinesharora/Desktop/Mydocument/ruby-proj/album;</strong></p>
+
+<p><strong>passenger_enabled on;</strong></p>
+
+<p><strong>passenger_base_uri /Users/xxxxx/Desktop/Mydocument/ruby-proj/album;</strong></p>
+
+<p>…..</p>
+
+<p>After saving the file. Stop the Nginx server</p>
+
+<p><strong>Stop nginx by going into /opt/nginx/sbin. Then run this command &#8211; </strong></p>
+
+<p><strong>sudo ./nginx -s stop</strong></p>
+
+<p>To start just run <strong>./ngnix</strong></p>
+
+<ol>
+<li>Start your passenger or application.</li>
+</ol>
+
+<p>Go to your rails app folder and run this command in the terminal &#8211; <strong>passenger start</strong> (To stop ctrl+c)</p>
+
+<p>Now by default passenger should start in <strong>production mode,</strong> but mine did not. It started in development mode. The documentation said that it will start in production mode by default but id did not. After racking my brains and going through the whole documentation, I did not find anything. Guess what &#8230;&#8230;. the documentation is outdated on the site. I almost gave up on Rails development and was thinking about going back to Java/Spring/Grails or GWT, but decided to stick a little longer. Anyway too much blabbering about what I did and whined &#8230;. here&#8217;s how to check if your passenger is running in production or development mode.</p>
+
+<p>When you run you <strong>passenger start,</strong> you will in 3rd or fourth line something like this &#8211;</p>
+
+<p><strong>Log file: /Users/dinesharora/Desktop/Mydocument/ruby-proj/album/log/passenger.3000.log</strong></p>
+
+<p><strong>Environment: <span style="text-decoration:underline;">development</span></strong></p>
+
+<p><strong>Accessible via: <a href="http://0.0.0.0:3000/">http://0.0.0.0:3000/</a></strong></p>
+
+<p>If it is running in development mode, the you need to start your application using this command.</p>
+
+<p><strong>passenger start -e production.</strong></p>
+
+<p>It goes without saying that if you run into permission issues, run it using <strong>sudo</strong> or <strong>rvmsudo.</strong></p>
+
+<p>So that&#8217;s it. Your app is running and can be accessed via <strong><a href="http://0.0.0.0:3000/">http://0.0.0.0:3000/</a>.</strong> I mapped 0.0.0.0 to localhost :-). Anyway I was happy that my installation was successful(I struggled for 4-5 days), without any solutions.</p>
+
+<p>PART 2: ASSETS CONFIGURATION</p>
+
+<p>Well my happiness was short lived because my <a href="http://galleria.io/download/">galleria</a> plugin was not working. I initially thought it was an issue with <a href="http://galleria.io/download/">galleria</a> plugin so I switched it with other jquery image slide show plugin, but each had same issue, they all worked fine in development but were not loaded in production mode. I kept seeing this error in the production logs &#8211; Routing error &#8211; [get] /assets/javascripts/galleria/xxxx.js not found 404 error.</p>
+
+<p>Every site said that &#8211; Just set <strong>config.assets.compile = true</strong> and it will start showing up. Well I believed that statement for 4 more days to no avail. I tried playing around with application.js (Sprockets gem &#8211; built in Rails 3.x) bit it did not work. I included the galleria folder as well in the application.js but still no images.</p>
+
+<p>So I had placed my galleria plugin <strong>/app/assets/javascripts/galleria</strong> and I had to access</p>
+
+<p>&#8211; js file</p>
+
+<p>&#8211; galleria/plugins/*.css files etc</p>
+
+<p>&#8211; galleria/plugins/images etc.</p>
+
+<p>I tried placing them in app/assets, lib/assets, vendor/assets but nothing will work. Here are steps if you have the same issue.</p>
+
+<p>&#8211; Open production.rb and make sure you have added or uncommented the following &#8211;</p>
+
+<p>1.</p>
+
+<p># Code is not reloaded between requests</p>
+
+<p><strong>config.cache_classes = true</strong></p>
+
+<p># Full error reports are disabled and caching is turned on</p>
+
+<p><strong>config.consider_all_requests_local = false</strong></p>
+
+<p><strong>config.action_controller.perform_caching = true</strong></p>
+
+<p><strong># Disable Rails&#8217;s static asset server (Apache or nginx will already do this)</strong></p>
+
+<p><strong>config.serve_static_assets = false</strong></p>
+
+<p># Compress JavaScripts and CSS</p>
+
+<p><strong>config.assets.compress = true</strong></p>
+
+<p><strong># Don&#8217;t fallback to assets pipeline if a precompiled asset is missed</strong></p>
+
+<p><strong>config.assets.compile = true</strong></p>
+
+<p><strong># Generate digests for assets URLs</strong></p>
+
+<p><strong>config.assets.digest = true</strong></p>
+
+<p><strong>config.i18n.fallbacks = true</strong></p>
+
+<p><strong># Send deprecation notices to registered listeners</strong></p>
+
+<p><strong>config.active_support.deprecation = :notify</strong></p>
+
+<p># config.assets.initialize_on_precompile = false</p>
+
+<p><strong>config.assets.precompile += [&#8220;*.js&#8221;, &#8220;*.css&#8221;] <span style="color:#ff0000;">&#8212;&#8212;&#8211; This HAS TO BE ADDED and was the key. Unless you add this line galleria images or any other images which are sub folders in assets or controller specific or personal folder under app, vendor lib will not loaded.</span></strong></p>
+
+<p>After you have made the above changes in production.rb file, Rails needs to compile js and css and put them in <strong>public/assets</strong> folder. Now in development environment Rails does it for you but when you are in production, you need to generate assets. So while you are in you rails application folder run this command &#8211;</p>
+
+<p><strong>rake assets:precompile OR bundle exec rake assets:precompile</strong>. This will attach fingerprint to all the images, css and js files and put them in public/assets folder. Read Rails <a href="http://guides.rubyonrails.org/asset_pipeline.html">documentation</a>.</p>
+
+<p>Now start your application in production mode using</p>
+
+<p><strong>&#8211; passenger start -e production.</strong></p>
+
+<p>&#8211; Open the application url.</p>
+
+<p>Voila!!! All the images show up.</p>
+
+<p>&#8211;Cheers</p>
+</article>
+    </section>
+
+    <footer class="ui secondary attached segment dream-tags">
+      
+      <span>No Tag</span>
+      
+    </footer>
+
+    
+
+    
+
+  </div>
+  <div class="fifteen wide mobile fifteen wide tablet four wide computer column">
+
+    <section class="ui top attached center aligned inverted segment">
+  <div class="ui small circular image">
+    
+    <img src="/img/avatar4.svg">
+    
+  </div>
+  <h3 class="ui header">Dinesh AroraDinesh&#39;s blog<div class="sub header" style="color: white;"></div>
+  </h3>
+  <a id="tag-category-pop" class="ui red right corner label">
+    <i class="pointing down icon" title="Click this to pop tags and categories"></i>
+  </a>
+</section>
+
+
+
+
+<section class="ui attached inverted segment dream-categories">
+  <div class="ui inverted accordion">
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/tech-notes" class="item" style="color: white;">tech-notes</a>
+    </div>
+    <div class="content">
+      <div class="ui link inverted list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2017/03/20/scala-tail-recursion/" class="item">Scala: Tail Recursion</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2016/06/16/understanding-java-8-lambda-final-finally-variable/" class="item">Understanding Java 8 Lambda final finally variable</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/12/26/how-to-set-up-apache-storm-on-mac-using-brew/" class="item">How to set up Apache Storm on mac using brew</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/09/27/waffle-windows-single-sign-on/" class="item">Waffle : Windows Single Sign On</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/07/22/4-ways-to-set-up-datasources-in-jboss-as-7/" class="item">4 ways to set up datasources in Jboss AS 7</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/03/30/install-or-manage-multiple-versions-of-java-on-os-x/" class="item">Install Or Manage multiple versions of Java on OS X</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/01/26/restful-webservice-7-steps-using-spring-boot/" class="item">Restful Webservice in 7 Steps using Spring boot</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/10/17/quick-tutorial-saaj-api/" class="item">A quick tutorial on SAAJ API</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/04/18/apache-poi-tutorial-reading-writing-excel-files-java/" class="item">Read / Write Excel file in Java using Apache POI</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/03/16/13-common-java-keytool-keystore-commands/" class="item">13 Most Common Java Keytool Keystore Commands</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/01/31/10-intellij-idea-keyboard-shortcuts-must-know/" class="item">10 IntelliJ IDEA Keyboard Shortcuts That You Must Know</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/12/16/apache-camel-how-to-call-an-external-webservice/" class="item">Apache Camel : How to call  java webservice</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/10/24/launch-website-in-amazon-ec2/" class="item">Launch Website in Amazon EC2</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/09/18/how-to-configure-jndi-with-spring-and-jboss45/" class="item">How to configure JNDI with Spring and Jboss4/5</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/08/01/rails-jquery-is-not-loading/" class="item">Rails: Jquery is not loading</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/05/15/how-to-post-parameters-to-a-url-using-ajaxjavascript-between-two-website/" class="item">How to post parameters to a url using Ajax/Javascript between two website</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/03/07/using-multiple-profiles-in-maven-eclipse/" class="item">Using multiple profiles in Maven &#43; Eclipse</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/09/23/how-to-send-email-in-phonegap-android-using-a-gmail-account/" class="item">How to send email in PhoneGap (Android) using a gmail account</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/07/13/share-any-folder-on-mac-via-built-in-web-server/" class="item">How To Share Any Folder On Mac Via Built-in Web Server</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/06/03/saving-files-in-amazon-s3-using-carrierwave-and-fog-gem/" class="item">Saving files in Amazon S3 using Carrierwave and Fog Gem</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/05/30/installing-rails-on-mac-osx/" class="item">Installing Rails on Mac OSX</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/05/29/setting-up-imap-settings-for-hotmail-account-on-iphone-and-android/" class="item">Setting up IMAP settings for hotmail account on Iphone and android</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/01/28/engineyard-rails-3-x-nginx-passenger-assets-not-displayed/" class="item">Engineyard, Rails 3.x, NGINX, PASSENGER ASSETS NOT DISPLAYED</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/uncategorized" class="item" style="color: white;">uncategorized</a>
+    </div>
+    <div class="content">
+      <div class="ui link inverted list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/04/23/powermock-how-to-test-a-private-method/" class="item">PowerMock : How to test a private method</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+
+<section class="ui bottom attached center aligned inverted segment">
+    
+    <p>© 2018 A Morsel Of Code</p>
+    
+    <p>Powered by <a href="http://www.javahabit.com" target="_blank">Dreams</a> </p>
+</section>
+
+
+  </div>
+</div>
+
+      </section>
+      <section class="back">
+        <nav class="ui top secondary menu" style="overflow-x: auto">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="Flip it!"></i>
+  </div>
+  
+  
+  
+  
+  
+</nav>
+
+<div class="ui centered grid about">
+  <div class="fifteen wide mobile fifteen wide tablet fifteen wide computer column">
+
+    <section class="ui stacked segments">
+      <header class="ui inverted segment">
+        <h2 class="ui header">
+          About
+        </h2>
+      </header>
+
+      <article class="ui inverted segment">
+        
+        
+        
+      </article>
+
+      
+
+      
+        
+      
+    </section>
+
+  </div>
+</div>
+
+      </section>
+    </div>
+  </div>
+
+  
+<script src="/js/jquery.min.js"></script>
+<script src="/js/semantic.min.js"></script>
+<script src="/js/bg.js"></script>
+<script src="/js/site.js"></script>
+
+
+
+</body>
+
+</html>

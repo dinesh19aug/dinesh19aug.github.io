@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>A Morsel Of Code</title>
+
+  
+  
+  <meta name="author" content="Dinesh" />
+  <meta name="description" content="We ran into an issue last week. I had to call a third party web service that was built in PHP. Anyone who wokrs with Java will tell you that calling a web service is not more 15 minutes coding. You take the wsdl, run wsdl2Java command from Axis2 and start calling the service.
+Like I said before, things are never so straightforward. No matter what version of Axis or CXF we used, we kept getting this error:" />
+
+
+
+
+
+<meta name="generator" content="Hugo 0.37" />
+
+
+<link rel="canonical" href="/2014/10/17/quick-tutorial-saaj-api/" />
+<link rel="alternative" href="/index.xml" title="A Morsel Of Code" type="application/atom+xml" />
+
+<link href="https://cdn.bootcss.com/semantic-ui/2.2.14/semantic.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/site.css" />
+
+
+</head>
+
+<body>
+  <div class="flip-container">
+    <div class="flipper">
+      <section class="front">
+        
+<nav class="ui top secondary menu">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="Flip it!"></i>
+  </div>
+  <div class="item">
+    <a href="/">
+      <i class="inverted big link home icon" title="Home"></i>
+    </a>
+  </div>
+</nav>
+ 
+<div class="ui centered grid">
+  <div class="fifteen wide mobile fifteen wide tablet eleven wide computer column post-list">
+
+    <section class="ui secondary top attached black segment">
+      <header>
+        <h1 class="ui header">
+          A quick tutorial on SAAJ API
+          <div class="sub header">@ Dinesh · Oct 17, 2014 · 5 min read · Update at Oct 17, 2014</div>
+        </h1>
+      </header>
+      <article class="post-content" style="margin-top: 2rem; font-size: 1.4rem;"><p>We ran into an issue last week. I had to call a third party web service that was built in PHP. Anyone who wokrs with Java will tell you that calling a web service is not more 15 minutes coding. You take the wsdl, run wsdl2Java command from Axis2 and start calling the service.</p>
+
+<p>Like I said before, things are never so straightforward. No matter what version of Axis or CXF we used, we kept getting this error:</p>
+
+<blockquote>
+<p>Caused by: org.apache.axiom.soap.SOAPProcessingException: Transport level information does not match with SOAP Message namespace URI</p>
+
+<p>at org.apache.axis2.builder.BuilderUtil.validateSOAPVersion(BuilderUtil.java:772)</p>
+
+<p>at org.apache.axis2.builder.SOAPBuilder.processDocument(SOAPBuilder.java:58)</p>
+
+<p>at org.apache.axis2.transport.TransportUtils.createDocumentElement(TransportUtils.java:179)</p>
+
+<p>at org.apache.axis2.transport.TransportUtils.createSOAPMessage(TransportUtils.java:145)</p>
+
+<p>at org.apache.axis2.transport.TransportUtils.createSOAPMessage(TransportUtils.java:108)</p>
+
+<p>&#8230; 13 more</p>
+</blockquote>
+
+<p>Now what this usually means is that client and server are using different version of SOAP(1.1 vs 1.2). For a long time my colleague tried to look for a solution on various forums, blogs etc. and everyone confirmed the same that the issue is at the service provider end. However, the same service was being used by 20 other vendors without an issue. Our Canada office reported that they were able to call the service without any issue albeit in PHP(OOPS!!).</p>
+
+<p>One fine afternoon it just struck me that Axis, CXF etc. are nothing but a wrapper around Java&#8217;s SAAJ API. Imagine how did developers call services before Axis and CXF? They coded QNAME, SOAPMessage manually! Lo and Behold but I went down to &#8230; let&#8217;s call it low level programming because I had to write code for all the XML node element, define namespaces etc.. which was not fun at all.</p>
+
+<p>So this tutorial will walk you through basics of SAAJ, how and when to use the SAAJ API.</p>
+
+<p><strong>WHY DO I NEED SAAJ over AXIS2 or CXF?</strong></p>
+
+<p>I so badly want to say that when you want to avoid the above error, use SAAJ :-). SAAJ is helpfule when you want complete control over SOAP elements. For example if you need to change name spaces or modify soap message attributes then SAAj comes in handy.</p>
+
+<p>A typical SOAP message looks like this</p>
+
+<p><img class="alignnone size-full wp-image-743" src="http://javahabit.com/wp-content/uploads/2014/10/img_544163699fb361.png" alt="" /></p>
+
+<p>As you can see SAAJ provides <em>SOAPMessage, SOAPHeader, SOAPBody</em> classes to capture the message. When you create a new SOAPMessage object, it will automatically have the parts that are required to be in a SOAP message. In other words, a new SOAPMessage object has a SOAPPart object that contains a SOAPEnvelope object. The SOAPEnvelope object in turn automatically contains an empty SOAPHeader object followed by an empty SOAPBody object. If you do not need the SOAPHeader object, which is optional, you can delete it. The rationale for having it automatically included is that more often than not you will need it, so it is more convenient to have it provided. The SOAPHeader object may contain one or more headers with information about the sending and receiving parties. The SOAPBody object, which always follows the SOAPHeader object if there is one, provides a simple way to send information intended for the ultimate recipient. For example, if there is a SOAPFault object, it must be in the SOAPBody object.</p>
+
+<p>So If have a service where I need the request SOAP Message should look like</p>
+
+<blockquote>
+<p><soapenv:Envelope xmlns:soapenv=&#8221;http://schemas.xmlsoap.org/soap/envelope/&#8221; xmlns:urn=&#8221;urn:http://com.mycompany.IamDoingSomething&#8221;></p>
+
+<p><a href="soapenv:Header/">soapenv:Header/</a></p>
+
+<p><a href="soapenv:Body">soapenv:Body</a></p>
+
+<p><a href="urn:getPresaleByAddress">urn:getPresaleByAddress</a></p>
+
+<p><stnum>123</p>
+
+<p><stnumsuff></stnumsuff></p>
+
+<p><stnam>Forest</stnam></p>
+
+<p><sttyp>DR</sttyp></p>
+
+<p><stdir></stdir></p>
+
+<p><loctypa></loctypa></p>
+
+<p><locnuma></locnuma></p>
+
+<p><loctypb></loctypb></p>
+
+<p><locnumb></locnumb></p>
+
+<p><muni>OTTAWA</muni></p>
+
+<p><post>K1A1A1</post></p>
+
+<p><prov>on</prov></p>
+
+<p><!--<span class="hiddenSpellError" pre="" data-mce-bogus="1"-->urn:getPresaleByAddress&gt;</p>
+
+<p><!--<span class="hiddenSpellError" pre="" data-mce-bogus="1"-->soapenv:Body&gt;</p>
+
+<p><!--<span class="hiddenSpellError" pre="" data-mce-bogus="1"-->soapenv:Envelope&gt;</p>
+</blockquote>
+
+<p>and I need to send this message to web service url &#8220;<a href="http://some-webservice-url.com&amp;#8221">http://some-webservice-url.com&amp;#8221</a>;</p>
+
+<p><strong>STEPS</strong></p>
+
+<ol>
+<li>Create a SOAP Message</li>
+</ol>
+
+<blockquote>
+<p>MessageFactory factory = MessageFactory.newInstance();</p>
+
+<p>SOAPMessage message = factory.createMessage();</p>
+</blockquote>
+
+<p>&nbsp;</p>
+
+<p>Result:</p>
+
+<blockquote>
+<p>xmlns:SOAP-ENV=&#8221;<a href="http://schemas.xmlsoap.org/soap/envelope/&amp;#8221;&gt;">http://schemas.xmlsoap.org/soap/envelope/&amp;#8221;&gt;</a></p>
+
+<p><a href="SOAP-ENV:Header/">SOAP-ENV:Header/</a></p>
+
+<p><a href="SOAP-ENV:Body/">SOAP-ENV:Body/</a></p>
+
+<p><a href="/SOAP-ENV:Envelope">/SOAP-ENV:Envelope</a></p>
+</blockquote>
+
+<ol>
+<li>Access Soap parts or message</li>
+</ol>
+
+<blockquote>
+<p>SOAPHeader header = message.getSOAPHeader();</p>
+
+<p>SOAPBody body = message.getSOAPBody();</p>
+</blockquote>
+
+<p>&nbsp;</p>
+
+<ol>
+<li>Add Message Content</li>
+</ol>
+
+<blockquote>
+<p> SOAPBody body = message.getSOAPBody();</p>
+
+<p>SOAPFactory soapFactory = SOAPFactory.newInstance();</p>
+
+<p>Name bodyName = soapFactory.createName(&#8220;getPresaleByAddress&#8221;,&#8221;urn&#8221;, &#8220;<a href="http://com.mycompany.IamDoingSomething&amp;#8221;">http://com.mycompany.IamDoingSomething&amp;#8221;</a>);</p>
+
+<p>SOAPBodyElement bodyElement = body.addBodyElement(bodyName);</p>
+</blockquote>
+
+<p>Result:</p>
+
+<blockquote>
+<p><a href="urn:getPresaleByAddress">urn:getPresaleByAddress</a></p>
+
+<p>&#8230;</p>
+
+<p><!--<span class="hiddenSpellError" pre="" data-mce-bogus="1"-->urn:getPresaleByAddress&gt;</p>
+</blockquote>
+
+<ol>
+<li>Add Message Headers namespaces if Any</li>
+</ol>
+
+<blockquote>
+<p>MimeHeaders headers = soapMessage.getMimeHeaders();</p>
+
+<p>headers.addHeader(&#8220;SOAPAction&#8221;, leonidUrl+ &#8220;/getPresaleByAddress&#8221;);</p>
+
+<p>SOAPPart soapPart = soapMessage.getSOAPPart();</p>
+
+<p>// SOAP Envelope</p>
+
+<p>SOAPEnvelope envelope = soapPart.getEnvelope();</p>
+
+<p>envelope.addNamespaceDeclaration(&#8220;urn&#8221;, &#8220;urn:<a href="http://com.mycompany.IamDoingSomething&amp;#8221;">http://com.mycompany.IamDoingSomething&amp;#8221;</a>);</p>
+</blockquote>
+
+<p>&nbsp;</p>
+
+<ol>
+<li>Add Basic Authentication if any</li>
+</ol>
+
+<blockquote>
+<p>String authorization = new sun.misc.BASE64Encoder().encode((&#8220;myUserName&#8221;+&#8221;:&#8221;+&#8221;myPassword&#8221;).getBytes());</p>
+
+<p>headers.addHeader(&#8220;Authorization&#8221;, &#8220;Basic &#8221; + authorization);</p>
+</blockquote>
+
+<ol>
+<li>Add child elements</li>
+</ol>
+
+<blockquote>
+<p>QName bodyName = new QName(&#8220;urn:<a href="http://com.mycompany.IamDoingSomething&amp;#8221;,&amp;#8221;getPresaleByAddress&amp;#8221;,&amp;#8221;urn&amp;#8221;">http://com.mycompany.IamDoingSomething&amp;#8221;,&amp;#8221;getPresaleByAddress&amp;#8221;,&amp;#8221;urn&amp;#8221;</a>) ;</p>
+
+<p>SOAPBodyElement bodyElement = body.addBodyElement(bodyName);</p>
+
+<p>QName node_name = new QName(qName);</p>
+
+<p>SOAPElement node_element = null;</p>
+
+<p>try {</p>
+
+<p>node_element = bodyElement.addChildElement(&#8220;stnum&#8221;);</p>
+
+<p>if(hasNodeValue){</p>
+
+<p>node_element.addTextNode(&#8220;123&#8221;);</p>
+
+<p>}</p>
+
+<p>}</p>
+</blockquote>
+
+<p>Result:</p>
+
+<blockquote>
+<p><stnum>123</stnum></p>
+</blockquote>
+
+<ol>
+<li>Get a Soap Connection Object</li>
+</ol>
+
+<blockquote>
+<p>SOAPConnectionFactory soapConnectionFactory = SOAPConnectionFactory.newInstance();</p>
+
+<p>SOAPConnection connection = soapConnectionFactory.createConnection();</p>
+
+<p>&nbsp;</p>
+</blockquote>
+
+<p>SOAP messages are sent and received over a connection. This connection is represented by a SOAPConnection object, which goes from the sender directly to its destination. This kind of connection is called a point-to-point connection because it goes from one endpoint to another endpoint. Messages sent using the SAAJ API are called request-response messages. They are sent over a SOAPConnection object with the method call, which sends a message (a request) and then blocks until it receives the reply (a response).</p>
+
+<ol>
+<li>Send the message</li>
+</ol>
+
+<blockquote>
+<p>// Create an endpoint point which is either URL or String type</p>
+
+<p>java.net.URL endpoint = new URL(&#8220;<a href="http://some-webservice-url.com&amp;#8221;">http://some-webservice-url.com&amp;#8221;</a>);</p>
+
+<p>// Send a SOAPMessage (request) and then wait for SOAPMessage (response)</p>
+
+<p>SOAPMessage response = connection.call(message, endpoint);</p>
+</blockquote>
+
+<ol>
+<li>Print the SOAP Response XML</li>
+</ol>
+
+<blockquote>
+<p>Transformer transformer = transformerFactory.newTransformer();</p>
+
+<p>Source sourceContent = response.getSOAPPart().getContent();</p>
+
+<p>ByteArrayOutputStream outputStream = new ByteArrayOutputStream();</p>
+
+<p>StreamResult result = new StreamResult(outputStream);</p>
+
+<p>transformer.transform(sourceContent, result);</p>
+
+<p>log.info(&#8220;nResponse SOAP Message ::n {}&#8221; , result.getOutputStream().toString());</p>
+</blockquote>
+
+<p>That&#8217;s it!!</p>
+
+<p>There are many other things that you can do with SAAJ. To read more about SAAJ and it&#8217;s capabilities you can read <a title="here" href="http://docs.oracle.com/javaee/5/tutorial/doc/bnbhg.html" target="_blank">here</a> and <a title="here" href="http://java.boot.by/wsd-guide/ch05s04.html" target="_blank">here</a></p>
+
+<p>&nbsp;</p>
+
+<p>~Ciao</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+
+<p>&nbsp;</p>
+</article>
+    </section>
+
+    <footer class="ui secondary attached segment dream-tags">
+      
+      <span>No Tag</span>
+      
+    </footer>
+
+    
+
+    
+
+  </div>
+  <div class="fifteen wide mobile fifteen wide tablet four wide computer column">
+
+    <section class="ui top attached center aligned inverted segment">
+  <div class="ui small circular image">
+    
+    <img src="/img/avatar4.svg">
+    
+  </div>
+  <h3 class="ui header">Dinesh AroraDinesh&#39;s blog<div class="sub header" style="color: white;"></div>
+  </h3>
+  <a id="tag-category-pop" class="ui red right corner label">
+    <i class="pointing down icon" title="Click this to pop tags and categories"></i>
+  </a>
+</section>
+
+
+
+
+<section class="ui attached inverted segment dream-categories">
+  <div class="ui inverted accordion">
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/tech-notes" class="item" style="color: white;">tech-notes</a>
+    </div>
+    <div class="content">
+      <div class="ui link inverted list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2017/03/20/scala-tail-recursion/" class="item">Scala: Tail Recursion</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2016/06/16/understanding-java-8-lambda-final-finally-variable/" class="item">Understanding Java 8 Lambda final finally variable</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/12/26/how-to-set-up-apache-storm-on-mac-using-brew/" class="item">How to set up Apache Storm on mac using brew</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/09/27/waffle-windows-single-sign-on/" class="item">Waffle : Windows Single Sign On</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/07/22/4-ways-to-set-up-datasources-in-jboss-as-7/" class="item">4 ways to set up datasources in Jboss AS 7</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/03/30/install-or-manage-multiple-versions-of-java-on-os-x/" class="item">Install Or Manage multiple versions of Java on OS X</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/01/26/restful-webservice-7-steps-using-spring-boot/" class="item">Restful Webservice in 7 Steps using Spring boot</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/10/17/quick-tutorial-saaj-api/" class="item">A quick tutorial on SAAJ API</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/04/18/apache-poi-tutorial-reading-writing-excel-files-java/" class="item">Read / Write Excel file in Java using Apache POI</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/03/16/13-common-java-keytool-keystore-commands/" class="item">13 Most Common Java Keytool Keystore Commands</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/01/31/10-intellij-idea-keyboard-shortcuts-must-know/" class="item">10 IntelliJ IDEA Keyboard Shortcuts That You Must Know</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/12/16/apache-camel-how-to-call-an-external-webservice/" class="item">Apache Camel : How to call  java webservice</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/10/24/launch-website-in-amazon-ec2/" class="item">Launch Website in Amazon EC2</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/09/18/how-to-configure-jndi-with-spring-and-jboss45/" class="item">How to configure JNDI with Spring and Jboss4/5</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/08/01/rails-jquery-is-not-loading/" class="item">Rails: Jquery is not loading</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/05/15/how-to-post-parameters-to-a-url-using-ajaxjavascript-between-two-website/" class="item">How to post parameters to a url using Ajax/Javascript between two website</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/03/07/using-multiple-profiles-in-maven-eclipse/" class="item">Using multiple profiles in Maven &#43; Eclipse</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/09/23/how-to-send-email-in-phonegap-android-using-a-gmail-account/" class="item">How to send email in PhoneGap (Android) using a gmail account</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/07/13/share-any-folder-on-mac-via-built-in-web-server/" class="item">How To Share Any Folder On Mac Via Built-in Web Server</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/06/03/saving-files-in-amazon-s3-using-carrierwave-and-fog-gem/" class="item">Saving files in Amazon S3 using Carrierwave and Fog Gem</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/05/30/installing-rails-on-mac-osx/" class="item">Installing Rails on Mac OSX</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/05/29/setting-up-imap-settings-for-hotmail-account-on-iphone-and-android/" class="item">Setting up IMAP settings for hotmail account on Iphone and android</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/01/28/engineyard-rails-3-x-nginx-passenger-assets-not-displayed/" class="item">Engineyard, Rails 3.x, NGINX, PASSENGER ASSETS NOT DISPLAYED</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/uncategorized" class="item" style="color: white;">uncategorized</a>
+    </div>
+    <div class="content">
+      <div class="ui link inverted list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/04/23/powermock-how-to-test-a-private-method/" class="item">PowerMock : How to test a private method</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+
+<section class="ui bottom attached center aligned inverted segment">
+    
+    <p>© 2018 A Morsel Of Code</p>
+    
+    <p>Powered by <a href="http://www.javahabit.com" target="_blank">Dreams</a> </p>
+</section>
+
+
+  </div>
+</div>
+
+      </section>
+      <section class="back">
+        <nav class="ui top secondary menu" style="overflow-x: auto">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="Flip it!"></i>
+  </div>
+  
+  
+  
+  
+  
+</nav>
+
+<div class="ui centered grid about">
+  <div class="fifteen wide mobile fifteen wide tablet fifteen wide computer column">
+
+    <section class="ui stacked segments">
+      <header class="ui inverted segment">
+        <h2 class="ui header">
+          About
+        </h2>
+      </header>
+
+      <article class="ui inverted segment">
+        
+        
+        
+      </article>
+
+      
+
+      
+        
+      
+    </section>
+
+  </div>
+</div>
+
+      </section>
+    </div>
+  </div>
+
+  
+<script src="/js/jquery.min.js"></script>
+<script src="/js/semantic.min.js"></script>
+<script src="/js/bg.js"></script>
+<script src="/js/site.js"></script>
+
+
+
+</body>
+
+</html>

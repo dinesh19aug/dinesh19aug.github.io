@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>A Morsel Of Code</title>
+
+  
+  
+  <meta name="author" content="Dinesh" />
+  <meta name="description" content="About a year or two ago I was working with finance team where they wanted to pull the credit card transactions for all the customer using various combinations. Ex &amp;#8211;
+&amp;#8211; Get the credit card txns for today or certain date.
+&amp;#8211; Get the txns for customer who used Mastercard or Visa.
+However they wanted this application to generate a Excel file and save it on their local machine so that they could prepare reports for our CEO." />
+
+
+
+
+
+<meta name="generator" content="Hugo 0.37" />
+
+
+<link rel="canonical" href="/2014/04/18/apache-poi-tutorial-reading-writing-excel-files-java/" />
+<link rel="alternative" href="/index.xml" title="A Morsel Of Code" type="application/atom+xml" />
+
+<link href="https://cdn.bootcss.com/semantic-ui/2.2.14/semantic.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/site.css" />
+
+
+</head>
+
+<body>
+  <div class="flip-container">
+    <div class="flipper">
+      <section class="front">
+        
+<nav class="ui top secondary menu">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="Flip it!"></i>
+  </div>
+  <div class="item">
+    <a href="/">
+      <i class="inverted big link home icon" title="Home"></i>
+    </a>
+  </div>
+</nav>
+ 
+<div class="ui centered grid">
+  <div class="fifteen wide mobile fifteen wide tablet eleven wide computer column post-list">
+
+    <section class="ui secondary top attached black segment">
+      <header>
+        <h1 class="ui header">
+          Read / Write Excel file in Java using Apache POI
+          <div class="sub header">@ Dinesh · Apr 18, 2014 · 5 min read · Update at Apr 18, 2014</div>
+        </h1>
+      </header>
+      <article class="post-content" style="margin-top: 2rem; font-size: 1.4rem;">
+
+<p>About a year or two ago I was working with finance team where they wanted to pull the credit card transactions for all the customer using various combinations. Ex &#8211;</p>
+
+<p>&#8211; Get the credit card txns for today or certain date.</p>
+
+<p>&#8211; Get the txns for customer who used Mastercard or Visa.</p>
+
+<p>However they wanted this application to generate a Excel file and save it on their local machine so that they could prepare reports for our CEO. I used a Apache POI project to create jar files. This tutorial will walk you through the process of reading and writing excel sheet. So let&#8217;s see &#8211; How to read and write excel files in Java?</p>
+
+<p><span style="color: #ff0000;"><strong>Brief History on Apache POI</strong></span></p>
+
+<p>Apache POI is a powerful Java library to work with different Microsoft Office file formats such as Excel, Power point, Visio, MS Word etc. The name POI was originally an acronym for <strong>Poor Obfuscation Implementation</strong>, referring humorously to the file formats that seemed deliberately obfuscated, but poorly, since they were successfully reverse-engineered.  In short, you can read / write MS Excel files using Java. In addition, you can read/write MS Word and MS PowerPoint files using Java. Apache POI is your Java Excel solution .</p>
+
+<p>Apache POI can be used to create both old ( 2003-2008) and new( 2010 &#8211; newer) format. I think the newer jar file to create XLSX document is out of BETA phase now. Back when I used this POI it was still in Beta format.</p>
+
+<p>So let&#8217;s see what does it entails to read /write Excel files in Java.</p>
+
+<p>I am will be using Maven and IntelliJ to create my project, however you are welcome to use <a href="https://www.eclipse.org/downloads/" target="_blank">Eclipse </a>or <a title="netbeans" href="https://netbeans.org/" target="_blank">Netbeans</a>.</p>
+
+<p><strong>Apache POI dependencies</strong></p>
+
+<p>There are two different maven dependencies one for creating an older version of excel &#8211; XLS format and other for creating new version of Excel &#8211; XLSX format. I am listing both the dependencies here.</p>
+
+<blockquote>
+<p><dependencies></p>
+
+<p>&lt;!&#8211; For Excel 2007 &#8211;&gt;</p>
+
+<p><dependency></p>
+
+<p><groupId>org.apache.poi</groupId></p>
+
+<p><artifactId>poi</artifactId></p>
+
+<p><version>3.9</version></p>
+
+<p></dependency></p>
+
+<p><dependency></p>
+
+<p><groupId>org.apache.poi</groupId></p>
+
+<p><artifactId>poi-ooxml</artifactId></p>
+
+<p><version>3.9</version></p>
+
+<p></dependency></p>
+
+<p></dependencies></p>
+</blockquote>
+
+<p>Create a new module in IntelliJ.</p>
+
+<p><img class="alignnone size-full wp-image-709" src="http://javahabit.com/wp-content/uploads/2014/04/img_535146b33cf4f1.png" alt="" /></p>
+
+<p>Add the dependency in your pom.xml</p>
+
+<p><img class="alignnone size-full wp-image-710" src="http://www.javahabit.com/wp-content/uploads/2014/04/img_535146cc7b62e.png" alt="" /></p>
+
+<p><strong>PAUSE &amp; THINK: KEY POI CLASSES</strong></p>
+
+<p>Before we go ahead here&#8217;s quick primer on 3  key classes in POI.</p>
+
+<ol>
+<li>HSSF &#8211; Java implementation of the Excel ’97(-2007) file format. e.g. <a style="font-family: sans-serif; font-size: medium; font-style: normal; font-variant: normal; line-height: normal;" title="HSSFWorkbook" href="http://poi.apache.org/apidocs/org/apache/poi/hssf/usermodel/HSSFWorkbook.html" target="_blank" rel="external nofollow">HSSFWorkbook</a>, <a style="font-family: sans-serif; font-size: medium; font-style: normal; font-variant: normal; line-height: normal;" title="HSSFSheet" href="http://poi.apache.org/apidocs/org/apache/poi/hssf/usermodel/HSSFSheet.html" target="_blank" rel="external nofollow">HSSFSheet</a>.</li>
+<li>XSSF &#8211;  Java implementation of the Excel 2007 OOXML (.xlsx) file format. e.g. <a style="font-family: sans-serif; font-size: medium; font-style: normal; font-variant: normal; line-height: normal;" title="XSSFWorkbook" href="http://poi.apache.org/apidocs/org/apache/poi/xssf/usermodel/XSSFWorkbook.html" target="_blank" rel="external nofollow">XSSFWorkbook</a>, <a style="font-family: sans-serif; font-size: medium; font-style: normal; font-variant: normal; line-height: normal;" title="XSSFSheet" href="http://poi.apache.org/apidocs/org/apache/poi/xssf/usermodel/XSSFSheet.html" target="_blank" rel="external nofollow">XSSFSheet</a>.</li>
+<li>SXSSF &#8211; Used when very large spreadsheets have to be produced, and heap space is limited. e.g. <a style="font-family: sans-serif; font-size: medium; font-style: normal; font-variant: normal; line-height: normal;" title="SXSSFWorkbook" href="http://poi.apache.org/apidocs/org/apache/poi/xssf/streaming/SXSSFWorkbook.html" target="_blank" rel="external nofollow">SXSSFWorkbook</a>, <a style="font-family: sans-serif; font-size: medium; font-style: normal; font-variant: normal; line-height: normal;" title="SXSSFSheet" href="http://poi.apache.org/apidocs/org/apache/poi/xssf/streaming/SXSSFSheet.html" target="_blank" rel="external nofollow">SXSSFSheet</a>.</li>
+</ol>
+
+<p><span style="font-size: 16px;">There are other wide range of classes as well which can be used to manipulate the Excel sheet. Ex &#8211; </span><span style="font-size: 16px;"> </span><a style="font-size: 16px;" title="BuiltinFormats" href="http://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/BuiltinFormats.html" target="_blank" rel="external nofollow">BuiltinFormats</a><span style="font-size: 16px;">, <a title="ConditionalFormattingRule" href="http://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/ConditionalFormattingRule.html" target="_blank" rel="external nofollow">ConditionalFormattingRule</a>,</span><a style="font-size: 16px;" title="ComparisonOperator" href="http://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/ComparisonOperator.html" target="_blank" rel="external nofollow">ComparisonOperator</a><span style="font-size: 16px;">,<a title="CellStyle" href="http://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/CellStyle.html" target="_blank" rel="external nofollow">CellStyle</a>, </span><a style="font-size: 16px;" title="FontFormatting" href="http://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/FontFormatting.html" target="_blank" rel="external nofollow">FontFormatting</a><span style="font-size: 16px;">, </span><a style="font-size: 16px;" title="IndexedColors" href="http://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/IndexedColors.html" target="_blank" rel="external nofollow">IndexedColors</a><span style="font-size: 16px;">, </span><a style="font-size: 16px;" title="PatternFormatting" href="http://poi.apache.org/apidocs/org/apache/poi/hssf/record/cf/PatternFormatting.html" target="_blank" rel="external nofollow">PatternFormatting</a><span style="font-size: 16px;">, </span><a style="font-size: 16px;" title="SheetConditionalFormatting" href="http://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/SheetConditionalFormatting.html" target="_blank" rel="external nofollow">SheetConditionalFormatting</a>. These used for formatting the sheet and formula evaluation.<span style="font-size: 16px;"><br /> </span></p>
+
+<p><strong>HOW TO CREATE A NEW EXCEL SHEET</strong></p>
+
+<p>This involves the following steps.</p>
+
+<p><img class="alignnone size-full wp-image-711" src="http://www.javahabit.com/wp-content/uploads/2014/04/img_53514874f1362.png" alt="" /></p>
+
+<p>So go ahead and create a new file called NewExcel.java</p>
+
+<pre>package com.dinesh;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+
+/**
+ * Created by darora on 4/18/14.
+ */
+public class NewExcel {
+    public static void main(String[] args) {
+        //Create a new Workbook
+        XSSFWorkbook workbook = new XSSFWorkbook();
+
+        //Create a blank sheet
+        XSSFSheet sheet = workbook.createSheet("Student data");
+
+        //Create the data for the excel sheet
+        Map&lt;string, object[]=""&gt; data = new TreeMap&lt;string, object[]=""&gt;();
+        data.put("1", new Object[] {"ID", "FIRSTNAME", "LASTNAME"});
+        data.put("2", new Object[] {1, "Randy", "Maven"});
+        data.put("3", new Object[] {2, "Raymond", "Smith"});
+        data.put("4", new Object[] {3, "Dinesh", "Arora"});
+        data.put("5", new Object[] {4, "Barbra", "Klien"});
+
+        //Iterate over data and write it to the sheet
+        Set keyset = data.keySet();
+        int rownum = 0;
+        for (String key : keyset)
+        {
+            Row row = sheet.createRow(rownum++);
+            Object [] objArr = data.get(key);
+            int cellnum = 0;
+            for (Object obj : objArr)
+            {
+                Cell cell = row.createCell(cellnum++);
+                if(obj instanceof String)
+                    cell.setCellValue((String)obj);
+                else if(obj instanceof Integer)
+                    cell.setCellValue((Integer)obj);
+            }
+        }
+        //Save the excel sheet
+        try{
+            FileOutputStream out = new FileOutputStream(new File("c:\Dinesh\javahabitExcelDemo.xlsx"));
+            workbook.write(out);
+            out.close();
+            System.out.println("javahabitExcelDemo.xlsx Successfully created");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+}</pre>
+
+<p><strong>OUTPUT</strong></p>
+
+<p><img class="alignnone size-full wp-image-723" src="http://www.javahabit.com/wp-content/uploads/2014/04/img_53514e60ec9eb.png" alt="" /></p>
+
+<p>&nbsp;</p>
+
+<p><strong>HOW TO READ A NEW EXCEL SHEET</strong></p>
+
+<p>So now that we have written an excel sheet. let&#8217;s try to read it back.</p>
+
+<p>The steps involved are</p>
+
+<p><img class="alignnone size-full wp-image-724" src="http://www.javahabit.com/wp-content/uploads/2014/04/img_53514eb219cb7.png" alt="" /></p>
+
+<p>&nbsp;</p>
+
+<pre>package com.dinesh;
+
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Iterator;
+
+/**
+ * Created by darora on 4/18/14.
+ */
+public class ReadExcel {
+    //Create Workbook instance from excel sheet
+    public static void main(String[] args) {
+        try {
+            //Get the Excel File
+            FileInputStream file = new FileInputStream(new File("c:\Dinesh\javahabitExcelDemo.xlsx"));
+            XSSFWorkbook workbook = new XSSFWorkbook(file);
+
+            //Get the Desired sheet
+            XSSFSheet sheet = workbook.getSheetAt(0);
+
+            //Increment over rows
+            for (Row row : sheet) {
+                //Iterate and get the cells from the row
+                Iterator cellIterator = row.cellIterator();
+                // Loop till you read all the data
+                while (cellIterator.hasNext()) {
+                    Cell cell = cellIterator.next();
+
+                    switch (cell.getCellType()) {
+                        case Cell.CELL_TYPE_NUMERIC:
+                            System.out.print(cell.getNumericCellValue() + "t");
+                            break;
+                        case Cell.CELL_TYPE_STRING:
+                            System.out.print(cell.getStringCellValue() + "t");
+                            break;
+                    }
+                }
+                System.out.println("");
+            }
+            file.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+}</pre>
+
+<p><strong>OUTPUT</strong></p>
+
+<p><img class="alignnone size-full wp-image-725" src="http://www.javahabit.com/wp-content/uploads/2014/04/img_53514ff0c1a46.png" alt="" /></p>
+
+<p>&nbsp;</p>
+
+<h3 id="using-formulas-in-excel-sheet"><strong>Using formulas in excel sheet</strong></h3>
+
+<p>When working on excel sheets, we sometimes have to create cells which use formulas to calculate their values.  Apache POI has supports methods for adding formula to cells and evaluating the already present formula in the cells. Neat!!</p>
+
+<p>So Let&#8217;s see an example on setting a formula cells in the excel sheet.</p>
+
+<p>In this code we will try to calculate the Simple interest. Formula &#8211; Principal * Interest * Time.</p>
+
+<p>&nbsp;</p>
+
+<pre>package com.dinesh;
+
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+/**
+ * Created by darora on 4/18/14.
+ */
+public class CalculateFormula {
+    public static void main(String[] args)
+    {
+        //Create the workbook
+        XSSFWorkbook workbook = new XSSFWorkbook();
+        //Create the sheet
+        XSSFSheet sheet = workbook.createSheet("Calculate Simple Interest");
+        //Create Wor Headers
+        Row header = sheet.createRow(0);
+        header.createCell(0).setCellValue("Principal");
+        header.createCell(1).setCellValue("Interest");
+        header.createCell(2).setCellValue("Time");
+        header.createCell(3).setCellValue("OUTPUT (P * r * t)");
+
+        //Create the Rows
+        Row dataRow = sheet.createRow(1);
+        dataRow.createCell(0).setCellValue(1000d);
+        dataRow.createCell(1).setCellValue(12.00);
+        dataRow.createCell(2).setCellValue(6d);
+        dataRow.createCell(3).setCellFormula("A2*B2*C2");
+
+        //Save the File
+        try {
+            FileOutputStream out =  new FileOutputStream(new File("c:\Dinesh\javahabitformulaDemo.xlsx"));
+            workbook.write(out);
+            out.close();
+            System.out.println("Excel File with formla is created!");
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}</pre>
+
+<p><strong>OUTPUT</strong></p>
+
+<p><img class="alignnone size-full wp-image-726" src="http://www.javahabit.com/wp-content/uploads/2014/04/img_5351516d00b65.png" alt="" /></p>
+
+<p>&nbsp;</p>
+
+<p>So experiment your way with this jar file and do post your comments and suggestions on topics you had like to see in my future posts.</p>
+
+<p>&nbsp;</p>
+
+<p>~ Ciao</p>
+
+<p>&#8211;</p>
+</article>
+    </section>
+
+    <footer class="ui secondary attached segment dream-tags">
+      
+      <span>No Tag</span>
+      
+    </footer>
+
+    
+
+    
+
+  </div>
+  <div class="fifteen wide mobile fifteen wide tablet four wide computer column">
+
+    <section class="ui top attached center aligned inverted segment">
+  <div class="ui small circular image">
+    
+    <img src="/img/avatar1.svg">
+    
+  </div>
+  <h3 class="ui header">Dinesh AroraDinesh&#39;s blog<div class="sub header" style="color: white;"></div>
+  </h3>
+  <a id="tag-category-pop" class="ui red right corner label">
+    <i class="pointing down icon" title="Click this to pop tags and categories"></i>
+  </a>
+</section>
+
+
+
+
+<section class="ui attached inverted segment dream-categories">
+  <div class="ui inverted accordion">
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/tech-notes" class="item" style="color: white;">tech-notes</a>
+    </div>
+    <div class="content">
+      <div class="ui link inverted list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2017/03/20/scala-tail-recursion/" class="item">Scala: Tail Recursion</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2016/06/16/understanding-java-8-lambda-final-finally-variable/" class="item">Understanding Java 8 Lambda final finally variable</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/12/26/how-to-set-up-apache-storm-on-mac-using-brew/" class="item">How to set up Apache Storm on mac using brew</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/09/27/waffle-windows-single-sign-on/" class="item">Waffle : Windows Single Sign On</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/07/22/4-ways-to-set-up-datasources-in-jboss-as-7/" class="item">4 ways to set up datasources in Jboss AS 7</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/03/30/install-or-manage-multiple-versions-of-java-on-os-x/" class="item">Install Or Manage multiple versions of Java on OS X</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/01/26/restful-webservice-7-steps-using-spring-boot/" class="item">Restful Webservice in 7 Steps using Spring boot</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/10/17/quick-tutorial-saaj-api/" class="item">A quick tutorial on SAAJ API</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/04/18/apache-poi-tutorial-reading-writing-excel-files-java/" class="item">Read / Write Excel file in Java using Apache POI</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/03/16/13-common-java-keytool-keystore-commands/" class="item">13 Most Common Java Keytool Keystore Commands</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/01/31/10-intellij-idea-keyboard-shortcuts-must-know/" class="item">10 IntelliJ IDEA Keyboard Shortcuts That You Must Know</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/12/16/apache-camel-how-to-call-an-external-webservice/" class="item">Apache Camel : How to call  java webservice</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/10/24/launch-website-in-amazon-ec2/" class="item">Launch Website in Amazon EC2</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/09/18/how-to-configure-jndi-with-spring-and-jboss45/" class="item">How to configure JNDI with Spring and Jboss4/5</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/08/01/rails-jquery-is-not-loading/" class="item">Rails: Jquery is not loading</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/05/15/how-to-post-parameters-to-a-url-using-ajaxjavascript-between-two-website/" class="item">How to post parameters to a url using Ajax/Javascript between two website</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/03/07/using-multiple-profiles-in-maven-eclipse/" class="item">Using multiple profiles in Maven &#43; Eclipse</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/09/23/how-to-send-email-in-phonegap-android-using-a-gmail-account/" class="item">How to send email in PhoneGap (Android) using a gmail account</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/07/13/share-any-folder-on-mac-via-built-in-web-server/" class="item">How To Share Any Folder On Mac Via Built-in Web Server</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/06/03/saving-files-in-amazon-s3-using-carrierwave-and-fog-gem/" class="item">Saving files in Amazon S3 using Carrierwave and Fog Gem</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/05/30/installing-rails-on-mac-osx/" class="item">Installing Rails on Mac OSX</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/05/29/setting-up-imap-settings-for-hotmail-account-on-iphone-and-android/" class="item">Setting up IMAP settings for hotmail account on Iphone and android</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/01/28/engineyard-rails-3-x-nginx-passenger-assets-not-displayed/" class="item">Engineyard, Rails 3.x, NGINX, PASSENGER ASSETS NOT DISPLAYED</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/uncategorized" class="item" style="color: white;">uncategorized</a>
+    </div>
+    <div class="content">
+      <div class="ui link inverted list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/04/23/powermock-how-to-test-a-private-method/" class="item">PowerMock : How to test a private method</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+
+<section class="ui bottom attached center aligned inverted segment">
+    
+    <p>© 2018 A Morsel Of Code</p>
+    
+    <p>Powered by <a href="http://www.javahabit.com" target="_blank">Dreams</a> </p>
+</section>
+
+
+  </div>
+</div>
+
+      </section>
+      <section class="back">
+        <nav class="ui top secondary menu" style="overflow-x: auto">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="Flip it!"></i>
+  </div>
+  
+  
+  
+  
+  
+</nav>
+
+<div class="ui centered grid about">
+  <div class="fifteen wide mobile fifteen wide tablet fifteen wide computer column">
+
+    <section class="ui stacked segments">
+      <header class="ui inverted segment">
+        <h2 class="ui header">
+          About
+        </h2>
+      </header>
+
+      <article class="ui inverted segment">
+        
+        
+        
+      </article>
+
+      
+
+      
+        
+      
+    </section>
+
+  </div>
+</div>
+
+      </section>
+    </div>
+  </div>
+
+  
+<script src="/js/jquery.min.js"></script>
+<script src="/js/semantic.min.js"></script>
+<script src="/js/bg.js"></script>
+<script src="/js/site.js"></script>
+
+
+
+</body>
+
+</html>

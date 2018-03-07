@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>A Morsel Of Code</title>
+    <link>/</link>
+    <description>Recent content on A Morsel Of Code</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 20 Mar 2017 02:37:02 +0000</lastBuildDate>
+    
+	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Scala: Tail Recursion</title>
+      <link>/2017/03/20/scala-tail-recursion/</link>
+      <pubDate>Mon, 20 Mar 2017 02:37:02 +0000</pubDate>
+      
+      <guid>/2017/03/20/scala-tail-recursion/</guid>
+      <description>Tail recursion is a basic but important concept in Functional programming. Recursive functions has always been a pain point for me. I would be eliminated out of several interview rounds if interviewers places emphasis on recursion. In Java world thankfully, most people I know hate recursion because when nesting goes too deep, it impacts the performance if the nested recursion is more than 100 levels deep.
+Unfortunately(Fortunately), functional programming languages like Scala and Haskell have solved this concept with the term Tail Recursion.</description>
+    </item>
+    
+    <item>
+      <title>Understanding Java 8 Lambda final finally variable</title>
+      <link>/2016/06/16/understanding-java-8-lambda-final-finally-variable/</link>
+      <pubDate>Thu, 16 Jun 2016 01:19:10 +0000</pubDate>
+      
+      <guid>/2016/06/16/understanding-java-8-lambda-final-finally-variable/</guid>
+      <description>I am a little late to the java 8 party and was trying to quickly get some hands on with lambdas and ran into an issue where I got the error message 
+Variables used in lambda should be final or effectively final &amp;nbsp;
+. I know what final is but what is effectively final.
+Here is what I was trying to do. I had a HashMap which had values like &amp;#8220;one : 1&amp;#8221;, &amp;#8220;two : 2&amp;#8221;, &amp;#8220;three : 3&amp;#8221; and wanted to replace the String ${one} with 1 etc.</description>
+    </item>
+    
+    <item>
+      <title>How to set up Apache Storm on mac using brew</title>
+      <link>/2015/12/26/how-to-set-up-apache-storm-on-mac-using-brew/</link>
+      <pubDate>Sat, 26 Dec 2015 17:02:46 +0000</pubDate>
+      
+      <guid>/2015/12/26/how-to-set-up-apache-storm-on-mac-using-brew/</guid>
+      <description>I am learning about Apache Storm and the guide had long and winding instructions on how to install Apache Storm. I installed the single node using brew and it was a breeze. I did not had to spend time figuring out out if I was installing latest version.
+Pre-requisites:
+Make sure that you have &amp;#8216;HomeBrew&amp;#8216; installed. One reason that I prefer &amp;#8216;brew&amp;#8217; is that I do not have to remember where things are installed and brew manages and fixes any updates that have been introduced.</description>
+    </item>
+    
+    <item>
+      <title>Waffle : Windows Single Sign On</title>
+      <link>/2015/09/27/waffle-windows-single-sign-on/</link>
+      <pubDate>Sun, 27 Sep 2015 22:38:03 +0000</pubDate>
+      
+      <guid>/2015/09/27/waffle-windows-single-sign-on/</guid>
+      <description>Last week, I was working on an application where I had to do LDAP authentication. My cmpany has been using a very old jar file that had the required code for authenticating and authorizing users. There were two problems for me.
+ I had to revisit the documentation on LDAP setting in Jboss 4 and figure how to do the set up. Making changes in login-config.xml etc.
+ My new application is using Spring-boot, which comes with built in tomcat libraries.</description>
+    </item>
+    
+    <item>
+      <title>4 ways to set up datasources in Jboss AS 7</title>
+      <link>/2015/07/22/4-ways-to-set-up-datasources-in-jboss-as-7/</link>
+      <pubDate>Wed, 22 Jul 2015 04:44:20 +0000</pubDate>
+      
+      <guid>/2015/07/22/4-ways-to-set-up-datasources-in-jboss-as-7/</guid>
+      <description>Last year my company decided to move from JBoss 4.x/5.x to Jboss AS 7. We use Maven and IZPack plugin to create automated deployment to Jboss 4. As a part of IZPack plugin, we would write the install.xmls for various environment, which would help us deploy war files, log.xml, jars, properties file in respective folders. So the advantage was that Jboss-4 allows you to deploy several xxx-ds.xml files in deploy folder and you can have multiple apps deployed in same Jboss and each app uses it&amp;#8217;s respective xxx-ds.</description>
+    </item>
+    
+    <item>
+      <title>PowerMock : How to test a private method</title>
+      <link>/2015/04/23/powermock-how-to-test-a-private-method/</link>
+      <pubDate>Thu, 23 Apr 2015 20:49:08 +0000</pubDate>
+      
+      <guid>/2015/04/23/powermock-how-to-test-a-private-method/</guid>
+      <description>&amp;#8220;I HAVE THE POWER!!&amp;#8221; &amp;#8211; I had this feeling a few days ago. I will be honest that at work I do not get time to write unit test cases for each and every piece of code that I write. Often when I do have time, I make an effort to write test cases even for the trivial piece of code blocks such as &amp;#8212; Check if properties file is present.</description>
+    </item>
+    
+    <item>
+      <title>Install Or Manage multiple versions of Java on OS X</title>
+      <link>/2015/03/30/install-or-manage-multiple-versions-of-java-on-os-x/</link>
+      <pubDate>Mon, 30 Mar 2015 02:05:00 +0000</pubDate>
+      
+      <guid>/2015/03/30/install-or-manage-multiple-versions-of-java-on-os-x/</guid>
+      <description>A few weeks ago my Mac hard drive crashed and I had to get a new grad drive. As part of upgrade, I had to wipe my drive clean and install Yosemite. What I did not realize was that Apple had goofed up Java instlation on Mac, as result of which my IntelliJ idea compalained that it requires legacy Jdk version of Java 6. The dilemma that I had was hwo am I going to mainain the different version of Java.</description>
+    </item>
+    
+    <item>
+      <title>Restful Webservice in 7 Steps using Spring boot</title>
+      <link>/2015/01/26/restful-webservice-7-steps-using-spring-boot/</link>
+      <pubDate>Mon, 26 Jan 2015 20:59:12 +0000</pubDate>
+      
+      <guid>/2015/01/26/restful-webservice-7-steps-using-spring-boot/</guid>
+      <description>Last week I was working on a new application which required me to build a web service to access it&amp;#8217;s functionality. I decided to check out Spring 4 RestController.
+I was amazed at how far we have come from writing all the boiler template code, xmls etc for making a restful call. With Spring4 boot, it was matter of adding simple annotation for RestController.
+I will be honest, I have not been up to date on how to use a Restful webservice, I built a couple of Restful service a couple of year ago, but most of the services in my current project are old school (SOAP calls), so I never got a chance to build one from scratch and at peace.</description>
+    </item>
+    
+    <item>
+      <title>A quick tutorial on SAAJ API</title>
+      <link>/2014/10/17/quick-tutorial-saaj-api/</link>
+      <pubDate>Fri, 17 Oct 2014 20:28:07 +0000</pubDate>
+      
+      <guid>/2014/10/17/quick-tutorial-saaj-api/</guid>
+      <description>We ran into an issue last week. I had to call a third party web service that was built in PHP. Anyone who wokrs with Java will tell you that calling a web service is not more 15 minutes coding. You take the wsdl, run wsdl2Java command from Axis2 and start calling the service.
+Like I said before, things are never so straightforward. No matter what version of Axis or CXF we used, we kept getting this error:</description>
+    </item>
+    
+    <item>
+      <title>Read / Write Excel file in Java using Apache POI</title>
+      <link>/2014/04/18/apache-poi-tutorial-reading-writing-excel-files-java/</link>
+      <pubDate>Fri, 18 Apr 2014 16:27:58 +0000</pubDate>
+      
+      <guid>/2014/04/18/apache-poi-tutorial-reading-writing-excel-files-java/</guid>
+      <description>About a year or two ago I was working with finance team where they wanted to pull the credit card transactions for all the customer using various combinations. Ex &amp;#8211;
+&amp;#8211; Get the credit card txns for today or certain date.
+&amp;#8211; Get the txns for customer who used Mastercard or Visa.
+However they wanted this application to generate a Excel file and save it on their local machine so that they could prepare reports for our CEO.</description>
+    </item>
+    
+    <item>
+      <title>13 Most Common Java Keytool Keystore Commands</title>
+      <link>/2014/03/16/13-common-java-keytool-keystore-commands/</link>
+      <pubDate>Sun, 16 Mar 2014 04:41:03 +0000</pubDate>
+      
+      <guid>/2014/03/16/13-common-java-keytool-keystore-commands/</guid>
+      <description>I was working on a project last month where I had to call a third-party web service. The third-party web service wanted me to add a SSL keystore and I struggled. I could have gone to my UNIX Admin and asked him to do this job but decided to learn about all about keystores. I went through couple of forums and SO and ended my spending 2 &amp;#8211; 3 hours reading about keystores and commonly used commands.</description>
+    </item>
+    
+    <item>
+      <title>10 IntelliJ IDEA Keyboard Shortcuts That You Must Know</title>
+      <link>/2014/01/31/10-intellij-idea-keyboard-shortcuts-must-know/</link>
+      <pubDate>Fri, 31 Jan 2014 21:09:07 +0000</pubDate>
+      
+      <guid>/2014/01/31/10-intellij-idea-keyboard-shortcuts-must-know/</guid>
+      <description>Linux nerds/geeks happily flaunt their keyboard skills when they get a chance. I admit that I am not a shortcut junky but I too have some keyboard shortcuts under my sleeve that I use in day to day work. I have to say that not only have these shortcuts increased my productivity but they have also made my life a lot easier.
+I am sharing my 10 most used shortcuts at work.</description>
+    </item>
+    
+    <item>
+      <title>About Me</title>
+      <link>/about-me/</link>
+      <pubDate>Fri, 24 Jan 2014 06:39:06 +0000</pubDate>
+      
+      <guid>/about-me/</guid>
+      <description>Still to come</description>
+    </item>
+    
+    <item>
+      <title>Apache Camel : How to call  java webservice</title>
+      <link>/2013/12/16/apache-camel-how-to-call-an-external-webservice/</link>
+      <pubDate>Mon, 16 Dec 2013 03:55:12 +0000</pubDate>
+      
+      <guid>/2013/12/16/apache-camel-how-to-call-an-external-webservice/</guid>
+      <description>I have made up my mind to get rid of WSO2 ESB at my office. It is clumsy, buggy, hard to test, no body wants to work on it and the documentation is horrible. I looked at various alternative and Apache Camel was free and easy to set up and work with me.
+To cut the story short, I was able to run most of the example but was struggling with CXF to call a third party service hosted at a random url.</description>
+    </item>
+    
+    <item>
+      <title>Launch Website in Amazon EC2</title>
+      <link>/2013/10/24/launch-website-in-amazon-ec2/</link>
+      <pubDate>Thu, 24 Oct 2013 21:52:13 +0000</pubDate>
+      
+      <guid>/2013/10/24/launch-website-in-amazon-ec2/</guid>
+      <description>I wrote this blog about a year ago and left it in the draft because this post somehow was not getting auto saved on WordPress and since its long post it took time for me type, take screenshots and paste. I did not have energy and time to do it all over again. I had a copy of it though in my google drive and I cannot tell you how many times this document has helped me.</description>
+    </item>
+    
+    <item>
+      <title>How to configure JNDI with Spring and Jboss4/5</title>
+      <link>/2013/09/18/how-to-configure-jndi-with-spring-and-jboss45/</link>
+      <pubDate>Wed, 18 Sep 2013 19:27:26 +0000</pubDate>
+      
+      <guid>/2013/09/18/how-to-configure-jndi-with-spring-and-jboss45/</guid>
+      <description>This is a simple process but if you try and search on the web you will come across various incomplete solutions which will leave you more confused than you already were. This configuration involves just four simple steps that I will walk through to help you set up JNDI on Jboss. I am using Jboss 4.3, but this should be valid for other version of Jboss as well.
+I have a web application which is built on Spring 3.</description>
+    </item>
+    
+    <item>
+      <title>Rails: Jquery is not loading</title>
+      <link>/2013/08/01/rails-jquery-is-not-loading/</link>
+      <pubDate>Thu, 01 Aug 2013 03:53:51 +0000</pubDate>
+      
+      <guid>/2013/08/01/rails-jquery-is-not-loading/</guid>
+      <description>It&amp;#8217;s been a while I have posted anything. I have been extremly busy and have been working on an extremely critical project where we were asked to become PCI 2.0 compliant. I worked on some interesting problems however today I will be discussing on something trivial and discuss my frustration about Rails. I have to admit that a number of times I thought I should just give up and start learning Python or stick to my forte i.</description>
+    </item>
+    
+    <item>
+      <title>How to post parameters to a url using Ajax/Javascript between two website</title>
+      <link>/2013/05/15/how-to-post-parameters-to-a-url-using-ajaxjavascript-between-two-website/</link>
+      <pubDate>Wed, 15 May 2013 03:33:28 +0000</pubDate>
+      
+      <guid>/2013/05/15/how-to-post-parameters-to-a-url-using-ajaxjavascript-between-two-website/</guid>
+      <description>I am working a new project and I recently ran into an interesting problem. One of the web site that I keep up at work was supposed to take the user to another website which required me to add post parameters. EX &amp;#8211; www.mywebsite.makeapayment.com ==&amp;gt; Collects Billing information ex &amp;#8211; name, amount, address etc.==&amp;gt; Post this information to www.vendor-website.com.
+I did not realize the problem until I started coding and my colleague pointed out that as soon as www.</description>
+    </item>
+    
+    <item>
+      <title>Using multiple profiles in Maven &#43; Eclipse</title>
+      <link>/2013/03/07/using-multiple-profiles-in-maven-eclipse/</link>
+      <pubDate>Thu, 07 Mar 2013 22:32:04 +0000</pubDate>
+      
+      <guid>/2013/03/07/using-multiple-profiles-in-maven-eclipse/</guid>
+      <description>It’s possible that many of you already knew this but if not then here’ some basic info on Maven profiles. I have been using maven for over 2 and half years now, and have been copy pasting assembly and install files. I never bothered to know how Maven figures out how to read assembly and install file names. For example-
+PROBLEM:
+For all my projects I have been using assembly-jboss.xml to put the file/directory information and telling maven about my desired directory structure i.</description>
+    </item>
+    
+    <item>
+      <title>How to send email in PhoneGap (Android) using a gmail account</title>
+      <link>/2012/09/23/how-to-send-email-in-phonegap-android-using-a-gmail-account/</link>
+      <pubDate>Sun, 23 Sep 2012 05:26:13 +0000</pubDate>
+      
+      <guid>/2012/09/23/how-to-send-email-in-phonegap-android-using-a-gmail-account/</guid>
+      <description>For the last one month, I have been working on an android app for a grocery store.
+I have been using PhoneGap to develop the solution as the client wanted both Android and Iphone version.
+I have tried building the app in native Android but going through the hassle of designing css was just too much for me and plus I did not had time to learn Iphone development.
+There was a short learning phase for PhoneGap and the results were awesome.</description>
+    </item>
+    
+    <item>
+      <title>How To Share Any Folder On Mac Via Built-in Web Server</title>
+      <link>/2012/07/13/share-any-folder-on-mac-via-built-in-web-server/</link>
+      <pubDate>Fri, 13 Jul 2012 02:43:59 +0000</pubDate>
+      
+      <guid>/2012/07/13/share-any-folder-on-mac-via-built-in-web-server/</guid>
+      <description>So what&amp;#8217;s new here? Well I was playing around with Phonegap to build a small android and ios app. I was able to build a small weather app using Yahoo weather api but then I came across Sencha Touch 2.
+I wanted to build the same app in Sencha Touch and compare the two platforms for developing mobile apps and as ap part of its get started tutorial I had to drop the Sencha Touch in a web server.</description>
+    </item>
+    
+    <item>
+      <title>Saving files in Amazon S3 using Carrierwave and Fog Gem</title>
+      <link>/2012/06/03/saving-files-in-amazon-s3-using-carrierwave-and-fog-gem/</link>
+      <pubDate>Sun, 03 Jun 2012 04:57:16 +0000</pubDate>
+      
+      <guid>/2012/06/03/saving-files-in-amazon-s3-using-carrierwave-and-fog-gem/</guid>
+      <description>Long long time ago in a far far away land&amp;#8230;.. I am just kidding. So I needed a gem to do file uploads(in my case images but you can upload anything) and I was looking at various options. Paperclip is a popular option but there is a new kid on the block (so i read in various forums)&amp;#8230; Carrierwave.
+Now I have not used Paperclip but what I read was that Carrierwave is more flexible and powerful than Paperclip so if are interested then keep reading.</description>
+    </item>
+    
+    <item>
+      <title>Installing Rails on Mac OSX</title>
+      <link>/2012/05/30/installing-rails-on-mac-osx/</link>
+      <pubDate>Wed, 30 May 2012 03:12:21 +0000</pubDate>
+      
+      <guid>/2012/05/30/installing-rails-on-mac-osx/</guid>
+      <description>I struggled a lot doing this on my mac. I prepared steps and notes while I was upgrading. here are the steps for mac osx. This works for Mac OSX 10.6+
+============ Section 1 =================
+Install and update Ruby 1.9 on MAC OSX Snow leopard 10.6.5
+ Install RVM
+Installation instruction: http://rvm.beginrescueend.com/rvm/install/  &amp;#8211; In Treminal Run the following command:
+bash &amp;lt; &amp;lt;( curl http://rvm.beginrescueend.com/releases/ … all-latest )
+&amp;#8211; type in terminal: version=$(curl http://rvm.</description>
+    </item>
+    
+    <item>
+      <title>Setting up IMAP settings for hotmail account on Iphone and android</title>
+      <link>/2012/05/29/setting-up-imap-settings-for-hotmail-account-on-iphone-and-android/</link>
+      <pubDate>Tue, 29 May 2012 00:06:30 +0000</pubDate>
+      
+      <guid>/2012/05/29/setting-up-imap-settings-for-hotmail-account-on-iphone-and-android/</guid>
+      <description>Yes, there are still a few lost soul who still have a Hotmail account and I am one of them :-).
+I have used Iphone in the past and use an android phone now, however I always complained that I was not able to set up an IMAP account for Hotmail. I always had a POP3 account 🙁
+What does IMAP and POP3 mean? &amp;#8211; For beginner who do not understand what is IMAP and POP3, here&amp;#8217;s a small description.</description>
+    </item>
+    
+    <item>
+      <title>Engineyard, Rails 3.x, NGINX, PASSENGER ASSETS NOT DISPLAYED</title>
+      <link>/2012/01/28/engineyard-rails-3-x-nginx-passenger-assets-not-displayed/</link>
+      <pubDate>Sat, 28 Jan 2012 08:48:01 +0000</pubDate>
+      
+      <guid>/2012/01/28/engineyard-rails-3-x-nginx-passenger-assets-not-displayed/</guid>
+      <description>CAUTION: Please excuse the diction/grammar/spelling. It&amp;#8217;s 3 AM and I am in a hurry to sleep as I need to drop my friends to airport in exactly 4 hrs.
+So I was trying to set up this new application for my wife. I was using galleria plugin to show a slide like image. Everything was working fine in development so I decided to see how it would look like in production environment if it was deployed in a cloud or virtual server.</description>
+    </item>
+    
+  </channel>
+</rss>

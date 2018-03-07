@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>A Morsel Of Code</title>
+
+  
+  
+  <meta name="author" content="Dinesh" />
+  <meta name="description" content="I have made up my mind to get rid of WSO2 ESB at my office. It is clumsy, buggy, hard to test, no body wants to work on it and the documentation is horrible. I looked at various alternative and Apache Camel was free and easy to set up and work with me.
+To cut the story short, I was able to run most of the example but was struggling with CXF to call a third party service hosted at a random url." />
+
+
+
+
+
+<meta name="generator" content="Hugo 0.37" />
+
+
+<link rel="canonical" href="/2013/12/16/apache-camel-how-to-call-an-external-webservice/" />
+<link rel="alternative" href="/index.xml" title="A Morsel Of Code" type="application/atom+xml" />
+
+<link href="https://cdn.bootcss.com/semantic-ui/2.2.14/semantic.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/site.css" />
+
+
+</head>
+
+<body>
+  <div class="flip-container">
+    <div class="flipper">
+      <section class="front">
+        
+<nav class="ui top secondary menu">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="Flip it!"></i>
+  </div>
+  <div class="item">
+    <a href="/">
+      <i class="inverted big link home icon" title="Home"></i>
+    </a>
+  </div>
+</nav>
+ 
+<div class="ui centered grid">
+  <div class="fifteen wide mobile fifteen wide tablet eleven wide computer column post-list">
+
+    <section class="ui secondary top attached black segment">
+      <header>
+        <h1 class="ui header">
+          Apache Camel : How to call  java webservice
+          <div class="sub header">@ Dinesh · Dec 16, 2013 · 4 min read · Update at Dec 16, 2013</div>
+        </h1>
+      </header>
+      <article class="post-content" style="margin-top: 2rem; font-size: 1.4rem;"><p>I have made up my mind to get rid of WSO2 ESB at my office. It is clumsy, buggy, hard to test, no body wants to work on it and the documentation is horrible. I looked at various alternative and <a title="Apache Camel" href="http://camel.apache.org/" target="_blank">Apache Camel</a> was free and easy to set up and work with me.</p>
+
+<p>To cut the story short, I was able to run most of the example but was struggling with <a title="CXF" href="http://cxf.apache.org/" target="_blank">CXF</a> to call a third party service hosted at a random url. The documentation on the website is focused on exposing web service built in <a title="Apache Camel" href="http://camel.apache.org" target="_blank">Camel</a>. I was finally able to figure this out with a couple of slide show on slideshare.</p>
+
+<p>Here&#8217;s the scenario: I have a third party webservice hosted on the web which gives you the the conversion rate between two currencies. I am going to call this web service and log the response.</p>
+
+<p>As usual I will start from scratch. My webservice is hosted at this url &#8211;<a title="http://www.webservicex.net/CurrencyConvertor.asmx?WSDL" href="http://www.webservicex.net/CurrencyConvertor.asmx?WSDL" target="_blank"><a href="http://www.webservicex.net/CurrencyConvertor.asmx?WSDL">http://www.webservicex.net/CurrencyConvertor.asmx?WSDL</a></a>. This webservice exposes a operation called &#8211; &#8220;ConversionRate&#8221;.</p>
+
+<p>I am using Fuse Ide(free &#8211; Developer version) but you can use Intellij Or Eclipse.</p>
+
+<p>Prerequisites &#8211; Must have Maven.</p>
+
+<p><strong>Step 1: </strong>Create a new Camel-Spring project.</p>
+
+<p><strong>Step 2: </strong> Add the following dependencies in your <strong>pom.xml. &#8220;camel-cxf&#8221;</strong></p>
+
+<pre>&lt;scope><span style="color: #ff0000;">&lt;dependency&gt;</span>
+
+<span style="color: #ff0000;">      &lt;groupId&gt;org.apache.camel&lt;/groupId&gt;</span>
+
+<span style="color: #ff0000;">      &lt;artifactId&gt;camel-cxf&lt;/artifactId&gt;</span>
+
+<span style="color: #ff0000;">      &lt;version&gt;2.10.0.redhat-60024&lt;/version&gt;</span>
+
+<span style="color: #ff0000;">    &lt;/dependency&gt;</span>&lt;/scope></pre>
+
+<p>My pom.xml looks like this &#8211;</p>
+
+<blockquote>
+<p><span style="color: #ff0000;">&lt;!&#8211;?xml version=&#8221;1.0&#8243; encoding=&#8221;UTF-8&#8243;?&gt;</span></p>
+
+<p><span style="color: #ff0000;">xmlns=&#8221;<a href="http://maven.apache.org/POM/4.0.0&amp;#8243">http://maven.apache.org/POM/4.0.0&amp;#8243</a>; xmlns:xsi=&#8221;<a href="http://www.w3.org/2001/XMLSchema-instance&amp;#8221">http://www.w3.org/2001/XMLSchema-instance&amp;#8221</a>; xsi:schemaLocation=&#8221;<a href="http://maven.apache.org/POM/4.0.0">http://maven.apache.org/POM/4.0.0</a> <a href="http://maven.apache.org/maven-v4_0_0.xsd&amp;#8221;&gt;">http://maven.apache.org/maven-v4_0_0.xsd&amp;#8221;&gt;</a></span></p>
+
+<p><span style="color: #ff0000;"> </span></p>
+
+<p><span style="color: #ff0000;">  <modelVersion>4.0.0</modelVersion></span></p>
+
+<p><span style="color: #ff0000;"> </span></p>
+
+<p><span style="color: #ff0000;">  <groupId>com.mycompany</groupId></span></p>
+
+<p><span style="color: #ff0000;">  <artifactId>camel-spring</artifactId></span></p>
+
+<p><span style="color: #ff0000;">  <packaging>jar</packaging></span></p>
+
+<p><span style="color: #ff0000;">  <version>1.0.0-SNAPSHOT</version></span></p>
+
+<p><span style="color: #ff0000;">  <name>A Camel Spring Route</name></span></p>
+
+<p><span style="color: #ff0000;">  <url><a href="http://www.myorganization.org">http://www.myorganization.org</a></url></span></p>
+
+<p><span style="color: #ff0000;">  <properties></span></p>
+
+<p><span style="color: #ff0000;">    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding></span></p>
+
+<p><span style="color: #ff0000;">    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding></span></p>
+
+<p><span style="color: #ff0000;">  </properties></span></p>
+
+<p><span style="color: #ff0000;">  <repositories></span></p>
+
+<p><span style="color: #ff0000;">    <repository></span></p>
+
+<p><span style="color: #ff0000;">      <id>release.fusesource.org</id></span></p>
+
+<p><span style="color: #ff0000;">      FuseSource Release Repository</span></p>
+
+<p><span style="color: #ff0000;">      <url><a href="http://repo.fusesource.com/nexus/content/repositories/releases">http://repo.fusesource.com/nexus/content/repositories/releases</a></url></span></p>
+
+<p><span style="color: #ff0000;">      <snapshots></span></p>
+
+<p><span style="color: #ff0000;">        <enabled>false</enabled></span></p>
+
+<p><span style="color: #ff0000;">      </snapshots></span></p>
+
+<p><span style="color: #ff0000;">      <releases></span></p>
+
+<p><span style="color: #ff0000;">        <enabled>true</enabled></span></p>
+
+<p><span style="color: #ff0000;">      </releases></span></p>
+
+<p><span style="color: #ff0000;">    </repository></span></p>
+
+<p><span style="color: #ff0000;">    <repository></span></p>
+
+<p><span style="color: #ff0000;">      <id>snapshot.fusesource.org</id></span></p>
+
+<p><span style="color: #ff0000;">      FuseSource Snapshot Repository</span></p>
+
+<p><span style="color: #ff0000;">      <url><a href="http://repo.fusesource.com/nexus/content/repositories/snapshots">http://repo.fusesource.com/nexus/content/repositories/snapshots</a></url></span></p>
+
+<p><span style="color: #ff0000;">      <snapshots></span></p>
+
+<p><span style="color: #ff0000;">        <enabled>true</enabled></span></p>
+
+<p><span style="color: #ff0000;">      </snapshots></span></p>
+
+<p><span style="color: #ff0000;">      <releases></span></p>
+
+<p><span style="color: #ff0000;">        <enabled>false</enabled></span></p>
+
+<p><span style="color: #ff0000;">      </releases></span></p>
+
+<p><span style="color: #ff0000;">    </repository></span></p>
+
+<p><span style="color: #ff0000;">  </repositories></span></p>
+
+<p><span style="color: #ff0000;">  <pluginRepositories></span></p>
+
+<p><span style="color: #ff0000;">    <pluginRepository></span></p>
+
+<p><span style="color: #ff0000;">      <id>release.fusesource.org</id></span></p>
+
+<p><span style="color: #ff0000;">      FuseSource Release Repository</span></p>
+
+<p><span style="color: #ff0000;">      <url><a href="http://repo.fusesource.com/nexus/content/repositories/releases">http://repo.fusesource.com/nexus/content/repositories/releases</a></url></span></p>
+
+<p><span style="color: #ff0000;">      <snapshots></span></p>
+
+<p><span style="color: #ff0000;">        <enabled>false</enabled></span></p>
+
+<p><span style="color: #ff0000;">      </snapshots></span></p>
+
+<p><span style="color: #ff0000;">      <releases></span></p>
+
+<p><span style="color: #ff0000;">        <enabled>true</enabled></span></p>
+
+<p><span style="color: #ff0000;">      </releases></span></p>
+
+<p><span style="color: #ff0000;">    </pluginRepository></span></p>
+
+<p><span style="color: #ff0000;">    <pluginRepository></span></p>
+
+<p><span style="color: #ff0000;">      <id>snapshot.fusesource.org</id></span></p>
+
+<p><span style="color: #ff0000;">      FuseSource Snapshot Repository</span></p>
+
+<p><span style="color: #ff0000;">      <url><a href="http://repo.fusesource.com/nexus/content/repositories/snapshots">http://repo.fusesource.com/nexus/content/repositories/snapshots</a></url></span></p>
+
+<p><span style="color: #ff0000;">      <snapshots></span></p>
+
+<p><span style="color: #ff0000;">        <enabled>true</enabled></span></p>
+
+<p><span style="color: #ff0000;">      </snapshots></span></p>
+
+<p><span style="color: #ff0000;">      <releases></span></p>
+
+<p><span style="color: #ff0000;">        <enabled>false</enabled></span></p>
+
+<p><span style="color: #ff0000;">      </releases></span></p>
+
+<p><span style="color: #ff0000;">    </pluginRepository>  </span></p>
+
+<p><span style="color: #ff0000;">  </pluginRepositories></span></p>
+
+<p><span style="color: #ff0000;"> </span></p>
+
+<p><span style="color: #ff0000;">  <dependencies></span></p>
+
+<p><span style="color: #ff0000;">    <dependency></span></p>
+
+<p><span style="color: #ff0000;">      <groupId>org.apache.camel</groupId></span></p>
+
+<p><span style="color: #ff0000;">      <artifactId>camel-core</artifactId></span></p>
+
+<p><span style="color: #ff0000;">      <version>2.10.0.redhat-60024</version></span></p>
+
+<p><span style="color: #ff0000;">    </dependency></span></p>
+
+<p><span style="color: #ff0000;">    <dependency></span></p>
+
+<p><span style="color: #ff0000;">      <groupId>org.apache.camel</groupId></span></p>
+
+<p><span style="color: #ff0000;">      <artifactId>camel-spring</artifactId></span></p>
+
+<p><span style="color: #ff0000;">      <version>2.10.0.redhat-60024</version></span></p>
+
+<p><span style="color: #ff0000;">    </dependency></span></p>
+
+<p><span style="color: #ff0000;">    &lt;!&#8211; logging &#8211;&gt;</span></p>
+
+<p><span style="color: #ff0000;">    <dependency></span></p>
+
+<p><span style="color: #ff0000;">      <groupId>org.slf4j</groupId></span></p>
+
+<p><span style="color: #ff0000;">      <artifactId>slf4j-api</artifactId></span></p>
+
+<p><span style="color: #ff0000;">      <version>1.6.6</version></span></p>
+
+<p><span style="color: #ff0000;">    </dependency></span></p>
+
+<p><span style="color: #ff0000;">    <dependency></span></p>
+
+<p><span style="color: #ff0000;">      <groupId>org.slf4j</groupId></span></p>
+
+<p><span style="color: #ff0000;">      <artifactId>slf4j-log4j12</artifactId></span></p>
+
+<p><span style="color: #ff0000;">      <version>1.6.6</version></span></p>
+
+<p><span style="color: #ff0000;">    </dependency></span></p>
+
+<p><span style="color: #ff0000;">    <dependency></span></p>
+
+<p><span style="color: #ff0000;">      <groupId>log4j</groupId></span></p>
+
+<p><span style="color: #ff0000;">      <artifactId>log4j</artifactId></span></p>
+
+<p><span style="color: #ff0000;">      <version>1.2.17</version></span></p>
+
+<p><span style="color: #ff0000;">    </dependency></span></p>
+
+<p><span style="color: #ff0000;">    &lt;!&#8211; testing &#8211;&gt;</span></p>
+
+<p><span style="color: #ff0000;">    <dependency></span></p>
+
+<p><span style="color: #ff0000;">      <groupId>org.apache.camel</groupId></span></p>
+
+<p><span style="color: #ff0000;">      <artifactId>camel-test-spring</artifactId></span></p>
+
+<p><span style="color: #ff0000;">      <version>2.10.0.redhat-60024</version></span></p>
+
+<p><span style="color: #ff0000;">      <scope>test</scope></span></p>
+
+<p><span style="color: #ff0000;">    </dependency></span></p>
+
+<p><span style="color: #ff0000;"><dependency></span></p>
+
+<p><span style="color: #ff0000;">      <groupId>org.apache.camel</groupId></span></p>
+
+<p><span style="color: #ff0000;">      <artifactId>camel-cxf</artifactId></span></p>
+
+<p><span style="color: #ff0000;">      <version>2.10.0.redhat-60024</version></span></p>
+
+<p><span style="color: #ff0000;">    </dependency></span></p>
+
+<p><span style="color: #ff0000;">  </dependencies></span></p>
+
+<p><span style="color: #ff0000;">  <build></span></p>
+
+<p><span style="color: #ff0000;">    <defaultGoal>install</defaultGoal></span></p>
+
+<p><span style="color: #ff0000;">    <plugins></span></p>
+
+<p><span style="color: #ff0000;">      <plugin></span></p>
+
+<p><span style="color: #ff0000;">        <groupId>org.apache.maven.plugins</groupId></span></p>
+
+<p><span style="color: #ff0000;">        <artifactId>maven-compiler-plugin</artifactId></span></p>
+
+<p><span style="color: #ff0000;">        <version>2.5.1</version></span></p>
+
+<p><span style="color: #ff0000;">        <configuration></span></p>
+
+<p><span style="color: #ff0000;">          <source>1.6</source></span></p>
+
+<p><span style="color: #ff0000;">          <target>1.6</target></span></p>
+
+<p><span style="color: #ff0000;">        </configuration></span></p>
+
+<p><span style="color: #ff0000;">      </plugin></span></p>
+
+<p><span style="color: #ff0000;">      <plugin></span></p>
+
+<p><span style="color: #ff0000;">        <groupId>org.apache.maven.plugins</groupId></span></p>
+
+<p><span style="color: #ff0000;">        <artifactId>maven-resources-plugin</artifactId></span></p>
+
+<p><span style="color: #ff0000;">        <version>2.4.3</version></span></p>
+
+<p><span style="color: #ff0000;">        <configuration></span></p>
+
+<p><span style="color: #ff0000;">          <encoding>UTF-8</encoding></span></p>
+
+<p><span style="color: #ff0000;">        </configuration></span></p>
+
+<p><span style="color: #ff0000;">      </plugin></span></p>
+
+<p><span style="color: #ff0000;">      &lt;!&#8211; allows the route <span class="hiddenGrammarError">to be</span> ran via &#8216;mvn camel:run&#8217; &#8211;&gt;</span></p>
+
+<p><span style="color: #ff0000;">      <plugin></span></p>
+
+<p><span style="color: #ff0000;">        <groupId>org.apache.camel</groupId></span></p>
+
+<p><span style="color: #ff0000;">        <artifactId>camel-maven-plugin</artifactId></span></p>
+
+<p><span style="color: #ff0000;">        <version>2.10.0.redhat-60024</version></span></p>
+
+<p><span style="color: #ff0000;">      </plugin></span></p>
+
+<p><span style="color: #ff0000;">    </plugins></span></p>
+
+<p><span style="color: #ff0000;">  </build></span></p>
+
+<p><span style="color: #ff0000;"></project></span></p>
+</blockquote>
+
+<p><strong>Step 2: </strong>Under src/main.resources/META-INF folder(if not there then create one) create file called <strong>camel-context.xml. </strong> Your camel file should like this &#8211;</p>
+
+<blockquote>
+<p><span style="color: #ff0000;">&lt;?xml version=&#8221;1.0&#8243; encoding=&#8221;UTF-8&#8243;?&gt;</span></p>
+
+<p><span style="line-height: 1.5; color: #ff0000;">xmlns=&#8221;<a href="http://www.springframework.org/schema/beans&amp;#8221">http://www.springframework.org/schema/beans&amp;#8221</a>;</span></p>
+
+<p><span style="color: #ff0000;">        xmlns:xsi=&#8221;<a href="http://www.w3.org/2001/XMLSchema-instance&amp;#8221">http://www.w3.org/2001/XMLSchema-instance&amp;#8221</a>;</span></p>
+
+<p><span style="color: #ff0000;">        xmlns:cxf=&#8221;<a href="http://camel.apache.org/schema/cxf&amp;#8221">http://camel.apache.org/schema/cxf&amp;#8221</a>;</span></p>
+
+<p><span style="color: #ff0000;">        xsi:schemaLocation=&#8221;</span></p>
+
+<p><span style="color: #ff0000;">        <a href="http://www.springframework.org/schema/beans">http://www.springframework.org/schema/beans</a> <a href="http://www.springframework.org/schema/beans/spring-beans.xsd">http://www.springframework.org/schema/beans/spring-beans.xsd</a></span></p>
+
+<p><span style="color: #ff0000;">        <a href="http://camel.apache.org/schema/cxf">http://camel.apache.org/schema/cxf</a> <a href="http://camel.apache.org/schema/cxf/camel-cxf.xsd">http://camel.apache.org/schema/cxf/camel-cxf.xsd</a></span></p>
+
+<p><span style="color: #ff0000;">        <a href="http://camel.apache.org/schema/spring">http://camel.apache.org/schema/spring</a> <a href="http://camel.apache.org/schema/spring/camel-spring.xsd&amp;#8221;&gt;">http://camel.apache.org/schema/spring/camel-spring.xsd&amp;#8221;&gt;</a></span></p>
+
+<p><span style="color: #ff0000;"> <span style="line-height: 1.5;"> <cxf:<span class="hiddenSpellError">cxfEndpoint id=&#8221;wsdlEndpoint&#8221;</span></span></span></p>
+
+<p><span style="color: #ff0000;">                     address=&#8221;<a href="http://www.webservicex.net/CurrencyConvertor.asmx&amp;#8221">http://www.webservicex.net/CurrencyConvertor.asmx&amp;#8221</a>;</span></p>
+
+<p><span style="color: #ff0000;">                     endpointName=&#8221;c:SOAPOverHTTP&#8221;</span></p>
+
+<p><span style="color: #ff0000;">                     serviceName=&#8221;c:CurrencyConvertor&#8221;</span></p>
+
+<p><span style="color: #ff0000;">                     xmlns:s=&#8221;<a href="http://www.webserviceX.NET&amp;#8221;/&gt;">http://www.webserviceX.NET&amp;#8221;/&gt;</a></span></p>
+
+<p><span style="color: #ff0000;">  </span></p>
+
+<p><span style="color: #ff0000;">  <camelContext xmlns=&#8221;http://camel.apache.org/schema/spring&#8221;></span></p>
+
+<p><span style="color: #ff0000;">  <route></span></p>
+
+<p><span style="color: #ff0000;">        here is a sample which processes the input files</span></p>
+
+<p><span style="color: #ff0000;">         (leaving them in place &#8211; see the &#8216;noop&#8217; flag)</span></p>
+
+<p><span style="color: #ff0000;">         then performs content based routing on the message using XPath</description></span></p>
+
+<p><span style="color: #ff0000;">        src/data/order?noop=true&#8221;/&gt;</span></p>
+
+<p><span style="color: #ff0000;">        <log message=&#8221;${body}&#8221;/></span></p>
+
+<p><span style="color: #ff0000;">        wsdl&amp;serviceName={<a href="http://www.webserviceX.NET/}CurrencyConvertor&amp;portName={http://www.webserviceX.NET/}CurrencyConvertorSoap&amp;dataFormat=MESSAGE&amp;#8221;/&gt;">http://www.webserviceX.NET/}CurrencyConvertor&amp;portName={http://www.webserviceX.NET/}CurrencyConvertorSoap&amp;dataFormat=MESSAGE&amp;#8221;/&gt;</a></span></p>
+
+<p><span style="color: #ff0000;">         <log message=&#8221;${body}&#8221;/></span></p>
+
+<p><span style="color: #ff0000;">    </route></span></p>
+
+<p><span style="color: #ff0000;"></camelContext></span></p>
+
+<p><span style="color: #ff0000;"> </span></p>
+
+<p><span style="color: #ff0000;"></beans></span></p>
+</blockquote>
+
+<p><strong>Step 4: </strong>Place the payload or input data xml in src/data/input/order.xml. The <strong>order.xml </strong>should like this &#8211;</p>
+
+<blockquote>
+<p><span style="color: #ff0000;"><soapenv:Envelope xmlns:soapenv=&#8221;http://schemas.xmlsoap.org/soap/envelope/&#8221; xmlns:web=&#8221;http://www.webserviceX.NET/&#8221;></span></p>
+
+<p><span style="color: #ff0000;">   <a href="soapenv:Header/">soapenv:Header/</a></span></p>
+
+<p><span style="color: #ff0000;">   <a href="soapenv:Body">soapenv:Body</a></span></p>
+
+<p><span style="color: #ff0000;">      <a href="web:ConversionRate">web:ConversionRate</a></span></p>
+
+<p><span style="color: #ff0000;">         <a href="web:FromCurrency">web:FromCurrency</a>AUD<a href="/web:FromCurrency">/web:FromCurrency</a></span></p>
+
+<p><span style="color: #ff0000;">         <a href="web:ToCurrency">web:ToCurrency</a>USD<a href="/web:ToCurrency">/web:ToCurrency</a></span></p>
+
+<p><span style="color: #ff0000;">      <a href="/web:ConversionRate">/web:ConversionRate</a></span></p>
+
+<p><span style="color: #ff0000;">   &lt;!&#8211;<span class="hiddenSpellError">soapenv</span>:Body&gt;&#8211;&gt;</span></p>
+
+<p><span style="color: #ff0000;">&lt;!&#8211;<span class="hiddenSpellError">soapenv</span>:Envelope&gt;&#8211;&gt;</span></p>
+</blockquote>
+
+<p>That&#8217;s it!!!!</p>
+
+<p><span style="color: #000000;">The interesting part is all in the camel-context.xml. Here&#8217;s what is happening in this file</span></p>
+
+<p><strong>src/data/order?noop=true&#8221;/&gt;</strong></p>
+
+<p>This line reads the file order.xml. The option noop=true makes the file to be read again and again. By default this values is false. If this value is false, then after one read, camel marks it as read and when you run the example for second time, it will not read this file.</p>
+
+<p><strong><log message=&#8221;${body}&#8221;/></strong></p>
+
+<p>This line will simply log the contents of <strong>order.xml.</strong></p>
+
+<p><strong>serviceName={<a href="http://www.webserviceX.NET/}CurrencyConvertor&amp;portName={http://www.webserviceX.NET/}CurrencyConvertorSoap&amp;dataFormat=MESSAGE&amp;#8221;/&gt;">http://www.webserviceX.NET/}CurrencyConvertor&amp;portName={http://www.webserviceX.NET/}CurrencyConvertorSoap&amp;dataFormat=MESSAGE&amp;#8221;/&gt;</a></strong></p>
+
+<p><strong> </strong>This line tells <strong>cxf </strong>component that it needs to call the webservice &#8211;  <strong><a href="http://www.webservicex.net/CurrencyConvertor.asmx?wsdl">http://www.webservicex.net/CurrencyConvertor.asmx?wsdl</a></strong></p>
+
+<p>-URL &#8211; is the url of the wsdl <strong><a href="http://www.webservicex.net/CurrencyConvertor.asmx?wsdl">http://www.webservicex.net/CurrencyConvertor.asmx?wsdl</a></strong></p>
+
+<ul>
+<li>serviceName &#8211; is the name of the service. Remember it is the name of teh service not the oepration!! The value between {} is the namespace. If you do not want to write {http://&#8230;.} then add another tag <strong>xmlns   </strong>&#8211; <strong>{<a href="http://www.webserviceX.NET/}CurrencyConvertor. ">http://www.webserviceX.NET/}CurrencyConvertor. </a></strong></li>
+<li>portName &#8211; is the name of the port.</li>
+</ul>
+
+<p><strong>portName={<a href="http://www.webserviceX.NET/}CurrencyConvertorSoap. ">http://www.webserviceX.NET/}CurrencyConvertorSoap. </a></strong>This is again preceded by {http://&#8230;} which is the namespace value. This value is defined in the wsdl as &#8211;<strong><a href="wsdl:port name=&amp;#8221;CurrencyConvertorSoap&amp;#8221; binding=&amp;#8221;tns:CurrencyConvertorSoap&amp;#8221;">wsdl:port name=&amp;#8221;CurrencyConvertorSoap&amp;#8221; binding=&amp;#8221;tns:CurrencyConvertorSoap&amp;#8221;</a></strong></p>
+
+<p>The last piece is <strong>dataFormat </strong> &#8211; <strong>dataFormat=MESSAGE. </strong>This tells that the body is of type message.</p>
+
+<p><strong>Part 2</strong> &#8211; In production you would want to avoid writing cxf in the above format as it is prone to error because the string value is very long and difficult to test independently and cannot be reused if you want to call the service in another route. So the best way is to define this as cxf endpoint. All you need to do is slighly modify the <strong>camel-context.xml. </strong></p>
+
+<ol>
+<li>Add this(be sure to remove the earlier version of &lt;to uri=&#8221;cxf&#8230;.&#8221;)</li>
+</ol>
+
+<p><strong><to uri=&#8221;cxf:bean:wsdlEndpoint?dataFormat=MESSAGE&#8221;/></strong></p>
+
+<ol>
+<li>Define the cxf endpoint called <strong>wsdlEndpoint</strong> (You call it whatever you want).</li>
+</ol>
+
+<p><strong><cxf:<span class="hiddenSpellError">cxfEndpoint id=&#8221;wsdlEndpoint&#8221;</span></strong></p>
+
+<p><strong>                     address=&#8221;<a href="http://www.webservicex.net/CurrencyConvertor.asmx&amp;#8221">http://www.webservicex.net/CurrencyConvertor.asmx&amp;#8221</a>;</strong></p>
+
+<p><strong>                     endpointName=&#8221;c:SOAPOverHTTP&#8221;</strong></p>
+
+<p><strong>                     serviceName=&#8221;c:CurrencyConvertor&#8221;</strong></p>
+
+<p><strong>                     xmlns:s=&#8221;<a href="http://www.webserviceX.NET&amp;#8221;/&gt;">http://www.webserviceX.NET&amp;#8221;/&gt;</a></strong></p>
+
+<p>That&#8217;s it.</p>
+
+<p>Now just run the app. This will print the following-</p>
+
+<blockquote>
+<p>[ead #0 &#8211; file://src/data/order] route1                         INFO</p>
+</blockquote>
+
+<p><a href="soapenv:Header/">soapenv:Header/</a></p>
+
+<p><a href="soapenv:Body">soapenv:Body</a></p>
+
+<p><a href="web:ConversionRate">web:ConversionRate</a></p>
+
+<p><a href="web:FromCurrency">web:FromCurrency</a>AUD<a href="/web:FromCurrency">/web:FromCurrency</a></p>
+
+<p><a href="web:ToCurrency">web:ToCurrency</a>USD<a href="/web:ToCurrency">/web:ToCurrency</a></p>
+
+<p><a href="/web:ConversionRate">/web:ConversionRate</a></p>
+
+<p>&lt;!&#8211;<span class="hiddenSpellError">soapenv</span>:Body&gt;&#8211;&gt;</p>
+
+<p>&lt;!&#8211;<span class="hiddenSpellError">soapenv</span>:Envelope&gt;&#8211;&gt;</p>
+
+<p>[           default-workqueue-1] route1                         INFO  <!--?xml version="1.0" encoding="utf-8"?-->0.8951</p>
+
+<p>~~~~ Enjoy Cameling &#8230;.</p>
+</article>
+    </section>
+
+    <footer class="ui secondary attached segment dream-tags">
+      
+      <span>No Tag</span>
+      
+    </footer>
+
+    
+
+    
+
+  </div>
+  <div class="fifteen wide mobile fifteen wide tablet four wide computer column">
+
+    <section class="ui top attached center aligned inverted segment">
+  <div class="ui small circular image">
+    
+    <img src="/img/avatar4.svg">
+    
+  </div>
+  <h3 class="ui header">Dinesh AroraDinesh&#39;s blog<div class="sub header" style="color: white;"></div>
+  </h3>
+  <a id="tag-category-pop" class="ui red right corner label">
+    <i class="pointing down icon" title="Click this to pop tags and categories"></i>
+  </a>
+</section>
+
+
+
+
+<section class="ui attached inverted segment dream-categories">
+  <div class="ui inverted accordion">
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/tech-notes" class="item" style="color: white;">tech-notes</a>
+    </div>
+    <div class="content">
+      <div class="ui link inverted list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2017/03/20/scala-tail-recursion/" class="item">Scala: Tail Recursion</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2016/06/16/understanding-java-8-lambda-final-finally-variable/" class="item">Understanding Java 8 Lambda final finally variable</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/12/26/how-to-set-up-apache-storm-on-mac-using-brew/" class="item">How to set up Apache Storm on mac using brew</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/09/27/waffle-windows-single-sign-on/" class="item">Waffle : Windows Single Sign On</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/07/22/4-ways-to-set-up-datasources-in-jboss-as-7/" class="item">4 ways to set up datasources in Jboss AS 7</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/03/30/install-or-manage-multiple-versions-of-java-on-os-x/" class="item">Install Or Manage multiple versions of Java on OS X</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/01/26/restful-webservice-7-steps-using-spring-boot/" class="item">Restful Webservice in 7 Steps using Spring boot</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/10/17/quick-tutorial-saaj-api/" class="item">A quick tutorial on SAAJ API</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/04/18/apache-poi-tutorial-reading-writing-excel-files-java/" class="item">Read / Write Excel file in Java using Apache POI</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/03/16/13-common-java-keytool-keystore-commands/" class="item">13 Most Common Java Keytool Keystore Commands</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/01/31/10-intellij-idea-keyboard-shortcuts-must-know/" class="item">10 IntelliJ IDEA Keyboard Shortcuts That You Must Know</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/12/16/apache-camel-how-to-call-an-external-webservice/" class="item">Apache Camel : How to call  java webservice</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/10/24/launch-website-in-amazon-ec2/" class="item">Launch Website in Amazon EC2</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/09/18/how-to-configure-jndi-with-spring-and-jboss45/" class="item">How to configure JNDI with Spring and Jboss4/5</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/08/01/rails-jquery-is-not-loading/" class="item">Rails: Jquery is not loading</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/05/15/how-to-post-parameters-to-a-url-using-ajaxjavascript-between-two-website/" class="item">How to post parameters to a url using Ajax/Javascript between two website</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/03/07/using-multiple-profiles-in-maven-eclipse/" class="item">Using multiple profiles in Maven &#43; Eclipse</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/09/23/how-to-send-email-in-phonegap-android-using-a-gmail-account/" class="item">How to send email in PhoneGap (Android) using a gmail account</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/07/13/share-any-folder-on-mac-via-built-in-web-server/" class="item">How To Share Any Folder On Mac Via Built-in Web Server</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/06/03/saving-files-in-amazon-s3-using-carrierwave-and-fog-gem/" class="item">Saving files in Amazon S3 using Carrierwave and Fog Gem</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/05/30/installing-rails-on-mac-osx/" class="item">Installing Rails on Mac OSX</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/05/29/setting-up-imap-settings-for-hotmail-account-on-iphone-and-android/" class="item">Setting up IMAP settings for hotmail account on Iphone and android</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/01/28/engineyard-rails-3-x-nginx-passenger-assets-not-displayed/" class="item">Engineyard, Rails 3.x, NGINX, PASSENGER ASSETS NOT DISPLAYED</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/uncategorized" class="item" style="color: white;">uncategorized</a>
+    </div>
+    <div class="content">
+      <div class="ui link inverted list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/04/23/powermock-how-to-test-a-private-method/" class="item">PowerMock : How to test a private method</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+
+<section class="ui bottom attached center aligned inverted segment">
+    
+    <p>© 2018 A Morsel Of Code</p>
+    
+    <p>Powered by <a href="http://www.javahabit.com" target="_blank">Dreams</a> </p>
+</section>
+
+
+  </div>
+</div>
+
+      </section>
+      <section class="back">
+        <nav class="ui top secondary menu" style="overflow-x: auto">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="Flip it!"></i>
+  </div>
+  
+  
+  
+  
+  
+</nav>
+
+<div class="ui centered grid about">
+  <div class="fifteen wide mobile fifteen wide tablet fifteen wide computer column">
+
+    <section class="ui stacked segments">
+      <header class="ui inverted segment">
+        <h2 class="ui header">
+          About
+        </h2>
+      </header>
+
+      <article class="ui inverted segment">
+        
+        
+        
+      </article>
+
+      
+
+      
+        
+      
+    </section>
+
+  </div>
+</div>
+
+      </section>
+    </div>
+  </div>
+
+  
+<script src="/js/jquery.min.js"></script>
+<script src="/js/semantic.min.js"></script>
+<script src="/js/bg.js"></script>
+<script src="/js/site.js"></script>
+
+
+
+</body>
+
+</html>

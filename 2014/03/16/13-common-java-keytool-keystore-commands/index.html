@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>A Morsel Of Code</title>
+
+  
+  
+  <meta name="author" content="Dinesh" />
+  <meta name="description" content="I was working on a project last month where I had to call a third-party web service. The third-party web service wanted me to add a SSL keystore and I struggled. I could have gone to my UNIX Admin and asked him to do this job but decided to learn about all about keystores. I went through couple of forums and SO and ended my spending 2 &amp;#8211; 3 hours reading about keystores and commonly used commands." />
+
+
+
+
+
+<meta name="generator" content="Hugo 0.37" />
+
+
+<link rel="canonical" href="/2014/03/16/13-common-java-keytool-keystore-commands/" />
+<link rel="alternative" href="/index.xml" title="A Morsel Of Code" type="application/atom+xml" />
+
+<link href="https://cdn.bootcss.com/semantic-ui/2.2.14/semantic.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/site.css" />
+
+
+</head>
+
+<body>
+  <div class="flip-container">
+    <div class="flipper">
+      <section class="front">
+        
+<nav class="ui top secondary menu">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="Flip it!"></i>
+  </div>
+  <div class="item">
+    <a href="/">
+      <i class="inverted big link home icon" title="Home"></i>
+    </a>
+  </div>
+</nav>
+ 
+<div class="ui centered grid">
+  <div class="fifteen wide mobile fifteen wide tablet eleven wide computer column post-list">
+
+    <section class="ui secondary top attached black segment">
+      <header>
+        <h1 class="ui header">
+          13 Most Common Java Keytool Keystore Commands
+          <div class="sub header">@ Dinesh · Mar 16, 2014 · 3 min read · Update at Mar 16, 2014</div>
+        </h1>
+      </header>
+      <article class="post-content" style="margin-top: 2rem; font-size: 1.4rem;">
+
+<p>I was working on a project last month where I had to call a third-party web service. The third-party web service wanted me to add a SSL keystore and I struggled. I could have gone to my UNIX Admin and asked him to do this job but decided to learn about all about keystores. I went through couple of forums and <a title="SO" href="http://stackoverflow.com" target="_blank">SO</a> and ended my spending 2 &#8211; 3 hours reading about keystores and commonly used commands.</p>
+
+<p>To give you a quick run here what I was doing. I had to use a third party wsdl to create a client. I tried to use Maven jaxws plugin to generate the client. I downloaded the wsdl to my local machine and was able to successfully create a client. For production I wanted to generate the client using the current wsdl so decided to generate the client using the wsdl url of the third-party website but ran into keystore issue. I had to download their certificate and add it to my CACERT.</p>
+
+<p>The whole charade led me to compile this post. Before I begin here is a quick run through Keystore</p>
+
+<p><strong>Why Do I need a keystore?</strong></p>
+
+<p><em>By using a public/private key mechanism. This provides a layer of security that prevents, among other things, remote attackers from pushing malicious updates to your application  (all updates must be signed with the same key)</em></p>
+
+<p><strong>What is a Java Keytool?</strong></p>
+
+<p><em>It is a key and certificate management utility. It <strong>allows users to manage their own public/private key pairs and certificates</strong>. It also allows users to cache certificates. Java Keytool stores the keys and certificates in keystore. It protects private keys with a password. A Keytool keystore has the private key and any certificates necessary to complete a chain of trust and set up the trustworthiness of the primary certificate.</em></p>
+
+<p><em>Each certificate in a Java keystore is associated with a unique alias. When creating a Java keystore you will first create the .jks file that will initially only contain the private key. You will then generate a CSR and have a certificate generated from it. Then you will import the certificate to the keystore including any root certificates. </em></p>
+
+<h4 id="here-is-a-list-of-13-most-common-commands"><strong>Here is a list of 13 most common commands</strong></h4>
+
+<h5 id="span-style-color-339966-strong-creating-and-importing-commands-strong-span"><span style="color: #339966;"><strong>CREATING AND IMPORTING COMMANDS</strong></span></h5>
+
+<p><strong>1. Create a Java Keystore and value pair</strong></p>
+
+<blockquote>
+<p>keytool -genkey -alias <span style="text-decoration: underline;">yourDomainName</span> -keyalg RSA -keystore <span style="text-decoration: underline;">Your</span><span style="text-decoration: underline;">keystoreName.jks </span></p>
+</blockquote>
+
+<p><strong>2. Creating a signing request (CSR) for an existing keystore</strong></p>
+
+<blockquote>
+<p>keytool -certreq -alias <span style="text-decoration: underline;">yourDomainName</span> -keystore <span style="text-decoration: underline;">keystore.jks</span> -file <span style="text-decoration: underline;">yourDomainName</span><span style="text-decoration: underline;">.csr</span></p>
+</blockquote>
+
+<p><strong>3. Importing a signed primary certificate to an existing  keystore</strong>**</p>
+
+<p>**</p>
+
+<blockquote>
+<p>keytool -import -trustcacerts -alias <span style="text-decoration: underline;">yourDomainName</span> -file <span style="text-decoration: underline;">yourDomainName</span>.crt -keystore <span style="text-decoration: underline;">YourkeystoreName</span>.jks</p>
+</blockquote>
+
+<p><strong>4. Importing a root or intermediate CA certificate to an existing  keystore</strong></p>
+
+<blockquote>
+<p>keytool -import -trustcacerts -alias root -file Thawte.crt -keystore <span style="text-decoration: underline;">YourkeystoreName</span>.jks</p>
+</blockquote>
+
+<p><strong>5. Creating a keystore and self-signed certificate</strong></p>
+
+<blockquote>
+<p>keytool -genkey -keyalg RSA -alias selfsigned -keystore Yourkeystore.jks -storepass password -validity 360</p>
+</blockquote>
+
+<h5 id="span-style-color-339966-strong-checking-commands-strong-span"><span style="color: #339966;"><strong>CHECKING COMMANDS</strong></span></h5>
+
+<p>When you need to check the information about a certificate or keystore then you use these commands.</p>
+
+<p><strong style="font-family: sans-serif; font-size: medium; font-style: normal; font-variant: normal; line-height: normal;">6. Checking a particular certificate</strong><strong style="font-family: sans-serif; font-size: medium; font-style: normal; font-variant: normal; line-height: normal;"><br /> </strong></p>
+
+<blockquote>
+<p>keytool -printcert -v -file <span style="text-decoration: underline;">Your</span><span style="text-decoration: underline;">domain.crt</span></p>
+</blockquote>
+
+<p><strong style="font-family: sans-serif; font-size: medium; font-style: normal; font-variant: normal; line-height: normal;">7. Checking all certificates in a keystore</strong></p>
+
+<blockquote>
+<p>keytool -list -v -keystore <span style="text-decoration: underline;">Your</span><span style="text-decoration: underline;">keystore.jks</span></p>
+</blockquote>
+
+<p><strong style="font-family: sans-serif; font-size: medium; font-style: normal; font-variant: normal; line-height: normal;">9. Checking a particular keystore entry using an alias</strong></p>
+
+<blockquote>
+<p>keytool -list -v -keystore <span style="text-decoration: underline;">Your</span><span style="text-decoration: underline;">keystore.jks</span> -alias Yourdomain</p>
+</blockquote>
+
+<h5 id="span-style-color-339966-edit-import-commands-span"><strong><span style="color: #339966;">EDIT/IMPORT COMMANDS</span></strong></h5>
+
+<p><strong style="font-family: sans-serif; font-size: medium; font-style: normal; font-variant: normal; line-height: normal;">10. Deleting a certificate from a keystore</strong></p>
+
+<blockquote>
+<p>keytool -delete -alias <span style="text-decoration: underline;">Yourdomain</span> -keystore <span style="text-decoration: underline;">Your</span><span style="text-decoration: underline;">keystore.jks</span></p>
+</blockquote>
+
+<p><strong style="font-family: sans-serif; font-size: medium; font-style: normal; font-variant: normal; line-height: normal;">11. Changing a keystore password</strong></p>
+
+<blockquote>
+<p>keytool -storepasswd -new new_password -keystore <span style="text-decoration: underline;">keystore.jks</span></p>
+</blockquote>
+
+<p><strong style="font-family: sans-serif; font-size: medium; font-style: normal; font-variant: normal; line-height: normal;">12. Exporting a certificate from a keystore</strong></p>
+
+<blockquote>
+<p>keytool -export -alias <span style="text-decoration: underline;">Yourdomain</span> -file <span style="text-decoration: underline;">Yourdomain.crt</span> -keystore Your<span style="text-decoration: underline;">keystore.jks</span></p>
+</blockquote>
+
+<p><strong style="font-family: sans-serif; font-size: medium; font-style: normal; font-variant: normal; line-height: normal;">13. Listing Trusted CA Certs</strong></p>
+
+<blockquote>
+<p>keytool -list -v -keystore $JAVA_HOME/jre/lib/security/cacerts</p>
+
+<p><em><strong>P.S. – If you liked the post please click on one of the ads in the right hand column to help me keep up this site and do drop a me a line to suggest some topics that would like to see on this site.</strong></em></p>
+</blockquote>
+
+<p>So Long &#8230;&#8230;</p>
+</article>
+    </section>
+
+    <footer class="ui secondary attached segment dream-tags">
+      
+      <span>No Tag</span>
+      
+    </footer>
+
+    
+
+    
+
+  </div>
+  <div class="fifteen wide mobile fifteen wide tablet four wide computer column">
+
+    <section class="ui top attached center aligned inverted segment">
+  <div class="ui small circular image">
+    
+    <img src="/img/avatar1.svg">
+    
+  </div>
+  <h3 class="ui header">Dinesh AroraDinesh&#39;s blog<div class="sub header" style="color: white;"></div>
+  </h3>
+  <a id="tag-category-pop" class="ui red right corner label">
+    <i class="pointing down icon" title="Click this to pop tags and categories"></i>
+  </a>
+</section>
+
+
+
+
+<section class="ui attached inverted segment dream-categories">
+  <div class="ui inverted accordion">
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/tech-notes" class="item" style="color: white;">tech-notes</a>
+    </div>
+    <div class="content">
+      <div class="ui link inverted list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2017/03/20/scala-tail-recursion/" class="item">Scala: Tail Recursion</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2016/06/16/understanding-java-8-lambda-final-finally-variable/" class="item">Understanding Java 8 Lambda final finally variable</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/12/26/how-to-set-up-apache-storm-on-mac-using-brew/" class="item">How to set up Apache Storm on mac using brew</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/09/27/waffle-windows-single-sign-on/" class="item">Waffle : Windows Single Sign On</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/07/22/4-ways-to-set-up-datasources-in-jboss-as-7/" class="item">4 ways to set up datasources in Jboss AS 7</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/03/30/install-or-manage-multiple-versions-of-java-on-os-x/" class="item">Install Or Manage multiple versions of Java on OS X</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/01/26/restful-webservice-7-steps-using-spring-boot/" class="item">Restful Webservice in 7 Steps using Spring boot</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/10/17/quick-tutorial-saaj-api/" class="item">A quick tutorial on SAAJ API</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/04/18/apache-poi-tutorial-reading-writing-excel-files-java/" class="item">Read / Write Excel file in Java using Apache POI</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/03/16/13-common-java-keytool-keystore-commands/" class="item">13 Most Common Java Keytool Keystore Commands</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/01/31/10-intellij-idea-keyboard-shortcuts-must-know/" class="item">10 IntelliJ IDEA Keyboard Shortcuts That You Must Know</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/12/16/apache-camel-how-to-call-an-external-webservice/" class="item">Apache Camel : How to call  java webservice</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/10/24/launch-website-in-amazon-ec2/" class="item">Launch Website in Amazon EC2</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/09/18/how-to-configure-jndi-with-spring-and-jboss45/" class="item">How to configure JNDI with Spring and Jboss4/5</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/08/01/rails-jquery-is-not-loading/" class="item">Rails: Jquery is not loading</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/05/15/how-to-post-parameters-to-a-url-using-ajaxjavascript-between-two-website/" class="item">How to post parameters to a url using Ajax/Javascript between two website</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/03/07/using-multiple-profiles-in-maven-eclipse/" class="item">Using multiple profiles in Maven &#43; Eclipse</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/09/23/how-to-send-email-in-phonegap-android-using-a-gmail-account/" class="item">How to send email in PhoneGap (Android) using a gmail account</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/07/13/share-any-folder-on-mac-via-built-in-web-server/" class="item">How To Share Any Folder On Mac Via Built-in Web Server</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/06/03/saving-files-in-amazon-s3-using-carrierwave-and-fog-gem/" class="item">Saving files in Amazon S3 using Carrierwave and Fog Gem</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/05/30/installing-rails-on-mac-osx/" class="item">Installing Rails on Mac OSX</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/05/29/setting-up-imap-settings-for-hotmail-account-on-iphone-and-android/" class="item">Setting up IMAP settings for hotmail account on Iphone and android</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/01/28/engineyard-rails-3-x-nginx-passenger-assets-not-displayed/" class="item">Engineyard, Rails 3.x, NGINX, PASSENGER ASSETS NOT DISPLAYED</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/uncategorized" class="item" style="color: white;">uncategorized</a>
+    </div>
+    <div class="content">
+      <div class="ui link inverted list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/04/23/powermock-how-to-test-a-private-method/" class="item">PowerMock : How to test a private method</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+
+<section class="ui bottom attached center aligned inverted segment">
+    
+    <p>© 2018 A Morsel Of Code</p>
+    
+    <p>Powered by <a href="http://www.javahabit.com" target="_blank">Dreams</a> </p>
+</section>
+
+
+  </div>
+</div>
+
+      </section>
+      <section class="back">
+        <nav class="ui top secondary menu" style="overflow-x: auto">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="Flip it!"></i>
+  </div>
+  
+  
+  
+  
+  
+</nav>
+
+<div class="ui centered grid about">
+  <div class="fifteen wide mobile fifteen wide tablet fifteen wide computer column">
+
+    <section class="ui stacked segments">
+      <header class="ui inverted segment">
+        <h2 class="ui header">
+          About
+        </h2>
+      </header>
+
+      <article class="ui inverted segment">
+        
+        
+        
+      </article>
+
+      
+
+      
+        
+      
+    </section>
+
+  </div>
+</div>
+
+      </section>
+    </div>
+  </div>
+
+  
+<script src="/js/jquery.min.js"></script>
+<script src="/js/semantic.min.js"></script>
+<script src="/js/bg.js"></script>
+<script src="/js/site.js"></script>
+
+
+
+</body>
+
+</html>

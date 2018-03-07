@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Uncategorized on A Morsel Of Code</title>
+    <link>/categories/uncategorized/</link>
+    <description>Recent content in Uncategorized on A Morsel Of Code</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 23 Apr 2015 20:49:08 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/uncategorized/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>PowerMock : How to test a private method</title>
+      <link>/2015/04/23/powermock-how-to-test-a-private-method/</link>
+      <pubDate>Thu, 23 Apr 2015 20:49:08 +0000</pubDate>
+      
+      <guid>/2015/04/23/powermock-how-to-test-a-private-method/</guid>
+      <description>&amp;#8220;I HAVE THE POWER!!&amp;#8221; &amp;#8211; I had this feeling a few days ago. I will be honest that at work I do not get time to write unit test cases for each and every piece of code that I write. Often when I do have time, I make an effort to write test cases even for the trivial piece of code blocks such as &amp;#8212; Check if properties file is present.</description>
+    </item>
+    
+  </channel>
+</rss>

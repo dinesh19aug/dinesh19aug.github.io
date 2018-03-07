@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>A Morsel Of Code</title>
+
+  
+  
+  <meta name="author" content="Dinesh" />
+  <meta name="description" content="I am learning about Apache Storm and the guide had long and winding instructions on how to install Apache Storm. I installed the single node using brew and it was a breeze. I did not had to spend time figuring out out if I was installing latest version.
+Pre-requisites:
+Make sure that you have &amp;#8216;HomeBrew&amp;#8216; installed. One reason that I prefer &amp;#8216;brew&amp;#8217; is that I do not have to remember where things are installed and brew manages and fixes any updates that have been introduced." />
+
+
+
+
+
+<meta name="generator" content="Hugo 0.37" />
+
+
+<link rel="canonical" href="/2015/12/26/how-to-set-up-apache-storm-on-mac-using-brew/" />
+<link rel="alternative" href="/index.xml" title="A Morsel Of Code" type="application/atom+xml" />
+
+<link href="https://cdn.bootcss.com/semantic-ui/2.2.14/semantic.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/site.css" />
+
+
+</head>
+
+<body>
+  <div class="flip-container">
+    <div class="flipper">
+      <section class="front">
+        
+<nav class="ui top secondary menu">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="Flip it!"></i>
+  </div>
+  <div class="item">
+    <a href="/">
+      <i class="inverted big link home icon" title="Home"></i>
+    </a>
+  </div>
+</nav>
+ 
+<div class="ui centered grid">
+  <div class="fifteen wide mobile fifteen wide tablet eleven wide computer column post-list">
+
+    <section class="ui secondary top attached black segment">
+      <header>
+        <h1 class="ui header">
+          How to set up Apache Storm on mac using brew
+          <div class="sub header">@ Dinesh · Dec 26, 2015 · 3 min read · Update at Dec 26, 2015</div>
+        </h1>
+      </header>
+      <article class="post-content" style="margin-top: 2rem; font-size: 1.4rem;">
+
+<p id="jkmtOOx">
+  <img class="alignnone size-full wp-image-851 " src="http://javahabit.com/wp-content/uploads/2015/12/img_567ec7e2df01a.png" alt="" />
+</p>
+
+<p>I am learning about Apache Storm and the guide had long and winding instructions on how to install <a href="http://storm.apache.org/">Apache Storm</a>.  I installed the single node using brew and it was a breeze. I did not had to spend time figuring out out if I was installing latest version.</p>
+
+<p>Pre-requisites:</p>
+
+<p>Make sure that you have &#8216;<a href="http://brew.sh/">HomeBrew</a>&#8216; installed. One reason that I prefer &#8216;brew&#8217; is that I do not have to remember where things are installed and brew manages and fixes any updates that have been introduced. It also makes installation and uninstall super easy. Everything this is saved under</p>
+
+<h5 id="url-local-cellar">/url/local/Cellar.</h5>
+
+<h4 id="step-1-install-zookeeper">Step 1: Install Zookeeper</h4>
+
+<blockquote>
+<p>&#8216; brew install zookeeper&#8217;</p>
+</blockquote>
+
+<p>After the installation is complete, you will see this message.</p>
+
+<blockquote>
+<p><span style="color: #008000;">To have launchd start zookeeper at login:</span></p>
+
+<p><span style="color: #008000;">ln -sfv /usr/local/opt/zookeeper/*.plist ~/Library/LaunchAgents</span></p>
+
+<p><span style="color: #008000;">Then to load zookeeper now:</span></p>
+
+<p><span style="color: #008000;">launchctl load ~/Library/LaunchAgents/homebrew.mxcl.zookeeper.plist</span></p>
+
+<p><span style="color: #008000;">Or, if you don&#8217;t want/need launchctl, you can just run:</span></p>
+
+<p><span style="color: #008000;">zkServer start</span></p>
+
+<p>I prefer not to launch zookeeper at login as it will sow down my mac login. So I prefer to start and stop Zookeeper using the command-</p>
+
+<p>&#8216;<strong>zkServer start/stop&#8217;</strong></p>
+</blockquote>
+
+<h4 id="step-2-install-zeromq-3">Step 2: Install <a href="http://zeromq.org/">ZeroMQ</a></h4>
+
+<p>&#8216;brew install zeromq&#8217;</p>
+
+<h4 id="step-3-install-apache-storm">Step 3: Install Apache storm</h4>
+
+<p>&#8216;brew install storm&#8217;</p>
+
+<p>This above command will install everything in Cellar folder and will have a symlink in <strong>&#8216;/usr/local/opt/storm&#8217;</strong> folder.</p>
+
+<h4 id="step-4-update-the-storm-config-file-storm-yaml">Step 4: Update the storm config file storm.yaml.</h4>
+
+<p>This file will be in <strong>/usr/local/opt/storm/libexec/conf</strong> folder.</p>
+
+<p>After opening this file you will see that everything is commented out. So we will add the following.</p>
+
+<blockquote>
+<p><span style="color: #008000;">storm.zookeeper.servers:</span></p>
+
+<p><span style="color: #008000;">&#8211; &#8220;localhost&#8221;</span></p>
+
+<p><span style="color: #008000;"># &#8211; &#8220;server2&#8221;</span></p>
+
+<p><span style="color: #008000;">#</span></p>
+
+<p><span style="color: #008000;">nimbus.host: &#8220;localhost&#8221;</span></p>
+
+<p><span style="color: #008000;">nimbus.thrift.port: 6627</span></p>
+
+<p><span style="color: #008000;">ui.port: 8772</span></p>
+
+<p><span style="color: #008000;">storm.local.dir: &#8220;/Users/dinesharora/storm/data&#8221;</span></p>
+
+<p><span style="color: #008000;">java.library.path: /usr/lib/jvm&#8221;</span></p>
+
+<p><span style="color: #008000;">supervisor.slots.ports:</span></p>
+
+<p><span style="color: #008000;">&#8211; 6700</span></p>
+
+<p><span style="color: #008000;">&#8211; 6701</span></p>
+
+<p><span style="color: #008000;">&#8211; 6702</span></p>
+
+<p><span style="color: #008000;">&#8211; 6703</span></p>
+</blockquote>
+
+<p>If you will notice that I have added &#8220;storm.local.dir&#8221;. Make sure that whatever folder you create, they have the right permissions because I initially added &#8220;<strong>/home/user/storm/data</strong>&#8221; and did not realize that you cannot create any directory under &#8220;<strong>/home</strong>&#8221; folder. This was causing issues when I started nimbus and supervisor.</p>
+
+<h4 id="step-5-start-zookeeper-nimbus-supervisor-and-ui">Step 5: start zookeeper, nimbus, supervisor and ui</h4>
+
+<p>Below are the location on shell scripts. Start them in the given sequence</p>
+
+<blockquote>
+<p><span style="color: #008000;">&#8216;zkServer start&#8217;</span></p>
+
+<p><span style="color: #008000;">&#8216;/usr/local/opt/storm/libexec/bin/storm nimbus&#8217;</span></p>
+
+<p><span style="color: #008000;">&#8216;/usr/local/opt/storm/libexec/bin/storm supervisor&#8217;</span></p>
+
+<p><span style="color: #008000;">&#8216;/usr/local/opt/storm/libexec/bin/storm ui&#8217;</span></p>
+</blockquote>
+
+<p><strong>Step 6: Check that everything is running smoothly.</strong></p>
+
+<p>To do that run the below command.</p>
+
+<p><span style="color: #008000;">&#8216;jps&#8217;</span></p>
+
+<p>The above command should give the following result.</p>
+
+<blockquote>
+<p><span style="color: #008000;">Dineshs-MBP:bin dinesharora$ jps</span></p>
+
+<p><span style="color: #008000;">5282 supervisor</span></p>
+
+<p><span style="color: #008000;">5267 nimbus</span></p>
+
+<p><span style="color: #008000;">5460 core</span></p>
+
+<p><span style="color: #008000;">5735 Jps</span></p>
+
+<p><span style="color: #008000;">4235 QuorumPeerMain</span></p>
+</blockquote>
+
+<h4 id="step-7-check-the-server-index-page-access-the-url-8211-8216-http-localhost-8772-index-html-8217">Step 7: Check the server index page. Access the url &#8211; &#8216;<a href="http://localhost:8772/index.html&amp;#8217">http://localhost:8772/index.html&amp;#8217</a>;.</h4>
+
+<p>If you are able to access the page then your installation is successful.</p>
+
+<p>&nbsp;</p>
+
+<p>P.S. If you upgraded to new OSX &#8211; El Captain then you might have issues with brew itself. Do yourself a favor and reinstall brew again.</p>
+
+<p>&nbsp;</p>
+
+<p>~ Stir a storm</p>
+</article>
+    </section>
+
+    <footer class="ui secondary attached segment dream-tags">
+      
+      <span>No Tag</span>
+      
+    </footer>
+
+    
+
+    
+
+  </div>
+  <div class="fifteen wide mobile fifteen wide tablet four wide computer column">
+
+    <section class="ui top attached center aligned inverted segment">
+  <div class="ui small circular image">
+    
+    <img src="/img/avatar1.svg">
+    
+  </div>
+  <h3 class="ui header">Dinesh AroraDinesh&#39;s blog<div class="sub header" style="color: white;"></div>
+  </h3>
+  <a id="tag-category-pop" class="ui red right corner label">
+    <i class="pointing down icon" title="Click this to pop tags and categories"></i>
+  </a>
+</section>
+
+
+
+
+<section class="ui attached inverted segment dream-categories">
+  <div class="ui inverted accordion">
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/tech-notes" class="item" style="color: white;">tech-notes</a>
+    </div>
+    <div class="content">
+      <div class="ui link inverted list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2017/03/20/scala-tail-recursion/" class="item">Scala: Tail Recursion</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2016/06/16/understanding-java-8-lambda-final-finally-variable/" class="item">Understanding Java 8 Lambda final finally variable</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/12/26/how-to-set-up-apache-storm-on-mac-using-brew/" class="item">How to set up Apache Storm on mac using brew</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/09/27/waffle-windows-single-sign-on/" class="item">Waffle : Windows Single Sign On</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/07/22/4-ways-to-set-up-datasources-in-jboss-as-7/" class="item">4 ways to set up datasources in Jboss AS 7</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/03/30/install-or-manage-multiple-versions-of-java-on-os-x/" class="item">Install Or Manage multiple versions of Java on OS X</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/01/26/restful-webservice-7-steps-using-spring-boot/" class="item">Restful Webservice in 7 Steps using Spring boot</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/10/17/quick-tutorial-saaj-api/" class="item">A quick tutorial on SAAJ API</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/04/18/apache-poi-tutorial-reading-writing-excel-files-java/" class="item">Read / Write Excel file in Java using Apache POI</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/03/16/13-common-java-keytool-keystore-commands/" class="item">13 Most Common Java Keytool Keystore Commands</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/01/31/10-intellij-idea-keyboard-shortcuts-must-know/" class="item">10 IntelliJ IDEA Keyboard Shortcuts That You Must Know</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/12/16/apache-camel-how-to-call-an-external-webservice/" class="item">Apache Camel : How to call  java webservice</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/10/24/launch-website-in-amazon-ec2/" class="item">Launch Website in Amazon EC2</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/09/18/how-to-configure-jndi-with-spring-and-jboss45/" class="item">How to configure JNDI with Spring and Jboss4/5</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/08/01/rails-jquery-is-not-loading/" class="item">Rails: Jquery is not loading</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/05/15/how-to-post-parameters-to-a-url-using-ajaxjavascript-between-two-website/" class="item">How to post parameters to a url using Ajax/Javascript between two website</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/03/07/using-multiple-profiles-in-maven-eclipse/" class="item">Using multiple profiles in Maven &#43; Eclipse</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/09/23/how-to-send-email-in-phonegap-android-using-a-gmail-account/" class="item">How to send email in PhoneGap (Android) using a gmail account</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/07/13/share-any-folder-on-mac-via-built-in-web-server/" class="item">How To Share Any Folder On Mac Via Built-in Web Server</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/06/03/saving-files-in-amazon-s3-using-carrierwave-and-fog-gem/" class="item">Saving files in Amazon S3 using Carrierwave and Fog Gem</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/05/30/installing-rails-on-mac-osx/" class="item">Installing Rails on Mac OSX</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/05/29/setting-up-imap-settings-for-hotmail-account-on-iphone-and-android/" class="item">Setting up IMAP settings for hotmail account on Iphone and android</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/01/28/engineyard-rails-3-x-nginx-passenger-assets-not-displayed/" class="item">Engineyard, Rails 3.x, NGINX, PASSENGER ASSETS NOT DISPLAYED</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/uncategorized" class="item" style="color: white;">uncategorized</a>
+    </div>
+    <div class="content">
+      <div class="ui link inverted list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/04/23/powermock-how-to-test-a-private-method/" class="item">PowerMock : How to test a private method</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+
+<section class="ui bottom attached center aligned inverted segment">
+    
+    <p>© 2018 A Morsel Of Code</p>
+    
+    <p>Powered by <a href="http://www.javahabit.com" target="_blank">Dreams</a> </p>
+</section>
+
+
+  </div>
+</div>
+
+      </section>
+      <section class="back">
+        <nav class="ui top secondary menu" style="overflow-x: auto">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="Flip it!"></i>
+  </div>
+  
+  
+  
+  
+  
+</nav>
+
+<div class="ui centered grid about">
+  <div class="fifteen wide mobile fifteen wide tablet fifteen wide computer column">
+
+    <section class="ui stacked segments">
+      <header class="ui inverted segment">
+        <h2 class="ui header">
+          About
+        </h2>
+      </header>
+
+      <article class="ui inverted segment">
+        
+        
+        
+      </article>
+
+      
+
+      
+        
+      
+    </section>
+
+  </div>
+</div>
+
+      </section>
+    </div>
+  </div>
+
+  
+<script src="/js/jquery.min.js"></script>
+<script src="/js/semantic.min.js"></script>
+<script src="/js/bg.js"></script>
+<script src="/js/site.js"></script>
+
+
+
+</body>
+
+</html>

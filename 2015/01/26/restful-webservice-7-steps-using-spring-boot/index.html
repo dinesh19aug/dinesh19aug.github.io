@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>A Morsel Of Code</title>
+
+  
+  
+  <meta name="author" content="Dinesh" />
+  <meta name="description" content="Last week I was working on a new application which required me to build a web service to access it&amp;#8217;s functionality. I decided to check out Spring 4 RestController.
+I was amazed at how far we have come from writing all the boiler template code, xmls etc for making a restful call. With Spring4 boot, it was matter of adding simple annotation for RestController.
+I will be honest, I have not been up to date on how to use a Restful webservice, I built a couple of Restful service a couple of year ago, but most of the services in my current project are old school (SOAP calls), so I never got a chance to build one from scratch and at peace." />
+
+
+
+
+
+<meta name="generator" content="Hugo 0.37" />
+
+
+<link rel="canonical" href="/2015/01/26/restful-webservice-7-steps-using-spring-boot/" />
+<link rel="alternative" href="/index.xml" title="A Morsel Of Code" type="application/atom+xml" />
+
+<link href="https://cdn.bootcss.com/semantic-ui/2.2.14/semantic.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/site.css" />
+
+
+</head>
+
+<body>
+  <div class="flip-container">
+    <div class="flipper">
+      <section class="front">
+        
+<nav class="ui top secondary menu">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="Flip it!"></i>
+  </div>
+  <div class="item">
+    <a href="/">
+      <i class="inverted big link home icon" title="Home"></i>
+    </a>
+  </div>
+</nav>
+ 
+<div class="ui centered grid">
+  <div class="fifteen wide mobile fifteen wide tablet eleven wide computer column post-list">
+
+    <section class="ui secondary top attached black segment">
+      <header>
+        <h1 class="ui header">
+          Restful Webservice in 7 Steps using Spring boot
+          <div class="sub header">@ Dinesh · Jan 26, 2015 · 5 min read · Update at Jan 26, 2015</div>
+        </h1>
+      </header>
+      <article class="post-content" style="margin-top: 2rem; font-size: 1.4rem;"><p>Last week I was working on a new application which required me to build a web service to access it&#8217;s functionality. I decided to check out Spring 4 RestController.</p>
+
+<p>I was amazed at how far we have come from writing all the boiler template code, xmls etc for making a restful call. With Spring4 boot, it was matter of adding simple annotation for RestController.</p>
+
+<p>I will be honest, I have not been up to date on how to use a Restful webservice, I built a couple of Restful service a couple of year ago, but most of the services in my current project are old school (SOAP calls), so I never got a chance to build one from scratch and at peace.</p>
+
+<p>Prerequisites: Read Carefully</p>
+
+<ol>
+<li><p>Spring 4 requires you to use Maven 3 in fact it will force you to use Maven 3. This is very important point because it took me an hour to figure this out. If you try to use Maven 2, it will build and &#8220;might&#8221; compile but the code will complain that some of the RestController class methods are not found. This happens because by default, maven 2 will pull in Spring 2.5.x jar files.</p></li>
+
+<li><p>Requires a minimum of JDK 6.</p></li>
+</ol>
+
+<p><strong>What are we building?</strong></p>
+
+<p>We will build a service that will accept HTTP GET request at: <a href="http://localhost:9000/welcome">http://localhost:9000/welcome</a></p>
+
+<p>and respond with a JSON message:</p>
+
+<p><code>{&quot;content&quot;:&quot;Hello Dinesh&quot;}</code></p>
+
+<p><strong>Step 1</strong>: Create a maven project using command line tools or your favorite IDE.</p>
+
+<p><strong>Step 2</strong>: In the pom.xml add the following information</p>
+
+<p><strong>a) Parent:</strong></p>
+
+<p id="FFoDXdm">
+  <img class="alignnone size-full wp-image-753 " src="http://www.javahabit.com/wp-content/uploads/2015/01/img_54c6997a2d5aa.png" alt="" />
+</p>
+
+<p>b) Add spring-boot dependency</p>
+
+<p id="HbeyzUj">
+  <img class="alignnone size-full wp-image-754 " src="http://www.javahabit.com/wp-content/uploads/2015/01/img_54c6999bd1865.png" alt="" />
+</p>
+
+<p>c) Add spring-boot plugin</p>
+
+<p id="TzgpLxK">
+  <img class="alignnone size-full wp-image-755 " src="http://www.javahabit.com/wp-content/uploads/2015/01/img_54c699bb563e9.png" alt="" />
+</p>
+
+<p>d) Add spring repositories</p>
+
+<p id="dPDyzsX">
+  <img class="alignnone size-full wp-image-756 " src="http://www.javahabit.com/wp-content/uploads/2015/01/img_54c699d20f4f9.png" alt="" />
+</p>
+
+<p><strong>Why do we need Spring Boot Maven Plugin?</strong></p>
+
+<p>You might be wondering what happened to the good old maven build plugin. Well that plugin still works and will compile and build your project, but Spring-boot-maven-plugin searches for the public static void main() method to mark it as runnable class if you use the command &#8220;mvn:run&#8221;. Secondly, it comes with its own dependency resolver for the version number to match the Spring-boot-starter-web dependencies.</p>
+
+<p><strong>Step 3:</strong> Create JSON Message POJO class</p>
+
+<blockquote>
+<p>src/main/java/dinesh/Welcome.java</p>
+</blockquote>
+
+<pre class="lang:java decode:true "><code>
+package dinesh;
+public class Welcome {
+
+   private final String content;
+
+   public Greeting(String content) {
+      this.content = content;
+   }
+
+   public String getContent() {
+     return content;
+  }
+}
+</code></pre>
+
+<p>&nbsp;</p>
+
+<p>Note: Spring 4 Boot automatically uses Jackson JSON library to marshal instances of Welcome into JSONObjects.</p>
+
+<p><strong>Step 4:</strong> Create a resource Controller</p>
+
+<p>All Spring HTTP requests are handled by Spring controllers. For Restful services Spring 4 comes with a new annotation @RestController annotation. This will handle the requests which are posted to url <strong>/welcome</strong> by returning a new instance of Welcome class.</p>
+
+<p>src/main/java/dinesh/WelcomeController.java</p>
+
+<pre class="scroll:true lang:java decode:true"><code>
+package hello;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class WelcomeController {
+
+   private static final String template = "Hello, %s!";
+
+   @RequestMapping("/welcome")
+   public Welcome welcome(@RequestParam(value="name", defaultValue="World") String name) {
+      return new Greeting(String.format(template, name));
+   }
+}
+</code>
+</pre>
+
+<p>&nbsp;</p>
+
+<p>If you look closely, you will know why I said Maven 2 will not work. Maven 2 will pull in RequestParm class from old Springmvc jar file which does not have method defined for defaultValue(). It is going cry out loud during compilation.</p>
+
+<p>@RestController &#8211; annotation marks the class as controller where every method returns a domain object instead of a view, which is major distinction between @Controller and @RestController which is a short hand for @Controller + @ResponseBody</p>
+
+<p>The @RequestMapping annotation helps Spring to identify what method to invoke when some one accesses &#8220;/welcome&#8221; url.</p>
+
+<p>The @RequestParam binds the value of paramter &#8220;name&#8221; into the name parameter of the welcome() method. If you do not pass any value in the query string then the default value is &#8220;world&#8221; &#8211; defaultValue=&#8221;World&#8221;. If you do not add defaultValue and forget to pass a &#8220;name=xx&#8221; in the query string, you will hear a loud cracking, lots of smokes, some curses and code will complain of NP exceptions :-).</p>
+
+<p>One important thing that you notice is that we have not done anything to marshall request/response as JSONobject. The old of way of doing this would need you to use Jackson libraries and a lot of annotation to make them as JSON properties. Thanks to Spring 4, it takes of it using Jackson dependencies in the background.</p>
+
+<p><strong>Step 5:</strong> Create an executable &#8220;jar&#8221; file. yes you read it right. Although you can create a war file, for smaller project like the one I build and the one for this example, I am not going to go through those steps. you cn check the Spring documentation on this topic. Just a high level view what is required is that you get right of the boot plugin, change the packaging tag in the pom.xml to war.Here&#8217;s a good <a href="http://spring.io/blog/2014/03/07/deploying-spring-boot-applications" target="_blank">post </a></p>
+
+<blockquote>
+<p>src/main/java/dinesh/Execute.java</p>
+</blockquote>
+
+<pre><code>package dinesh;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.SpringApplication;
+import org.springframework.context.annotation.ComponentScan;
+
+@ComponentScan(basePackages = &quot;dinesh.*&quot;)
+@EnableAutoConfiguration
+public class Execute {
+
+   public static void main(String[] args) {
+     SpringApplication.run(Execute.class, args);
+   }
+}
+</code></pre>
+
+<p>&nbsp;</p>
+
+<p>&#8211; @ComponentScan tells the app to check for @component annotation and it makes sure that Spring finds and registers WelcomeController, because it is marked as &#8220;@RestController&#8221;.</p>
+
+<p><strong>Step 6:</strong> Build and run</p>
+
+<p><strong> Method 1 :</strong></p>
+
+<p>Run &#8216;mvn clean install&#8217; in the command line</p>
+
+<p>After the jaris built, run</p>
+
+<pre class="lang:default decode:true">java -jar target/xxx.jar</pre>
+
+<p><strong>Method 2:</strong></p>
+
+<pre class="lang:default decode:true ">Run spring-boot:run</pre>
+
+<p>&nbsp;</p>
+
+<p>Spring 4 comes with built-in Tomcat 7, so you do not need a full-blown JEE application server to deploy and run your web service. Either of the method will fire up the application on port 8080.</p>
+
+<p><strong>How do I change port number?</strong></p>
+
+<p>just run</p>
+
+<pre class="lang:default decode:true ">spring-boot:run -Dserver.port=9000</pre>
+
+<p>&nbsp;</p>
+
+<p><strong>Step 7:</strong> Test your service</p>
+
+<p>Once the service is up, visit <strong><a href="http://localhost:8080/welcome?name=your-name">http://localhost:8080/welcome?name=your-name</a></strong> and you will get back a response</p>
+
+<p>{&#8220;content&#8221;:&#8221;Hello, your-name!&#8221;}</p>
+
+<p>&nbsp;</p>
+
+<p>~Ciao</p>
+</article>
+    </section>
+
+    <footer class="ui secondary attached segment dream-tags">
+      
+      <span>No Tag</span>
+      
+    </footer>
+
+    
+
+    
+
+  </div>
+  <div class="fifteen wide mobile fifteen wide tablet four wide computer column">
+
+    <section class="ui top attached center aligned inverted segment">
+  <div class="ui small circular image">
+    
+    <img src="/img/avatar4.svg">
+    
+  </div>
+  <h3 class="ui header">Dinesh AroraDinesh&#39;s blog<div class="sub header" style="color: white;"></div>
+  </h3>
+  <a id="tag-category-pop" class="ui red right corner label">
+    <i class="pointing down icon" title="Click this to pop tags and categories"></i>
+  </a>
+</section>
+
+
+
+
+<section class="ui attached inverted segment dream-categories">
+  <div class="ui inverted accordion">
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/tech-notes" class="item" style="color: white;">tech-notes</a>
+    </div>
+    <div class="content">
+      <div class="ui link inverted list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2017/03/20/scala-tail-recursion/" class="item">Scala: Tail Recursion</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2016/06/16/understanding-java-8-lambda-final-finally-variable/" class="item">Understanding Java 8 Lambda final finally variable</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/12/26/how-to-set-up-apache-storm-on-mac-using-brew/" class="item">How to set up Apache Storm on mac using brew</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/09/27/waffle-windows-single-sign-on/" class="item">Waffle : Windows Single Sign On</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/07/22/4-ways-to-set-up-datasources-in-jboss-as-7/" class="item">4 ways to set up datasources in Jboss AS 7</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/03/30/install-or-manage-multiple-versions-of-java-on-os-x/" class="item">Install Or Manage multiple versions of Java on OS X</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/01/26/restful-webservice-7-steps-using-spring-boot/" class="item">Restful Webservice in 7 Steps using Spring boot</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/10/17/quick-tutorial-saaj-api/" class="item">A quick tutorial on SAAJ API</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/04/18/apache-poi-tutorial-reading-writing-excel-files-java/" class="item">Read / Write Excel file in Java using Apache POI</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/03/16/13-common-java-keytool-keystore-commands/" class="item">13 Most Common Java Keytool Keystore Commands</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/01/31/10-intellij-idea-keyboard-shortcuts-must-know/" class="item">10 IntelliJ IDEA Keyboard Shortcuts That You Must Know</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/12/16/apache-camel-how-to-call-an-external-webservice/" class="item">Apache Camel : How to call  java webservice</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/10/24/launch-website-in-amazon-ec2/" class="item">Launch Website in Amazon EC2</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/09/18/how-to-configure-jndi-with-spring-and-jboss45/" class="item">How to configure JNDI with Spring and Jboss4/5</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/08/01/rails-jquery-is-not-loading/" class="item">Rails: Jquery is not loading</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/05/15/how-to-post-parameters-to-a-url-using-ajaxjavascript-between-two-website/" class="item">How to post parameters to a url using Ajax/Javascript between two website</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/03/07/using-multiple-profiles-in-maven-eclipse/" class="item">Using multiple profiles in Maven &#43; Eclipse</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/09/23/how-to-send-email-in-phonegap-android-using-a-gmail-account/" class="item">How to send email in PhoneGap (Android) using a gmail account</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/07/13/share-any-folder-on-mac-via-built-in-web-server/" class="item">How To Share Any Folder On Mac Via Built-in Web Server</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/06/03/saving-files-in-amazon-s3-using-carrierwave-and-fog-gem/" class="item">Saving files in Amazon S3 using Carrierwave and Fog Gem</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/05/30/installing-rails-on-mac-osx/" class="item">Installing Rails on Mac OSX</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/05/29/setting-up-imap-settings-for-hotmail-account-on-iphone-and-android/" class="item">Setting up IMAP settings for hotmail account on Iphone and android</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/01/28/engineyard-rails-3-x-nginx-passenger-assets-not-displayed/" class="item">Engineyard, Rails 3.x, NGINX, PASSENGER ASSETS NOT DISPLAYED</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/uncategorized" class="item" style="color: white;">uncategorized</a>
+    </div>
+    <div class="content">
+      <div class="ui link inverted list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/04/23/powermock-how-to-test-a-private-method/" class="item">PowerMock : How to test a private method</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+
+<section class="ui bottom attached center aligned inverted segment">
+    
+    <p>© 2018 A Morsel Of Code</p>
+    
+    <p>Powered by <a href="http://www.javahabit.com" target="_blank">Dreams</a> </p>
+</section>
+
+
+  </div>
+</div>
+
+      </section>
+      <section class="back">
+        <nav class="ui top secondary menu" style="overflow-x: auto">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="Flip it!"></i>
+  </div>
+  
+  
+  
+  
+  
+</nav>
+
+<div class="ui centered grid about">
+  <div class="fifteen wide mobile fifteen wide tablet fifteen wide computer column">
+
+    <section class="ui stacked segments">
+      <header class="ui inverted segment">
+        <h2 class="ui header">
+          About
+        </h2>
+      </header>
+
+      <article class="ui inverted segment">
+        
+        
+        
+      </article>
+
+      
+
+      
+        
+      
+    </section>
+
+  </div>
+</div>
+
+      </section>
+    </div>
+  </div>
+
+  
+<script src="/js/jquery.min.js"></script>
+<script src="/js/semantic.min.js"></script>
+<script src="/js/bg.js"></script>
+<script src="/js/site.js"></script>
+
+
+
+</body>
+
+</html>

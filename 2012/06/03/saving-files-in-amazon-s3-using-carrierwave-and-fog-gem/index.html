@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>A Morsel Of Code</title>
+
+  
+  
+  <meta name="author" content="Dinesh" />
+  <meta name="description" content="Long long time ago in a far far away land&amp;#8230;.. I am just kidding. So I needed a gem to do file uploads(in my case images but you can upload anything) and I was looking at various options. Paperclip is a popular option but there is a new kid on the block (so i read in various forums)&amp;#8230; Carrierwave.
+Now I have not used Paperclip but what I read was that Carrierwave is more flexible and powerful than Paperclip so if are interested then keep reading." />
+
+
+
+
+
+<meta name="generator" content="Hugo 0.37" />
+
+
+<link rel="canonical" href="/2012/06/03/saving-files-in-amazon-s3-using-carrierwave-and-fog-gem/" />
+<link rel="alternative" href="/index.xml" title="A Morsel Of Code" type="application/atom+xml" />
+
+<link href="https://cdn.bootcss.com/semantic-ui/2.2.14/semantic.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="/css/site.css" />
+
+
+</head>
+
+<body>
+  <div class="flip-container">
+    <div class="flipper">
+      <section class="front">
+        
+<nav class="ui top secondary menu">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="Flip it!"></i>
+  </div>
+  <div class="item">
+    <a href="/">
+      <i class="inverted big link home icon" title="Home"></i>
+    </a>
+  </div>
+</nav>
+ 
+<div class="ui centered grid">
+  <div class="fifteen wide mobile fifteen wide tablet eleven wide computer column post-list">
+
+    <section class="ui secondary top attached black segment">
+      <header>
+        <h1 class="ui header">
+          Saving files in Amazon S3 using Carrierwave and Fog Gem
+          <div class="sub header">@ Dinesh · Jun 3, 2012 · 5 min read · Update at Jun 3, 2012</div>
+        </h1>
+      </header>
+      <article class="post-content" style="margin-top: 2rem; font-size: 1.4rem;"><p>Long long time ago in a far far away land&#8230;.. I am just kidding. So I needed a gem to do file uploads(in my case images but you can upload anything) and I was looking at various options. <a title="Paperclip" href="https://github.com/thoughtbot/paperclip" target="_blank">Paperclip</a> is a popular option but there is a new kid on the block (so i read in various forums)&#8230; <a title="Carrierwave" href="https://github.com/jnicklas/carrierwave" target="_blank">Carrierwave</a>.</p>
+
+<p>Now I have not used Paperclip but what I read was that <a title="Carrierwave" href="https://github.com/jnicklas/carrierwave" target="_blank">Carrierwave</a> is more flexible and powerful than <a title="Paperclip" href="https://github.com/thoughtbot/paperclip" target="_blank">Paperclip</a> so if are interested then keep reading. Now let me tell you that you may need to do some additional settings, I will not get into details because the wiki page of <a title="Carrierwave" href="https://github.com/jnicklas/carrierwave" target="_blank">Carrierwave</a> is pretty intensive. The purpose of writing this post is to highlight a couple of issue that I ran into and some settings which were not explained.</p>
+
+<p>Step 1: Install the <a title="Carrierwave" href="https://github.com/jnicklas/carrierwave" target="_blank">Carrierwave</a> gem</p>
+
+<p><strong>  gem install carrierwave</strong></p>
+
+<p>Step 2: Update the gem file</p>
+
+<p>gem carrierwave</p>
+
+<p>Step 3: Now you need a uploader. This is the file which has all the settings like which folder the image will be saved, setting the image quality, caching etc. I wanted to call my uploader class as <strong>ImageUploader</strong></p>
+
+<p><strong>rails generate uploader ImageUploader</strong></p>
+
+<p>Step 4: Install fog gem</p>
+
+<p><strong>gem install fog</strong></p>
+
+<p>Step 5: Update gem file</p>
+
+<p><strong>gem &#8216;fog&#8217;, &#8216;~&gt; 1.3.1&#8217;</strong></p>
+
+<p><strong>bundle install</strong></p>
+
+<p>Step 6: Choose the storage type</p>
+
+<p><span style="color:#0000ff;">class ImageUploader &lt; CarrierWave::Uploader::Base</span></p>
+
+<p><span style="color:#0000ff;">    <span style="color:#003366;"> storage :fog</span></span></p>
+
+<p><span style="color:#0000ff;">end</span></p>
+
+<p>Step 7: Create model. Mine was called Photo so I create photo.rb. Notice the line number 10.</p>
+
+<p><span style="color:#000080;">class Photo &lt; ActiveRecord::Base</span></p>
+
+<p><span style="color:#800080;">#Attributes or fileds</span></p>
+
+<p><span style="color:#800080;">attr_accessible :image,:pic_name,:description,:albums_id</span></p>
+
+<p><span style="color:#808080;">#associations</span></p>
+
+<p><span style="color:#800080;">belongs_to :albums</span></p>
+
+<p><span style="color:#800080;"><span style="color:#808080;">#carrier wave</span> </span></p>
+
+<p><span style="color:#800080;">mount_uploader :image,</span><strong>ImageUploader</strong></p>
+
+<p><span style="color:#808080;">#Validations</span></p>
+
+<p><span style="color:#800080;">validates :description,:pic_name,:albums_id, :presence=&gt;true</span></p>
+
+<p><span style="color:#800080;">validates_uniqueness_of :pic_name</span></p>
+
+<p><span style="color:#000080;">end</span></p>
+
+<p>Step 7: How to upload file and show uploaded file in the html page</p>
+
+<p>Upload page:</p>
+
+<pre>&lt;%= form_for @user, :html =&gt; {:multipart =&gt; true} do |f| %&gt;
+  &lt;p&gt;
+    &lt;label&gt;My Avatar&lt;/label&gt;
+    &lt;%= f.file_field :avatar %&gt;
+    &lt;%= f.hidden_field :avatar_cache %&gt;
+  &lt;/p&gt;
+&lt;% end %&gt;</pre>
+
+<p>View uploaded image</p>
+
+<pre>&lt;%= form_for @user, :html =&gt; {:multipart =&gt; true} do |f| %&gt;
+  &lt;p&gt;
+    &lt;label&gt;My Avatar&lt;/label&gt;
+    &lt;%= image_tag(@user.avatar_url) if @user.avatar? %&gt;
+    &lt;%= f.file_field :avatar %&gt;
+    &lt;%= f.hidden_field :avatar_cache %&gt;
+  &lt;/p&gt;
+&lt;% end %&gt;</pre>
+
+<p>Step 8: Now comes the most important part. Setting up fog. Now if you follow the documentation on  <a title="Carrierwave" href="https://github.com/jnicklas/carrierwave" target="_blank">Carrierwave</a> then you will run into issue(<strong>I will explain the issue and fix below</strong>). The wiki page said create a file <strong>fog.rb </strong>in the <strong>lib/carrierwave/storage/fog.rb </strong>and that&#8217;s what I did. I created the file with the contents below.</p>
+
+<pre>CarrierWave.configure do |config|
+  config.fog_credentials = {
+    :provider               =&gt; 'AWS',       # required
+    :aws_access_key_id      =&gt; 'xxx',       # required
+    :aws_secret_access_key  =&gt; 'yyy',       # required
+    :region                 =&gt; 'eu-west-1'  # optional, defaults to 'us-east-1'
+  }
+  config.fog_directory  = 'name_of_directory'                     # required
+  config.fog_host       = 'https://assets.example.com'            # optional, defaults to nil
+  config.fog_public     = false                                   # optional, defaults to true
+  config.fog_attributes = {'Cache-Control'=&gt;'max-age=315576000'}  # optional, defaults to {}
+end</pre>
+
+<p>Now before you start you need to have a S3 account on <a title="Amazon S3" href="http://aws.amazon.com" target="_blank">Amazon S3</a>. So get your Amazon access key and secret access key. For example mine was &#8230;. hehehe no I am not going to share my access keys with you :-). Anyway if you forgot to note down your access key and incase you are wondering where I can find that and are guessing that it will be on S3 Dashboard then you are mistaken just like me. You can find that on your account settings &#8211;&gt; Security credentials.</p>
+
+<p><a href="http://javahabit.com/wp-content/uploads/2012/06/screen-shot-2012-06-03-at-12-26-01-am1.png"><img class="alignnone size-medium wp-image-579" title="Screen shot 2012-06-03 at 12.26.01 AM" src="http://javahabit.com/wp-content/uploads/2012/06/screen-shot-2012-06-03-at-12-26-01-am1.png?w=300" alt="" width="300" height="102" /></a></p>
+
+<p>So after you have noted down your key and access key. Go ahead create a bucket on S3. A bucket is nothing but a directory. It&#8217;s just a fancy shimancy name for directory that Amazon came up with. You can further create sub directories.</p>
+
+<p>Now coming back to the meaty part and <strong>fog.rb </strong>file. I updated the below fields in the <strong>fog.rb</strong></p>
+
+<pre>:aws_access_key_id      =&gt; 'xxx',       # required
+    :aws_secret_access_key  =&gt; 'yyy',       # required</pre>
+
+<p>I commented out the below lines as they are optional</p>
+
+<p><span style="color:#888888;">#:region                 =&gt; &#8216;eu-west-1&#8217;  # optional, defaults to &#8216;us-east-1&#8217;</span></p>
+
+<p>I was not sure what was my region so if you are not sure as well then go ahead and comment it.</p>
+
+<p><span style="color:#888888;">#config.fog_host = &#8216;<a href="https://s3.amazonaws.com&amp;#8217">https://s3.amazonaws.com&amp;#8217</a>; # optional, defaults to nil</span></p>
+
+<p><span style="color:#888888;">#config.fog_public = true # optional, defaults to true</span></p>
+
+<p>If you leave <span style="color:#888888;"><strong>config.fog_host </strong><span style="color:#000000;">to <a href="https://s3.amazonaws.com">https://s3.amazonaws.com</a> then I ran into issues which said &#8211;</span></span></p>
+
+<p><span style="color:#888888;"><span style="color:#000000;"><strong><span style="color:#808080;"> &#8220;LoadError (Expected /Users/dinesharora/Desktop/Mydocument/ruby-proj/album/app/uploaders/image_uploader.rb to define ImageUploader):&#8221;</span></strong></span></span></p>
+
+<p><span style="color:#000000;">So I commented that field. </span></p>
+
+<p>The next part that I was not sure about was how to tell fog which folder or directory I want to upload my files. I had created a bucket(directory) called <strong>myalbums </strong>and had created a sub folder called devlopment.</p>
+
+<p>So I updated</p>
+
+<p>config.fog_directory  = &#8216;<strong>myalbums/development</strong>&#8216;, which did not work. The right way to do is</p>
+
+<p>config.fog_directory  = &#8216;<strong>myalbums&#8217;</strong> and also in <strong>ImageUploader  </strong>update the line</p>
+
+<p><strong>def store_dir</strong></p>
+
+<p><strong>&#8220;development/uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}&#8221;</strong></p>
+
+<p><strong>end</strong></p>
+
+<p>That&#8217;s it. Now just start the server and start uploading, that&#8217;s what the forums said but as it always happens with me(nothing works for me the first time) I ran into error(as I mentioned earlier that you will if you create the <strong>fog.rb</strong> in lib/carrierwave/storage/ folder) which said &#8211;</p>
+
+<p><strong>ActionController::RoutingError (uninitialized constant CarrierWave::Storage::Fog):</strong></p>
+
+<p><strong>app/uploaders/image_uploader.rb:11:in `<a href="class:ImageUploader">class:ImageUploader</a>&#8217;</strong></p>
+
+<p><strong>app/uploaders/image_uploader.rb:3:in `<top (required)>&#8217;</strong></p>
+
+<p><strong>app/models/photo.rb:10:in `<a href="class:Photo">class:Photo</a>&#8217;</strong></p>
+
+<p><strong>app/models/photo.rb:1:in `<top (required)>&#8217;</strong></p>
+
+<p><strong>app/controllers/photo_controller.rb:1:in `<top (required)>&#8217;</strong></p>
+
+<p>To get rid of this error, just copy the file in <strong>config/initializers </strong>and now I could finally say &#8211; <strong>That&#8217;s it!!!! 🙂</strong></p>
+
+<p>~~~ Cheers!</p>
+</article>
+    </section>
+
+    <footer class="ui secondary attached segment dream-tags">
+      
+      <span>No Tag</span>
+      
+    </footer>
+
+    
+
+    
+
+  </div>
+  <div class="fifteen wide mobile fifteen wide tablet four wide computer column">
+
+    <section class="ui top attached center aligned inverted segment">
+  <div class="ui small circular image">
+    
+    <img src="/img/avatar4.svg">
+    
+  </div>
+  <h3 class="ui header">Dinesh AroraDinesh&#39;s blog<div class="sub header" style="color: white;"></div>
+  </h3>
+  <a id="tag-category-pop" class="ui red right corner label">
+    <i class="pointing down icon" title="Click this to pop tags and categories"></i>
+  </a>
+</section>
+
+
+
+
+<section class="ui attached inverted segment dream-categories">
+  <div class="ui inverted accordion">
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/tech-notes" class="item" style="color: white;">tech-notes</a>
+    </div>
+    <div class="content">
+      <div class="ui link inverted list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2017/03/20/scala-tail-recursion/" class="item">Scala: Tail Recursion</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2016/06/16/understanding-java-8-lambda-final-finally-variable/" class="item">Understanding Java 8 Lambda final finally variable</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/12/26/how-to-set-up-apache-storm-on-mac-using-brew/" class="item">How to set up Apache Storm on mac using brew</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/09/27/waffle-windows-single-sign-on/" class="item">Waffle : Windows Single Sign On</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/07/22/4-ways-to-set-up-datasources-in-jboss-as-7/" class="item">4 ways to set up datasources in Jboss AS 7</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/03/30/install-or-manage-multiple-versions-of-java-on-os-x/" class="item">Install Or Manage multiple versions of Java on OS X</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/01/26/restful-webservice-7-steps-using-spring-boot/" class="item">Restful Webservice in 7 Steps using Spring boot</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/10/17/quick-tutorial-saaj-api/" class="item">A quick tutorial on SAAJ API</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/04/18/apache-poi-tutorial-reading-writing-excel-files-java/" class="item">Read / Write Excel file in Java using Apache POI</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/03/16/13-common-java-keytool-keystore-commands/" class="item">13 Most Common Java Keytool Keystore Commands</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2014/01/31/10-intellij-idea-keyboard-shortcuts-must-know/" class="item">10 IntelliJ IDEA Keyboard Shortcuts That You Must Know</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/12/16/apache-camel-how-to-call-an-external-webservice/" class="item">Apache Camel : How to call  java webservice</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/10/24/launch-website-in-amazon-ec2/" class="item">Launch Website in Amazon EC2</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/09/18/how-to-configure-jndi-with-spring-and-jboss45/" class="item">How to configure JNDI with Spring and Jboss4/5</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/08/01/rails-jquery-is-not-loading/" class="item">Rails: Jquery is not loading</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/05/15/how-to-post-parameters-to-a-url-using-ajaxjavascript-between-two-website/" class="item">How to post parameters to a url using Ajax/Javascript between two website</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2013/03/07/using-multiple-profiles-in-maven-eclipse/" class="item">Using multiple profiles in Maven &#43; Eclipse</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/09/23/how-to-send-email-in-phonegap-android-using-a-gmail-account/" class="item">How to send email in PhoneGap (Android) using a gmail account</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/07/13/share-any-folder-on-mac-via-built-in-web-server/" class="item">How To Share Any Folder On Mac Via Built-in Web Server</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/06/03/saving-files-in-amazon-s3-using-carrierwave-and-fog-gem/" class="item">Saving files in Amazon S3 using Carrierwave and Fog Gem</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/05/30/installing-rails-on-mac-osx/" class="item">Installing Rails on Mac OSX</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/05/29/setting-up-imap-settings-for-hotmail-account-on-iphone-and-android/" class="item">Setting up IMAP settings for hotmail account on Iphone and android</a>
+        </div>
+      </div>
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2012/01/28/engineyard-rails-3-x-nginx-passenger-assets-not-displayed/" class="item">Engineyard, Rails 3.x, NGINX, PASSENGER ASSETS NOT DISPLAYED</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+    <div class="title">
+      <i class="dropdown icon"></i>
+      <a href="/categories/uncategorized" class="item" style="color: white;">uncategorized</a>
+    </div>
+    <div class="content">
+      <div class="ui link inverted list">
+      
+      <div class="item" style="padding-left: 24px;">
+        <i class="cocktail icon"></i>
+        <div class="content">
+          <a href="/2015/04/23/powermock-how-to-test-a-private-method/" class="item">PowerMock : How to test a private method</a>
+        </div>
+      </div>
+      
+      </div>
+    </div>
+    
+  </div>
+</section>
+
+
+<section class="ui bottom attached center aligned inverted segment">
+    
+    <p>© 2018 A Morsel Of Code</p>
+    
+    <p>Powered by <a href="http://www.javahabit.com" target="_blank">Dreams</a> </p>
+</section>
+
+
+  </div>
+</div>
+
+      </section>
+      <section class="back">
+        <nav class="ui top secondary menu" style="overflow-x: auto">
+  <div class="item">
+    <i class="inverted big link bullseye icon dream-flip-toggle" title="Flip it!"></i>
+  </div>
+  
+  
+  
+  
+  
+</nav>
+
+<div class="ui centered grid about">
+  <div class="fifteen wide mobile fifteen wide tablet fifteen wide computer column">
+
+    <section class="ui stacked segments">
+      <header class="ui inverted segment">
+        <h2 class="ui header">
+          About
+        </h2>
+      </header>
+
+      <article class="ui inverted segment">
+        
+        
+        
+      </article>
+
+      
+
+      
+        
+      
+    </section>
+
+  </div>
+</div>
+
+      </section>
+    </div>
+  </div>
+
+  
+<script src="/js/jquery.min.js"></script>
+<script src="/js/semantic.min.js"></script>
+<script src="/js/bg.js"></script>
+<script src="/js/site.js"></script>
+
+
+
+</body>
+
+</html>
