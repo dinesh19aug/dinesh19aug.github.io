@@ -1,0 +1,9 @@
+baseURL = "/"
+languageCode = "en-us"
+title = "A Morsel Of Code"
+theme = "dream"
+defaultContentLanguage = "en"
+
+[params]
+  description = "A Morsel Of Code - One Byte At A Time"
+  author = "Dinesh Arora"
