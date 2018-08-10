@@ -11,7 +11,7 @@ categories:
   - Tech Notes
 
 ---
-Tail recursion is a basic but important concept in Functional programming. Recursive functions has always been a pain point for me. I would be eliminated out of several interview rounds if interviewers places emphasis on recursion. In Java world thankfully, most people I know hate recursion because when nesting goes too deep, it impacts the performance if the nested recursion is more than 100 levels deep.
+Tail-344recursion is a basic but important concept in Functional programming. Recursive functions has always been a pain point for me. I would be eliminated out of several interview rounds if interviewers places emphasis on recursion. In Java world thankfully, most people I know hate recursion because when nesting goes too deep, it impacts the performance if the nested recursion is more than 100 levels deep.
 
 Unfortunately(Fortunately), functional programming languages like Scala and Haskell have solved this concept with the term Tail Recursion. We will look into the concept of Tail recursion using a sample code below by implementing a function that calculates &#8220;factorial&#8221;.
 
