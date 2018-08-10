@@ -19,7 +19,7 @@ Regular Recursion code: Calculate factorial
 
 <pre>def factorial(n:Int) :Int={
    if(n&gt;0) n * factorial(n-1)
-   else 1 
+   else 1
 }
 
 </pre>
@@ -64,9 +64,9 @@ call 4 &#8211; Input 2, 3\*(4\*(5*1))
 call 6 &#8211; Input 1, 2\*(3\*(4\*(5\*1)))
 
 call 7 &#8211; Input 0, 1\*(2\*(3\*(4\*(5*1)))) &#8211;  **RETURN RESULT as 1\*2\*3\*4\*5 which is the second input param
-  
-** 
-  
+
+**
+
 That is when a recursion becomes tail recursion. The final call when nesting stops, just returns the result and the previous nested call is not waiting for a result to complete the call/result.
 
 Hope the concept will stay with me and with those of you who hated recursion earlier. It just got real so learn and deal with it 🙂
