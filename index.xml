@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on A Morsel Of Code</title>
-    <link>/posts/</link>
-    <description>Recent content in Posts on A Morsel Of Code</description>
+    <title>A Morsel Of Code</title>
+    <link>/</link>
+    <description>Recent content on A Morsel Of Code</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 09 Aug 2018 02:37:02 +0000</lastBuildDate>
     
-	<atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -141,6 +141,15 @@ However they wanted this application to generate a Excel file and save it on the
       <guid>/2014/01/31/10-intellij-idea-keyboard-shortcuts-must-know/</guid>
       <description>Linux nerds/geeks happily flaunt their keyboard skills when they get a chance. I admit that I am not a shortcut junky but I too have some keyboard shortcuts under my sleeve that I use in day to day work. I have to say that not only have these shortcuts increased my productivity but they have also made my life a lot easier.
 I am sharing my 10 most used shortcuts at work.</description>
+    </item>
+    
+    <item>
+      <title>About Me</title>
+      <link>/about-me/</link>
+      <pubDate>Fri, 24 Jan 2014 06:39:06 +0000</pubDate>
+      
+      <guid>/about-me/</guid>
+      <description>Still to come</description>
     </item>
     
     <item>
