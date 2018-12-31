@@ -10,9 +10,9 @@
   
   
   <meta name="author" content="Dinesh" />
-  <meta name="description" content="Last week I was working on a new application which required me to build a web service to access it&amp;#8217;s functionality. I decided to check out Spring 4 RestController.
-I was amazed at how far we have come from writing all the boiler template code, xmls etc for making a restful call. With Spring4 boot, it was matter of adding simple annotation for RestController.
-I will be honest, I have not been up to date on how to use a Restful webservice, I built a couple of Restful service a couple of year ago, but most of the services in my current project are old school (SOAP calls), so I never got a chance to build one from scratch and at peace." />
+  <meta name="description" content="The Difference Between @Bean and @Component and When to Use What? This is the most common question that new as well as experienced Spring users get confused about. There are literally hundreds of questions on this Stackoverflow. This article will clear all the confusion.
+ Similarities between @Bean and @Autowired  @Bean
+ @Bean is an annotation based configuration and hence is used in @Configuration based class. This is an explicit way of defining a bean and is also used on the methods defined in configuration class." />
 
 
 
@@ -21,7 +21,7 @@ I will be honest, I have not been up to date on how to use a Restful webservice,
 <meta name="generator" content="Hugo 0.53" />
 
 
-<link rel="canonical" href="/2015/01/26/restful-webservice-7-steps-using-spring-boot/" />
+<link rel="canonical" href="/2018/12/30/spring-bean-vs-component/" />
 <link rel="alternative" href="/index.xml" title="A Morsel Of Code" type="application/atom+xml" />
 
 <link href="https://cdn.bootcss.com/semantic-ui/2.2.14/semantic.min.css" rel="stylesheet" />
@@ -52,187 +52,70 @@ I will be honest, I have not been up to date on how to use a Restful webservice,
     <section class="ui secondary top attached black segment">
       <header>
         <h1 class="ui header">
-          Restful Webservice in 7 Steps using Spring boot
-          <div class="sub header">@ Dinesh · Jan 26, 2015 · 5 min read · Update at Jan 26, 2015</div>
+          Spring Bean vs Spring Component
+          <div class="sub header">@ Dinesh · Dec 30, 2018 · 3 min read · Update at Dec 30, 2018</div>
         </h1>
       </header>
-      <article class="post-content" style="margin-top: 2rem; font-size: 1.4rem;"><p>Last week I was working on a new application which required me to build a web service to access it&#8217;s functionality. I decided to check out Spring 4 RestController.</p>
+      <article class="post-content" style="margin-top: 2rem; font-size: 1.4rem;">
 
-<p>I was amazed at how far we have come from writing all the boiler template code, xmls etc for making a restful call. With Spring4 boot, it was matter of adding simple annotation for RestController.</p>
+<h1 id="the-difference-between-bean-and-component-and-when-to-use-what"><strong>The Difference Between @Bean and @Component and When to Use What?</strong></h1>
 
-<p>I will be honest, I have not been up to date on how to use a Restful webservice, I built a couple of Restful service a couple of year ago, but most of the services in my current project are old school (SOAP calls), so I never got a chance to build one from scratch and at peace.</p>
-
-<p>Prerequisites: Read Carefully</p>
-
-<ol>
-<li><p>Spring 4 requires you to use Maven 3 in fact it will force you to use Maven 3. This is very important point because it took me an hour to figure this out. If you try to use Maven 2, it will build and &#8220;might&#8221; compile but the code will complain that some of the RestController class methods are not found. This happens because by default, maven 2 will pull in Spring 2.5.x jar files.</p></li>
-
-<li><p>Requires a minimum of JDK 6.</p></li>
-</ol>
-
-<p><strong>What are we building?</strong></p>
-
-<p>We will build a service that will accept HTTP GET request at: <a href="http://localhost:9000/welcome">http://localhost:9000/welcome</a></p>
-
-<p>and respond with a JSON message:</p>
-
-<p><code>{&quot;content&quot;:&quot;Hello Dinesh&quot;}</code></p>
-
-<p><strong>Step 1</strong>: Create a maven project using command line tools or your favorite IDE.</p>
-
-<p><strong>Step 2</strong>: In the pom.xml add the following information</p>
-
-<p><strong>a) Parent:</strong></p>
-
-<p id="FFoDXdm">
-  <img class="alignnone size-full wp-image-753 " src="http://www.javahabit.com/wp-content/uploads/2015/01/img_54c6997a2d5aa.png" alt="" />
-</p>
-
-<p>b) Add spring-boot dependency</p>
-
-<p id="HbeyzUj">
-  <img class="alignnone size-full wp-image-754 " src="http://www.javahabit.com/wp-content/uploads/2015/01/img_54c6999bd1865.png" alt="" />
-</p>
-
-<p>c) Add spring-boot plugin</p>
-
-<p id="TzgpLxK">
-  <img class="alignnone size-full wp-image-755 " src="http://www.javahabit.com/wp-content/uploads/2015/01/img_54c699bb563e9.png" alt="" />
-</p>
-
-<p>d) Add spring repositories</p>
-
-<p id="dPDyzsX">
-  <img class="alignnone size-full wp-image-756 " src="http://www.javahabit.com/wp-content/uploads/2015/01/img_54c699d20f4f9.png" alt="" />
-</p>
-
-<p><strong>Why do we need Spring Boot Maven Plugin?</strong></p>
-
-<p>You might be wondering what happened to the good old maven build plugin. Well that plugin still works and will compile and build your project, but Spring-boot-maven-plugin searches for the public static void main() method to mark it as runnable class if you use the command &#8220;mvn:run&#8221;. Secondly, it comes with its own dependency resolver for the version number to match the Spring-boot-starter-web dependencies.</p>
-
-<p><strong>Step 3:</strong> Create JSON Message POJO class</p>
+<p>This is the most common question that new as well as experienced Spring users get confused about. There are literally hundreds of questions on this <a href="https://www.stackoverflow.com">Stackoverflow</a>. This article will clear all the confusion.</p>
 
 <blockquote>
-<p>src/main/java/dinesh/Welcome.java</p>
+<h3 id="similarities-between-bean-and-autowired">Similarities between  <strong>@Bean</strong> and <strong>@Autowired</strong></h3>
 </blockquote>
 
-<pre class="lang:java decode:true "><code>
-package dinesh;
-public class Welcome {
+<p><strong>@Bean</strong></p>
 
-   private final String content;
+<ul>
+<li><em>@Bean</em>  is an annotation based configuration and hence is used in <em>@Configuration</em> based class.</li>
+<li>This is an <u><strong>explicit</strong></u> way of defining a bean and is also used on the methods defined in configuration class.</li>
+</ul>
 
-   public Greeting(String content) {
-      this.content = content;
-   }
+<p><strong>@Component</strong>
+- This is used in classes which you create in your app. This will only work after you enable component scan on the package that contains your class.
+- With component scan, Spring framework will scan the classpath and add all the classes that are marked with a <em>@Component</em> annotation.
+-This is also called the automated way of binding and discovering your bean.</p>
 
-   public String getContent() {
-     return content;
-  }
-}
-</code></pre>
-
-<p>&nbsp;</p>
-
-<p>Note: Spring 4 Boot automatically uses Jackson JSON library to marshal instances of Welcome into JSONObjects.</p>
-
-<p><strong>Step 4:</strong> Create a resource Controller</p>
-
-<p>All Spring HTTP requests are handled by Spring controllers. For Restful services Spring 4 comes with a new annotation @RestController annotation. This will handle the requests which are posted to url <strong>/welcome</strong> by returning a new instance of Welcome class.</p>
-
-<p>src/main/java/dinesh/WelcomeController.java</p>
-
-<pre class="scroll:true lang:java decode:true"><code>
-package hello;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-@RestController
-public class WelcomeController {
-
-   private static final String template = "Hello, %s!";
-
-   @RequestMapping("/welcome")
-   public Welcome welcome(@RequestParam(value="name", defaultValue="World") String name) {
-      return new Greeting(String.format(template, name));
-   }
-}
-</code>
-</pre>
-
-<p>&nbsp;</p>
-
-<p>If you look closely, you will know why I said Maven 2 will not work. Maven 2 will pull in RequestParm class from old Springmvc jar file which does not have method defined for defaultValue(). It is going cry out loud during compilation.</p>
-
-<p>@RestController &#8211; annotation marks the class as controller where every method returns a domain object instead of a view, which is major distinction between @Controller and @RestController which is a short hand for @Controller + @ResponseBody</p>
-
-<p>The @RequestMapping annotation helps Spring to identify what method to invoke when some one accesses &#8220;/welcome&#8221; url.</p>
-
-<p>The @RequestParam binds the value of paramter &#8220;name&#8221; into the name parameter of the welcome() method. If you do not pass any value in the query string then the default value is &#8220;world&#8221; &#8211; defaultValue=&#8221;World&#8221;. If you do not add defaultValue and forget to pass a &#8220;name=xx&#8221; in the query string, you will hear a loud cracking, lots of smokes, some curses and code will complain of NP exceptions :-).</p>
-
-<p>One important thing that you notice is that we have not done anything to marshall request/response as JSONobject. The old of way of doing this would need you to use Jackson libraries and a lot of annotation to make them as JSON properties. Thanks to Spring 4, it takes of it using Jackson dependencies in the background.</p>
-
-<p><strong>Step 5:</strong> Create an executable &#8220;jar&#8221; file. yes you read it right. Although you can create a war file, for smaller project like the one I build and the one for this example, I am not going to go through those steps. you cn check the Spring documentation on this topic. Just a high level view what is required is that you get right of the boot plugin, change the packaging tag in the pom.xml to war.Here&#8217;s a good <a href="http://spring.io/blog/2014/03/07/deploying-spring-boot-applications" target="_blank">post </a></p>
+<p>So the bottom line is that both can do the job of wiring your bean. It&rsquo;s just that with <em>@Bean</em> you have to define each class explicitly and in case of <em>@Component</em>, Spring does this automatically for you. The <em>@Bean</em> way of wiring your bean is analogous to defining Beans in XML, prior to Spring 2.5. Now that you understand what each does(the end result is the same), let&rsquo;s take a look at what is the difference between the two and when you should choose one over the other.</p>
 
 <blockquote>
-<p>src/main/java/dinesh/Execute.java</p>
+<h3 id="difference-between-bean-and-autowired">Difference between <strong>@Bean</strong> and <strong>@Autowired</strong></h3>
 </blockquote>
 
-<pre><code>package dinesh;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.SpringApplication;
-import org.springframework.context.annotation.ComponentScan;
+<p><strong>Scenario</strong>: We have a jar file which contains different services ex - Address check service, credit check service etc. This jar file is shared by many different applications/companies Ex - AT&amp;T wants to use Address validator service while FICO wants to use only credit check service.</p>
 
-@ComponentScan(basePackages = &quot;dinesh.*&quot;)
-@EnableAutoConfiguration
-public class Execute {
+<p>If you use <em>@Component</em> on those service classes and use component scan in the application, then both AT&amp;T and FICO applications will end up detecting credit check in case of AT&amp;T and address validator in case of FICO. As a result, you would face one of the two problems -
++ You will end up adjusting the filter on the component scan.
++ In case you have classes sharing the same name by any chance then you would have to add qualifier otherwise application would complain that it found more than two classes were found with same bean name and will fail to run.</p>
 
-   public static void main(String[] args) {
-     SpringApplication.run(Execute.class, args);
-   }
+<p>Hence, in this scenario, you should use <em>@Bean</em></p>
+
+<p><strong>Scenario</strong> : You downloaded a jar file from GitHub and it is not using Spring. The jar file is a simple and basic java program. Your app wants to use this third-party jar file but since your application is using Spring while the third party jar is not, you will have to write <strong>new()</strong> keyword to access the functionalities. You want to wire the third party classes.</p>
+
+<p>Say your class name is MyClass.java and you want to use ThirdPartyClass.java. In this case if you write</p>
+
+<pre><code class="language-java">
+public class MyClass{
+   .....
+	 @Autowired
+	 ThirdPartyClass thirdPartyClass;
+
 }
+
 </code></pre>
 
-<p>&nbsp;</p>
+<p>Your code will throw <em>NullPointerException</em> if you try and access any method of class object <em>thirdPartyClass</em>. In this scenario, you should use  <em>@Bean</em>.</p>
 
-<p>&#8211; @ComponentScan tells the app to check for @component annotation and it makes sure that Spring finds and registers WelcomeController, because it is marked as &#8220;@RestController&#8221;.</p>
+<blockquote>
+<h3 id="rule-of-thumb">Rule of Thumb</h3>
+</blockquote>
 
-<p><strong>Step 6:</strong> Build and run</p>
-
-<p><strong> Method 1 :</strong></p>
-
-<p>Run &#8216;mvn clean install&#8217; in the command line</p>
-
-<p>After the jaris built, run</p>
-
-<pre class="lang:default decode:true">java -jar target/xxx.jar</pre>
-
-<p><strong>Method 2:</strong></p>
-
-<pre class="lang:default decode:true ">Run spring-boot:run</pre>
-
-<p>&nbsp;</p>
-
-<p>Spring 4 comes with built-in Tomcat 7, so you do not need a full-blown JEE application server to deploy and run your web service. Either of the method will fire up the application on port 8080.</p>
-
-<p><strong>How do I change port number?</strong></p>
-
-<p>just run</p>
-
-<pre class="lang:default decode:true ">spring-boot:run -Dserver.port=9000</pre>
-
-<p>&nbsp;</p>
-
-<p><strong>Step 7:</strong> Test your service</p>
-
-<p>Once the service is up, visit <strong><a href="http://localhost:8080/welcome?name=your-name">http://localhost:8080/welcome?name=your-name</a></strong> and you will get back a response</p>
-
-<p>{&#8220;content&#8221;:&#8221;Hello, your-name!&#8221;}</p>
-
-<p>&nbsp;</p>
-
-<p>~Ciao</p>
+<p>A simple way to decide between <strong>@Component</strong> and <strong>@Bean</strong> is that
+- if you want to use third-party classes or jar then use <em>@Bean</em>.
+- If you are writing your own classes for your application then use <em>Component</em>.
+- If you want to use a third party class or jar that is not written using Spring Component then use <em>@Bean</em>.</p>
 </article>
     </section>
 
