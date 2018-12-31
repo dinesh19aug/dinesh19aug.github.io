@@ -6,18 +6,20 @@
     <description>Recent content in Posts on A Morsel Of Code</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 09 Aug 2018 02:37:02 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 30 Dec 2018 00:35:54 -0500</lastBuildDate>
     
 	<atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Test</title>
-      <link>/2018/08/09/test/</link>
-      <pubDate>Thu, 09 Aug 2018 02:37:02 +0000</pubDate>
+      <title>Spring Bean vs Spring Component</title>
+      <link>/2018/12/30/spring-bean-vs-component/</link>
+      <pubDate>Sun, 30 Dec 2018 00:35:54 -0500</pubDate>
       
-      <guid>/2018/08/09/test/</guid>
-      <description>My First Hugo file</description>
+      <guid>/2018/12/30/spring-bean-vs-component/</guid>
+      <description>The Difference Between @Bean and @Component and When to Use What? This is the most common question that new as well as experienced Spring users get confused about. There are literally hundreds of questions on this Stackoverflow. This article will clear all the confusion.
+ Similarities between @Bean and @Autowired  @Bean
+ @Bean is an annotation based configuration and hence is used in @Configuration based class. This is an explicit way of defining a bean and is also used on the methods defined in configuration class.</description>
     </item>
     
     <item>
