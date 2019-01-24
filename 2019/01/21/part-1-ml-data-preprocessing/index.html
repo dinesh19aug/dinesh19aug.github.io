@@ -1,0 +1,847 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.53" />
+
+    
+    
+    
+
+<title>Part 1 Machine Learning Data Preprocessing • A Morsel Of Code</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Part 1 Machine Learning Data Preprocessing"/>
+<meta name="twitter:description" content="This is the first of many series on machine learning.
+Get the Dataset  Download the following zip files
+ Jupyter Notebook &amp; images Data  Unzip the folder and copy Files and Data under folder location Machine Learning A-Z Template Folder\Part 1 - Data Preprocessing
+Review the dataset   The above dataset shows Country, Age, Salary and Purchased. The field that we need to research is called Dependent field and others are called Independent Field"/>
+
+<meta property="og:title" content="Part 1 Machine Learning Data Preprocessing" />
+<meta property="og:description" content="This is the first of many series on machine learning.
+Get the Dataset  Download the following zip files
+ Jupyter Notebook &amp; images Data  Unzip the folder and copy Files and Data under folder location Machine Learning A-Z Template Folder\Part 1 - Data Preprocessing
+Review the dataset   The above dataset shows Country, Age, Salary and Purchased. The field that we need to research is called Dependent field and others are called Independent Field" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/2019/01/21/part-1-ml-data-preprocessing/" /><meta property="article:published_time" content="2019-01-21T00:35:54-05:00"/>
+<meta property="article:modified_time" content="2019-01-21T00:35:54-05:00"/>
+
+
+
+<link rel="canonical" href="/2019/01/21/part-1-ml-data-preprocessing/" />
+
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta+Stencil">
+
+<link rel="stylesheet" href="/css/w3.css" />
+
+
+<link rel="stylesheet" href="/css/style.css" />
+
+
+
+
+
+
+
+
+
+  
+  
+</head>
+<body }
+
+class="w3-light-grey">
+
+
+    
+    <header id="header">
+         
+        <div class="w3-right ">
+<div class="w3-bar w3-light-grey  ">
+  
+  <span class="w3-bar-item w3-left " id="google_translate_element"></span>
+<script>
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement(
+      {
+          pageLanguage: 'en'
+        , layout: google.translate.TranslateElement.FloatPosition.TOP_RIGHT
+        , multilanguagePage: true
+      }
+      , 'google_translate_element'
+    );
+  }
+</script>
+<script async src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+  
+       <a href="javascript:void(0)" class="w3-bar-item w3-button w3-hover-green" title="Search" onclick="displaysearch()"><i class="fa fa-search"></i></a>
+  
+      <span class="w3-hide-small">
+        
+        <a href="mailto:dinesh19aug@gmail.com" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-envelope"></i></a>
+        
+        <a href="https://stackoverflow.com/users/1172194/dinesh-arora" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-stack-overflow"></i></a>
+        
+        <a href="https://twitter.com/dinesh19aug" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-twitter"></i></a>
+        
+        <a href="https://github.com/dinesh19aug" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-github"></i></a>
+        
+        <a href="https://www.linkedin.com/in/dinesharora" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-linkedin"></i></a>
+        
+        <a href="https://github.com/dinesh19aug" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-github"></i></a>
+
+      </span>
+  
+</div>
+</div>
+<br>
+  <div class="w3-content">
+  
+  <div class="w3-container w3-center w3-padding-32 w3-hide-small"> 
+      <h1 class="w3-xxxlarge w3-text-blue w3-wide w3-allerta  " style="text-shadow:1px 1px 0 #444" ><u>
+      
+         A Morsel Of Code - One Byte At A Time
+      
+</u></h1>
+      
+    </div>
+    <div class="w3-content w3-center">
+    <div class="w3-bar w3-light-grey w3-border">
+    <a href="/" class="w3-bar-item w3-button w3-large w3-green"><i class="fa fa-home"></i></a>
+    
+      <a href="/categories/" class="w3-bar-item w3-button w3-hide-small">Categories</a>
+    
+      <a href="/tags/" class="w3-bar-item w3-button w3-hide-small">Tags</a>
+    
+   
+    
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="displaymenu()">&#9776;</a>
+  </div>
+
+<div id="mobilemenu" class="w3-bar-block w3-light-grey w3-hide w3-hide-large w3-hide-medium">
+  
+      <a href="/categories/" class="w3-bar-item w3-button">Categories</a>
+      
+      <a href="/tags/" class="w3-bar-item w3-button">Tags</a>
+      
+  
+</div>
+</div>
+</div>
+<script>
+function displaymenu() {
+    var x = document.getElementById("mobilemenu");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else { 
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+</script>
+
+
+
+  <div id="searchOverlay" class="overlay w3-hide">
+    <span class="closebtn" onclick="displaysearch()" title="Close Overlay">×</span>
+    <div class="overlay-content">
+        <form action="/search/">
+          <input type="text" placeholder="Search.." name="q">
+          <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+  </div>
+
+  <script>
+  function displaysearch() {
+    var x = document.getElementById("searchOverlay");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else { 
+        x.className = x.className.replace(" w3-show", "");
+    }
+      
+  }
+
+ 
+  </script>
+
+  
+
+
+    
+    <hr class="headfoot">
+   
+      
+    </header>
+    
+<div class="w3-content">
+    
+      <div>
+        <div id="content" >
+          
+    
+
+      <div id="toc" class="w3-dropdown-hover w3-hide-small w3-hide-medium">
+    <button class="w3-button w3-teal w3-xlarge">&#9776;</button>
+    <div class="w3-dropdown-content w3-bar-block w3-border" style="right:0">
+         
+          <h3 class="w3-center">Contents </h3>
+            <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li>
+<ul>
+<li><a href="#get-the-dataset">Get the Dataset</a></li>
+<li><a href="#review-the-dataset">Review the dataset</a>
+<ul>
+<li><a href="#dependent-field">Dependent Field</a></li>
+<li><a href="#independent-field">Independent field</a></li>
+</ul></li>
+<li><a href="#import-the-dataset">Import the dataset</a></li>
+<li><a href="#create-the-dependent-and-independent-variable-matrix-of-features">Create the dependent and Independent Variable matrix of features</a></li>
+<li><a href="#identify-the-missing-data">Identify the missing data</a></li>
+<li><a href="#strategies-to-handle-missing-data">Strategies to handle missing data</a></li>
+<li><a href="#taking-care-of-missing-data-numerical-values">Taking Care of missing data * (Numerical values)*</a></li>
+<li><a href="#taking-care-of-categorical-data">Taking care of Categorical data</a></li>
+<li><a href="#splitting-dataset-into-training-and-test-set">Splitting dataset into training and test set</a></li>
+<li><a href="#feature-scaling-normalization-standardization">Feature Scaling/ Normalization/Standardization</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+         
+      </div>
+
+     
+      </div>
+    
+
+ 
+     
+
+
+  <div class="w3-content w3-card-4" >
+    
+    <header class="w3-container w3-center w3-padding-32">
+      <h1>Part 1 Machine Learning Data Preprocessing</h1>
+
+      <div >
+        <p> 2019-01-21 
+          
+             <code> 1730 words  </code>
+             <code> 9 mins read </code>
+          
+        </p>
+        <div >
+            
+              <a class="w3-btn w3-small w3-round w3-green" href="/categories/tech-notes/"> Tech Notes </a>
+            
+          </div>
+       
+        
+      </div>
+    </header>
+
+   
+    
+    <div class="w3-container">
+      
+        
+
+        
+        
+
+        
+          
+          
+          
+
+<p>This is the first of many series on machine learning.</p>
+
+<h3 id="get-the-dataset">Get the Dataset</h3>
+
+<ul>
+<li><p>Download the following zip files</p>
+
+<ol>
+<li><a href="https://github.com/dinesh19aug/ml-notes/blob/master/Part-1-data-processing/data-preprocessing.ipynb">Jupyter Notebook &amp; images</a></li>
+<li><a href="https://github.com/dinesh19aug/ml-notes/blob/master/Part-1-data-processing/Data.csv">Data</a></li>
+</ol></li>
+
+<li><p>Unzip the folder and copy <code>Files and Data</code> under folder location <code>Machine Learning A-Z Template Folder\Part 1 - Data Preprocessing</code></p>
+
+<h3 id="review-the-dataset">Review the dataset</h3>
+
+<p><img src="/placeholder.svg" data-src="/resources/img/csvdata.PNG" alt="Dataset" /></p></li>
+</ul>
+
+<p>The above dataset shows Country, Age, Salary and Purchased. The field that we need to research is called <code>Dependent field</code> and others are called <code>Independent Field</code></p>
+
+<h4 id="dependent-field">Dependent Field</h4>
+
+<p>A dependent field is a whose outcome or value is derived from other fielda. In this example, we are trying to find Whether a customer made a purchase or not. Hence, <code>Purchased</code> here becomes the dependent field. In terms of coordinate, if we map this on the graph then <code>Purchased</code> will be plotted on the y-axis.</p>
+
+<h4 id="independent-field">Independent field</h4>
+
+<p>Independent fields are values that we observe. Example - If I stand on the side of the freeway and start noting down the color of each car passed, whether it is a car or a truck, is it raining that day or sunny? etc. These values are called Independent fields. In the above datasheet, <code>Country</code>, <code>Age</code> and <code>Salary</code> are independent fields.</p>
+
+<p>In data science, everything is a function. Hence if <code>Purchased</code> field = <code>Y</code> and <code>Country</code>, <code>Age</code> and <code>Salary</code> can be represented as <code>c</code>, <code>a</code> &amp; <code>i</code> respectively. Then the above function can be represented as</p>
+
+<p><code>Y = Xc + Ta + Zi</code></p>
+
+<p>### Importing the essential library
+ There are three essential libraries for most basic machine learning projects. Add the below library</p>
+
+<p><code>
+ import numpy as np
+ import matplotlib.pyplot as plt
+ import pandas as pd
+</code></p>
+
+<pre><code class="language-python"># Importing the libraries
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+</code></pre>
+
+<h3 id="import-the-dataset">Import the dataset</h3>
+
+<p>Use panadas to import the file data.csv file</p>
+
+<pre><code class="language-python">#Import the dataset
+dataset = pd.read_csv(&quot;../data.csv&quot;)
+</code></pre>
+
+<pre><code class="language-python">dataset.head(6)
+</code></pre>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Country</th>
+      <th>Age</th>
+      <th>Salary</th>
+      <th>Purchased</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>France</td>
+      <td>44.0</td>
+      <td>72000.0</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Spain</td>
+      <td>27.0</td>
+      <td>48000.0</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Germany</td>
+      <td>30.0</td>
+      <td>54000.0</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Spain</td>
+      <td>38.0</td>
+      <td>61000.0</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Germany</td>
+      <td>40.0</td>
+      <td>NaN</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>France</td>
+      <td>35.0</td>
+      <td>58000.0</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h3 id="create-the-dependent-and-independent-variable-matrix-of-features">Create the dependent and Independent Variable matrix of features</h3>
+
+<pre><code class="language-python">x = dataset.iloc[:, :3].values
+y = dataset.iloc[:, 3:4].values
+
+</code></pre>
+
+<h3 id="identify-the-missing-data">Identify the missing data</h3>
+
+<p>In the real world when you are handed a dataset. You will find that a lot of data might be missing. Ex - <code>Row 6 Salary</code> is empty and <code>Row 7 Age</code> is missing in our data.csv
+<img src="/placeholder.svg" data-src="/resources/img/csvdata.PNG" alt="Dataset" /></p>
+
+<h3 id="strategies-to-handle-missing-data">Strategies to handle missing data</h3>
+
+<ul>
+<li>Remove the rows that have missing data. This approach is simplest but will skew our dataset if lots of fields are missing.</li>
+<li>Replace the missing data with Mean</li>
+<li>Replace the missing data with Median</li>
+<li>Replace the missing data with Mode or Frequency</li>
+</ul>
+
+<p>As a general rule of thumb <code>mean</code> and <code>median</code> can be applied to numerical values only. It cannot be applied to alphanumeric or String values. This is where we can use Mode or Frequency.</p>
+
+<h3 id="taking-care-of-missing-data-numerical-values">Taking Care of missing data * (Numerical values)*</h3>
+
+<p><code>Scikit</code> library in python provides a class called <code>Imputer</code> which helps in fixing the missing values using the above strategies.</p>
+
+<pre><code class="language-python">from sklearn.impute import SimpleImputer
+imputer = SimpleImputer(missing_values = np.nan, strategy='mean')
+imputer = imputer.fit(x[:,1:3])
+x[:, 1:3] = imputer.transform(x[:, 1:3])
+</code></pre>
+
+<p>In the above code we define a <code>SimpleImputer</code> class object.
+<code>imputer = SimpleImputer(missing_values = np.nan, strategy='mean')</code></p>
+
+<p>The next line <code>imputer = imputer.fit(x[:,1:3])</code> is telling imputer object on which matrix columns it needs to look for missing value and mark them for filling value as mean</p>
+
+<p>The last   line <code>x[:, 1:3] = imputer.transform(x[:, 1:3])</code> fills in the cells of X matrix that were marked by the imputer.</p>
+
+<p><em>One thing that I wanted to try was that would happen if I just used <code>imputer.fit(x)</code> and did not provide the columns which actually had the missing values. What happens is that since you have marked the strategy as <code>strategy='mean'</code>, the imputer will try to take the average/mean of each row <code>country</code>, <code>Age</code> &amp; <code>Salary</code>. Since <code>Country</code> is of type String, python will shit in its pant and complain about it. However, if the <code>Country</code> column was numeric, then this <code>imputer.fit(x)</code> would have worked. Additionally, on the left side we have defined that data be copied into x[:, 1:3]. This is because if you write <code>x = imputer.transform(x[:, 1:3])</code>, imputer has marked the cell to be transformed is <code>(1,5)</code> as there are two columns it is looking at <code>Age</code> and <code>Salary</code>  but if put only x on the left side, then <code>(1,5)</code> refers to <code>Age</code> 40, while imputer is expecting it to be a <code>Salary</code> column.</em></p>
+
+<p><img src="/placeholder.svg" data-src="/resources/img/imputedResult.PNG" alt="ImputedResult" /></p>
+
+<p>As you can see, the imputer has filled in the missing values for <code>Salary</code> as $63777.78  and <code>Age</code> as 38.7.</p>
+
+<h3 id="taking-care-of-categorical-data">Taking care of Categorical data</h3>
+
+<p>Categorical data is any data that is not numeric. Think of it as attributes of an object. Ex - If I am observing cars on a freeway and noting down the speed at which the car is driving and the color of the car. The cars may have different colors such as red, green, blue etc. I can only observe them but cannot do anything else with them like add, subtract, find mean or anything. However, a machine learning algorithm may see value in finding a relation between dependent and independent feature. The algorithm can only make use of item if it is defined in numbers.</p>
+
+<p>One way to define them is by assigning them numbers ex- Red =1, Blue =2 and so on.
+In our current example, we have a categorical data - <code>Country</code>. To convert or encode as it is called in ML, we will again use a library from <code>Scikit</code></p>
+
+<pre><code class="language-python">from sklearn.preprocessing import LabelEncoder
+labelEncoder_x = LabelEncoder()
+x[: ,0] =labelEncoder_x.fit_transform(x[:, 0])
+x
+</code></pre>
+
+<pre><code>array([[0, 44.0, 72000.0],
+       [2, 27.0, 48000.0],
+       [1, 30.0, 54000.0],
+       [2, 38.0, 61000.0],
+       [1, 40.0, 63777.77777777778],
+       [0, 35.0, 58000.0],
+       [2, 38.77777777777778, 52000.0],
+       [0, 48.0, 79000.0],
+       [1, 50.0, 83000.0],
+       [0, 37.0, 67000.0]], dtype=object)
+</code></pre>
+
+<p>The above code uses <code>LabelEncoder</code>  class to encode the values of the country. Here, France =0, Spain = 2, Germany=1
+There is however a simple problem here.
+<img src="/placeholder.svg" data-src="/resources/img/encoded.PNG" alt="encoded" />
+#####Problem:
+The models are based on equation. Since the LabelEncoder here, has assigned them values 0,1,2, the equation would think that Germany has higher value than France and Spain has a higher value than Germany. This certainly is not the case. These are supposed to be treated as observational values. Example - Picking on our earlier example of observing car speeds and color. If we use LabelEncoder for encoding car colors, the model may come back and say that A <code>red Prius</code> will always be faster than a <code>White Ferrari</code></p>
+
+<p>To get over this problem and use category as markers, we will use another class which will create dummy encoding and this gives equal value to all categorical data. It does that by creating a sparse matrix.
+<img src="/placeholder.svg" data-src="/resources/img/dummyEncoding.PNG" alt="dummyEncoded" /></p>
+
+<pre><code class="language-python">
+from sklearn.preprocessing import OneHotEncoder
+oneHotEncoder = OneHotEncoder(categorical_features=[0])
+x= oneHotEncoder.fit_transform(x).toarray()
+
+</code></pre>
+
+<p>So after dummy encoding, the complete sparse matrix of <code>x</code> looks like this
+<img src="/placeholder.svg" data-src="/resources/img/dummyEncodingResult.PNG" alt="dummyEncodingResult.PNG" /></p>
+
+<p>So now let&rsquo;s convert the dependent column <code>Purchased</code> as well. However, we do not need to use dummy encoding as there are only two variables and that it is a dependent variable.</p>
+
+<pre><code class="language-python">labelEncoder_y = LabelEncoder()
+y =labelEncoder_y.fit_transform(y)
+</code></pre>
+
+<h3 id="splitting-dataset-into-training-and-test-set">Splitting dataset into training and test set</h3>
+
+<ul>
+<li><p><strong>Why do we need to split the data into training and test set?</strong></p>
+
+<ol>
+<li><p>This is about an algorithm that will create the equation to predict the result of new information based on history. If you let it run on all of the data then it will learn too much and will have correlation value or in other words overfitting.  A simple example in the real world is of a boy who memorizes the book word by word but fails in the actual exam because instead of asking what is 2 +2 like he read in the book, the exam asked what is 1+3. The student learnt too much but cannot relate or imply the same knowledge on a new data set.</p></li>
+
+<li><p>Sometimes you may have limited data to build the model and may not additional data to test your model.</p></li>
+</ol></li>
+
+<li><p>** What is a good ratio to split the data?**
+Usually, <sup>80</sup>&frasl;<sub>20</sub> or up to <sup>70</sup>&frasl;<sub>30</sub> is a good number. Going beyond <sup>70</sup>&frasl;<sub>30</sub> is not recommended.</p></li>
+</ul>
+
+<p>To split a dataset into training and test set. We will use another class called <code>train_test_split</code>, which returns 4 different values - Training_X, Test_X,Training_Y, Test_Y</p>
+
+<pre><code class="language-python">from sklearn.model_selection import train_test_split
+x_train, x_test, y_train, y_test = train_test_split(x,y, test_size=0.2, random_state=0)
+</code></pre>
+
+<p>The data is now split into 8 and 2 observation.</p>
+
+<p><img src="/placeholder.svg" data-src="/resources/img/tarinTestResult.PNG" alt="tarinTestResult" /></p>
+
+<h3 id="feature-scaling-normalization-standardization">Feature Scaling/ Normalization/Standardization</h3>
+
+<p>If you look your dataset and pay attention to independent features <code>Age</code> and <code>Salary</code>, the range varies for <code>Age</code> between <code>27 - 50</code> and <code>Salary</code> between <code>48000 - 83000</code>. When an equation is created, the distance between two dat apoints is huge and the values can be skewed because one of the columns have 27 for age and 83000 for salary.</p>
+
+<p><img src="/placeholder.svg" data-src="/resources/img/ecd.PNG" alt="ecd" />
+The models are usually based on Euclidean distance. In our case since Salary has a higher range, it will dominate the age values which means when we do distance between observation  (27, 48000) and (48, 79000) then (x2-x1) ^2  vs (y2-y1) ^2 is
+441 vs 961000000. Hence Age is overshadowed by Salary.</p>
+
+<p><img src="/placeholder.svg" data-src="/resources/img/zstd.PNG" alt="zstd" /></p>
+
+<p>If you are from statistics field, you probably are already familair with standardization or Z-index etc. Above is the two way to calculate the standard range which will always give us a value between  <strong>0 and 1</strong></p>
+
+<pre><code class="language-python">from sklearn.preprocessing import StandardScaler
+sc_x = StandardScaler()
+x_train = sc_x.fit_transform(x_train)
+x_test = sc_x.transform(x_test)
+</code></pre>
+
+<p><strong>NOTE</strong>: We are not fitting and transforming the <code>x_test</code> because it is already fitted based on <code>xtrain</code> so that they are now on the same scale. If we would have used fit_transform on both test and train then their scale would have been different say one could between -1 and +1 while the other could be on -3 and +3
+<img src="/placeholder.svg" data-src="xtrainScaled.PNG" alt="xtrainScaled.PNG" /></p>
+
+<ul>
+<li><strong>Why did we not apply feature scaling on <code>y</code> or dependent variable?</strong>
+In this case, the values are 0 and 1 only or in other words, this is a classification problem which has two choices, whether a customer bought the product or he did not buy the product. In other scenarios such as that related to multiple regression, we may have situation where we may have to do feature scaling on <code>y</code> as well.</li>
+</ul>
+
+<p>That&rsquo;s all for the first series. Stay tuned for <a href="http://javahabit.com/2019/01/22/part-2-ml-simplelinear-regression/">next series</a>.</p>
+
+                 
+                
+         
+      
+    </div>
+
+    
+   
+
+    <div class="w3-container">
+    	
+      
+     
+	</div>
+
+
+
+  
+
+
+    
+    
+    
+    
+    <br>  
+</div>
+
+
+
+<div class="w3-container w3-card-2 w3-black">
+<div class="w3-row">
+  <div class="w3-col l2 m2 s12 w3-center">
+  
+    <img src="https://avatars3.githubusercontent.com/u/1176242?s=460&amp;v=4" width ="100px" class="w3-circle w3-center w3-margin-top w3-margin-bottom" alt="author" >
+   
+  </div>
+  <div class="w3-col l10 m10 s12 ">
+  <div class = "w3-container w3-margin-top">
+    
+    
+  </div>
+  </div>
+  </div>
+</div>
+
+      
+    <div class="w3-content" > 
+      <div class="w3-bar w3-section">
+	     
+	      <a  href="/2019/01/22/part-2-ml-simplelinear-regression/" class="w3-btn w3-text-indigo w3-hover-green">
+	          &#10094; Part 2 Machine Learning Simplelinear Regression
+	      </a>
+	    
+	      <a class="w3-btn w3-right w3-text-indigo w3-hover-green" href="/2018/12/30/spring-bean-vs-component/">
+	       Spring Bean vs Spring Component &#10095;
+	      </a>
+  	  </div>
+    </div>
+	
+ 
+
+  
+  
+  
+
+      <div id="wrapads">
+        <div class="adBanner">
+         
+        </div>
+       </div>
+      
+      <div id="allowads" class="allowads-overlay">
+  
+        <div class="allowads-overlay-content">
+        <div class="w3-panel w3-pink w3-large">
+        
+
+         <p> We notice you're using an adblocker.  If you like our webite please keep us running by whitelisting this site in your ad blocker. We’re serving quality, related ads only. Thank you!</p>
+         
+          <div class="w3-btn w3-green"  onclick="closeOverlay()">I've whitelisted your website.</div><br>
+          <div class="w3-button w3-small"  onclick="closeOverlay()">Not now</div>
+        </div>
+        </div>
+      </div>
+
+      <script>
+      function closeOverlay() {
+        document.getElementById("allowads").style.width = "0%";
+        document.getElementById("wrapads").style.height="1px";
+      }
+
+      function detectads() {
+      var h = document.getElementById("wrapads").clientHeight;
+
+      if (h==0){ document.getElementById("allowads").style.width = "100%";
+      }
+      }
+      
+
+     
+      
+      </script>
+        </div>
+        
+          <script>
+  shareurl=encodeURIComponent(location.protocol + '//' + location.host + location.pathname);
+  sharetitle=encodeURIComponent(document.title);
+    
+  </script>
+<div class="icon-bar">
+<script>
+document.write( '<a href="javascript:bookmark();" class="bookmark w3-tooltip"><i class="fa fa-bookmark"></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green ">Bookmark this page</span></a> ');
+
+document.write( '<a href="http://www.facebook.com/sharer.php?u='+shareurl+'" onclick="window.open(this.href, \'mywin\',\'left=20,top=20,width=500,height=500,toolbar=1,resizable=0\'); return false;" class="facebook w3-tooltip"><i class="fa fa-facebook "></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green">Share to Facebook</span></a> ');
+
+document.write( '<a href="https://twitter.com/share?url='+shareurl+'&amp;text='+sharetitle+'" onclick="window.open(this.href, \'mywin\',\'left=20,top=20,width=500,height=500,toolbar=1,resizable=0\'); return false;" class="twitter w3-tooltip"><i class="fa fa-twitter"></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green">Share to Twitter</span></a> ');
+document.write( '<a href="https://plus.google.com/share?url='+shareurl+'" onclick="window.open(this.href, \'mywin\',\'left=20,top=20,width=500,height=500,toolbar=1,resizable=0\'); return false;" class="google w3-tooltip"><i class="fa fa-google"></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green">Share to Google Plus</span></a>');
+
+document.write( '<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='+shareurl+'" onclick="window.open(this.href, \'mywin\',\'left=20,top=20,width=500,height=500,toolbar=1,resizable=0\'); return false;" class="linkedin w3-tooltip"><i class="fa fa-linkedin"></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green">Share to Linkedin</span></a>');
+
+</script>
+
+<script>
+function bookmark(){
+
+if ('sidebar' in window && 'addPanel' in window.sidebar) { 
+                window.sidebar.addPanel(location.href,document.title,"");
+            } else if(  false) { 
+                window.external.AddFavorite(location.href,document.title); 
+            } else { 
+                alert('Press ' + (navigator.userAgent.toLowerCase().indexOf('mac') != - 1 ? 'Command/Cmd' : 'CTRL') + ' + D to bookmark this page.');
+            }
+        }
+
+</script>
+</div>
+        
+           
+          
+  
+
+        
+        
+      </div>
+    
+
+   
+    <footer id="footer" >
+      <div class="w3-container w3-center w3-padding-32"> 
+  
+  <hr class="headfoot">
+  <p>Powered by <a href="https://gohugo.io">Hugo</a> | Theme - <a href="https://github.com/jesselau76/hugo-w3-simple">Hugo W3 Simple</a>
+  </p>
+  &copy; <a href="http://javahabit.com">Dinesh Arora</a> 2019 | <a href="https://github.com/dinesh19aug">Github</a> | <a href="https://twitter.com/dinesh19aug">Twitter</a>  | <a href="/index.xml">RSS</a>
+  
+</div>
+
+    </footer>
+    
+
+    
+  </div>
+
+  
+
+  
+    
+      <div id="backtotop" class="w3-hide-small w3-hide-medium">
+  
+        <button onclick="topFunction()" class="w3-btn w3-red w3-large" style="width:160px">Back To Top
+        &rarr;</button>
+        
+      </div>
+
+      <script>
+        function topFunction() {
+          document.body.scrollTop = 0;
+          document.documentElement.scrollTop = 0;
+      }
+      </script>
+
+
+    
+ 
+    
+    <script>
+    
+    function isVisible(elem) {
+
+      let coords = elem.getBoundingClientRect();
+
+      let windowHeight = document.documentElement.clientHeight;
+
+      
+      let topVisible = coords.top > 0 && coords.top < windowHeight;
+      let bottomVisible = coords.bottom < windowHeight && coords.bottom > 0;
+
+      return topVisible || bottomVisible;
+    }
+
+    
+
+    function showVisible() {
+      for (let img of document.querySelectorAll('img')) {
+        let realSrc = img.dataset.src;
+        if (!realSrc) continue;
+
+        if (isVisible(img)) {
+          
+
+          img.src = realSrc;
+
+          img.dataset.src = '';
+        }
+      }
+      if ( Array.from(document.querySelectorAll('[data-src]')).every(
+        img => img.getAttribute('data-src') === '') ) {
+        window.removeEventListener('scroll', showVisible)
+      }
+
+    }
+
+    window.addEventListener('scroll', showVisible);
+    showVisible();
+  </script>
+
+
+    
+    
+      <div class="progress-container" id="scrollbar">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>  
+
+
+    
+<script>
+
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  <!-- TOC -->
+    
+    
+    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+        document.getElementById("toc").style.display = "block";
+    } else {
+        document.getElementById("toc").style.display = "none";
+    }
+    
+    <!-- cookie bar -->
+    
+<!-- Back to top -->
+    
+    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+        document.getElementById("backtotop").style.display = "block";
+    } else {
+        document.getElementById("backtotop").style.display = "none";
+    }
+    
+    <!-- scroll indicator -->
+    
+      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var scrolled = (winScroll / height) * 100;
+      document.getElementById("progress-bar").style.width = scrolled + "%";
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("scrollbar").style.display = "block";
+        } else {
+            document.getElementById("scrollbar").style.display = "none";
+        }
+    
+
+    
+
+    <!-- allowads -->
+    
+       if (document.body.scrollTop > 2000 || document.documentElement.scrollTop > 2000) {
+          detectads();
+       } 
+
+    
+}
+
+
+</script>
+
+
+
+  
+
+</body>
+</html>

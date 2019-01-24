@@ -3,8 +3,13 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/2018/12/30/test3/</loc>
-    <lastmod>2018-12-31T02:57:15-05:00</lastmod>
+    <loc>/2019/01/22/part-2-ml-simplelinear-regression/</loc>
+    <lastmod>2019-01-22T21:41:47-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2019/01/21/part-1-ml-data-preprocessing/</loc>
+    <lastmod>2019-01-21T00:35:54-05:00</lastmod>
   </url>
   
   <url>
@@ -139,7 +144,7 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2018-12-31T02:57:15-05:00</lastmod>
+    <lastmod>2019-01-22T21:41:47-05:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -150,7 +155,7 @@
   
   <url>
     <loc>/posts/</loc>
-    <lastmod>2018-12-31T02:57:15-05:00</lastmod>
+    <lastmod>2019-01-22T21:41:47-05:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -161,7 +166,7 @@
   
   <url>
     <loc>/categories/tech-notes/</loc>
-    <lastmod>2018-12-31T02:57:15-05:00</lastmod>
+    <lastmod>2019-01-22T21:41:47-05:00</lastmod>
     <priority>0</priority>
   </url>
   
