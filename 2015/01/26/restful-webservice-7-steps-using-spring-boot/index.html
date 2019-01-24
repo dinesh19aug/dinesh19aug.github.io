@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
+
   <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta http-equiv="Cache-Control" content="public" />
@@ -56,7 +56,6 @@ I will be honest, I have not been up to date on how to use a Restful webservice,
 
 
 
-
   
   
 </head>
@@ -65,10 +64,20 @@ I will be honest, I have not been up to date on how to use a Restful webservice,
 class="w3-light-grey">
 
 
-    
+
     <header id="header">
-         
-        <div class="w3-right ">
+      
+          
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47631412-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-47631412-1');
+</script>
+
+<div class="w3-right ">
 <div class="w3-bar w3-light-grey  ">
   
   <span class="w3-bar-item w3-left " id="google_translate_element"></span>
@@ -91,33 +100,33 @@ class="w3-light-grey">
        <a href="javascript:void(0)" class="w3-bar-item w3-button w3-hover-green" title="Search" onclick="displaysearch()"><i class="fa fa-search"></i></a>
   
       <span class="w3-hide-small">
-        
+
         <a href="mailto:dinesh19aug@gmail.com" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-envelope"></i></a>
-        
+
         <a href="https://stackoverflow.com/users/1172194/dinesh-arora" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-stack-overflow"></i></a>
-        
+
         <a href="https://twitter.com/dinesh19aug" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-twitter"></i></a>
-        
+
         <a href="https://github.com/dinesh19aug" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-github"></i></a>
-        
+
         <a href="https://www.linkedin.com/in/dinesharora" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-linkedin"></i></a>
-        
+
         <a href="https://github.com/dinesh19aug" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-github"></i></a>
 
       </span>
-  
+
 </div>
 </div>
 <br>
   <div class="w3-content">
-  
-  <div class="w3-container w3-center w3-padding-32 w3-hide-small"> 
+
+  <div class="w3-container w3-center w3-padding-32 w3-hide-small">
       <h1 class="w3-xxxlarge w3-text-blue w3-wide w3-allerta  " style="text-shadow:1px 1px 0 #444" ><u>
       
          A Morsel Of Code - One Byte At A Time
       
 </u></h1>
-      
+
     </div>
     <div class="w3-content w3-center">
     <div class="w3-bar w3-light-grey w3-border">
@@ -127,8 +136,8 @@ class="w3-light-grey">
     
       <a href="/tags/" class="w3-bar-item w3-button w3-hide-small">Tags</a>
     
-   
-    
+
+
     <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="displaymenu()">&#9776;</a>
   </div>
 
@@ -138,7 +147,7 @@ class="w3-light-grey">
       
       <a href="/tags/" class="w3-bar-item w3-button">Tags</a>
       
-  
+
 </div>
 </div>
 </div>
@@ -147,7 +156,7 @@ function displaymenu() {
     var x = document.getElementById("mobilemenu");
     if (x.className.indexOf("w3-show") == -1) {
         x.className += " w3-show";
-    } else { 
+    } else {
         x.className = x.className.replace(" w3-show", "");
     }
 }
@@ -170,26 +179,26 @@ function displaymenu() {
     var x = document.getElementById("searchOverlay");
     if (x.className.indexOf("w3-show") == -1) {
         x.className += " w3-show";
-    } else { 
+    } else {
         x.className = x.className.replace(" w3-show", "");
     }
-      
+
   }
 
- 
+
   </script>
 
-  
 
 
-    
+
+
     <hr class="headfoot">
-   
+
       
     </header>
-    
+
 <div class="w3-content">
-    
+
       <div>
         <div id="content" >
           
@@ -548,16 +557,16 @@ if ('sidebar' in window && 'addPanel' in window.sidebar) {
 </script>
 </div>
         
-           
+        
           
   
 
         
-        
-      </div>
-    
 
-   
+      </div>
+
+
+
     <footer id="footer" >
       <div class="w3-container w3-center w3-padding-32"> 
   
@@ -569,9 +578,9 @@ if ('sidebar' in window && 'addPanel' in window.sidebar) {
 </div>
 
     </footer>
-    
 
-    
+
+
   </div>
 
   
@@ -579,10 +588,10 @@ if ('sidebar' in window && 'addPanel' in window.sidebar) {
   
     
       <div id="backtotop" class="w3-hide-small w3-hide-medium">
-  
+
         <button onclick="topFunction()" class="w3-btn w3-red w3-large" style="width:160px">Back To Top
         &rarr;</button>
-        
+
       </div>
 
       <script>
@@ -597,7 +606,7 @@ if ('sidebar' in window && 'addPanel' in window.sidebar) {
  
     
     <script>
-    
+
     function isVisible(elem) {
 
       let coords = elem.getBoundingClientRect();
@@ -611,7 +620,7 @@ if ('sidebar' in window && 'addPanel' in window.sidebar) {
       return topVisible || bottomVisible;
     }
 
-    
+
 
     function showVisible() {
       for (let img of document.querySelectorAll('img')) {
@@ -619,7 +628,7 @@ if ('sidebar' in window && 'addPanel' in window.sidebar) {
         if (!realSrc) continue;
 
         if (isVisible(img)) {
-          
+
 
           img.src = realSrc;
 
@@ -642,7 +651,7 @@ if ('sidebar' in window && 'addPanel' in window.sidebar) {
     
       <div class="progress-container" id="scrollbar">
         <div class="progress-bar" id="progress-bar"></div>
-      </div>  
+      </div>
 
 
     
@@ -674,7 +683,7 @@ function scrollFunction() {
         } else {
             document.getElementById("scrollbar").style.display = "none";
         }
-    
+
 
     
 
@@ -682,7 +691,7 @@ function scrollFunction() {
     
        if (document.body.scrollTop > 2000 || document.documentElement.scrollTop > 2000) {
           detectads();
-       } 
+       }
 
     
 }
