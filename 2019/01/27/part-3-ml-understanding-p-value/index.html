@@ -14,22 +14,22 @@
     
     
 
-<title>Part 2 Machine Learning Simplelinear Regression • A Morsel Of Code</title>
+<title>Part 3 Machine Learning Understanding P Value • A Morsel Of Code</title>
 
 
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Part 2 Machine Learning Simplelinear Regression"/>
+<meta name="twitter:title" content="Part 3 Machine Learning Understanding P Value"/>
 <meta name="twitter:description" content="Machine learning tutorial on Data preprocessing"/>
 
-<meta property="og:title" content="Part 2 Machine Learning Simplelinear Regression" />
+<meta property="og:title" content="Part 3 Machine Learning Understanding P Value" />
 <meta property="og:description" content="Machine learning tutorial on Data preprocessing" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="/2019/01/22/part-2-ml-simplelinear-regression/" /><meta property="article:published_time" content="2019-01-22T21:41:47-05:00"/>
-<meta property="article:modified_time" content="2019-01-22T21:41:47-05:00"/>
+<meta property="og:url" content="/2019/01/27/part-3-ml-understanding-p-value/" /><meta property="article:published_time" content="2019-01-27T17:27:19-05:00"/>
+<meta property="article:modified_time" content="2019-01-27T17:27:19-05:00"/>
 
 
 
-<link rel="canonical" href="/2019/01/22/part-2-ml-simplelinear-regression/" />
+<link rel="canonical" href="/2019/01/27/part-3-ml-understanding-p-value/" />
 
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -211,13 +211,8 @@ function displaymenu() {
 <ul>
 <li>
 <ul>
-<li><a href="#getting-the-dataset">Getting the dataset</a></li>
-<li><a href="#what-is-simple-linear-regression">What is Simple Linear regression?</a></li>
-<li><a href="#how-is-a-trendline-determined-by-a-model">How is a trendline determined by a model?</a></li>
-<li><a href="#steps-to-solve-the-problem">Steps to solve the problem.</a>
-<ul>
-<li><a href="#plot-vs-scatter">Plot vs Scatter</a></li>
-</ul></li>
+<li><a href="#common-conception-about-p-value">Common conception about P-VALUE</a></li>
+<li><a href="#how-to-calculate-p-value">How to calculate P-Value</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -236,13 +231,13 @@ function displaymenu() {
   <div class="w3-content w3-card-4" >
     
     <header class="w3-container w3-center w3-padding-32">
-      <h1>Part 2 Machine Learning Simplelinear Regression</h1>
+      <h1>Part 3 Machine Learning Understanding P Value</h1>
 
       <div >
-        <p> 2019-01-22 
+        <p> 2019-01-27 
           
-             <code> 928 words  </code>
-             <code> 5 mins read </code>
+             <code> 822 words  </code>
+             <code> 4 mins read </code>
           
         </p>
         <div >
@@ -269,178 +264,88 @@ function displaymenu() {
           
           
 
-<p>In the <a href="http://javahabit.com/2019/01/21/part-1-ml-data-preprocessing/">previous post</a> we learned about data pre-processing. In this post we will review the simplest algorithm - Simple Linear Regression.</p>
+<p>In the <a href="http://javahabit.com/2019/01/22/part-2-ml-simplelinear-regression/">previous post</a>, we learnt about Simple Linear regression. I wanted to start this section with multiple linear regression tutorial but as I was going over the content on the template to run create the regression model, I felt that we need understand P-Value concept before we move ahead.</p>
 
-<p><strong>Business Problem</strong>: In this series, we are going to learn about Simple Linear Regression. We will review a data set about <code>Salary</code> and <code>Experience in age</code>. As a data scientist, your job is to help the HR department  predict the salary of a person based on his years of experience if he or she accepts the job offer. If you offer too low, the person will not accept the job offer. If you offer too high, then you will be wasting the company&rsquo;s resources($$).</p>
+<p>So what is <strong>P-Value</strong> ?</p>
 
-<h3 id="getting-the-dataset">Getting the dataset</h3>
+<p>Before I bore you with stats definition of the P-Value. Let&rsquo;s start with something simple.
+ Mr X and Mr Y are good friends. One day Mr X and Mr Y decided to go scuba diving. The water in the lake was perfect blue and you could see the bottom and all the fishes swimming in there. After a while,</p>
 
-<ol>
-<li><a href="https://github.com/dinesh19aug/ml-notes/blob/master/Part-2-linear-regression/simple-linear-regression.ipynb">Jupyter Notebook &amp; images</a></li>
-<li><a href="https://github.com/dinesh19aug/ml-notes/blob/master/Part-2-linear-regression/Salary_Data.csv">Simple Regression</a></li>
-</ol>
+<p><code>Mr X:</code>
+ &gt; <em>I deem that more than 10% of the fishes in the lake are male&rdquo;.</em></p>
 
-<h3 id="what-is-simple-linear-regression">What is Simple Linear regression?</h3>
+<p><code>Mr Y</code>  who was also the warden of the lake.
+ &gt;<em>It is not possible as they release more female fishes than male.</em></p>
 
-<p><img src="/placeholder.svg" data-src="/resources/img/slr-intro.PNG" alt="slr-intro.PNG" /></p>
+<p><code>Mr X:</code>
+ &gt;<em>Every other fish that I see is male, hence my statement stands correct.</em></p>
 
-<p>If we draw a graph of <code>salary</code> vs <code>Experience</code>, you will see a linear trend.
-<img src="/placeholder.svg" data-src="/resources/img/linearGraph.PNG" alt="linearGraph" /></p>
+<p><code>Mr Y:</code>
+ &gt; <em>Let&rsquo;s use stats and find out if your statement is true. As I am the warden and know the fact that there are more female than male. Let&rsquo;s call my statement as</em></p>
 
-<p>Based on the graph, it is clear that this is a positive slope. If the co-efficient <code>b1</code> is big, the slope is going to steeper, which means that if there is a small increase in the age, then there will be a big increase in the salary. If the value of <code>b1</code> is small, the slope is going to be more gentle and with change is experience, the salary is going to increase gently.</p>
+<blockquote>
+<p>*H<sub>0</sub>: &ldquo;There are more female than male.&rdquo;
+ and your statement as *</p>
 
-<h3 id="how-is-a-trendline-determined-by-a-model">How is a trendline determined by a model?</h3>
+<p><em>H<sub>a</sub>: &ldquo;The number of male fish in the lake is more than 10%</em></p>
+</blockquote>
 
-<p>The model tries to find the trendline by determining the least of <code>Sum of errors</code>. In the below diagram, imagine the <code>red cross</code> as observed value and <code>green cross</code> as determined value(model prediction). The algorithm finds the difference between the and squares them. The algorithm does this for all the observed values and determines the slope of trendline which given the minimum of <strong>SUM(y - y<sup>^</sup>)<sup>2</sup></strong></p>
+<p><code>Mr Y:</code>
+ &gt; *Now if only I can prove that chances of my statement <strong>H<sub>0</sub></strong> happening is much higher than then your statement <strong>H<sub>a</sub></strong> can be rejected. Let&rsquo;s use P-value*</p>
 
-<p><img src="/placeholder.svg" data-src="/resources/img/trendline.PNG" alt="trendline" /></p>
+<p><code>Mr X:</code>
+ &gt; <em>What&rsquo;s a P-Value?</em></p>
 
-<h3 id="steps-to-solve-the-problem">Steps to solve the problem.</h3>
+<p><code>Mr Y:</code>
+ &gt; *So based on the definition below, if we catch 10 samples of fish from the lake and 2 or more of those are male. We will then repeat the experiment multiple times and note down the result. Then we will find out the probability of the number of males caught in 100 experiments and conclude that my statement <strong>H<sub>0</sub></strong> is true and you cannot reject my argument.*</p>
 
-<ul>
-<li><strong>Step 1: Data Preprocessing</strong></li>
-</ul>
+<p><img src="/placeholder.svg" data-src="/resources/img/pvaluedef.PNG" alt="P-value-def" /></p>
 
-<p>We will follow the same process as we did in the first series. We will import the libraries and read the csv file and take a look at the data.
-<img src="/placeholder.svg" data-src="/resources/img/dataset.PNG" alt="dataset" /></p>
+<p><code>Mr X</code>
+&gt;I caught 10 fishes and got 7 are female and 3 are male. I will now repeat this experement 100 times.</p>
 
-<pre><code class="language-python"># Importing the libraries
-import numpy as np
-import matplotlib.pyplot as plt
-import pandas as pd
+<p>Based on the above experiment what is the likelihood that <code>Mr X</code> would have got the same result? Calculating this likelihood is called <strong><code>P-Value</code></strong>.</p>
 
-# Importing the dataset
-dataset = pd.read_csv('../Salary_Data.csv')
-X = dataset.iloc[:, :-1].values
-y = dataset.iloc[:, 1].values
-</code></pre>
+<blockquote>
+<p>What do we do with this P-Value?</p>
+</blockquote>
 
-<ul>
-<li><p><strong>Step 2: Split the data into training and test data</strong></p>
+<p>The <code>P-Value</code> is used to validate a hypothesis. In the above example, the significance level chosen was 0.05. The P-Value calculated(Standard way using historgram)
+<img src="/placeholder.svg" data-src="/resources/img/histo.PNG" alt="histo" /></p>
 
-<p>Since there are 30 rows, we will divide the data in 20:10(training:test)</p></li>
-</ul>
+<p>So based on the above histogram shows how many females were caught. The diagram above is a random diagram that I copied from a different dataset. But assume that number of times the male figure was more than 1 is 21. Then the
+&gt;<em>probability(fish is male) = <sup>21</sup>&frasl;<sub>100</sub> or 0.21 or 21%</em></p>
 
-<pre><code class="language-python">#Split the data into training and test data
-from sklearn.model_selection import train_test_split
-X_train, X_test, y_train, y_test = train_test_split(X,y, test_size=1/3, random_state=0)
-</code></pre>
+<p>So Hypothesis rule is that if the
+&gt; p-value is <strong>less than</strong> Significance level - Reject the <code>H&lt;sub&gt;0&lt;/sub&gt;</code>
+p-value is <strong>greater than or equal to</strong> Significance level - Cannot reject the <code>H&lt;sub&gt;0&lt;/sub&gt;</code>. We do not have enough eveidence for the claim <code>H&lt;sub&gt;a&lt;/sub&gt;</code></p>
 
-<p><img src="/placeholder.svg" data-src="/resources/img/data-split.PNG" alt="data-split.PNG" /></p>
+<p>In the above case we chose <code>Significance level = 0.01</code> and our <code>p-value=0.21</code>, so which means that we cannot reject the null hypothesis or <code>H&lt;sub&gt;0&lt;/sub&gt;</code> and we do not have enough evidence to say that <code>Number of male fishes is more than 10% in the lake</code></p>
 
-<ul>
-<li><p><strong>Step 3: Feature Scaling</strong>
-We won&rsquo;t be feature scaling or normalizing here because the library that will execute the model takes care of it. So we are going to skip this step.</p></li>
+<h3 id="common-conception-about-p-value">Common conception about P-VALUE</h3>
 
-<li><p><strong>Step 4: Train the model</strong>
-At this point our data pre-processing is complete and we will use the library to run the regression on the training data set.</p></li>
-</ul>
-
-<pre><code class="language-python">#Fittiing the Simple linear regression on the training set
-from sklearn.linear_model import LinearRegression
-regressor = LinearRegression( )
-regressor.fit(X_train, y_train)
-</code></pre>
-
-<pre><code>LinearRegression(copy_X=True, fit_intercept=True, n_jobs=None,
-         normalize=False)
-</code></pre>
-
-<p>In the above code, we have trained our model and saved it in the variable <code>regressor</code>.</p>
+<p>There are two things that you need to understand about P-Value. The two most common things that I had to keep reminding myself(every few months as I tend to forget) are</p>
 
 <ul>
-<li><strong>Step 5: Predict and compare with the actual test set</strong></li>
+<li><p>**The p-value is NOT the probability the claim is true. **
+Wouldn&rsquo;t it be amazing if that was true! Imagine -  “there is 30% chance that this M&amp;M pack is heavier than 100g”. Sadly, that&rsquo;s not the case.</p></li>
+
+<li><p><strong>The p-value is NOT the probability the null hypothesis is true.</strong>
+This one trips me up all the time. When I was trying to refresh my notes from Khan Academy about hypothesis testing, I had to keep repeating this rule as I got almost every question wrong, when it asked someting like - &ldquo;You should accept that null hypothesis is true. The correct way to interpret the result is by reminding that &ldquo;Null hypothese cannot be rejected&rdquo;. Another way of saying it is - I will give you benefit of doubt that Null hypothesis is true - until a more conclusive proof comes forward.</p></li>
 </ul>
 
-<p>Next, we are going to predict the values of the test sample and get the predicted results in variable <code>y_pred</code>.</p>
+<p>The P-Value only tells us whether there is a Strong or Weak/low evidence that our null hypothesis <code>H&lt;sub&gt;0&lt;/sub&gt;</code> is true or not.</p>
 
-<pre><code class="language-python"># Predicting the salary of the test sample
-y_pred = regressor.predict(X_test)
-</code></pre>
+<h3 id="how-to-calculate-p-value">How to calculate P-Value</h3>
 
-<p>Let&rsquo;s see how did the model predict.
-<img src="/placeholder.svg" data-src="/resources/img/predicted.PNG" alt="predicted" /></p>
+<p>There are a number of ways to calulate P-value, a topic which I am not going to touch in this series. Here are some of the resources which will help you understand different techniques:</p>
 
 <ul>
-<li><strong>Step 5: Plot the data</strong></li>
+<li><a href="https://www.socscistatistics.com/pvalues/">P-Value calculator</a></li>
+<li><a href="https://www.wikihow.com/Calculate-P-Value">Wikihow - Calculate P-Value</a></li>
 </ul>
 
-<p>To better understand, let&rsquo;s create plot the trendline of our model and look for two things
-1. What is the fit of trendline for training data?
-2. What is the fit of trendline on test data against predicted values?</p>
-
-<pre><code class="language-python">plt.scatter(X_train, y_train, color='red')
-plt.plot(X_train, regressor.predict(X_train), color='blue')
-plt.title('Salary vs Experience (Training Set)')
-plt.xlabel('Years of Experience')
-plt.ylabel('Salary')
-plt.show()
-
-</code></pre>
-
-<p><img src="/placeholder.svg" data-src="/resources/img/simple-linear-regression_files/simple-linear-regression_11_0.png" alt="png" /></p>
-
-<p>Here&rsquo;s how the graph would like for <strong>Training data</strong>
-<img src="/placeholder.svg" data-src="/resources/img/trainingPlot.PNG" alt="trainingPlot.PNG" />
-Couple of things to note. The scatter function just plots the x,y values on the graph as red dots
-&gt; plt.scatter(X_train, y_train, color=&lsquo;red&rsquo;)</p>
-
-<p>The plot function also maps the data as blue dots but it joins them via line starting from first mapping to the last. Additionally, you will also notice that in the y-axis, we have passed model function <code>predict(X_train)</code> and <strong>not</strong>  <code>predict(x_test)</code> because we want to use the function created using the training set - <code>y=mx+c</code>.
-&gt; plt.plot(X_train, regressor.predict(X_train), color=&lsquo;blue&rsquo;)</p>
-
-<h4 id="plot-vs-scatter">Plot vs Scatter</h4>
-
-<p>The primary difference of plt.scatter from plt.plot is that it can be used to create scatter plots where the properties of each individual point (size, face color, edge color, etc.) can be individually controlled or mapped to data.</p>
-
-<p>The purpose of the above code is to show trendline against the training data points(red dots). If we wanted to show predicted line as set plotted <code>dots</code>, we would have used
-&gt;plt.scatter(X_train, regressor.predict(X_train), color=&lsquo;blue&rsquo;)</p>
-
-<p>In that case the graph would have looked like this.
-<img src="/placeholder.svg" data-src="/resources/img/plot-cs-scatter.PNG" alt="plot-cs-scatter.PNG" /></p>
-
-<p>Here&rsquo;s how the graph would like for <strong>Test data</strong></p>
-
-<pre><code class="language-python">#Plot the data against test set
-plt.scatter(X_test, y_test, color='red')
-plt.plot(X_train, regressor.predict(X_train), color='blue')
-plt.title('Salary vs Experience (Test Set)')
-plt.xlabel('Years of Experience')
-plt.ylabel('Salary')
-plt.show()
-
-</code></pre>
-
-<p><img src="/placeholder.svg" data-src="/resources/img/simple-linear-regression_files/simple-linear-regression_13_0.png" alt="png" /></p>
-
-<p><img src="/placeholder.svg" data-src="/resources/img/trendline_test.PNG" alt="trendline_test.PNG" />
-As explained earlier, the trend line is what the model was trained against the training data set. Hence
-&gt; plt.plot(X_train, regressor.predict(X_train), color=&lsquo;blue&rsquo;)</p>
-
-<p>and <strong>not</strong>
-&gt; plt.plot(X_test, regressor.predict(X_test), color=&lsquo;blue&rsquo;)</p>
-
-<p>Now let&rsquo;s create a more complete picture -  the training set(RED DOTS), test set(GREEN DOTS) and predicted value (BLACK DOTS).</p>
-
-<pre><code class="language-python">#Plot the data against test set
-plt.scatter(X_train, y_train, color='red')
-plt.scatter(X_test, y_test, color='green')
-plt.scatter(X_test, y_pred, color='black')
-
-plt.plot(X_train, regressor.predict(X_train), color='blue')
-plt.title('Salary vs Experience (Test Set)')
-plt.xlabel('Years of Experience')
-plt.ylabel('Salary')
-plt.show()
-</code></pre>
-
-<p><img src="/placeholder.svg" data-src="/resources/img/simple-linear-regression_files/simple-linear-regression_15_0.png" alt="png" /></p>
-
-<p>So you will notice that all the <code>black</code> dots lie on the trend line because they are created using the trendline equation.</p>
-
-<p>That&rsquo;s it. We just trained a model using Simple linear regression and predicted the values, then compared it against test data.</p>
-
-<pre><code class="language-python">
-</code></pre>
+<p>This conclues this series on P-Value. In the <a href="http://javahabit.com">next series</a> we will review Multiple linear regression and you will understand how P-Value fits in the bigger picture.</p>
 
                  
                 
@@ -470,6 +375,9 @@ plt.show()
         <h2>Related Articles:</h2>
         <ul class="w3-ul w3-hoverable">
             
+            
+
+              <li class="w3-padding-large"><span class="date">2019/01/22</span> &nbsp; <a href="/2019/01/22/part-2-ml-simplelinear-regression/">Part 2 Machine Learning Simplelinear Regression</a></li>
             
 
               <li class="w3-padding-large"><span class="date">2019/01/21</span> &nbsp; <a href="/2019/01/21/part-1-ml-data-preprocessing/">Part 1 Machine Learning Data Preprocessing</a></li>
@@ -503,12 +411,9 @@ plt.show()
     <div class="w3-content" > 
       <div class="w3-bar w3-section">
 	     
-	      <a  href="/2019/01/27/part-3-ml-understanding-p-value/" class="w3-btn w3-text-indigo w3-hover-green">
-	          &#10094; Part 3 Machine Learning Understanding P Value
-	      </a>
 	    
-	      <a class="w3-btn w3-right w3-text-indigo w3-hover-green" href="/2019/01/21/part-1-ml-data-preprocessing/">
-	       Part 1 Machine Learning Data Preprocessing &#10095;
+	      <a class="w3-btn w3-right w3-text-indigo w3-hover-green" href="/2019/01/22/part-2-ml-simplelinear-regression/">
+	       Part 2 Machine Learning Simplelinear Regression &#10095;
 	      </a>
   	  </div>
     </div>

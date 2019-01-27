@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/2019/01/27/part-3-ml-understanding-p-value/</loc>
+    <lastmod>2019-01-27T17:27:19-05:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/2019/01/22/part-2-ml-simplelinear-regression/</loc>
     <lastmod>2019-01-22T21:41:47-05:00</lastmod>
   </url>
@@ -144,7 +149,7 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2019-01-22T21:41:47-05:00</lastmod>
+    <lastmod>2019-01-27T17:27:19-05:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -155,7 +160,7 @@
   
   <url>
     <loc>/posts/</loc>
-    <lastmod>2019-01-22T21:41:47-05:00</lastmod>
+    <lastmod>2019-01-27T17:27:19-05:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -166,7 +171,7 @@
   
   <url>
     <loc>/categories/tech-notes/</loc>
-    <lastmod>2019-01-22T21:41:47-05:00</lastmod>
+    <lastmod>2019-01-27T17:27:19-05:00</lastmod>
     <priority>0</priority>
   </url>
   
