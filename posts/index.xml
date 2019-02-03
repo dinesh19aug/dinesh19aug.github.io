@@ -6,10 +6,20 @@
     <description>Recent content in Posts on A Morsel Of Code</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 27 Jan 2019 17:27:19 -0500</lastBuildDate>
+    <lastBuildDate>Sun, 03 Feb 2019 15:22:27 -0500</lastBuildDate>
     
 	<atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Part 4 Machine Learning Multiple Regression</title>
+      <link>/2019/02/02/part-4-ml-multiple-linear-regression/</link>
+      <pubDate>Sun, 03 Feb 2019 15:22:27 -0500</pubDate>
+      
+      <guid>/2019/02/02/part-4-ml-multiple-linear-regression/</guid>
+      <description>In the previous post, we learnt about a P-Value, a prerequisite for learning Multiple Linear Regression.
+Business Problem: In this series, we will take a look at a dataset of 50 startup companies. A venture capitalist has hired you as a data scientist and wants you to help him select which type of company he should invest so that he can make the most profit. You need to review spending on R&amp;amp;D, Admin cost, marketing cost and location to make the decision</description>
+    </item>
     
     <item>
       <title>Part 3 Machine Learning Understanding P Value</title>

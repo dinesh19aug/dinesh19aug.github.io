@@ -1,0 +1,802 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.54.0" />
+
+    
+    
+    
+
+<title>Part 4 Machine Learning Multiple Regression • A Morsel Of Code</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Part 4 Machine Learning Multiple Regression"/>
+<meta name="twitter:description" content="Machine learning tutorial using multiple linear regression. This post in the machine learning series will walk you through the basics of exploring the data set and predicting the result using multiple linear regression."/>
+
+<meta property="og:title" content="Part 4 Machine Learning Multiple Regression" />
+<meta property="og:description" content="Machine learning tutorial using multiple linear regression. This post in the machine learning series will walk you through the basics of exploring the data set and predicting the result using multiple linear regression." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/2019/02/02/part-4-ml-multiple-linear-regression/" />
+<meta property="article:published_time" content="2019-02-03T15:22:27-05:00"/>
+<meta property="article:modified_time" content="2019-02-03T15:22:27-05:00"/>
+
+
+
+<link rel="canonical" href="/2019/02/02/part-4-ml-multiple-linear-regression/" />
+
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta+Stencil">
+
+<link rel="stylesheet" href="/css/w3.css" />
+
+
+<link rel="stylesheet" href="/css/style.css" />
+
+
+
+
+
+
+
+
+
+  
+  
+</head>
+<body class="w3-light-grey">
+
+
+    
+    <header id="header">
+         
+          
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47631412-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-47631412-1');
+</script>
+
+<div class="w3-right ">
+<div class="w3-bar w3-light-grey  ">
+  
+  <span class="w3-bar-item w3-left " id="google_translate_element"></span>
+<script>
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement(
+      {
+          pageLanguage: 'en'
+        , layout: google.translate.TranslateElement.FloatPosition.TOP_RIGHT
+        , multilanguagePage: true
+      }
+      , 'google_translate_element'
+    );
+  }
+</script>
+<script async src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+  
+       <a href="javascript:void(0)" class="w3-bar-item w3-button w3-hover-green" title="Search" onclick="displaysearch()"><i class="fa fa-search"></i></a>
+  
+      <span class="w3-hide-small">
+
+        <a href="mailto:dinesh19aug@gmail.com" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-envelope"></i></a>
+
+        <a href="https://stackoverflow.com/users/1172194/dinesh-arora" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-stack-overflow"></i></a>
+
+        <a href="https://twitter.com/dinesh19aug" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-twitter"></i></a>
+
+        <a href="https://github.com/dinesh19aug" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-github"></i></a>
+
+        <a href="https://www.linkedin.com/in/dinesharora" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-linkedin"></i></a>
+
+        <a href="https://github.com/dinesh19aug" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-github"></i></a>
+
+      </span>
+
+</div>
+</div>
+<br>
+  <div class="w3-content">
+
+  <div class="w3-container w3-center w3-padding-32 w3-hide-small">
+      <h1 class="w3-xxxlarge w3-text-blue w3-wide w3-allerta  " style="text-shadow:1px 1px 0 #444" ><u>
+      
+         A Morsel Of Code - One Byte At A Time
+      
+</u></h1>
+
+    </div>
+    <div class="w3-content w3-center">
+    <div class="w3-bar w3-light-grey w3-border">
+    <a href="/" class="w3-bar-item w3-button w3-large w3-green"><i class="fa fa-home"></i></a>
+    
+      <a href="/categories/" class="w3-bar-item w3-button w3-hide-small">Categories</a>
+    
+      <a href="/tags/" class="w3-bar-item w3-button w3-hide-small">Tags</a>
+    
+
+
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="displaymenu()">&#9776;</a>
+  </div>
+
+<div id="mobilemenu" class="w3-bar-block w3-light-grey w3-hide w3-hide-large w3-hide-medium">
+  
+      <a href="/categories/" class="w3-bar-item w3-button">Categories</a>
+      
+      <a href="/tags/" class="w3-bar-item w3-button">Tags</a>
+      
+
+</div>
+</div>
+</div>
+<script>
+function displaymenu() {
+    var x = document.getElementById("mobilemenu");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+</script>
+
+
+
+  <div id="searchOverlay" class="overlay w3-hide">
+    <span class="closebtn" onclick="displaysearch()" title="Close Overlay">×</span>
+    <div class="overlay-content">
+        <form action="/search/">
+          <input type="text" placeholder="Search.." name="q">
+          <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+  </div>
+
+  <script>
+  function displaysearch() {
+    var x = document.getElementById("searchOverlay");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+
+  }
+
+
+  </script>
+
+
+
+
+
+    <hr class="headfoot">
+
+      
+    </header>
+    
+<div class="w3-content">
+    
+      <div>
+        <div id="content" >
+          
+    
+
+      <div id="toc" class="w3-dropdown-hover w3-hide-small w3-hide-medium">
+    <button class="w3-button w3-teal w3-xlarge">&#9776;</button>
+    <div class="w3-dropdown-content w3-bar-block w3-border" style="right:0">
+         
+          <h3 class="w3-center">Contents </h3>
+            <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#how-to-get-the-dataset">How to get the dataset?</a></li>
+<li><a href="#what-is-multiple-linear-regression">What is Multiple Linear Regression?</a></li>
+<li><a href="#steps-to-solve-the-problem">Steps to solve the problem?</a></li>
+</ul></li>
+</ul>
+</nav>
+         
+      </div>
+
+     
+      </div>
+    
+
+ 
+     
+
+
+  <div class="w3-content w3-card-4" >
+    
+    <header class="w3-container w3-center w3-padding-32">
+      <h1>Part 4 Machine Learning Multiple Regression</h1>
+
+      <div >
+        <p> 2019-02-03 
+          
+             <code> 1734 words  </code>
+             <code> 9 mins read </code>
+          
+        </p>
+        <div >
+            
+              <a class="w3-btn w3-small w3-round w3-green" href="/categories/tech-notes/"> Tech Notes </a>
+            
+              <a class="w3-btn w3-small w3-round w3-green" href="/categories/machine-learning/"> Machine learning </a>
+            
+          </div>
+       
+        
+      </div>
+    </header>
+
+   
+    
+    <div class="w3-container">
+      
+        
+
+        
+        
+
+        
+          
+          
+          
+
+<p>In the <a href="http://javahabit.com/2019/01/27/part-3-ml-understanding-p-value/">previous post</a>, we learnt about a P-Value, a prerequisite for learning Multiple Linear Regression.</p>
+
+<p><strong>Business Problem</strong>: In this series, we will take a look at a dataset of 50 startup companies.
+<img src="/placeholder.svg" data-src="sample-data.PNG" alt="sample-data" />
+A venture capitalist has hired you as a data scientist and wants you to help him select which type of company he should invest so that he can make the most profit. You need to review spending on R&amp;D,  Admin cost, marketing cost and location to make the decision</p>
+
+<h2 id="how-to-get-the-dataset">How to get the dataset?</h2>
+
+<ul>
+<li><a href="https://github.com/dinesh19aug/ml-notes/blob/master/Part-4-multiple-regression/50_Startups.csv">Startup Dataset</a></li>
+<li><a href="https://github.com/dinesh19aug/ml-notes/blob/master/Part-4-multiple-regression/multiple-regression.ipynb">Multiple Regression notebook</a></li>
+</ul>
+
+<h2 id="what-is-multiple-linear-regression">What is Multiple Linear Regression?</h2>
+
+<p>In the <a href="http://javahabit.com/2019/01/22/part-2-ml-simplelinear-regression/">second post</a> on linear regression, our equation was simple and straight-forward</p>
+
+<blockquote>
+<p>Y = mX + C</p>
+</blockquote>
+
+<p>where <code>Y</code> was the dependent variable, <code>X</code> was the dependent variable and <code>c</code> was the Y-intercept when <code>X = 0</code>. The reason the equation was simple because the <code>Y</code> was dependent on one variable only. If there were multiple variables affecting the value of <code>Y</code>, then what should it be called? - :-). You know the answer to that question.
+&gt; Multiple Linear Regression!!!</p>
+
+<p>The equation would also be something as simple as that
+&gt;Y = b<sub>0</sub>X<sub>0</sub> + b<sub>1</sub>X<sub>1</sub>+b<sub>2</sub>X<sub>2</sub>+ &hellip;. + C</p>
+
+<h2 id="steps-to-solve-the-problem">Steps to solve the problem?</h2>
+
+<ul>
+<li><strong>Step 1: Data pre-processing and analysis</strong></li>
+</ul>
+
+<p>Take a closer look at dataset. You will notice that all the <code>Independent Variables</code>, except <code>State</code>, is numerical. The variable <code>State</code> is either <strong>California</strong> or <strong>New York</strong>. From our <a href="https://github.com/dinesh19aug/javahabit.com/blob/master/content/posts/Part-1-Machine-learning-data-preprocessing.md">first post</a>, you would know that this type of data is called categorical data. We should always convert categorical data into numerical data to avoid bias and find if there is collinearity between <code>Profit</code> and <code>State</code>. <strong>Collinearity</strong> is just a fancy way of asking - <em>&ldquo;Is there some relation between <code>Profit</code> and <code>State</code>?</em>.
+When you convert a categorical data to numeric data, the new column is called <strong>Dummy Variable</strong>. So as we learned from our <a href="https://github.com/dinesh19aug/javahabit.com/blob/master/content/posts/Part-1-Machine-learning-data-preprocessing.md">first post</a>, we should convert it to a sparse matrix.
+<img src="/placeholder.svg" data-src="dummy1.PNG" alt="dummy" /></p>
+
+<p><strong>Question</strong>
+&gt; *Do you need two columns to represent <strong>New York</strong> and <strong>California</strong> states?
+The answer is <strong>No</strong>.</p>
+
+<p><img src="/placeholder.svg" data-src="dummy2.PNG" alt="dummy2" /></p>
+
+<p>It is easy to derive from the above screenshot that if <strong>New York</strong> is 1 then <strong>California</strong> by default would be 0 and vice-versa. So this actually works like a switch which can have only 2 states <strong>0</strong> or <strong>1</strong>.
+&gt; Important tip: You should never use all of your dummy variables in your Regression column. They should always be <strong>1</strong> less than the number of values.</p>
+
+<p><strong>If we drop one dummy variable then are we not making this a biased equation</strong></p>
+
+<p>Without dropping column my equation would look like this
+&gt; Y = b<sub>0</sub>X<sub>0</sub> + b<sub>1</sub>X<sub>1</sub>+ b<sub>2</sub>X<sub>2</sub> + b<sub>3</sub>X<sub>3</sub> + b<sub>4</sub>X<sub>4</sub> + b<sub>5</sub>X<sub>5</sub> + C</p>
+
+<p>After Dropping one dummy variable
+&gt; &gt; Y = b<sub>0</sub>X<sub>0</sub> + b<sub>1</sub>X<sub>1</sub>+ b<sub>2</sub>X<sub>2</sub> + b<sub>3</sub>X<sub>3</sub> + b<sub>4</sub>X<sub>4</sub> + C</p>
+
+<p>If we dropped the variable then it may appear that when <code>California</code> is the state then the value of <strong>b<sub>4</sub>X<sub>4</sub></strong> will be 0, hence we lose one variable. In reality, the regression algorithm marks that the first dummy variable which is represented by <code>0</code> is set as default. So, the regression equation will never be biased. The regression equation is going to use constant <code>C</code> to adjust the value of <code>California</code>.</p>
+
+<p><strong>But what is wrong with using all the dummy variable?</strong></p>
+
+<p>When you use both the values, your equation would be something
+&gt; Y = b<sub>0</sub>X<sub>0</sub> + b<sub>1</sub>X<sub>1</sub>+ b<sub>2</sub>X<sub>2</sub> + b<sub>3</sub>X<sub>3</sub> + b<sub>4</sub>X<sub>4</sub> + b<sub>5</sub>X<sub>5</sub> + C</p>
+
+<p>If we do this then we will introduce multi-collinearity, where the algorithm will not be able to able to distinguish the effect on <code>Price</code>. This is because <strong>D<sub>2</sub></strong> is always equal to <strong>1 - D<sub>1</sub></strong>. The algorithm will then try to predict the effect of <code>D2</code> over <code>D1</code> and would think that there is a relation between <code>Independent</code> variable as well.</p>
+
+<p><img src="/placeholder.svg" data-src="dummy3.PNG" alt="dummy3" /></p>
+
+<ul>
+<li><strong>Step 2: Understanding all possible methods to build a model using Multiple Linear Regression models</strong></li>
+</ul>
+
+<p>There are 5 methods to build a model
+    - All in one
+    - Backward Elimination
+    - Forward Selection
+    - Bi-Directional Elimination
+    - Score comparison</p>
+
+<blockquote>
+<p><strong>All In</strong>: All in means that you use all the variables when you know for sure that all the independent variables have a definite effect on the dependent variable. An example is that if doctors told you for sure that to live past 80 yrs of age, you should eat good food and exercise daily. In other words, you have domain expert telling you that all the variables directly affect the dependent variable.</p>
+
+<p><strong>Backward elimination</strong>: In backward elimination, you take all the variables and create the algorithm. Select a significance level, then consider the predictor with <em>Highest P-value</em> and if <code>P-Value &gt; Significance level</code> then eliminate the variable from the equation, else keep it.
+<img src="/placeholder.svg" data-src="backward-elimination.PNG" alt="backward-elimination" /></p>
+
+<p><strong>Forward Selection</strong>: In forward selection, you start with linear regression using every single variable. You will end up with <code>n</code> simple linear equation. Next, you chose the one with the lowest P-Value. This is your starting equation. <strong>Y = m<sub>0</sub>X<sub>0</sub></strong>. Next, you pick one variable again and create an equation with two variables and out of <code>n-1</code> possibilities again chose the one with the lowest P-value. The process continues until we don&rsquo;t have any variable that is lower than our selected Significance level.
+ <img src="/placeholder.svg" data-src="fwd-selection.PNG" alt="fwd-selection.PNG" /></p>
+
+<p><strong>Bi-Directional elimination</strong>: In bi-directional elimination, you chose 2 significance level. One to enter the equation and one to stay. You start with the forward selection using condition <strong>P-Value &lt; SL <sub>Enter</sub></strong> and then follow backward elimination using condition <strong>P-value &lt; SL<sub>stay</sub></strong>. You stop and declare the final equation when no new variable can enter or exit the equation.
+ <img src="/placeholder.svg" data-src="bidirection.PNG" alt="bidirection" /></p>
+
+<p><strong>Score Comparison</strong>: In this model, you create all possible combination of the equation, compare the performance using say MSE(Mean Square Error) and use the one with the lowest MSE. That is an insane amount of possible equation. For Example - A model with 10 variables will have 1023 possible combination.
+ <img src="/placeholder.svg" data-src="all-possible.PNG" alt="all-possible.PNG" /></p>
+</blockquote>
+
+<p><strong>Note for the purpose of brevity and sanity, we will be using <code>Backward Elimination</code> model to solve this problem. Also, because this model is fastest and we will still be able to see how the step by method works.</strong></p>
+
+<ul>
+<li><strong>Step 3: Data preprocessing in python</strong></li>
+</ul>
+
+<p>We will now start the calculation using the process that we learnt in the <a href="http://javahabit.com/2019/01/21/part-1-ml-data-preprocessing/">first post of this series</a>. If you remember from Linear regression post</p>
+
+<pre><code class="language-python"># -*- coding: utf-8 -*-
+import numpy as np
+import matplotlib.pyplot as py
+import pandas as pd
+
+#Read the dataset
+dataset = pd.read_csv(&quot;50_Startups.csv&quot;)
+
+#Divide the dataset in dependent and Independent variables
+X= dataset.iloc[:, :-1].values
+y = dataset.iloc[:, -1].values
+
+
+
+</code></pre>
+
+<p><img src="/placeholder.svg" data-src="dataset.PNG" alt="dataset.PNG" /></p>
+
+<pre><code class="language-python">
+
+</code></pre>
+
+<p>Next part of data processing is to find if there is any missing data. If there is missing data then we need to use <strong>Imputer</strong> to fix the missing data. To do that we will first check the data description, then try to get a count of missing values in the dataset</p>
+
+<pre><code class="language-python">#Describe the dataset
+pd.DataFrame.describe(dataset)
+#Check for missing data
+null_columns=dataset.columns[dataset.isnull().any()]
+num_emptycolumns = dataset[null_columns].isnull().sum()
+print(num_emptycolumns)
+
+</code></pre>
+
+<pre><code>Series([], dtype: float64)
+</code></pre>
+
+<p>Currently, there are no missing values in the dataset hence the result of <strong><code>num_emptycolumns</code></strong>.</p>
+
+<p>Moving on to the next item in the data clean up is taking care of categorical values in the <strong><code>State</code></strong> column.</p>
+
+<pre><code class="language-python">#Taking care of Categorical values.
+from sklearn.preprocessing import OneHotEncoder, LabelEncoder
+label_encoder = LabelEncoder();
+X[:,3]=label_encoder.fit_transform(X[:, 3])
+oneHotEncoder = OneHotEncoder(categorical_features=[3])
+X= oneHotEncoder.fit_transform(X).toarray()
+</code></pre>
+
+<pre><code class="language-python">
+</code></pre>
+
+<p><img src="/placeholder.svg" data-src="encoding.PNG" alt="encoding.PNG" /></p>
+
+<blockquote>
+<p><strong>Hey, what about all the talk about keeping n-1 categorical items?</strong></p>
+</blockquote>
+
+<p>So you are right to notice that whatever we did will lead us directly to the dummy variable trap. I fell into one when I was trying to learn it. So how do we fix it? If you have been thinking about just crossing out one of the columns as we did in the pic few scrolls above &hellip;&hellip;. you are right!!! That&rsquo;s exactly how we are going to fix it.</p>
+
+<pre><code class="language-python">#getting out of dummy variable trap
+X = X[:,1:] # Select all the rows and all the columns starting from index 1 onwards.
+</code></pre>
+
+<p>Now divide the data in training and test set</p>
+
+<pre><code class="language-python">#Create training and test set
+from  sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y,
+                                                    test_size = 0.20,
+                                                    train_size=0.80,
+                                                    random_state=0)
+</code></pre>
+
+<p><strong>Step 4: Training the model</strong></p>
+
+<p>Now that we have cleaned up our data, we can train our data. We are not going to do any feature scaling here, because the library and class that we are going to use, will do that automatically for us. We will use the same <strong><code>LineaRegression</code></strong> class that we used in the <a href="http://javahabit.com/2019/01/22/part-2-ml-simplelinear-regression/">linear regression post</a>.</p>
+
+<pre><code class="language-python">from sklearn.linear_model import LinearRegression
+regressor = LinearRegression()
+regressor.fit(X_train, y_train)
+</code></pre>
+
+<p>The above code trained our data. Now we need to check how does our model score or how good is it at predicting the data?
+To Predict we just need to call the predict function.</p>
+
+<pre><code class="language-python">y_pred = regressor.predict(X_test)
+</code></pre>
+
+<p><img src="/placeholder.svg" data-src="predicted-res.PNG" alt="predicted-res.PNG" /></p>
+
+<p>You can see that the predicted values <strong><code>y-pred</code></strong> is pretty close to <strong><code>y_test</code></strong>. Some of the rows do have a significant difference and the numbers may look far apart but the others are pretty close. So how close are we? How confident are we that the trendline would fit closely. To answer this we need to look at our training and test score.</p>
+
+<pre><code class="language-python">print('Train Score: ', regressor.score(X_train, y_train))
+print('Test Score: ', regressor.score(X_test, y_test))
+
+</code></pre>
+
+<pre><code>Train Score:  0.9501847627493607
+Test Score:  0.9347068473282446
+</code></pre>
+
+<p>The above score tells us that our model has <strong><code>95%</code></strong> and <code>93.5%</code> accurate for training and test data. This not bad.
+One last thing that I learnt was that if someone asked me how do I calculate the future values that may come up? To do that we need to get the co-efficient and intercept of the regression equation. The regression equation as discussed earlier would look something like this -
+&gt; Y = b<sub>0</sub>X<sub>0</sub> + b<sub>1</sub>X<sub>1</sub>+ b<sub>2</sub>X<sub>2</sub> + b<sub>3</sub>X<sub>3</sub> + b<sub>4</sub>X<sub>4</sub> + b<sub>5</sub>X<sub>5</sub> + C</p>
+
+<pre><code class="language-python">print(regressor.coef_)
+print(regressor.intercept_)
+
+</code></pre>
+
+<pre><code>[-9.59284160e+02  6.99369053e+02  7.73467193e-01  3.28845975e-02
+  3.66100259e-02]
+42554.16761772438
+</code></pre>
+
+<p>If we take the first row from <code>X_test</code> - 1  0   66051.5 182646  118148
+&gt; 1*-9.59284160e+02 + 0*6.99369053e+02 + 66051.5 * 7.73467193e-01 + 182646*3.28845975e-02 + 118148 * 3.66100259e-02 + 42554.16761772438</p>
+
+<p>The output would be <strong><code>103015.19329118208</code></strong>, which is same as first row of <strong><code>y_pred</code></strong>.</p>
+
+<pre><code class="language-python">1 * -9.59284160e+02 + 0 * 6.99369053e+02 + 66051.5 * 7.73467193e-01 + 182646 * 3.28845975e-02 + 118148 * 3.66100259e-02 + 42554.16761772438
+</code></pre>
+
+<pre><code>103015.19329118208
+</code></pre>
+
+<p>So that is the most basic way to do to solve a problem using Multiple Linear regression. Hope you enjoyed this series. Stay tuned for the next series where we will actually see the continuation of <strong><code>Multiple Linear regression</code></strong> and learn the <strong>Backward Elimination process</strong>.</p>
+
+                 
+                
+         
+      
+    </div>
+
+    
+   
+
+    <div class="w3-container">
+    	
+      
+     
+	</div>
+
+
+
+  
+
+
+    
+    
+    
+    <div class="w3-container">
+        
+        <h2>Related Articles:</h2>
+        <ul class="w3-ul w3-hoverable">
+            
+            
+
+              <li class="w3-padding-large"><span class="date">2019/01/27</span> &nbsp; <a href="/2019/01/27/part-3-ml-understanding-p-value/">Part 3 Machine Learning Understanding P Value</a></li>
+            
+
+              <li class="w3-padding-large"><span class="date">2019/01/22</span> &nbsp; <a href="/2019/01/22/part-2-ml-simplelinear-regression/">Part 2 Machine Learning Simplelinear Regression</a></li>
+            
+
+              <li class="w3-padding-large"><span class="date">2019/01/21</span> &nbsp; <a href="/2019/01/21/part-1-ml-data-preprocessing/">Part 1 Machine Learning Data Preprocessing</a></li>
+            
+        </ul>
+    </div>
+    
+    
+    <br>  
+</div>
+
+
+
+<div class="w3-container w3-card-2 w3-black">
+<div class="w3-row">
+  <div class="w3-col l2 m2 s12 w3-center">
+  
+    <img src="https://avatars3.githubusercontent.com/u/1176242?s=460&amp;v=4" width ="100px" class="w3-circle w3-center w3-margin-top w3-margin-bottom" alt="author" >
+   
+  </div>
+  <div class="w3-col l10 m10 s12 ">
+  <div class = "w3-container w3-margin-top">
+    
+    
+  </div>
+  </div>
+  </div>
+</div>
+
+      
+    <div class="w3-content" > 
+      <div class="w3-bar w3-section">
+	     
+	    
+	      <a class="w3-btn w3-right w3-text-indigo w3-hover-green" href="/2019/01/27/part-3-ml-understanding-p-value/">
+	       Part 3 Machine Learning Understanding P Value &#10095;
+	      </a>
+  	  </div>
+    </div>
+	
+ 
+
+  
+  
+  
+
+      <div id="wrapads">
+        <div class="adBanner">
+         
+        </div>
+       </div>
+      
+      <div id="allowads" class="allowads-overlay">
+  
+        <div class="allowads-overlay-content">
+        <div class="w3-panel w3-pink w3-large">
+        
+
+         <p> We notice you're using an adblocker.  If you like our webite please keep us running by whitelisting this site in your ad blocker. We’re serving quality, related ads only. Thank you!</p>
+         
+          <div class="w3-btn w3-green"  onclick="closeOverlay()">I've whitelisted your website.</div><br>
+          <div class="w3-button w3-small"  onclick="closeOverlay()">Not now</div>
+        </div>
+        </div>
+      </div>
+
+      <script>
+      function closeOverlay() {
+        document.getElementById("allowads").style.width = "0%";
+        document.getElementById("wrapads").style.height="1px";
+      }
+
+      function detectads() {
+      var h = document.getElementById("wrapads").clientHeight;
+
+      if (h==0){ document.getElementById("allowads").style.width = "100%";
+      }
+      }
+      
+
+     
+      
+      </script>
+        </div>
+        
+          <script>
+  shareurl=encodeURIComponent(location.protocol + '//' + location.host + location.pathname);
+  sharetitle=encodeURIComponent(document.title);
+    
+  </script>
+<div class="icon-bar">
+<script>
+document.write( '<a href="javascript:bookmark();" class="bookmark w3-tooltip"><i class="fa fa-bookmark"></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green ">Bookmark this page</span></a> ');
+
+document.write( '<a href="http://www.facebook.com/sharer.php?u='+shareurl+'" onclick="window.open(this.href, \'mywin\',\'left=20,top=20,width=500,height=500,toolbar=1,resizable=0\'); return false;" class="facebook w3-tooltip"><i class="fa fa-facebook "></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green">Share to Facebook</span></a> ');
+
+document.write( '<a href="https://twitter.com/share?url='+shareurl+'&amp;text='+sharetitle+'" onclick="window.open(this.href, \'mywin\',\'left=20,top=20,width=500,height=500,toolbar=1,resizable=0\'); return false;" class="twitter w3-tooltip"><i class="fa fa-twitter"></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green">Share to Twitter</span></a> ');
+document.write( '<a href="https://plus.google.com/share?url='+shareurl+'" onclick="window.open(this.href, \'mywin\',\'left=20,top=20,width=500,height=500,toolbar=1,resizable=0\'); return false;" class="google w3-tooltip"><i class="fa fa-google"></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green">Share to Google Plus</span></a>');
+
+document.write( '<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='+shareurl+'" onclick="window.open(this.href, \'mywin\',\'left=20,top=20,width=500,height=500,toolbar=1,resizable=0\'); return false;" class="linkedin w3-tooltip"><i class="fa fa-linkedin"></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green">Share to Linkedin</span></a>');
+
+</script>
+
+<script>
+function bookmark(){
+
+if ('sidebar' in window && 'addPanel' in window.sidebar) { 
+                window.sidebar.addPanel(location.href,document.title,"");
+            } else if(  false) { 
+                window.external.AddFavorite(location.href,document.title); 
+            } else { 
+                alert('Press ' + (navigator.userAgent.toLowerCase().indexOf('mac') != - 1 ? 'Command/Cmd' : 'CTRL') + ' + D to bookmark this page.');
+            }
+        }
+
+</script>
+</div>
+        
+           
+          
+  
+
+        
+        
+      </div>
+    
+
+   
+    <footer id="footer" >
+      <div class="w3-container w3-center w3-padding-32"> 
+  
+  <hr class="headfoot">
+  <p>Powered by <a href="https://gohugo.io">Hugo</a> | Theme - <a href="https://github.com/jesselau76/hugo-w3-simple">Hugo W3 Simple</a>
+  </p>
+  &copy; <a href="http://javahabit.com">Dinesh Arora</a> 2019 | <a href="https://github.com/dinesh19aug">Github</a> | <a href="https://twitter.com/dinesh19aug">Twitter</a>  | <a href="/index.xml">RSS</a>
+  
+</div>
+
+    </footer>
+    
+
+    
+  </div>
+
+  
+
+  
+    
+      <div id="backtotop" class="w3-hide-small w3-hide-medium">
+  
+        <button onclick="topFunction()" class="w3-btn w3-red w3-large" style="width:160px">Back To Top
+        &rarr;</button>
+        
+      </div>
+
+      <script>
+        function topFunction() {
+          document.body.scrollTop = 0;
+          document.documentElement.scrollTop = 0;
+      }
+      </script>
+
+
+    
+ 
+    
+    <script>
+    
+    function isVisible(elem) {
+
+      let coords = elem.getBoundingClientRect();
+
+      let windowHeight = document.documentElement.clientHeight;
+
+      
+      let topVisible = coords.top > 0 && coords.top < windowHeight;
+      let bottomVisible = coords.bottom < windowHeight && coords.bottom > 0;
+
+      return topVisible || bottomVisible;
+    }
+
+    
+
+    function showVisible() {
+      for (let img of document.querySelectorAll('img')) {
+        let realSrc = img.dataset.src;
+        if (!realSrc) continue;
+
+        if (isVisible(img)) {
+          
+
+          img.src = realSrc;
+
+          img.dataset.src = '';
+        }
+      }
+      if ( Array.from(document.querySelectorAll('[data-src]')).every(
+        img => img.getAttribute('data-src') === '') ) {
+        window.removeEventListener('scroll', showVisible)
+      }
+
+    }
+
+    window.addEventListener('scroll', showVisible);
+    showVisible();
+  </script>
+
+
+    
+    
+      <div class="progress-container" id="scrollbar">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>  
+
+
+    
+<script>
+
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  <!-- TOC -->
+    
+    
+    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+        document.getElementById("toc").style.display = "block";
+    } else {
+        document.getElementById("toc").style.display = "none";
+    }
+    
+    <!-- cookie bar -->
+    
+<!-- Back to top -->
+    
+    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+        document.getElementById("backtotop").style.display = "block";
+    } else {
+        document.getElementById("backtotop").style.display = "none";
+    }
+    
+    <!-- scroll indicator -->
+    
+      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var scrolled = (winScroll / height) * 100;
+      document.getElementById("progress-bar").style.width = scrolled + "%";
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("scrollbar").style.display = "block";
+        } else {
+            document.getElementById("scrollbar").style.display = "none";
+        }
+    
+
+    
+
+    <!-- allowads -->
+    
+       if (document.body.scrollTop > 2000 || document.documentElement.scrollTop > 2000) {
+          detectads();
+       } 
+
+    
+}
+
+
+</script>
+
+
+
+  
+
+</body>
+</html>
