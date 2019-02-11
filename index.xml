@@ -6,10 +6,20 @@
     <description>Recent content on A Morsel Of Code</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 03 Feb 2019 15:22:27 -0500</lastBuildDate>
+    <lastBuildDate>Mon, 11 Feb 2019 00:02:28 -0500</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Part 5 Machine Learning Backward Elimination</title>
+      <link>/2019/02/10/part-5-ml-mltr-backward-elimination/</link>
+      <pubDate>Mon, 11 Feb 2019 00:02:28 -0500</pubDate>
+      
+      <guid>/2019/02/10/part-5-ml-mltr-backward-elimination/</guid>
+      <description>In the previous post, we learnt about multiple linear regression. The problem with the last approach was that we used all the features without considering that some of the features may not be impacting or playing any role in the outcome. we also talked about 5 ways of reducing the noisy feature. Backward elimination is one of them.
+How to get the dataset?  Startup Dataset Multiple Regression notebook  What is Backward Elimination?</description>
+    </item>
     
     <item>
       <title>Part 4 Machine Learning Multiple Regression</title>

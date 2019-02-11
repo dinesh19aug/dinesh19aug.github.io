@@ -1,0 +1,938 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.54.0" />
+
+    
+    
+    
+
+<title>Part 5 Machine Learning Backward Elimination • A Morsel Of Code</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Part 5 Machine Learning Backward Elimination"/>
+<meta name="twitter:description" content="Machine learning tutorial using multiple linear regression. This post in the machine learning series will walk you through the process of automatic backward elimination and show you to improve your multiple regression model and teach you an important concept that simple is always better."/>
+
+<meta property="og:title" content="Part 5 Machine Learning Backward Elimination" />
+<meta property="og:description" content="Machine learning tutorial using multiple linear regression. This post in the machine learning series will walk you through the process of automatic backward elimination and show you to improve your multiple regression model and teach you an important concept that simple is always better." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/2019/02/10/part-5-ml-mltr-backward-elimination/" />
+<meta property="article:published_time" content="2019-02-11T00:02:28-05:00"/>
+<meta property="article:modified_time" content="2019-02-11T00:02:28-05:00"/>
+
+
+
+<link rel="canonical" href="/2019/02/10/part-5-ml-mltr-backward-elimination/" />
+
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta+Stencil">
+
+<link rel="stylesheet" href="/css/w3.css" />
+
+
+<link rel="stylesheet" href="/css/style.css" />
+
+
+
+
+
+
+
+
+
+  
+  
+</head>
+<body class="w3-light-grey">
+
+
+    
+    <header id="header">
+         
+          
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47631412-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-47631412-1');
+</script>
+
+<div class="w3-right ">
+<div class="w3-bar w3-light-grey  ">
+  
+  <span class="w3-bar-item w3-left " id="google_translate_element"></span>
+<script>
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement(
+      {
+          pageLanguage: 'en'
+        , layout: google.translate.TranslateElement.FloatPosition.TOP_RIGHT
+        , multilanguagePage: true
+      }
+      , 'google_translate_element'
+    );
+  }
+</script>
+<script async src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+  
+       <a href="javascript:void(0)" class="w3-bar-item w3-button w3-hover-green" title="Search" onclick="displaysearch()"><i class="fa fa-search"></i></a>
+  
+      <span class="w3-hide-small">
+
+        <a href="mailto:dinesh19aug@gmail.com" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-envelope"></i></a>
+
+        <a href="https://stackoverflow.com/users/1172194/dinesh-arora" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-stack-overflow"></i></a>
+
+        <a href="https://twitter.com/dinesh19aug" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-twitter"></i></a>
+
+        <a href="https://github.com/dinesh19aug" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-github"></i></a>
+
+        <a href="https://www.linkedin.com/in/dinesharora" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-linkedin"></i></a>
+
+        <a href="https://github.com/dinesh19aug" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-github"></i></a>
+
+      </span>
+
+</div>
+</div>
+<br>
+  <div class="w3-content">
+
+  <div class="w3-container w3-center w3-padding-32 w3-hide-small">
+      <h1 class="w3-xxxlarge w3-text-blue w3-wide w3-allerta  " style="text-shadow:1px 1px 0 #444" ><u>
+      
+         A Morsel Of Code - One Byte At A Time
+      
+</u></h1>
+
+    </div>
+    <div class="w3-content w3-center">
+    <div class="w3-bar w3-light-grey w3-border">
+    <a href="/" class="w3-bar-item w3-button w3-large w3-green"><i class="fa fa-home"></i></a>
+    
+      <a href="/categories/" class="w3-bar-item w3-button w3-hide-small">Categories</a>
+    
+      <a href="/tags/" class="w3-bar-item w3-button w3-hide-small">Tags</a>
+    
+
+
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="displaymenu()">&#9776;</a>
+  </div>
+
+<div id="mobilemenu" class="w3-bar-block w3-light-grey w3-hide w3-hide-large w3-hide-medium">
+  
+      <a href="/categories/" class="w3-bar-item w3-button">Categories</a>
+      
+      <a href="/tags/" class="w3-bar-item w3-button">Tags</a>
+      
+
+</div>
+</div>
+</div>
+<script>
+function displaymenu() {
+    var x = document.getElementById("mobilemenu");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+</script>
+
+
+
+  <div id="searchOverlay" class="overlay w3-hide">
+    <span class="closebtn" onclick="displaysearch()" title="Close Overlay">×</span>
+    <div class="overlay-content">
+        <form action="/search/">
+          <input type="text" placeholder="Search.." name="q">
+          <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+  </div>
+
+  <script>
+  function displaysearch() {
+    var x = document.getElementById("searchOverlay");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+
+  }
+
+
+  </script>
+
+
+
+
+
+    <hr class="headfoot">
+
+      
+    </header>
+    
+<div class="w3-content">
+    
+      <div>
+        <div id="content" >
+          
+    
+
+      <div id="toc" class="w3-dropdown-hover w3-hide-small w3-hide-medium">
+    <button class="w3-button w3-teal w3-xlarge">&#9776;</button>
+    <div class="w3-dropdown-content w3-bar-block w3-border" style="right:0">
+         
+          <h3 class="w3-center">Contents </h3>
+            <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#how-to-get-the-dataset">How to get the dataset?</a></li>
+<li><a href="#what-is-backward-elimination">What is <em><code>Backward Elimination</code></em>?</a></li>
+<li><a href="#what-could-possibly-be-wrong-with-leaving-the-features-if-they-are-not-impacting-or-have-little-impact">What could possibly be wrong with leaving the features if they are not impacting or have little impact?</a></li>
+<li><a href="#how-do-we-implement-backward-elimination">How do we implement <em><code>Backward elimination</code></em>?</a></li>
+<li><a href="#how-do-we-implement-it-in-python">How do we implement it in python?</a></li>
+<li><a href="#why-did-we-append-1-s-in-the-existing-dataset">Why did we append 1&rsquo;s in the existing dataset?</a></li>
+<li><a href="#how-do-i-believe-you-that-by-just-keeping-r-d-feature-will-improve-our-model-accuracy">How do I believe you that by just keeping R&amp;D feature, will improve our model accuracy?</a></li>
+</ul></li>
+</ul>
+</nav>
+         
+      </div>
+
+     
+      </div>
+    
+
+ 
+     
+
+
+  <div class="w3-content w3-card-4" >
+    
+    <header class="w3-container w3-center w3-padding-32">
+      <h1>Part 5 Machine Learning Backward Elimination</h1>
+
+      <div >
+        <p> 2019-02-11 
+          
+             <code> 1716 words  </code>
+             <code> 9 mins read </code>
+          
+        </p>
+        <div >
+            
+              <a class="w3-btn w3-small w3-round w3-green" href="/categories/tech-notes/"> Tech Notes </a>
+            
+              <a class="w3-btn w3-small w3-round w3-green" href="/categories/machine-learning/"> Machine learning </a>
+            
+          </div>
+       
+        
+      </div>
+    </header>
+
+   
+    
+    <div class="w3-container">
+      
+        
+
+        
+        
+
+        
+          
+          
+          
+
+<p>In the <a href="http://javahabit.com/2019/02/02/part-4-ml-multiple-linear-regression/">previous post</a>, we learnt about multiple linear regression. The problem with the last approach was that we used all the features without considering that some of the features may not be impacting or playing any role in the outcome. we also talked about 5 ways of reducing the noisy feature. Backward elimination is one of them.</p>
+
+<h2 id="how-to-get-the-dataset">How to get the dataset?</h2>
+
+<ul>
+<li><a href="https://github.com/dinesh19aug/ml-notes/blob/master/Part-5-backward-elimination/50_Startups.csv">Startup Dataset</a></li>
+<li><a href="https://github.com/dinesh19aug/ml-notes/blob/master/Part-5-backward-elimination/bkwd-elim.ipynb">Multiple Regression notebook</a></li>
+</ul>
+
+<h2 id="what-is-backward-elimination">What is <em><code>Backward Elimination</code></em>?</h2>
+
+<p>Backward elimination is a process to remove features that have little effect on the dependent variable.</p>
+
+<h2 id="what-could-possibly-be-wrong-with-leaving-the-features-if-they-are-not-impacting-or-have-little-impact">What could possibly be wrong with leaving the features if they are not impacting or have little impact?</h2>
+
+<p><code>New England Patriots</code> won the Superbowl on Feb 3, 2019. The team won because it had a better team, better skills and a good coach. If I say, the team also won because Patriots fans are great at cheering and that when Patriots play fans supporting the opposition is more tamed, then I would be wrong. If I say that all players in the team wore a white jersey and they won. They also won because they played it on Sunday and <code>T. Brady</code> thinks that it&rsquo;s his luckiest day. You would call Baloney to all the facts that I just mentioned. It may have helped -  may be slightly but too insignificant to make a real difference. The features in a data set are exactly that - <code>Baloney</code>. They only add noise in the actual model and many small non-significant data may actually provide us a model which is way off the margin. The simpler the model, the better the result.</p>
+
+<h2 id="how-do-we-implement-backward-elimination">How do we implement <em><code>Backward elimination</code></em>?</h2>
+
+<p>In backward elimination, you take all the variables and create the algorithm. Select a significance level, then consider the predictor with <em>Highest P-value</em> and if <code>P-Value &gt; Significance level</code> then eliminate the variable from the equation, else keep it.
+<img src="/placeholder.svg" data-src="resourcesimgbkwdelimbackward-elimination.PNG" alt="bkwd-elim" /></p>
+
+<h2 id="how-do-we-implement-it-in-python">How do we implement it in python?</h2>
+
+<p>In the <a href="http://javahabit.com/2019/02/02/part-4-ml-multiple-linear-regression/">previous post</a>, we were trying to figure out if a company is profitable or not by looking at 4 independent variables - <code>R&amp;D Spent</code>, <code>Administration cost</code>, <code>Market spending</code> &amp; <code>State</code>. We created a model with all the features. So let&rsquo;s pick up from where we left off. Here&rsquo;s how our dataset looks like
+<img src="/placeholder.svg" data-src="resourcesimgbkwdelimdataset.PNG" alt="dataset" /></p>
+
+<pre><code class="language-python">import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+#Read the dataset
+dataset = pd.read_csv(&quot;50_Startups.csv&quot;)
+
+#Divide the dataset in dependent and Independent variables
+X= dataset.iloc[:, :-1].values
+y = dataset.iloc[:, -1].values
+
+
+
+#Taking care of Categorical values.
+from sklearn.preprocessing import OneHotEncoder, LabelEncoder
+label_encoder = LabelEncoder();
+X[:,3]=label_encoder.fit_transform(X[:, 3])
+oneHotEncoder = OneHotEncoder(categorical_features=[3])
+X= oneHotEncoder.fit_transform(X).toarray()
+
+#getting out of dummy variable trap
+X = X[:,1:] # Select all the rows and all the columns starting fom index 1 onwards.
+#Create training and test set
+from  sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(X, y,
+                                                    test_size = 0.20,
+                                                    train_size=0.80,
+                                                    random_state=0)
+
+
+#Check for missing data
+null_columns=dataset.columns[dataset.isnull().any()]
+t = dataset[null_columns].isnull().sum()
+
+#Training the model
+from sklearn.linear_model import LinearRegression
+regressor = LinearRegression()
+regressor.fit(X_train, y_train)
+
+# Predicting the results of the training set
+y_pred = regressor.predict(X_test)  
+
+
+print(regressor.coef_)
+print(regressor.intercept_)
+
+print('Train Score: ', regressor.score(X_train, y_train))
+print('Test Score: ', regressor.score(X_test, y_test))
+</code></pre>
+
+<pre><code>[-9.59284160e+02  6.99369053e+02  7.73467193e-01  3.28845975e-02
+  3.66100259e-02]
+42554.16761772438
+Train Score:  0.9501847627493607
+Test Score:  0.9347068473282446
+</code></pre>
+
+<p>Take note of <code>Train Score</code> and <code>Test Score</code>
+&gt;Train Score:  0.9501847627493607</p>
+
+<blockquote>
+<p>Test Score:  0.9347068473282446</p>
+</blockquote>
+
+<p>The difference between them is <code>0.01547791542</code> or <code>1.548%</code></p>
+
+<p>So far we used all the features. Now to use backward elimination we will use an entirely new package and class. However, before we begin, we need to decide on a <code>significance level</code>. In this case, let&rsquo;s chose a level equal o <strong>0.05</strong>.</p>
+
+<pre><code class="language-python">import  statsmodels.formula.api as smf
+
+#Appending ones for constants
+X = np.append(arr=np.ones((50,1)).astype(int), values=X, axis=1)
+</code></pre>
+
+<h2 id="why-did-we-append-1-s-in-the-existing-dataset">Why did we append 1&rsquo;s in the existing dataset?</h2>
+
+<blockquote>
+<p>Y = b0X0 + b1X1+ b2X2 + b3X3 + b4X4 + b5X5 + C</p>
+</blockquote>
+
+<p>In the above equation, if you notice that every <strong>X<sub>n</sub></strong> has a multiplier <strong>b<sub>n</sub></strong> but not the constant <strong>C</strong>. Actually if you have a <strong>X<sub>6</sub></strong> and set it to 1 that solves the problem. The question is why do we need a 1 multiplier for the constant. The answer lies in the library and the class that we use. The package statsmodel only considers a multiplier if it has a feature value. If there is no feature value then it would not get picked up while creating the model. So the <strong>C</strong> would be dropped. Hence we need to create a feature with value = 1.</p>
+
+<pre><code class="language-python">##Creating a model with all varibales
+x_opt = X[:,[0,1,2,3,4,5]]
+regressor_OLS = smf.OLS(endog=y, exog=x_opt).fit()
+print(regressor_OLS.summary())
+</code></pre>
+
+<pre><code>                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.951
+Model:                            OLS   Adj. R-squared:                  0.945
+Method:                 Least Squares   F-statistic:                     169.9
+Date:                Sun, 10 Feb 2019   Prob (F-statistic):           1.34e-27
+Time:                        22:42:26   Log-Likelihood:                -525.38
+No. Observations:                  50   AIC:                             1063.
+Df Residuals:                      44   BIC:                             1074.
+Df Model:                           5                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const       5.013e+04   6884.820      7.281      0.000    3.62e+04     6.4e+04
+x1           198.7888   3371.007      0.059      0.953   -6595.030    6992.607
+x2           -41.8870   3256.039     -0.013      0.990   -6604.003    6520.229
+x3             0.8060      0.046     17.369      0.000       0.712       0.900
+x4            -0.0270      0.052     -0.517      0.608      -0.132       0.078
+x5             0.0270      0.017      1.574      0.123      -0.008       0.062
+==============================================================================
+Omnibus:                       14.782   Durbin-Watson:                   1.283
+Prob(Omnibus):                  0.001   Jarque-Bera (JB):               21.266
+Skew:                          -0.948   Prob(JB):                     2.41e-05
+Kurtosis:                       5.572   Cond. No.                     1.45e+06
+==============================================================================
+</code></pre>
+
+<p>Based on the process, we now have to find the feature with the highest <strong><code>P-value</code></strong> and if it greater than ould <strong><code>SL</code></strong> then we will drop it. In this case
+&gt; x2 has the highest P-value = 0.990 &gt; 0.05.</p>
+
+<p>So will drop the  feature x2 which corresponds to the <code>State dummy variable</code>
+<img src="/placeholder.svg" data-src="resourcesimgbkwdelimfeatureall.PNG" alt="allfeature" /></p>
+
+<p>We will continue and re-run the model with just 5 feature</p>
+
+<pre><code class="language-python">## Removing index 2 as P&gt;0.05 and is the highest P
+x_opt = X[:,[0,1,3,4,5]]
+regressor_OLS = smf.OLS(endog=y, exog=x_opt).fit()
+print(regressor_OLS.summary())
+</code></pre>
+
+<pre><code>                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.951
+Model:                            OLS   Adj. R-squared:                  0.946
+Method:                 Least Squares   F-statistic:                     217.2
+Date:                Sun, 10 Feb 2019   Prob (F-statistic):           8.49e-29
+Time:                        22:52:32   Log-Likelihood:                -525.38
+No. Observations:                  50   AIC:                             1061.
+Df Residuals:                      45   BIC:                             1070.
+Df Model:                           4                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const       5.011e+04   6647.870      7.537      0.000    3.67e+04    6.35e+04
+x1           220.1585   2900.536      0.076      0.940   -5621.821    6062.138
+x2             0.8060      0.046     17.606      0.000       0.714       0.898
+x3            -0.0270      0.052     -0.523      0.604      -0.131       0.077
+x4             0.0270      0.017      1.592      0.118      -0.007       0.061
+==============================================================================
+Omnibus:                       14.758   Durbin-Watson:                   1.282
+Prob(Omnibus):                  0.001   Jarque-Bera (JB):               21.172
+Skew:                          -0.948   Prob(JB):                     2.53e-05
+Kurtosis:                       5.563   Cond. No.                     1.40e+06
+==============================================================================
+</code></pre>
+
+<p>Once again in the above output
+&gt; x1 has the highest P-value = 0.940 &gt; 0.05</p>
+
+<p>So we will drop X1, which in this case represents the second dummy variable for the <code>State</code>.
+<img src="/placeholder.svg" data-src="resourcesimgbkwdelimfeature-5.PNG" alt="allfeature" /></p>
+
+<p>So we will continue until we don&rsquo;t have variable that is greater than our <strong><code>significance level</code></strong></p>
+
+<pre><code class="language-python">## Removing index 1 as P&gt;0.05 and is the highest P
+x_opt = X[:,[0,3,4,5]]
+regressor_OLS = smf.OLS(endog=y, exog=x_opt).fit()
+print(regressor_OLS.summary())
+
+
+</code></pre>
+
+<pre><code>                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.951
+Model:                            OLS   Adj. R-squared:                  0.948
+Method:                 Least Squares   F-statistic:                     296.0
+Date:                Sun, 10 Feb 2019   Prob (F-statistic):           4.53e-30
+Time:                        22:59:29   Log-Likelihood:                -525.39
+No. Observations:                  50   AIC:                             1059.
+Df Residuals:                      46   BIC:                             1066.
+Df Model:                           3                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const       5.012e+04   6572.353      7.626      0.000    3.69e+04    6.34e+04
+x1             0.8057      0.045     17.846      0.000       0.715       0.897
+x2            -0.0268      0.051     -0.526      0.602      -0.130       0.076
+x3             0.0272      0.016      1.655      0.105      -0.006       0.060
+==============================================================================
+Omnibus:                       14.838   Durbin-Watson:                   1.282
+Prob(Omnibus):                  0.001   Jarque-Bera (JB):               21.442
+Skew:                          -0.949   Prob(JB):                     2.21e-05
+Kurtosis:                       5.586   Cond. No.                     1.40e+06
+==============================================================================
+</code></pre>
+
+<pre><code class="language-python">## Removing index 1 as P&gt;0.05 and is the highest P
+x_opt = X[:,[0,3,5]]
+regressor_OLS = smf.OLS(endog=y, exog=x_opt).fit()
+print(regressor_OLS.summary())
+
+
+</code></pre>
+
+<pre><code>                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.950
+Model:                            OLS   Adj. R-squared:                  0.948
+Method:                 Least Squares   F-statistic:                     450.8
+Date:                Sun, 10 Feb 2019   Prob (F-statistic):           2.16e-31
+Time:                        22:59:39   Log-Likelihood:                -525.54
+No. Observations:                  50   AIC:                             1057.
+Df Residuals:                      47   BIC:                             1063.
+Df Model:                           2                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const       4.698e+04   2689.933     17.464      0.000    4.16e+04    5.24e+04
+x1             0.7966      0.041     19.266      0.000       0.713       0.880
+x2             0.0299      0.016      1.927      0.060      -0.001       0.061
+==============================================================================
+Omnibus:                       14.677   Durbin-Watson:                   1.257
+Prob(Omnibus):                  0.001   Jarque-Bera (JB):               21.161
+Skew:                          -0.939   Prob(JB):                     2.54e-05
+Kurtosis:                       5.575   Cond. No.                     5.32e+05
+==============================================================================
+</code></pre>
+
+<pre><code class="language-python">## Removing index 1 as P&gt;0.05 and is the highest P
+x_opt = X[:,[0,3]]
+regressor_OLS = smf.OLS(endog=y, exog=x_opt).fit()
+print(regressor_OLS.summary())
+</code></pre>
+
+<pre><code>                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                      y   R-squared:                       0.947
+Model:                            OLS   Adj. R-squared:                  0.945
+Method:                 Least Squares   F-statistic:                     849.8
+Date:                Sun, 10 Feb 2019   Prob (F-statistic):           3.50e-32
+Time:                        22:59:43   Log-Likelihood:                -527.44
+No. Observations:                  50   AIC:                             1059.
+Df Residuals:                      48   BIC:                             1063.
+Df Model:                           1                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const       4.903e+04   2537.897     19.320      0.000    4.39e+04    5.41e+04
+x1             0.8543      0.029     29.151      0.000       0.795       0.913
+==============================================================================
+Omnibus:                       13.727   Durbin-Watson:                   1.116
+Prob(Omnibus):                  0.001   Jarque-Bera (JB):               18.536
+Skew:                          -0.911   Prob(JB):                     9.44e-05
+Kurtosis:                       5.361   Cond. No.                     1.65e+05
+==============================================================================
+</code></pre>
+
+<p>So in the end, we find that only the <code>C</code> constant and the <strong><code>R&amp;D Spending</code></strong> are really the important or most significant feature to find out if we should invest in the new business venture.</p>
+
+<h2 id="how-do-i-believe-you-that-by-just-keeping-r-d-feature-will-improve-our-model-accuracy">How do I believe you that by just keeping R&amp;D feature, will improve our model accuracy?</h2>
+
+<p>Let&rsquo;s recalculate our model using the <strong>Linear Regression library</strong> and find the difference between accuracy score</p>
+
+<pre><code class="language-python">
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
+
+#Read the dataset
+dataset = pd.read_csv(&quot;50_Startups.csv&quot;)
+
+#Divide the dataset in dependent and Independent variables
+X= dataset.iloc[:, 0].values ##Get the R&amp;D score only
+y = dataset.iloc[:, -1].values
+</code></pre>
+
+<pre><code class="language-python">#Create training and test set
+from  sklearn.model_selection import train_test_split
+
+X_train, X_test, y_train, y_test = train_test_split(X, y,
+                                                    test_size = 0.20,
+                                                    train_size=0.80,
+                                                    random_state=0)
+</code></pre>
+
+<pre><code class="language-python">#Training the model
+from sklearn.linear_model import LinearRegression
+regressor = LinearRegression()
+regressor.fit(np.array(X_train).reshape(-1,1), y_train)
+
+# Predicting the results of the training set
+y_pred = regressor.predict(np.array(X_test).reshape(-1,1))
+
+
+print(regressor.coef_)
+print(regressor.intercept_)
+
+print('Train Score: ', regressor.score(np.array(X_train).reshape(-1,1), y_train))
+print('Test Score: ', regressor.score(np.array(X_test).reshape(-1,1), y_test))
+</code></pre>
+
+<pre><code>[0.8516228]
+48416.297661385026
+Train Score:  0.9449589778363044
+Test Score:  0.9464587607787219
+</code></pre>
+
+<p>Let&rsquo;s look at the <code>Train score</code> and <code>Test Score</code> with all the feature and with just <code>R&amp;D spending</code>.
+&gt; With all Features
+&gt;Train Score:  <code>0.9501847627493607</code>  &amp; Test Score:  <code>0.9347068473282446</code></p>
+
+<blockquote>
+<p>Difference = <code>0.01547791542</code> or <code>1.548%</code></p>
+
+<p>With just R&amp;D spending feature
+Train Score: <code>0.9449589778363044</code>  &amp; Test Score: <code>0.9464587607787219</code></p>
+
+<p>Difference = 0.0014997829424 or 0.150%</p>
+</blockquote>
+
+<p>Also the if you see that the test score has improved when from 93.6% to 94.6%.</p>
+
+<p>Hopefully, you enjoyed this series. In the next series, we will look at slightly more interesting topic called <strong>SVMs or Support Vector Regression</strong>.</p>
+
+                 
+                
+         
+      
+    </div>
+
+    
+   
+
+    <div class="w3-container">
+    	
+      
+     
+	</div>
+
+
+
+  
+
+
+    
+    
+    
+    <div class="w3-container">
+        
+        <h2>Related Articles:</h2>
+        <ul class="w3-ul w3-hoverable">
+            
+            
+
+              <li class="w3-padding-large"><span class="date">2019/02/03</span> &nbsp; <a href="/2019/02/02/part-4-ml-multiple-linear-regression/">Part 4 Machine Learning Multiple Regression</a></li>
+            
+
+              <li class="w3-padding-large"><span class="date">2019/01/27</span> &nbsp; <a href="/2019/01/27/part-3-ml-understanding-p-value/">Part 3 Machine Learning Understanding P Value</a></li>
+            
+
+              <li class="w3-padding-large"><span class="date">2019/01/22</span> &nbsp; <a href="/2019/01/22/part-2-ml-simplelinear-regression/">Part 2 Machine Learning Simplelinear Regression</a></li>
+            
+
+              <li class="w3-padding-large"><span class="date">2019/01/21</span> &nbsp; <a href="/2019/01/21/part-1-ml-data-preprocessing/">Part 1 Machine Learning Data Preprocessing</a></li>
+            
+        </ul>
+    </div>
+    
+    
+    <br>  
+</div>
+
+
+
+<div class="w3-container w3-card-2 w3-black">
+<div class="w3-row">
+  <div class="w3-col l2 m2 s12 w3-center">
+  
+    <img src="https://avatars3.githubusercontent.com/u/1176242?s=460&amp;v=4" width ="100px" class="w3-circle w3-center w3-margin-top w3-margin-bottom" alt="author" >
+   
+  </div>
+  <div class="w3-col l10 m10 s12 ">
+  <div class = "w3-container w3-margin-top">
+    
+    
+  </div>
+  </div>
+  </div>
+</div>
+
+      
+    <div class="w3-content" > 
+      <div class="w3-bar w3-section">
+	     
+	    
+	      <a class="w3-btn w3-right w3-text-indigo w3-hover-green" href="/2019/02/02/part-4-ml-multiple-linear-regression/">
+	       Part 4 Machine Learning Multiple Regression &#10095;
+	      </a>
+  	  </div>
+    </div>
+	
+ 
+
+  
+  
+  
+
+      <div id="wrapads">
+        <div class="adBanner">
+         
+        </div>
+       </div>
+      
+      <div id="allowads" class="allowads-overlay">
+  
+        <div class="allowads-overlay-content">
+        <div class="w3-panel w3-pink w3-large">
+        
+
+         <p> We notice you're using an adblocker.  If you like our webite please keep us running by whitelisting this site in your ad blocker. We’re serving quality, related ads only. Thank you!</p>
+         
+          <div class="w3-btn w3-green"  onclick="closeOverlay()">I've whitelisted your website.</div><br>
+          <div class="w3-button w3-small"  onclick="closeOverlay()">Not now</div>
+        </div>
+        </div>
+      </div>
+
+      <script>
+      function closeOverlay() {
+        document.getElementById("allowads").style.width = "0%";
+        document.getElementById("wrapads").style.height="1px";
+      }
+
+      function detectads() {
+      var h = document.getElementById("wrapads").clientHeight;
+
+      if (h==0){ document.getElementById("allowads").style.width = "100%";
+      }
+      }
+      
+
+     
+      
+      </script>
+        </div>
+        
+          <script>
+  shareurl=encodeURIComponent(location.protocol + '//' + location.host + location.pathname);
+  sharetitle=encodeURIComponent(document.title);
+    
+  </script>
+<div class="icon-bar">
+<script>
+document.write( '<a href="javascript:bookmark();" class="bookmark w3-tooltip"><i class="fa fa-bookmark"></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green ">Bookmark this page</span></a> ');
+
+document.write( '<a href="http://www.facebook.com/sharer.php?u='+shareurl+'" onclick="window.open(this.href, \'mywin\',\'left=20,top=20,width=500,height=500,toolbar=1,resizable=0\'); return false;" class="facebook w3-tooltip"><i class="fa fa-facebook "></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green">Share to Facebook</span></a> ');
+
+document.write( '<a href="https://twitter.com/share?url='+shareurl+'&amp;text='+sharetitle+'" onclick="window.open(this.href, \'mywin\',\'left=20,top=20,width=500,height=500,toolbar=1,resizable=0\'); return false;" class="twitter w3-tooltip"><i class="fa fa-twitter"></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green">Share to Twitter</span></a> ');
+document.write( '<a href="https://plus.google.com/share?url='+shareurl+'" onclick="window.open(this.href, \'mywin\',\'left=20,top=20,width=500,height=500,toolbar=1,resizable=0\'); return false;" class="google w3-tooltip"><i class="fa fa-google"></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green">Share to Google Plus</span></a>');
+
+document.write( '<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='+shareurl+'" onclick="window.open(this.href, \'mywin\',\'left=20,top=20,width=500,height=500,toolbar=1,resizable=0\'); return false;" class="linkedin w3-tooltip"><i class="fa fa-linkedin"></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green">Share to Linkedin</span></a>');
+
+</script>
+
+<script>
+function bookmark(){
+
+if ('sidebar' in window && 'addPanel' in window.sidebar) { 
+                window.sidebar.addPanel(location.href,document.title,"");
+            } else if(  false) { 
+                window.external.AddFavorite(location.href,document.title); 
+            } else { 
+                alert('Press ' + (navigator.userAgent.toLowerCase().indexOf('mac') != - 1 ? 'Command/Cmd' : 'CTRL') + ' + D to bookmark this page.');
+            }
+        }
+
+</script>
+</div>
+        
+           
+          
+  
+
+        
+        
+      </div>
+    
+
+   
+    <footer id="footer" >
+      <div class="w3-container w3-center w3-padding-32"> 
+  
+  <hr class="headfoot">
+  <p>Powered by <a href="https://gohugo.io">Hugo</a> | Theme - <a href="https://github.com/jesselau76/hugo-w3-simple">Hugo W3 Simple</a>
+  </p>
+  &copy; <a href="http://javahabit.com">Dinesh Arora</a> 2019 | <a href="https://github.com/dinesh19aug">Github</a> | <a href="https://twitter.com/dinesh19aug">Twitter</a>  | <a href="/index.xml">RSS</a>
+  
+</div>
+
+    </footer>
+    
+
+    
+  </div>
+
+  
+
+  
+    
+      <div id="backtotop" class="w3-hide-small w3-hide-medium">
+  
+        <button onclick="topFunction()" class="w3-btn w3-red w3-large" style="width:160px">Back To Top
+        &rarr;</button>
+        
+      </div>
+
+      <script>
+        function topFunction() {
+          document.body.scrollTop = 0;
+          document.documentElement.scrollTop = 0;
+      }
+      </script>
+
+
+    
+ 
+    
+    <script>
+    
+    function isVisible(elem) {
+
+      let coords = elem.getBoundingClientRect();
+
+      let windowHeight = document.documentElement.clientHeight;
+
+      
+      let topVisible = coords.top > 0 && coords.top < windowHeight;
+      let bottomVisible = coords.bottom < windowHeight && coords.bottom > 0;
+
+      return topVisible || bottomVisible;
+    }
+
+    
+
+    function showVisible() {
+      for (let img of document.querySelectorAll('img')) {
+        let realSrc = img.dataset.src;
+        if (!realSrc) continue;
+
+        if (isVisible(img)) {
+          
+
+          img.src = realSrc;
+
+          img.dataset.src = '';
+        }
+      }
+      if ( Array.from(document.querySelectorAll('[data-src]')).every(
+        img => img.getAttribute('data-src') === '') ) {
+        window.removeEventListener('scroll', showVisible)
+      }
+
+    }
+
+    window.addEventListener('scroll', showVisible);
+    showVisible();
+  </script>
+
+
+    
+    
+      <div class="progress-container" id="scrollbar">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>  
+
+
+    
+<script>
+
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  <!-- TOC -->
+    
+    
+    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+        document.getElementById("toc").style.display = "block";
+    } else {
+        document.getElementById("toc").style.display = "none";
+    }
+    
+    <!-- cookie bar -->
+    
+<!-- Back to top -->
+    
+    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+        document.getElementById("backtotop").style.display = "block";
+    } else {
+        document.getElementById("backtotop").style.display = "none";
+    }
+    
+    <!-- scroll indicator -->
+    
+      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var scrolled = (winScroll / height) * 100;
+      document.getElementById("progress-bar").style.width = scrolled + "%";
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("scrollbar").style.display = "block";
+        } else {
+            document.getElementById("scrollbar").style.display = "none";
+        }
+    
+
+    
+
+    <!-- allowads -->
+    
+       if (document.body.scrollTop > 2000 || document.documentElement.scrollTop > 2000) {
+          detectads();
+       } 
+
+    
+}
+
+
+</script>
+
+
+
+  
+
+</body>
+</html>
