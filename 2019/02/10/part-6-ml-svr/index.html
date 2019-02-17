@@ -1,0 +1,1013 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta http-equiv="Cache-Control" content="public" />
+<!-- Enable responsiveness on mobile devices -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+<meta name="generator" content="Hugo 0.54.0" />
+
+    
+    
+    
+
+<title>Part 6 Support Vector Regression • A Morsel Of Code</title>
+
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Part 6 Support Vector Regression"/>
+<meta name="twitter:description" content="Machine learning tutorial using Support vector regression. This post in the machine learning series will walk you through the process of implementing Support vector Regression."/>
+
+<meta property="og:title" content="Part 6 Support Vector Regression" />
+<meta property="og:description" content="Machine learning tutorial using Support vector regression. This post in the machine learning series will walk you through the process of implementing Support vector Regression." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/2019/02/10/part-6-ml-svr/" />
+<meta property="article:published_time" content="2019-02-16T00:29:38-05:00"/>
+<meta property="article:modified_time" content="2019-02-16T00:29:38-05:00"/>
+
+
+
+<link rel="canonical" href="/2019/02/10/part-6-ml-svr/" />
+
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+
+
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allerta+Stencil">
+
+<link rel="stylesheet" href="/css/w3.css" />
+
+
+<link rel="stylesheet" href="/css/style.css" />
+
+
+
+
+
+
+
+
+
+  
+  
+</head>
+<body class="w3-light-grey">
+
+
+    
+    <header id="header">
+         
+          
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-47631412-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments)};
+  gtag('js', new Date());
+
+  gtag('config', 'UA-47631412-1');
+</script>
+
+<div class="w3-right ">
+<div class="w3-bar w3-light-grey  ">
+  
+  <span class="w3-bar-item w3-left " id="google_translate_element"></span>
+<script>
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement(
+      {
+          pageLanguage: 'en'
+        , layout: google.translate.TranslateElement.FloatPosition.TOP_RIGHT
+        , multilanguagePage: true
+      }
+      , 'google_translate_element'
+    );
+  }
+</script>
+<script async src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+  
+       <a href="javascript:void(0)" class="w3-bar-item w3-button w3-hover-green" title="Search" onclick="displaysearch()"><i class="fa fa-search"></i></a>
+  
+      <span class="w3-hide-small">
+
+        <a href="mailto:dinesh19aug@gmail.com" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-envelope"></i></a>
+
+        <a href="%3ch4%3eDinesh%20Arora%3c/h4%3e" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-thorinfo"></i></a>
+
+        <a href="https://stackoverflow.com/users/1172194/dinesh-arora" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-stack-overflow"></i></a>
+
+        <a href="https://twitter.com/dinesh19aug" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-twitter"></i></a>
+
+        <a href="https://github.com/dinesh19aug" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-github"></i></a>
+
+        <a href="https://www.linkedin.com/in/dinesharora" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-linkedin"></i></a>
+
+        <a href="https://github.com/dinesh19aug" class="w3-bar-item w3-button w3-hover-green"><i class="fa fa-github"></i></a>
+
+      </span>
+
+</div>
+</div>
+<br>
+  <div class="w3-content">
+
+  <div class="w3-container w3-center w3-padding-32 w3-hide-small">
+      <h1 class="w3-xxxlarge w3-text-blue w3-wide w3-allerta  " style="text-shadow:1px 1px 0 #444" ><u>
+      
+         A Morsel Of Code - One Byte At A Time
+      
+</u></h1>
+
+    </div>
+    <div class="w3-content w3-center">
+    <div class="w3-bar w3-light-grey w3-border">
+    <a href="/" class="w3-bar-item w3-button w3-large w3-green"><i class="fa fa-home"></i></a>
+    
+      <a href="/categories/" class="w3-bar-item w3-button w3-hide-small">Categories</a>
+    
+      <a href="/tags/" class="w3-bar-item w3-button w3-hide-small">Tags</a>
+    
+
+
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large w3-hide-medium" onclick="displaymenu()">&#9776;</a>
+  </div>
+
+<div id="mobilemenu" class="w3-bar-block w3-light-grey w3-hide w3-hide-large w3-hide-medium">
+  
+      <a href="/categories/" class="w3-bar-item w3-button">Categories</a>
+      
+      <a href="/tags/" class="w3-bar-item w3-button">Tags</a>
+      
+
+</div>
+</div>
+</div>
+<script>
+function displaymenu() {
+    var x = document.getElementById("mobilemenu");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+}
+</script>
+
+
+
+  <div id="searchOverlay" class="overlay w3-hide">
+    <span class="closebtn" onclick="displaysearch()" title="Close Overlay">×</span>
+    <div class="overlay-content">
+        <form action="/search/">
+          <input type="text" placeholder="Search.." name="q">
+          <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+  </div>
+
+  <script>
+  function displaysearch() {
+    var x = document.getElementById("searchOverlay");
+    if (x.className.indexOf("w3-show") == -1) {
+        x.className += " w3-show";
+    } else {
+        x.className = x.className.replace(" w3-show", "");
+    }
+
+  }
+
+
+  </script>
+
+
+
+
+
+    <hr class="headfoot">
+
+      
+    </header>
+    
+<div class="w3-content">
+    
+      <div>
+        <div id="content" >
+          
+    
+
+      <div id="toc" class="w3-dropdown-hover w3-hide-small w3-hide-medium">
+    <button class="w3-button w3-teal w3-xlarge">&#9776;</button>
+    <div class="w3-dropdown-content w3-bar-block w3-border" style="right:0">
+         
+          <h3 class="w3-center">Contents </h3>
+            <nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#how-to-get-the-dataset">How to get the dataset?</a></li>
+<li><a href="#key-terms">Key terms</a></li>
+<li><a href="#what-is-a-svr-model">What is a SVR  model?</a>
+<ul>
+<li><a href="#what-is-boundary-again">What is &ldquo;Boundary again?</a></li>
+<li><a href="#exploring-the-dataset">Exploring the dataset</a></li>
+</ul></li>
+</ul></li>
+</ul>
+</nav>
+         
+      </div>
+
+     
+      </div>
+    
+
+ 
+     
+
+
+  <div class="w3-content w3-card-4" >
+    
+    <header class="w3-container w3-center w3-padding-32">
+      <h1>Part 6 Support Vector Regression</h1>
+
+      <div >
+        <p> 2019-02-16 
+          
+             <code> 1166 words  </code>
+             <code> 6 mins read </code>
+          
+        </p>
+        <div >
+            
+              <a class="w3-btn w3-small w3-round w3-green" href="/categories/tech-notes/"> Tech Notes </a>
+            
+              <a class="w3-btn w3-small w3-round w3-green" href="/categories/machine-learning/"> Machine learning </a>
+            
+          </div>
+       
+        
+      </div>
+    </header>
+
+   
+    
+    <div class="w3-container">
+      
+        
+
+        
+        
+
+        
+          
+          
+          
+
+<p><strong>Business Goal</strong>: As an owner of <strong><code>MuShu Bike Rental CO.</code></strong> in New York. I want to know how many bicycles will be rented on any given day based on daily temperature, humidity and wind speed. Can you help  <strong><code>MuShu Bike Rental CO.</code></strong>  to predict the number of daily rentals?</p>
+
+<h2 id="how-to-get-the-dataset">How to get the dataset?</h2>
+
+<ul>
+<li><a href="https://github.com/dinesh19aug/ml-notes/blob/master/Part-6-Support-vector-machine/bike_rental_train.csv">Startup Dataset</a></li>
+<li><a href="https://github.com/dinesh19aug/ml-notes/blob/master/Part-6-Support-vector-machine/svm.ipynb">Support vector Regression notebook</a></li>
+</ul>
+
+<p>Let&rsquo;s solve this problem using SVR - <em>Support Vector Regression</em>.<br />
+Before we begin, let&rsquo;s see the key terms that will be used.</p>
+
+<h2 id="key-terms">Key terms</h2>
+
+<ul>
+<li><p><strong>Kernel</strong>
+&gt; A fancy word for the function used to map a lower dimension data into higher dimension data.</p></li>
+
+<li><p><strong>Hyper Plane</strong>
+&gt;This is a line that helps us predict the target values.</p></li>
+
+<li><p><strong>Boundary Line</strong>
+&gt; There are two boundary lines which separate the classes. The support vectors can be <strong>on</strong> the boundary line or <strong>outside</strong> the boundary line.</p></li>
+
+<li><p><strong>Support Vectors</strong>
+&gt; Support vectors are the data points which are closest to the boundary line.</p></li>
+</ul>
+
+<h2 id="what-is-a-svr-model">What is a SVR  model?</h2>
+
+<p>In Simple/multiple regression we try to minimize the errors while in SVR, we try to fit the error within a threshold.
+&gt; <strong>Blue Line: Hyper Plane | Red Line: Boundary lines</strong>
+<img src="/placeholder.svg" data-src="/resources/img/svr/random.PNG" alt="random.PNG" /></p>
+
+<p>Looking at the above figure, our goal is to have the data points <strong>inside</strong> the boundary lines and hyperplane with the maximum number of data points.</p>
+
+<h3 id="what-is-boundary-again">What is &ldquo;Boundary again?</h3>
+
+<p>The red lines that you see in the diagram above are called boundary lines. These lines are at equidistant from a hyper plane (Blue line). So basically, if one boundary line is at distance <strong>&ldquo;e&rdquo;</strong> distance from a hyper plane the other would be at distance of <strong>&rdquo;-e&rdquo;</strong>.
+In mathematical equation.
+ If the hyper plane line is a straight line going through Y-AXIS and represented as
+  &gt; mX + C =0</p>
+
+<p>Then the equation of boundary lines can be represented as
+&gt; mX + C = e<br />
+ mx +C = -e</p>
+
+<p>The final equation of SVR can be represented as<br />
+&gt; e≤ y-mx-c ≤+e</p>
+
+<blockquote>
+<p>To summarize: The goal so far is to find the distance value <strong>e</strong> which is equidistant from <code>hyper plane</code> line with the maximum data points OR that they are inside the <code>Boundary line</code>.
+<img src="/placeholder.svg" data-src="/resources/img/svr/full-random.PNG" alt="full-random.PNG" /></p>
+</blockquote>
+
+<h3 id="exploring-the-dataset">Exploring the dataset</h3>
+
+<pre><code class="language-python">import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+##Import the datset
+dataset = pd.read_csv('BikeRental/bike_rental_train.csv')
+
+</code></pre>
+
+<pre><code class="language-python">dataset.head()
+</code></pre>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>temp</th>
+      <th>humidity</th>
+      <th>windspeed</th>
+      <th>bike_rent_count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>9.02</td>
+      <td>80</td>
+      <td>0.0000</td>
+      <td>40</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>9.02</td>
+      <td>80</td>
+      <td>0.0000</td>
+      <td>32</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>9.84</td>
+      <td>75</td>
+      <td>0.0000</td>
+      <td>13</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>9.84</td>
+      <td>75</td>
+      <td>0.0000</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>9.84</td>
+      <td>75</td>
+      <td>6.0032</td>
+      <td>1</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<pre><code class="language-python">dataset.describe().T
+</code></pre>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>count</th>
+      <th>mean</th>
+      <th>std</th>
+      <th>min</th>
+      <th>25%</th>
+      <th>50%</th>
+      <th>75%</th>
+      <th>max</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>temp</th>
+      <td>9801.0</td>
+      <td>20.230348</td>
+      <td>7.791740</td>
+      <td>0.82</td>
+      <td>13.9400</td>
+      <td>20.500</td>
+      <td>26.2400</td>
+      <td>41.0000</td>
+    </tr>
+    <tr>
+      <th>humidity</th>
+      <td>9801.0</td>
+      <td>61.903989</td>
+      <td>19.293371</td>
+      <td>0.00</td>
+      <td>47.0000</td>
+      <td>62.000</td>
+      <td>78.0000</td>
+      <td>100.0000</td>
+    </tr>
+    <tr>
+      <th>windspeed</th>
+      <td>9801.0</td>
+      <td>12.836534</td>
+      <td>8.177168</td>
+      <td>0.00</td>
+      <td>7.0015</td>
+      <td>12.998</td>
+      <td>16.9979</td>
+      <td>56.9969</td>
+    </tr>
+    <tr>
+      <th>bike_rent_count</th>
+      <td>9801.0</td>
+      <td>191.334864</td>
+      <td>181.048534</td>
+      <td>1.00</td>
+      <td>42.0000</td>
+      <td>145.000</td>
+      <td>283.0000</td>
+      <td>977.0000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<pre><code class="language-python">dataset.columns
+</code></pre>
+
+<pre><code>Index(['temp', 'humidity', 'windspeed', 'bike_rent_count'], dtype='object')
+</code></pre>
+
+<pre><code class="language-python">plt.scatter( dataset.temp, dataset.bike_rent_count, c='green');
+
+</code></pre>
+
+<p><img src="/placeholder.svg" data-src="/resources/img/svr/scatter-green.PNG" alt="png" /></p>
+
+<pre><code class="language-python">plt.scatter( dataset.humidity,dataset.bike_rent_count);
+
+</code></pre>
+
+<p><img src="/placeholder.svg" data-src="/resources/img/svr/scatter-blue.PNG" alt="png" /></p>
+
+<pre><code class="language-python">plt.scatter( dataset.windspeed, dataset.bike_rent_count);
+</code></pre>
+
+<p><img src="/placeholder.svg" data-src="/resources/img/svr/scatter-blue2.PNG" alt="png" /></p>
+
+<blockquote>
+<p><strong>Summary</strong><br />
+Based on data description and histogram plot.
+- Temp Range = 0 to 41
+- Humidity Range = 0 to 100
+- Windspeed = 0 to 57</p>
+</blockquote>
+
+<pre><code class="language-python">dataset.corr(method='pearson', min_periods=1)
+</code></pre>
+
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>temp</th>
+      <th>humidity</th>
+      <th>windspeed</th>
+      <th>bike_rent_count</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>temp</th>
+      <td>1.000000</td>
+      <td>-0.060524</td>
+      <td>-0.020792</td>
+      <td>0.393114</td>
+    </tr>
+    <tr>
+      <th>humidity</th>
+      <td>-0.060524</td>
+      <td>1.000000</td>
+      <td>-0.317602</td>
+      <td>-0.312835</td>
+    </tr>
+    <tr>
+      <th>windspeed</th>
+      <td>-0.020792</td>
+      <td>-0.317602</td>
+      <td>1.000000</td>
+      <td>0.096836</td>
+    </tr>
+    <tr>
+      <th>bike_rent_count</th>
+      <td>0.393114</td>
+      <td>-0.312835</td>
+      <td>0.096836</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<blockquote>
+<p><strong>Summary</strong><br />
+- Looking at the correlation matrix, we see that there is a positive relationship between <code>temperature</code> and <code>bike_rent_count</code>
+- <code>Humidity</code> has a negative effect on <code>bike_rent_count</code>. Higher the humidity, lower the number of rentals
+- <code>Windspeed</code> has little effect on <code>bike_rent_count</code>.<br />
+Looking at the correlation matrix, it confirms the visuals that bike count rental has a weak correlation with all of the 3 variables.</p>
+</blockquote>
+
+<p><strong>What does a weak correlation mean?</strong>
+It means that the equation of the model that we are going to plot is probably not going to give very accurate results. However, the goal of this post is to show you how to implement SVR.</p>
+
+<p>So Let&rsquo;s bring out our template from our <a href="http://www.javahabit.com/2019/01/21/part-1-ml-data-preprocessing/">first post</a> on data pre-processing.</p>
+
+<blockquote>
+<p><strong>Step 1</strong>: Let&rsquo;s break the data into Dependent and Independent variable</p>
+</blockquote>
+
+<pre><code class="language-python">### Break up in dependent and Independent variables
+X = dataset.iloc[:, 0:3].values
+y = dataset.iloc[:, 3].values
+
+</code></pre>
+
+<blockquote>
+<p><strong>Step 2</strong> : Break the data into train and test set</p>
+</blockquote>
+
+<pre><code class="language-python"># Splitting the dataset into the Training set and Test set
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 0)
+
+</code></pre>
+
+<blockquote>
+<p><strong>Step 3</strong>: Feature scaling. This step is required here beacause SVR library does not do feature scaling.</p>
+</blockquote>
+
+<pre><code class="language-python"># Feature Scaling
+from sklearn.preprocessing import StandardScaler
+sc_X = StandardScaler()
+X_train = sc_X.fit_transform(X_train)
+X_test = sc_X.transform(X_test)
+#sc_y = StandardScaler()
+#y_train = sc_y.fit_transform(y_train)
+</code></pre>
+
+<blockquote>
+<p><strong>Step 4</strong>: Create a Regressor and fit the model</p>
+</blockquote>
+
+<pre><code class="language-python"># Fitting the SVR Model to the dataset
+from sklearn.svm import SVR
+
+# Create your regressor here
+regressor = SVR(kernel='linear')
+regressor.fit(X_train,y_train)
+
+</code></pre>
+
+<pre><code>SVR(C=1.0, cache_size=200, coef0=0.0, degree=3, epsilon=0.1,
+  gamma='auto_deprecated', kernel='linear', max_iter=-1, shrinking=True,
+  tol=0.001, verbose=False)
+</code></pre>
+
+<p>In the above code, we are using the <code>SVR</code> class for fitting the model.
+&gt; SVR(
+    [&ldquo;kernel=&lsquo;rbf&rsquo;&rdquo;, &lsquo;degree=3&rsquo;, &ldquo;gamma=&lsquo;auto_deprecated&rsquo;&ldquo;, &lsquo;coef0=0.0&rsquo;, &lsquo;tol=0.001&rsquo;, &lsquo;C=1.0&rsquo;, &lsquo;epsilon=0.1&rsquo;, &lsquo;shrinking=True&rsquo;, &lsquo;cache_size=200&rsquo;, &lsquo;verbose=False&rsquo;, &lsquo;max_iter=-1&rsquo;],
+)</p>
+
+<p>The SVR model that we are using provides 4 types of <code>Kernel</code> - rbf, linear, poly, sigmoid. In our case, we are using <code>linear</code> since data appears to be linear based on visualizations. Another interesting attribute is <code>verbose</code>, which when set to true will show you the default values used of other attributes.</p>
+
+<blockquote>
+<p><strong>Step 5</strong>: Predict the bike count based on test data</p>
+</blockquote>
+
+<pre><code class="language-python"># Predicting a new result
+y_pred = regressor.predict(X_test)
+</code></pre>
+
+<blockquote>
+<p><strong>Step 6</strong>: Check the model effeciency</p>
+</blockquote>
+
+<pre><code class="language-python">print('Train Score: ', regressor.score(X_train, y_train))
+print('Test Score: ', regressor.score(X_test, y_test))
+</code></pre>
+
+<pre><code>Train Score:  0.19926232721567205
+Test Score:  0.2082800818663224
+</code></pre>
+
+<p>As mentioned earlier, since the correlation is weak, we can see that our model is extremely weak. <strong>One thing to note here is that I downloaded this random dataset from some website</strong>. So when I was working on SVR, I was not sure if the data is true or not.</p>
+
+<p>Let&rsquo;s try the tweaking SVR model a little to see if we can do better.</p>
+
+<pre><code class="language-python"># Create your regressor here
+regressor = (SVR(kernel='poly',
+                 shrinking=True,
+                  degree=7,
+                gamma='scale',
+                 epsilon = 0.01,
+                 coef0 =1.60
+                ))
+regressor.fit(X_train,y_train)
+
+# Predicting a new result
+y_pred = regressor.predict(X_test)
+
+print('Train Score: ', regressor.score(X_train, y_train))
+print('Test Score: ', regressor.score(X_test, y_test))
+
+</code></pre>
+
+<pre><code>Train Score:  0.25167703525198526
+Test Score:  0.2484248213345378
+</code></pre>
+
+<p>So after playing around with different option and values, you will see that if you use <code>poly</code> or polynomial kernel, I was able to push the model prediction to  <strong>25.xx%</strong>.</p>
+
+<p>So that&rsquo;s it for this series. Try a different dataset, probably get one from the <a href="http://www.javahabit.com/2019/02/02/part-4-ml-multiple-linear-regression/">Multiple Linear regression</a> about <code>50_Startups</code> and predict using <code>linear kernel</code>.</p>
+
+<p>In the next series, we will learn about our first ever classification model - <code>Decision Trees</code>. Till then happy <code>Happy hyper-planing</code></p>
+
+                 
+                
+         
+      
+    </div>
+
+    
+   
+
+    <div class="w3-container">
+    	
+      
+     
+	</div>
+
+
+
+  
+
+
+    
+    
+    
+    <div class="w3-container">
+        
+        <h2>Related Articles:</h2>
+        <ul class="w3-ul w3-hoverable">
+            
+            
+
+              <li class="w3-padding-large"><span class="date">2019/02/11</span> &nbsp; <a href="/2019/02/10/part-5-ml-mltr-backward-elimination/">Part 5 Machine Learning Backward Elimination</a></li>
+            
+
+              <li class="w3-padding-large"><span class="date">2019/02/03</span> &nbsp; <a href="/2019/02/02/part-4-ml-multiple-linear-regression/">Part 4 Machine Learning Multiple Regression</a></li>
+            
+
+              <li class="w3-padding-large"><span class="date">2019/01/27</span> &nbsp; <a href="/2019/01/27/part-3-ml-understanding-p-value/">Part 3 Machine Learning Understanding P Value</a></li>
+            
+
+              <li class="w3-padding-large"><span class="date">2019/01/22</span> &nbsp; <a href="/2019/01/22/part-2-ml-simplelinear-regression/">Part 2 Machine Learning Simplelinear Regression</a></li>
+            
+
+              <li class="w3-padding-large"><span class="date">2019/01/21</span> &nbsp; <a href="/2019/01/21/part-1-ml-data-preprocessing/">Part 1 Machine Learning Data Preprocessing</a></li>
+            
+        </ul>
+    </div>
+    
+    
+    <br>  
+</div>
+
+
+
+<div class="w3-container w3-card-2 w3-black">
+<div class="w3-row">
+  <div class="w3-col l2 m2 s12 w3-center">
+  
+    <img src="https://avatars3.githubusercontent.com/u/1176242?s=460&amp;v=4" width ="100px" class="w3-circle w3-center w3-margin-top w3-margin-bottom" alt="author" >
+   
+  </div>
+  <div class="w3-col l10 m10 s12 ">
+  <div class = "w3-container w3-margin-top">
+    
+    
+  </div>
+  </div>
+  </div>
+</div>
+
+      
+    <div class="w3-content" > 
+      <div class="w3-bar w3-section">
+	     
+	    
+	      <a class="w3-btn w3-right w3-text-indigo w3-hover-green" href="/2019/02/10/part-5-ml-mltr-backward-elimination/">
+	       Part 5 Machine Learning Backward Elimination &#10095;
+	      </a>
+  	  </div>
+    </div>
+	
+ 
+
+  
+  
+  
+
+      <div id="wrapads">
+        <div class="adBanner">
+         
+        </div>
+       </div>
+      
+      <div id="allowads" class="allowads-overlay">
+  
+        <div class="allowads-overlay-content">
+        <div class="w3-panel w3-pink w3-large">
+        
+
+         <p> We notice you're using an adblocker.  If you like our webite please keep us running by whitelisting this site in your ad blocker. We’re serving quality, related ads only. Thank you!</p>
+         
+          <div class="w3-btn w3-green"  onclick="closeOverlay()">I've whitelisted your website.</div><br>
+          <div class="w3-button w3-small"  onclick="closeOverlay()">Not now</div>
+        </div>
+        </div>
+      </div>
+
+      <script>
+      function closeOverlay() {
+        document.getElementById("allowads").style.width = "0%";
+        document.getElementById("wrapads").style.height="1px";
+      }
+
+      function detectads() {
+      var h = document.getElementById("wrapads").clientHeight;
+
+      if (h==0){ document.getElementById("allowads").style.width = "100%";
+      }
+      }
+      
+
+     
+      
+      </script>
+        </div>
+        
+          <script>
+  shareurl=encodeURIComponent(location.protocol + '//' + location.host + location.pathname);
+  sharetitle=encodeURIComponent(document.title);
+    
+  </script>
+<div class="icon-bar">
+<script>
+document.write( '<a href="javascript:bookmark();" class="bookmark w3-tooltip"><i class="fa fa-bookmark"></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green ">Bookmark this page</span></a> ');
+
+document.write( '<a href="http://www.facebook.com/sharer.php?u='+shareurl+'" onclick="window.open(this.href, \'mywin\',\'left=20,top=20,width=500,height=500,toolbar=1,resizable=0\'); return false;" class="facebook w3-tooltip"><i class="fa fa-facebook "></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green">Share to Facebook</span></a> ');
+
+document.write( '<a href="https://twitter.com/share?url='+shareurl+'&amp;text='+sharetitle+'" onclick="window.open(this.href, \'mywin\',\'left=20,top=20,width=500,height=500,toolbar=1,resizable=0\'); return false;" class="twitter w3-tooltip"><i class="fa fa-twitter"></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green">Share to Twitter</span></a> ');
+document.write( '<a href="https://plus.google.com/share?url='+shareurl+'" onclick="window.open(this.href, \'mywin\',\'left=20,top=20,width=500,height=500,toolbar=1,resizable=0\'); return false;" class="google w3-tooltip"><i class="fa fa-google"></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green">Share to Google Plus</span></a>');
+
+document.write( '<a href="http://www.linkedin.com/shareArticle?mini=true&amp;url='+shareurl+'" onclick="window.open(this.href, \'mywin\',\'left=20,top=20,width=500,height=500,toolbar=1,resizable=0\'); return false;" class="linkedin w3-tooltip"><i class="fa fa-linkedin"></i><span style="position:absolute;left:40px;bottom:18px" class="w3-text w3-small w3-tag w3-round w3-green">Share to Linkedin</span></a>');
+
+</script>
+
+<script>
+function bookmark(){
+
+if ('sidebar' in window && 'addPanel' in window.sidebar) { 
+                window.sidebar.addPanel(location.href,document.title,"");
+            } else if(  false) { 
+                window.external.AddFavorite(location.href,document.title); 
+            } else { 
+                alert('Press ' + (navigator.userAgent.toLowerCase().indexOf('mac') != - 1 ? 'Command/Cmd' : 'CTRL') + ' + D to bookmark this page.');
+            }
+        }
+
+</script>
+</div>
+        
+           
+          
+  
+
+        
+        
+      </div>
+    
+
+   
+    <footer id="footer" >
+      <div class="w3-container w3-center w3-padding-32"> 
+  
+  <hr class="headfoot">
+  <p>Powered by <a href="https://gohugo.io">Hugo</a> | Theme - <a href="https://github.com/jesselau76/hugo-w3-simple">Hugo W3 Simple</a>
+  </p>
+  &copy; <a href="http://javahabit.com">Dinesh Arora</a> 2019 | <a href="https://github.com/dinesh19aug">Github</a> | <a href="https://twitter.com/dinesh19aug">Twitter</a>  | <a href="/index.xml">RSS</a>
+  
+</div>
+
+    </footer>
+    
+
+    
+  </div>
+
+  
+
+  
+    
+      <div id="backtotop" class="w3-hide-small w3-hide-medium">
+  
+        <button onclick="topFunction()" class="w3-btn w3-red w3-large" style="width:160px">Back To Top
+        &rarr;</button>
+        
+      </div>
+
+      <script>
+        function topFunction() {
+          document.body.scrollTop = 0;
+          document.documentElement.scrollTop = 0;
+      }
+      </script>
+
+
+    
+ 
+    
+    <script>
+    
+    function isVisible(elem) {
+
+      let coords = elem.getBoundingClientRect();
+
+      let windowHeight = document.documentElement.clientHeight;
+
+      
+      let topVisible = coords.top > 0 && coords.top < windowHeight;
+      let bottomVisible = coords.bottom < windowHeight && coords.bottom > 0;
+
+      return topVisible || bottomVisible;
+    }
+
+    
+
+    function showVisible() {
+      for (let img of document.querySelectorAll('img')) {
+        let realSrc = img.dataset.src;
+        if (!realSrc) continue;
+
+        if (isVisible(img)) {
+          
+
+          img.src = realSrc;
+
+          img.dataset.src = '';
+        }
+      }
+      if ( Array.from(document.querySelectorAll('[data-src]')).every(
+        img => img.getAttribute('data-src') === '') ) {
+        window.removeEventListener('scroll', showVisible)
+      }
+
+    }
+
+    window.addEventListener('scroll', showVisible);
+    showVisible();
+  </script>
+
+
+    
+    
+      <div class="progress-container" id="scrollbar">
+        <div class="progress-bar" id="progress-bar"></div>
+      </div>  
+
+
+    
+<script>
+
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+  <!-- TOC -->
+    
+    
+    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+        document.getElementById("toc").style.display = "block";
+    } else {
+        document.getElementById("toc").style.display = "none";
+    }
+    
+    <!-- cookie bar -->
+    
+<!-- Back to top -->
+    
+    if (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50) {
+        document.getElementById("backtotop").style.display = "block";
+    } else {
+        document.getElementById("backtotop").style.display = "none";
+    }
+    
+    <!-- scroll indicator -->
+    
+      var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      var scrolled = (winScroll / height) * 100;
+      document.getElementById("progress-bar").style.width = scrolled + "%";
+      if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("scrollbar").style.display = "block";
+        } else {
+            document.getElementById("scrollbar").style.display = "none";
+        }
+    
+
+    
+
+    <!-- allowads -->
+    
+       if (document.body.scrollTop > 2000 || document.documentElement.scrollTop > 2000) {
+          detectads();
+       } 
+
+    
+}
+
+
+</script>
+
+
+
+  
+
+</body>
+</html>

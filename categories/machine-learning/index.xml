@@ -6,10 +6,20 @@
     <description>Recent content in Machine Learning on A Morsel Of Code</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 11 Feb 2019 00:02:28 -0500</lastBuildDate>
+    <lastBuildDate>Sat, 16 Feb 2019 00:29:38 -0500</lastBuildDate>
     
 	<atom:link href="/categories/machine-learning/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Part 6 Support Vector Regression</title>
+      <link>/2019/02/10/part-6-ml-svr/</link>
+      <pubDate>Sat, 16 Feb 2019 00:29:38 -0500</pubDate>
+      
+      <guid>/2019/02/10/part-6-ml-svr/</guid>
+      <description>Business Goal: As an owner of MuShu Bike Rental CO. in New York. I want to know how many bicycles will be rented on any given day based on daily temperature, humidity and wind speed. Can you help MuShu Bike Rental CO. to predict the number of daily rentals?
+How to get the dataset?  Startup Dataset Support vector Regression notebook  Let&amp;rsquo;s solve this problem using SVR - Support Vector Regression.</description>
+    </item>
     
     <item>
       <title>Part 5 Machine Learning Backward Elimination</title>

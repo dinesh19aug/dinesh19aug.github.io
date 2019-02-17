@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/2019/02/10/part-6-ml-svr/</loc>
+    <lastmod>2019-02-16T00:29:38-05:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/2019/02/10/part-5-ml-mltr-backward-elimination/</loc>
     <lastmod>2019-02-11T00:02:28-05:00</lastmod>
   </url>
@@ -159,7 +164,7 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2019-02-11T00:02:28-05:00</lastmod>
+    <lastmod>2019-02-16T00:29:38-05:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -170,13 +175,13 @@
   
   <url>
     <loc>/categories/machine-learning/</loc>
-    <lastmod>2019-02-11T00:02:28-05:00</lastmod>
+    <lastmod>2019-02-16T00:29:38-05:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>/posts/</loc>
-    <lastmod>2019-02-11T00:02:28-05:00</lastmod>
+    <lastmod>2019-02-16T00:29:38-05:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -187,7 +192,7 @@
   
   <url>
     <loc>/categories/tech-notes/</loc>
-    <lastmod>2019-02-11T00:02:28-05:00</lastmod>
+    <lastmod>2019-02-16T00:29:38-05:00</lastmod>
     <priority>0</priority>
   </url>
   
