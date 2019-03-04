@@ -6,10 +6,20 @@
     <description>Recent content in Posts on A Morsel Of Code</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 16 Feb 2019 00:29:38 -0500</lastBuildDate>
+    <lastBuildDate>Sun, 03 Mar 2019 19:17:12 -0500</lastBuildDate>
     
 	<atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Part 7 Decision tree regression or classification using python</title>
+      <link>/2019/03/02/decision-tree-using-python/</link>
+      <pubDate>Sun, 03 Mar 2019 19:17:12 -0500</pubDate>
+      
+      <guid>/2019/03/02/decision-tree-using-python/</guid>
+      <description>In the previous post, we learnt about Support vector regression. In this post, we will see a new way of deciphering information using a simple format of traversing conditions.
+Business Goal: Can you spot the king? The people of Falkland are scared. Their king disguises as a common man and roams among them to gain knowledge about his kingdom and see if his policies are working in his kingdom. When the king is disguised, the common people don&amp;rsquo;t recognize him.</description>
+    </item>
     
     <item>
       <title>Part 6 Support Vector Regression</title>

@@ -242,7 +242,7 @@ function displaymenu() {
       <div >
         <p> 2014-04-18 
           
-             <code> 1054 words  </code>
+             <code> 1057 words  </code>
              <code> 5 mins read </code>
           
         </p>
@@ -338,7 +338,8 @@ function displaymenu() {
 <li>SXSSF &#8211; Used when very large spreadsheets have to be produced, and heap space is limited. e.g. <a style="font-family: sans-serif; font-size: medium; font-style: normal; font-variant: normal; line-height: normal;" title="SXSSFWorkbook" href="http://poi.apache.org/apidocs/org/apache/poi/xssf/streaming/SXSSFWorkbook.html" target="_blank" rel="external nofollow">SXSSFWorkbook</a>, <a style="font-family: sans-serif; font-size: medium; font-style: normal; font-variant: normal; line-height: normal;" title="SXSSFSheet" href="http://poi.apache.org/apidocs/org/apache/poi/xssf/streaming/SXSSFSheet.html" target="_blank" rel="external nofollow">SXSSFSheet</a>.</li>
 </ol>
 
-<p><span style="font-size: 16px;">There are other wide range of classes as well which can be used to manipulate the Excel sheet. Ex &#8211; </span><span style="font-size: 16px;"> </span><a style="font-size: 16px;" title="BuiltinFormats" href="http://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/BuiltinFormats.html" target="_blank" rel="external nofollow">BuiltinFormats</a><span style="font-size: 16px;">, <a title="ConditionalFormattingRule" href="http://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/ConditionalFormattingRule.html" target="_blank" rel="external nofollow">ConditionalFormattingRule</a>,</span><a style="font-size: 16px;" title="ComparisonOperator" href="http://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/ComparisonOperator.html" target="_blank" rel="external nofollow">ComparisonOperator</a><span style="font-size: 16px;">,<a title="CellStyle" href="http://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/CellStyle.html" target="_blank" rel="external nofollow">CellStyle</a>, </span><a style="font-size: 16px;" title="FontFormatting" href="http://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/FontFormatting.html" target="_blank" rel="external nofollow">FontFormatting</a><span style="font-size: 16px;">, </span><a style="font-size: 16px;" title="IndexedColors" href="http://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/IndexedColors.html" target="_blank" rel="external nofollow">IndexedColors</a><span style="font-size: 16px;">, </span><a style="font-size: 16px;" title="PatternFormatting" href="http://poi.apache.org/apidocs/org/apache/poi/hssf/record/cf/PatternFormatting.html" target="_blank" rel="external nofollow">PatternFormatting</a><span style="font-size: 16px;">, </span><a style="font-size: 16px;" title="SheetConditionalFormatting" href="http://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/SheetConditionalFormatting.html" target="_blank" rel="external nofollow">SheetConditionalFormatting</a>. These used for formatting the sheet and formula evaluation.<span style="font-size: 16px;"><br /> </span></p>
+<p><span style="font-size: 16px;">There are other wide range of classes as well which can be used to manipulate the Excel sheet.<br />
+Ex &#8211; </span><span style="font-size: 16px;"> </span><a style="font-size: 16px;" title="BuiltinFormats" href="http://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/BuiltinFormats.html" target="_blank" rel="external nofollow">BuiltinFormats</a><span style="font-size: 16px;">, <a title="ConditionalFormattingRule" href="http://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/ConditionalFormattingRule.html" target="_blank" rel="external nofollow">ConditionalFormattingRule</a>,</span><a style="font-size: 16px;" title="ComparisonOperator" href="http://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/ComparisonOperator.html" target="_blank" rel="external nofollow">ComparisonOperator</a><span style="font-size: 16px;">,<a title="CellStyle" href="http://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/CellStyle.html" target="_blank" rel="external nofollow">CellStyle</a>, </span><a style="font-size: 16px;" title="FontFormatting" href="http://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/FontFormatting.html" target="_blank" rel="external nofollow">FontFormatting</a><span style="font-size: 16px;">, </span><a style="font-size: 16px;" title="IndexedColors" href="http://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/IndexedColors.html" target="_blank" rel="external nofollow">IndexedColors</a><span style="font-size: 16px;">, </span><a style="font-size: 16px;" title="PatternFormatting" href="http://poi.apache.org/apidocs/org/apache/poi/hssf/record/cf/PatternFormatting.html" target="_blank" rel="external nofollow">PatternFormatting</a><span style="font-size: 16px;">, </span><a style="font-size: 16px;" title="SheetConditionalFormatting" href="http://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/SheetConditionalFormatting.html" target="_blank" rel="external nofollow">SheetConditionalFormatting</a>. These used for formatting the sheet and formula evaluation.<span style="font-size: 16px;"><br /> </span></p>
 
 <p><strong>HOW TO CREATE A NEW EXCEL SHEET</strong></p>
 
@@ -401,7 +402,8 @@ public class NewExcel {
         }
         //Save the excel sheet
         try{
-            FileOutputStream out = new FileOutputStream(new File("c:\Dinesh\javahabitExcelDemo.xlsx"));
+            FileOutputStream out = new FileOutputStream(
+              new File("c:\Dinesh\javahabitExcelDemo.xlsx"));
             workbook.write(out);
             out.close();
             System.out.println("javahabitExcelDemo.xlsx Successfully created");
@@ -451,7 +453,8 @@ public class ReadExcel {
     public static void main(String[] args) {
         try {
             //Get the Excel File
-            FileInputStream file = new FileInputStream(new File("c:\Dinesh\javahabitExcelDemo.xlsx"));
+            FileInputStream file = new FileInputStream(
+              new File("c:\Dinesh\javahabitExcelDemo.xlsx"));
             XSSFWorkbook workbook = new XSSFWorkbook(file);
 
             //Get the Desired sheet
@@ -539,7 +542,8 @@ public class CalculateFormula {
 
         //Save the File
         try {
-            FileOutputStream out =  new FileOutputStream(new File("c:\Dinesh\javahabitformulaDemo.xlsx"));
+            FileOutputStream out =  new FileOutputStream(
+              new File("c:\Dinesh\javahabitformulaDemo.xlsx"));
             workbook.write(out);
             out.close();
             System.out.println("Excel File with formla is created!");
