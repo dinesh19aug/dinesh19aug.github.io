@@ -1,10 +1,70 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/showcase/hugo/hugo-theme-zzo/</loc>
+    <lastmod>2020-01-19T21:13:42+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/showcase/hugo/hugo-theme-zdoc/</loc>
+    <lastmod>2020-01-19T21:13:42+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2020-01-27T22:39:52-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/</loc>
+    <lastmod>2020-01-27T22:39:52-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/machine-learning/</loc>
+    <lastmod>2020-01-27T22:39:52-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/</loc>
+    <lastmod>2020-01-27T22:39:52-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2020/01/27/logistics-regression-using-python/</loc>
+    <lastmod>2020-01-27T22:39:52-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/tech-notes/</loc>
+    <lastmod>2020-01-27T22:39:52-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/showcase/hugo/</loc>
+    <lastmod>2020-01-19T21:04:11+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/showcase/</loc>
+    <lastmod>2020-01-19T15:43:38+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/archive/</loc>
+    <lastmod>2019-10-19T11:44:14+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/2019/03/02/decision-tree-using-python/</loc>
     <lastmod>2019-03-03T19:17:12-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/about/</loc>
+    <lastmod>2019-02-28T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -69,6 +129,11 @@
   
   <url>
     <loc>/2015/04/23/powermock-how-to-test-a-private-method/</loc>
+    <lastmod>2015-04-23T20:49:08+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/uncategorized/</loc>
     <lastmod>2015-04-23T20:49:08+00:00</lastmod>
   </url>
   
@@ -168,43 +233,11 @@
   </url>
   
   <url>
-    <loc>/</loc>
-    <lastmod>2019-03-03T19:17:12-05:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/categories/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/categories/machine-learning/</loc>
-    <lastmod>2019-03-03T19:17:12-05:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/posts/</loc>
-    <lastmod>2019-03-03T19:17:12-05:00</lastmod>
-    <priority>0</priority>
+    <loc>/series/</loc>
   </url>
   
   <url>
     <loc>/tags/</loc>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/categories/tech-notes/</loc>
-    <lastmod>2019-03-03T19:17:12-05:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/categories/uncategorized/</loc>
-    <lastmod>2015-04-23T20:49:08+00:00</lastmod>
-    <priority>0</priority>
   </url>
   
 </urlset>
