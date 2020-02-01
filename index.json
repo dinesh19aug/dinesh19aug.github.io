@@ -1,23 +1,5 @@
 [
 {
-	"uri": "/showcase/hugo/hugo-theme-zzo/",
-	"title": "Hugo Zzo Theme",
-	"tags": [],
-	"categories": [],
-	"series": [],
-	"description": "Make a blog with hugo zzo theme!",
-	"content": ""
-},
-{
-	"uri": "/showcase/hugo/hugo-theme-zdoc/",
-	"title": "Hugo zDoc Theme",
-	"tags": [],
-	"categories": [],
-	"series": [],
-	"description": "Make a documentation with hugo zdoc theme!",
-	"content": ""
-},
-{
 	"uri": "/",
 	"title": "",
 	"tags": [],
@@ -87,6 +69,51 @@
 	"categories": [],
 	"series": [],
 	"description": "My portfolio, repos, works overview page",
+	"content": ""
+},
+{
+	"uri": "/talks/series/",
+	"title": "Machine Learning Series",
+	"tags": [""],
+	"categories": [],
+	"series": [""],
+	"description": "",
+	"content": "  Part -1: How to pre-process and clean up data Part 2: Simple linear regression Part 3: Undesrtanding the P-Value Part 4: Multiple Linear Regression using machine learning Part 5: Backward elimination strategy Part 6: Support vector regression Part 7: Regression using Decision Tree algorithm Part 8: Logistics regression  "
+},
+{
+	"uri": "/categories/machine-learning-series/",
+	"title": "Machine Learning series",
+	"tags": [],
+	"categories": [],
+	"series": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/series/",
+	"title": "Series",
+	"tags": [],
+	"categories": [],
+	"series": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/tags/",
+	"title": "Tags",
+	"tags": [],
+	"categories": [],
+	"series": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/talks/",
+	"title": "Series",
+	"tags": [],
+	"categories": [],
+	"series": [],
+	"description": "Talks",
 	"content": ""
 },
 {
@@ -414,20 +441,11 @@
 	"content": "CAUTION: Please excuse the diction/grammar/spelling. It’s 3 AM and I am in a hurry to sleep as I need to drop my friends to airport in exactly 4 hrs.\nSo I was trying to set up this new application for my wife. I was using galleria plugin to show a slide like image. Everything was working fine in development so I decided to see how it would look like in production environment if it was deployed in a cloud or virtual server. So I ended up choosing engineyard because it gives you 500 free hours and you do not need to have dns name. Once the application is deployed on the server, you can view the application on temporary url.\nInstalling a rails app on engineyard is pretty easy, however tunneling (ssh) on to the server was a nightmare. I will cover the ssh experience in some other post. The main issue was my galleria plugin css, images and javascript was not showing correctly. After spending 2 days and mailing the engineyard (They pretty responsive and quick!!) I realized that there was an issue with application configuration. So I tried to run the application on my mac in production mode and found that galleria javascripts and css files were not loaded. The engineyard support told me that they were using passenger and Nginx. So I decided to install the same on my local and experiment.\nYou can install passenger with Nginx or apache. I used apache version initially but had some issues so decided to use nginx instead.\nOn an interesting note While I was still struggling to load galleria assets using passenger, I searched a lot site documentation, rails sites, forums etc., but none told me how to start and stop Nginx … call me dumb but that is something I did not find on any of the sites until I decided to go through the whole Nginx documentation and there it was… buried deep half way through the documentation :-). It should have been there on there installation page.\nSo this post is in two parts, the first part will walk you through passenger and Nginx installation and the second part will let you know the configuration changes in your rails app so that assets are loaded properly in production mode.\nPART 1: PASSENGER AND NGINX installation\n Install passenger: Run this in your command line  gem install passenger\rInstall the Nginx: Run this in your command line  passenger-install-nginx-module\rIf you see permission errors which says that you do not have permission to install then try\n sudo passenger-install-nginx-module\rIf you still get error which says\n Could not find RubyGem passenger (\u0026gt;= 0) (Gem::LoadError),\n then you probably use rvm to maintain your ruby rails version. So in this case try\nrvmsudo passenger-install-nginx-module\rNow when the installation starts, it will ask you some basic question like should I install some file plugins or location of installation etc., just keep saying yes or hit enter to continue. The whole process will probably take 3-4 minutes to complete.\nUpdate the nginx configuration file  By default nginx will be installed in /opt/nginx folder on your mac or linux system. I don’t know what is the default location for windows. On a lighter note do people actually use windows for RAILS development??? Seriously?? No offense but I have only met people who use windows to try out rails sample apps .\nOk I am done with bashing Windows users 🙂 So to update the configuration file go to nginx.conf\rfile under\n/opt/nginx/conf\rand update the code under server tag. You can find more details about nginx configuration here.\nserver {\r**listen 80;**\r**server_name localhost;**\r**root /Users/dinesharora/Desktop/Mydocument/ruby-proj/album;**\r**passenger_enabled on;**\r**passenger\\_base\\_uri /Users/xxxxx/Desktop/Mydocument/ruby-proj/album;**\rAfter saving the file. Stop the Nginx server\nStop nginx by going into /opt/nginx/sbin. Then run this command\nsudo ./nginx -s stop\rTo start just run\n./ngnix\rStart your passenger or application.  Go to your rails app folder and run this command in the terminal\npassenger start\r(To stop ctrl+c)\rNow by default passenger should start in production mode, but mine did not. It started in development mode. The documentation said that it will start in production mode by default but id did not. After racking my brains and going through the whole documentation, I did not find anything. Guess what ……. the documentation is outdated on the site. I almost gave up on Rails development and was thinking about going back to Java/Spring/Grails or GWT, but decided to stick a little longer. Anyway too much blabbering about what I did and whined …. here’s how to check if your passenger is running in production or development mode.\nWhen you run you passenger start, you will in 3rd or fourth line something like this\nLog file: /Users/dinesharora/Desktop/Mydocument/ruby-proj/album/log/passenger.3000.log\rEnvironment: development\rAccessible via: http://0.0.0.0:3000/\rIf it is running in development mode, the you need to start your application using this command.\npassenger start -e production\rIt goes without saying that if you run into permission issues, run it using sudo or rvmsudo\nSo that\u0026rsquo;s it. Your app is running and can be accessed via http://0.0.0.0:3000/. I mapped 0.0.0.0 to localhost :-). Anyway I was happy that my installation was successful(I struggled for 4-5 days), without any solutions.\nPART 2: ASSETS CONFIGURATION\nWell my happiness was short lived because my galleria plugin was not working. I initially thought it was an issue with galleria plugin so I switched it with other jquery image slide show plugin, but each had same issue, they all worked fine in development but were not loaded in production mode. I kept seeing this error in the production logs Routing error [get] /assets/javascripts/galleria/xxxx.js not found 404 error.\nEvery site said that Just set 1  config.assets.compile = true\r  and it will start showing up. Well I believed that statement for 4 more days to no avail. I tried playing around with application.js (Sprockets gem built in Rails 3.x) bit it did not work. I included the galleria folder as well in the application.js but still no images.\nSo I had placed my galleria plugin /app/assets/javascripts/galleria and I had to access\n js file\rgalleria/plugins/*.css files etc\rgalleria/plugins/images etc.\rI tried placing them in app/assets, lib/assets, vendor/assets but nothing will work. Here are steps if you have the same issue.\nOpen production.rb and make sure you have added or uncommented the following\n1.\nCode is not reloaded between requests\rconfig.cache_classes = true\rFull error reports are disabled and caching is turned on\rconfig.consider\\_all\\_requests_local = false\rconfig.action\\_controller.perform\\_caching = true\rDisable Rails\u0026amp;#8217;s static asset server (Apache or nginx will already do this)\rconfig.serve\\_static\\_assets = false\rCompress JavaScripts and CSS\rconfig.assets.compress = true\r**\\# Don\u0026amp;#8217;t fallback to assets pipeline if a precompiled asset is missed**\r**config.assets.compile = true**\r**\\# Generate digests for assets URLs**\r**config.assets.digest = true**\r**config.i18n.fallbacks = true**\r**\\# Send deprecation notices to registered listeners**\r**config.active_support.deprecation = :notify**\r\\# config.assets.initialize\\_on\\_precompile = false\rconfig.assets.precompile += [“*.js”, “*.css”] —— This HAS TO BE ADDED and was the key. Unless you add this line galleria images or any other images which are sub folders in assets or controller specific or personal folder under app, vendor lib will not loaded.\nAfter you have made the above changes in production.rb file, Rails needs to compile js and css and put them in\npublic/assets\rfolder. Now in development environment Rails does it for you but when you are in production, you need to generate assets. So while you are in you rails application folder run this command\nrake assets:precompile\rOR bundle exec rake\nassets:precompile\rThis will attach fingerprint to all the images, css and js files and put them in public/assets folder. Read Rails documentation.\nNow start your application in production mode using\npassenger start -e production\rOpen the application url.\nVoila!!! All the images show up.\nCheers\n"
 },
 {
-	"uri": "/series/",
-	"title": "Series",
+	"uri": "/pt/",
+	"title": "Presentations",
 	"tags": [],
 	"categories": [],
 	"series": [],
-	"description": "",
-	"content": ""
-},
-{
-	"uri": "/tags/",
-	"title": "Tags",
-	"tags": [],
-	"categories": [],
-	"series": [],
-	"description": "",
+	"description": "Presentation list with reveal.js",
 	"content": ""
 }]

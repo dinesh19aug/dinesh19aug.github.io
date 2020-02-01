@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "Hugo Zzo theme",
-  "short_name": "Hugo Zzo theme",
+  "name": "Home",
+  "short_name": "Home",
   "version": "1.0.0",
   "default_locale": "en",
   "description": "Hugo blog theme with rich features",

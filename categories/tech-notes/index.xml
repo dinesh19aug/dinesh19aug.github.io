@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tech Notes on Hugo Zzo Theme</title>
+    <title>Tech Notes on Home</title>
     <link>/categories/tech-notes/</link>
-    <description>Recent content in Tech Notes on Hugo Zzo Theme</description>
+    <description>Recent content in Tech Notes on Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <managingEditor>dinesh19aug@gmail.com (Dinesh Arora)</managingEditor>

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Archive – Hugo Zzo Theme</title>
+    <title>Archive – Home</title>
     
 
 
@@ -896,7 +896,7 @@
 <meta name="modified" content="2019-10-19T11:44:14&#43;0900">
 
 
-<meta property="og:site_name" content="Hugo Zzo Theme">
+<meta property="og:site_name" content="Home">
 <meta property="og:title" content="Archive">
 <meta property="og:url" content="/archive/">
 <meta property="og:type" content="website">
@@ -939,13 +939,37 @@
     },
     "publisher": {
       "@type": "Organization",
-      "name": "Hugo Zzo Theme",
+      "name": "Home",
       "url": "/"
     }
   }
 </script>
 
     
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-47631412-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-47631412-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 
@@ -968,10 +992,14 @@
             <nav class="navbar" role="navigation" aria-label="main navigation" data-dir="ltr">
   <div class="navbar__brand">
     
-    <a href="/" title="Home" rel="home" class="navbar__long-link">
+    <a href="/" title="Home" rel="home" class="navbar__logo-link">
       <img src="/logo.png" alt="Home" class="navbar__logo">
     </a>
     
+    
+      <a href="/" title="Home" rel="home" class="navbar__title-link">
+        <h6 class="navbar__title">Home</h6>
+      </a>
     
   </div>
   
@@ -1075,7 +1103,7 @@
       
       
       
-        <a href="/about" class="navbar__menu-item navbar__slide-down " dir="ltr">About</a>
+        <a href="/" class="navbar__menu-item navbar__slide-down " dir="ltr">Posts</a>
       
     
       
@@ -1099,21 +1127,7 @@
       
       
       
-        <div class="navbar__dropdown navbar__slide-down">
-          <a href="/gallery" class="navbar__menu-item " dir="ltr">
-            Gallery
-            <span class="navbar__menu-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M8.12 9.29L12 13.17l3.88-3.88c.39-.39 1.02-.39 1.41 0 .39.39.39 1.02 0 1.41l-4.59 4.59c-.39.39-1.02.39-1.41 0L6.7 10.7c-.39-.39-.39-1.02 0-1.41.39-.38 1.03-.39 1.42 0z"/></svg>
-            </span>
-          </a>        
-          <div class="navbar__dropdown--content">
-            
-            <a href="/gallery/cartoon" class="navbar__dropdown--item" dir="ltr">Cartoon</a>        
-            
-            <a href="/gallery/photo" class="navbar__dropdown--item" dir="ltr">Photo</a>        
-            
-          </div>
-        </div>
+        <a href="/about" class="navbar__menu-item navbar__slide-down " dir="ltr">About</a>
       
     
       
@@ -1121,15 +1135,7 @@
       
       
       
-        <a href="/posts" class="navbar__menu-item navbar__slide-down " dir="ltr">Posts</a>
-      
-    
-      
-      
-      
-      
-      
-        <a href="/showcase" class="navbar__menu-item navbar__slide-down " dir="ltr">Showcase</a>
+        <a href="/talks" class="navbar__menu-item navbar__slide-down " dir="ltr">Series</a>
       
     
   </div>
@@ -1417,8 +1423,6 @@
             </p>
         
 
-        
-            <p class="caption">Powered by <a href="https://gohugo.io/" rel="noreferrer">Hugo</a> and the <a href="https://github.com/zzossig/hugo-theme-zzo" rel="noreferrer">Zzo theme</a></p>
         
     </div> 
 </footer>

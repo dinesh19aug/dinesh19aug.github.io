@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Hugo on Hugo Zzo Theme</title>
+    <title>Hugo on Home</title>
     <link>/showcase/hugo/</link>
-    <description>Recent content in Hugo on Hugo Zzo Theme</description>
+    <description>Recent content in Hugo on Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <managingEditor>dinesh19aug@gmail.com (Dinesh Arora)</managingEditor>
@@ -15,24 +15,6 @@
     
     
     
-      
-      <item>
-        <title>Hugo Zzo Theme</title>
-        <link>/showcase/hugo/hugo-theme-zzo/</link>
-        <pubDate>Sun, 19 Jan 2020 21:13:42 +0900</pubDate>
-        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
-        <guid>/showcase/hugo/hugo-theme-zzo/</guid>
-        <description></description>
-      </item>
-      
-      <item>
-        <title>Hugo zDoc Theme</title>
-        <link>/showcase/hugo/hugo-theme-zdoc/</link>
-        <pubDate>Sun, 19 Jan 2020 21:13:42 +0900</pubDate>
-        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
-        <guid>/showcase/hugo/hugo-theme-zdoc/</guid>
-        <description></description>
-      </item>
       
     
   </channel>

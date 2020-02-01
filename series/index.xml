@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Series on Hugo Zzo Theme</title>
+    <title>Series on Home</title>
     <link>/series/</link>
-    <description>Recent content in Series on Hugo Zzo Theme</description>
+    <description>Recent content in Series on Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <managingEditor>dinesh19aug@gmail.com (Dinesh Arora)</managingEditor>
     <webMaster>dinesh19aug@gmail.com (Dinesh Arora)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
+    <lastBuildDate>Tue, 31 Dec 2019 00:04:50 +0900</lastBuildDate>
     
         <atom:link href="/series/index.xml" rel="self" type="application/rss+xml" />
     
