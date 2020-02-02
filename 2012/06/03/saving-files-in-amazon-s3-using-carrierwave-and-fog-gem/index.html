@@ -1574,9 +1574,25 @@ end
 </nav>
     
   
-    <div id="commento"></div>
-<script defer src="https://cdn.commento.io/js/commento.js"></script>
-
+    <div id="comments-gitment"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.min.css" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.min.js" crossorigin="anonymous"></script>
+<script type="text/javascript">
+  var gitment = new Gitment({
+    id: '2012-06-03 04:57:16 \x2b0000 \x2b0000',
+    title: 'Saving files in Amazon S3 using Carrierwave and Fog Gem',
+    link: decodeURI(location.href),
+    desc: 'Long long time ago in a far far away land….. I am just kidding. So I needed a gem to do file uploads(in my case images but you can upload anything) and I was looking at various options. Paperclip is a popular option but there is a new kid on the block (so i read in various forums)… Carrierwave.\nNow I have not used Paperclip but what I read was that Carrierwave is more flexible and powerful than Paperclip so if are interested then keep reading.',
+    owner: 'dinesh19aug',
+    repo: 'dinesh19aug.github.io',
+    oauth: {
+      client_id: '15a13931d69702bfb995',
+      client_secret: '6e1f24f2f812d81924ffd40cca240a2d427e3319'
+    }
+  });
+  gitment.render('comments-gitment');
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
   
 
     <div class="modal micromodal-slide" id="modal" aria-hidden="true">

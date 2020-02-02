@@ -1423,9 +1423,25 @@ if (!doNotTrack) {
 </nav>
     
   
-    <div id="commento"></div>
-<script defer src="https://cdn.commento.io/js/commento.js"></script>
-
+    <div id="comments-gitment"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.min.css" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.min.js" crossorigin="anonymous"></script>
+<script type="text/javascript">
+  var gitment = new Gitment({
+    id: '2013-05-15 03:33:28 \x2b0000 \x2b0000',
+    title: 'How to post parameters to a url using Ajax\/Javascript between two website',
+    link: decodeURI(location.href),
+    desc: 'I am working a new project and I recently ran into an interesting problem. One of the web site that I keep up at work was supposed to take the user to another website which required me to add post parameters.\nEX - www.mywebsite.makeapayment.com ==\x26gt; Collects Billing information ex - name, amount, address etc.==\x26gt; Post this information to www.vendor-website.com.\nI did not realize the problem until I started coding and my colleague pointed out that as soon as www.',
+    owner: 'dinesh19aug',
+    repo: 'dinesh19aug.github.io',
+    oauth: {
+      client_id: '15a13931d69702bfb995',
+      client_secret: '6e1f24f2f812d81924ffd40cca240a2d427e3319'
+    }
+  });
+  gitment.render('comments-gitment');
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
   
 
     <div class="modal micromodal-slide" id="modal" aria-hidden="true">

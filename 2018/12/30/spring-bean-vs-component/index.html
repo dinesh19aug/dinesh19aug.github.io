@@ -1407,9 +1407,25 @@ if (!doNotTrack) {
 </nav>
     
   
-    <div id="commento"></div>
-<script defer src="https://cdn.commento.io/js/commento.js"></script>
-
+    <div id="comments-gitment"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.min.css" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.min.js" crossorigin="anonymous"></script>
+<script type="text/javascript">
+  var gitment = new Gitment({
+    id: '2018-12-30 00:35:54 -0500 EST',
+    title: 'Spring Bean vs Spring Component',
+    link: decodeURI(location.href),
+    desc: 'The Difference Between @Bean and @Component and When to Use What? This is the most common question that new as well as experienced Spring users get confused about. There are literally hundreds of questions on this Stackoverflow. This article will clear all the confusion.\n Similarities between @Bean and @Autowired  @Bean\n @Bean is an annotation based configuration and hence is used in @Configuration based class. This is an explicit way of defining a bean and is also used on the methods defined in configuration class.',
+    owner: 'dinesh19aug',
+    repo: 'dinesh19aug.github.io',
+    oauth: {
+      client_id: '15a13931d69702bfb995',
+      client_secret: '6e1f24f2f812d81924ffd40cca240a2d427e3319'
+    }
+  });
+  gitment.render('comments-gitment');
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
   
 
     <div class="modal micromodal-slide" id="modal" aria-hidden="true">

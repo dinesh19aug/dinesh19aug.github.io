@@ -1473,9 +1473,25 @@ if (!doNotTrack) {
 </nav>
     
   
-    <div id="commento"></div>
-<script defer src="https://cdn.commento.io/js/commento.js"></script>
-
+    <div id="comments-gitment"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.min.css" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.min.js" crossorigin="anonymous"></script>
+<script type="text/javascript">
+  var gitment = new Gitment({
+    id: '2015-12-26 17:02:46 \x2b0000 \x2b0000',
+    title: 'How to set up Apache Storm on mac using brew',
+    link: decodeURI(location.href),
+    desc: 'I am learning about Apache Storm and the guide had long and winding instructions on how to install Apache Storm. I installed the single node using brew and it was a breeze. I did not had to spend time figuring out out if I was installing latest version.\nPre-requisites:\nMake sure that you have ‘HomeBrew‘ installed. One reason that I prefer ‘brew’ is that I do not have to remember where things are installed and brew manages and fixes any updates that have been introduced.',
+    owner: 'dinesh19aug',
+    repo: 'dinesh19aug.github.io',
+    oauth: {
+      client_id: '15a13931d69702bfb995',
+      client_secret: '6e1f24f2f812d81924ffd40cca240a2d427e3319'
+    }
+  });
+  gitment.render('comments-gitment');
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
   
 
     <div class="modal micromodal-slide" id="modal" aria-hidden="true">

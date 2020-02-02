@@ -1445,9 +1445,25 @@ This one trips me up all the time. When I was trying to refresh my notes from Kh
 </nav>
     
   
-    <div id="commento"></div>
-<script defer src="https://cdn.commento.io/js/commento.js"></script>
-
+    <div id="comments-gitment"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.min.css" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.min.js" crossorigin="anonymous"></script>
+<script type="text/javascript">
+  var gitment = new Gitment({
+    id: '2019-01-27 17:27:19 -0500 EST',
+    title: 'Part 3 Machine Learning Understanding P Value',
+    link: decodeURI(location.href),
+    desc: 'In the previous post, we learnt about Simple Linear regression. I wanted to start this section with multiple linear regression tutorial but as I was going over the content on the template to run create the regression model, I felt that we need understand P-Value concept before we move ahead.\nSo what is P-Value ?\nBefore I bore you with stats definition of the P-Value. Let\x26rsquo;s start with something simple.',
+    owner: 'dinesh19aug',
+    repo: 'dinesh19aug.github.io',
+    oauth: {
+      client_id: '15a13931d69702bfb995',
+      client_secret: '6e1f24f2f812d81924ffd40cca240a2d427e3319'
+    }
+  });
+  gitment.render('comments-gitment');
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
   
 
     <div class="modal micromodal-slide" id="modal" aria-hidden="true">
