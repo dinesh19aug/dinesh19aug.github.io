@@ -1393,25 +1393,9 @@ if (!doNotTrack) {
 </nav>
     
   
-    <div id="comments-gitment"></div>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.min.css" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.min.js" crossorigin="anonymous"></script>
-<script type="text/javascript">
-  var gitment = new Gitment({
-    id: '2016-06-16 01:19:10 \x2b0000 \x2b0000',
-    title: 'Understanding Java 8 Lambda final finally variable',
-    link: decodeURI(location.href),
-    desc: 'I am a little late to the java 8 party and was trying to quickly get some hands on with lambdas and ran into an issue where I got the error message \nVariables used in lambda should be final or effectively final  . I know what final is but what is effectively final.\nHere is what I was trying to do. I had a HashMap which had values like “one : 1”, “two : 2”, “three : 3” and wanted to replace the String ${one} with 1 etc.',
-    owner: 'dinesh19aug',
-    repo: 'javahabit-comments',
-    oauth: {
-      client_id: '15a13931d69702bfb995',
-      client_secret: '6e1f24f2f812d81924ffd40cca240a2d427e3319'
-    }
-  });
-  gitment.render('comments-gitment');
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
+    <div id="commento"></div>
+<script defer src="https://cdn.commento.io/js/commento.js"></script>
+
   
 
     <div class="modal micromodal-slide" id="modal" aria-hidden="true">
