@@ -9,12 +9,27 @@
     <managingEditor>dinesh19aug@gmail.com (Dinesh Arora)</managingEditor>
     <webMaster>dinesh19aug@gmail.com (Dinesh Arora)</webMaster>
     <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
-    <lastBuildDate>Mon, 27 Jan 2020 22:39:52 -0500</lastBuildDate>
+    <lastBuildDate>Tue, 16 Jun 2020 23:19:49 -0400</lastBuildDate>
     
         <atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
     
     
     
+      
+      <item>
+        <title>Afraid you don&#39;t understand  Reslience4j state changes: Read this missing manual on Ring Bit Buffer</title>
+        <link>/2020/06/17/resiliene4j-circuitbreaker-ringbitbuffer/</link>
+        <pubDate>Tue, 16 Jun 2020 23:19:49 -0400</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <guid>/2020/06/17/resiliene4j-circuitbreaker-ringbitbuffer/</guid>
+        <description>Resilience4j calculates the failure threshold using ringbit buffer. The state of circuitbreaker changes from CLOSED to OPEN when at end of count size the failure rate exceeds the threshold.
+Resilience4j provides you two buffers - CLOSED and HALF_OPEN state buffers. Imagine this is our set up
+Closed buffer size = 10
+Half open buffer size = 5
+Failure rate threshold = 60%
+Open state count = 10
+When the first call comes in the buffer has 0 entries.</description>
+      </item>
       
       <item>
         <title>Sick and tired of doing logistics regression the old way? read this</title>

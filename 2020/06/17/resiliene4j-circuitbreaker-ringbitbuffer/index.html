@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Hugo zDoc Theme – Hugo Zzo Theme</title>
+    <title>Afraid you don&#39;t understand  Reslience4j state changes: Read this missing manual on Ring Bit Buffer – Home</title>
     
 
 
@@ -888,23 +888,23 @@
 
 
     
-<meta name="description" content="Make a documentation with hugo zdoc theme!" />
-<meta name="keywords" content="">
-<meta name="created" content="2020-01-19T21:13:42&#43;0900">
-<meta name="modified" content="2020-01-19T21:13:42&#43;0900">
+<meta name="description" content="Understanding how Resilience4j ringbit buffer works, is the key to understanding the internal working of [Resilience4j](https://resilience4j.readme.io/) circuit breaker state change. If you don&#39;t know this then you are missing how the buffer counts and hence you will fall into the trap of missing open/close counts in the logs. https://github.com/resilience4j/resilience4j/issues/39" />
+<meta name="keywords" content="Java,CompleteableFuture,Supplier,Callable,Resiliene4j,Timelimiter,CircuitBreaker,Ring bit buffer">
+<meta name="created" content="2020-06-16T23:19:49-0400">
+<meta name="modified" content="2020-06-16T23:19:49-0400">
+<meta name="author" content="Dinesh Arora">
 
-
-<meta property="og:site_name" content="Hugo Zzo Theme">
-<meta property="og:title" content="Hugo zDoc Theme">
-<meta property="og:url" content="/showcase/hugo/hugo-theme-zdoc/">
+<meta property="og:site_name" content="Home">
+<meta property="og:title" content="Afraid you don&#39;t understand  Reslience4j state changes: Read this missing manual on Ring Bit Buffer">
+<meta property="og:url" content="/2020/06/17/resiliene4j-circuitbreaker-ringbitbuffer/">
 <meta property="og:type" content="article">
-<meta property="og:description" content="Make a documentation with hugo zdoc theme!">
+<meta property="og:description" content="Understanding how Resilience4j ringbit buffer works, is the key to understanding the internal working of [Resilience4j](https://resilience4j.readme.io/) circuit breaker state change. If you don&#39;t know this then you are missing how the buffer counts and hence you will fall into the trap of missing open/close counts in the logs. https://github.com/resilience4j/resilience4j/issues/39">
 
 
 <meta name="generator" content="Hugo 0.63.2" />
 <meta name="msapplication-TileColor" content="#ffffff">
 <meta name="theme-color" content="#ffffff">
-<link rel="canonical" href="/showcase/hugo/hugo-theme-zdoc/">
+<link rel="canonical" href="/2020/06/17/resiliene4j-circuitbreaker-ringbitbuffer/">
 <link rel="manifest" href="/manifest.json">
 
   <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png">
@@ -928,24 +928,52 @@
   {
     "@context": "https://schema.org",
     "@type": "WebPage",
-    "headline": "Hugo zDoc Theme",
-    "datePublished": "2020-01-19T21:13:42+09:00",
-    "dateModified": "2020-01-19T21:13:42+09:00",
-    "url" : "/showcase/hugo/hugo-theme-zdoc/",
-    "description": "Make a documentation with hugo zdoc theme!",
+    "headline": "Afraid you don't understand  Reslience4j state changes: Read this missing manual on Ring Bit Buffer",
+    "datePublished": "2020-06-16T23:19:49-04:00",
+    "dateModified": "2020-06-16T23:19:49-04:00",
+    "url" : "/2020/06/17/resiliene4j-circuitbreaker-ringbitbuffer/",
+    "description": "Understanding how Resilience4j ringbit buffer works, is the key to understanding the internal working of [Resilience4j](https://resilience4j.readme.io/) circuit breaker state change. If you don't know this then you are missing how the buffer counts and hence you will fall into the trap of missing open/close counts in the logs. https://github.com/resilience4j/resilience4j/issues/39",
+    "author": {
+      "@type": "Person",
+      "name": "Dinesh Arora"
+    },
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "/"
     },
     "publisher": {
       "@type": "Organization",
-      "name": "Hugo Zzo Theme",
+      "name": "Home",
       "url": "/"
     }
   }
 </script>
 
     
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-47631412-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-47631412-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
 
 
 
@@ -964,14 +992,18 @@
     
     <div id="container">
         
-        <div class="wrapper" data-type="showcase" data-kind="page">
+        <div class="wrapper" data-type="post" data-kind="page">
             <nav class="navbar" role="navigation" aria-label="main navigation" data-dir="ltr">
   <div class="navbar__brand">
     
-    <a href="/" title="Home" rel="home" class="navbar__long-link">
+    <a href="/" title="Home" rel="home" class="navbar__logo-link">
       <img src="/logo.png" alt="Home" class="navbar__logo">
     </a>
     
+    
+      <a href="/" title="Home" rel="home" class="navbar__title-link">
+        <h6 class="navbar__title">Home</h6>
+      </a>
     
   </div>
   
@@ -1075,7 +1107,7 @@
       
       
       
-        <a href="/about" class="navbar__menu-item navbar__slide-down " dir="ltr">About</a>
+        <a href="/" class="navbar__menu-item navbar__slide-down " dir="ltr">Posts</a>
       
     
       
@@ -1099,21 +1131,7 @@
       
       
       
-        <div class="navbar__dropdown navbar__slide-down">
-          <a href="/gallery" class="navbar__menu-item " dir="ltr">
-            Gallery
-            <span class="navbar__menu-icon">
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M8.12 9.29L12 13.17l3.88-3.88c.39-.39 1.02-.39 1.41 0 .39.39.39 1.02 0 1.41l-4.59 4.59c-.39.39-1.02.39-1.41 0L6.7 10.7c-.39-.39-.39-1.02 0-1.41.39-.38 1.03-.39 1.42 0z"/></svg>
-            </span>
-          </a>        
-          <div class="navbar__dropdown--content">
-            
-            <a href="/gallery/cartoon" class="navbar__dropdown--item" dir="ltr">Cartoon</a>        
-            
-            <a href="/gallery/photo" class="navbar__dropdown--item" dir="ltr">Photo</a>        
-            
-          </div>
-        </div>
+        <a href="/about" class="navbar__menu-item navbar__slide-down " dir="ltr">About</a>
       
     
       
@@ -1121,15 +1139,7 @@
       
       
       
-        <a href="/posts" class="navbar__menu-item navbar__slide-down " dir="ltr">Posts</a>
-      
-    
-      
-      
-      
-      
-      
-        <a href="/showcase" class="navbar__menu-item navbar__slide-down active" dir="ltr">Showcase</a>
+        <a href="/talks" class="navbar__menu-item navbar__slide-down " dir="ltr">Series</a>
       
     
   </div>
@@ -1139,53 +1149,12 @@
 
 <main class="single__main main-main">
   
-  <nav class="breadcrumb" aria-label="breadcrumbs">
-  <ol>
-    
-  
-  
-  
-  
-  
-  
-  
-  <li >
-    
-      <a href="/" class="capitalize">Hugo Zzo Theme</a>
-    
-  </li>
-  
-  
-  <li >
-    
-      <a href="/showcase/" class="capitalize">Showcase overview</a>
-    
-  </li>
-  
-  
-  <li >
-    
-      <a href="/showcase/hugo/" class="capitalize">Hugo</a>
-    
-  </li>
-  
-  
-  <li  class="is-active" >
-    
-      <span>Hugo zDoc Theme</span>
-    
-  </li>
-  
-  </ol>
-  
-</nav>
-  
   <div class="single">
-    <h2 class="single__title">Hugo zDoc Theme</h2>
+    <h2 class="single__title">Afraid you don&#39;t understand  Reslience4j state changes: Read this missing manual on Ring Bit Buffer</h2>
     <div class="single__meta">
       
 <div class="single__infos">
-  <time class="single__info" title="Written At">📅&nbsp;Jan 19, 2020 </time>  &middot; <span class="single__info" title="Reading Time"> ☕ 0 min read </span>
+  <time class="single__info" title="Written At">📅&nbsp;Jun 16, 2020 </time>  &middot; <span class="single__info" title="Reading Time"> ☕ 12 min read </span>&middot; <span class="single__info" title="WRITTEN BY">✍️&nbsp;Dinesh Arora</span>
   <span class="single__info">
     
   </span>
@@ -1196,7 +1165,336 @@
     </div>    
     <article class="single__contents" data-dir="ltr">
       
-      
+      <p><a href="https://resilience4j.readme.io/">Resilience4j</a> calculates the failure threshold using ringbit buffer. <br />
+<img src="/resources/img/r4j/ringbit.PNG" alt="png" /></p>
+<p>The state of circuitbreaker changes from <strong>CLOSED</strong> to <strong>OPEN</strong> when at end of count size the failure rate exceeds the threshold.</p>
+<p>Resilience4j provides you two buffers - CLOSED and HALF_OPEN state buffers. Imagine this is our set up</p>
+<p>Closed buffer size = 10<br />
+Half open buffer size = 5<br />
+Failure rate threshold = 60%<br />
+Open state count = 10</p>
+<p>When the first call comes in the buffer has 0 entries. At the end of 10th call the imagine that all calls were successful. Threshhold rate is calculated to 0% after 10 calls.<br />
+<img src="/resources/img/r4j/p1.PNG" alt="png" /></p>
+<p>Then the next 6 calls all failed calls and will push out the first 6 Passed calls. After 11th call onwards, the threshold rate will keep getting updated at each new entry.</p>
+<p><img src="/resources/img/r4j/p2.PNG" alt="png" /><br />
+<img src="/resources/img/r4j/p3.PNG" alt="png" /><br />
+<img src="/resources/img/r4j/p4.PNG" alt="png" /></p>
+<p>At the end of 16th call, the state would change to OPEN. In the open state this bucket would stay as is for next 10 calls.<br />
+After end of 25th call, the state would change to HALF_OPEN and half open bucket will start filling. Say all the 5 calls are success, then then the circuitbreaker is closed.</p>
+<p>At this moment, the threshold rate is reset for CLOSED state. For threshold to be calculated again, the buffer must fill in again.<br />
+<img src="/resources/img/r4j/p5.PNG" alt="png" /><br />
+<img src="/resources/img/r4j/p6.PNG" alt="png" /><br />
+<img src="/resources/img/r4j/p7.PNG" alt="png" /><br />
+<img src="/resources/img/r4j/p8.PNG" alt="png" /></p>
+<p>Then the updates on threshold rate is continouly updated with each call</p>
+<p><img src="/resources/img/r4j/p3.PNG" alt="png" /><br />
+<img src="/resources/img/r4j/p4.PNG" alt="png" /></p>
+<p>Here&rsquo;s the link to the <a href="https://github.com/dinesh19aug/javahabit-tutorials/tree/master/src/main/java/r4j/buffer">code</a> which uses the below config.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-java" data-lang="java"><span class="o">.</span><span class="na">failureRateThreshold</span><span class="o">(</span><span class="n">60</span><span class="o">)</span>
+                                                                        <span class="o">.</span><span class="na">waitDurationInOpenState</span><span class="o">(</span><span class="n">Duration</span><span class="o">.</span><span class="na">ofSeconds</span><span class="o">(</span><span class="n">10</span><span class="o">)</span><span class="o">)</span>
+                                                                        <span class="o">.</span><span class="na">permittedNumberOfCallsInHalfOpenState</span><span class="o">(</span><span class="n">3</span><span class="o">)</span>
+                                                                        <span class="o">.</span><span class="na">slidingWindowSize</span><span class="o">(</span><span class="n">10</span><span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>Logs: Pay special attention to Buffered calls and you see that buffer is emptied after state swutches from HALF_OPEN to CLOSED</p>
+<pre><code>
+counter = 1
+Hi Dinesh
+I am good. Nice to meet you
+Successful call count: 1 | Failed call count: 0 | Failure rate %:-1.0 | State: CLOSED | Buffered cals:1
+counter = 2
+Hi Dinesh
+I am good. Nice to meet you
+Successful call count: 2 | Failed call count: 0 | Failure rate %:-1.0 | State: CLOSED | Buffered cals:2
+counter = 3
+Hi Dinesh
+I am good. Nice to meet you
+Successful call count: 3 | Failed call count: 0 | Failure rate %:-1.0 | State: CLOSED | Buffered cals:3
+counter = 4
+Hi Dinesh
+I am good. Nice to meet you
+Successful call count: 4 | Failed call count: 0 | Failure rate %:-1.0 | State: CLOSED | Buffered cals:4
+counter = 5
+Hi Dinesh
+I am good. Nice to meet you
+Successful call count: 5 | Failed call count: 0 | Failure rate %:-1.0 | State: CLOSED | Buffered cals:5
+counter = 6
+Hi Dinesh
+I am good. Nice to meet you
+Successful call count: 6 | Failed call count: 0 | Failure rate %:-1.0 | State: CLOSED | Buffered cals:6
+counter = 7
+Hi Dinesh
+I am good. Nice to meet you
+Successful call count: 7 | Failed call count: 0 | Failure rate %:-1.0 | State: CLOSED | Buffered cals:7
+counter = 8
+Hi Dinesh
+I am good. Nice to meet you
+Successful call count: 8 | Failed call count: 0 | Failure rate %:-1.0 | State: CLOSED | Buffered cals:8
+counter = 9
+Hi Dinesh
+I am good. Nice to meet you
+Successful call count: 9 | Failed call count: 0 | Failure rate %:-1.0 | State: CLOSED | Buffered cals:9
+counter = 10
+Hi Dinesh
+I am good. Nice to meet you
+Successful call count: 10 | Failed call count: 0 | Failure rate %:0.0 | State: CLOSED | Buffered cals:10
+counter = 11
+Successful call count: 9 | Failed call count: 1 | Failure rate %:10.0 | State: CLOSED | Buffered cals:10
+FAILED
+counter = 12
+Successful call count: 8 | Failed call count: 2 | Failure rate %:20.0 | State: CLOSED | Buffered cals:10
+FAILED
+counter = 13
+Successful call count: 7 | Failed call count: 3 | Failure rate %:30.0 | State: CLOSED | Buffered cals:10
+FAILED
+counter = 14
+Successful call count: 6 | Failed call count: 4 | Failure rate %:40.0 | State: CLOSED | Buffered cals:10
+FAILED
+counter = 15
+Successful call count: 5 | Failed call count: 5 | Failure rate %:50.0 | State: CLOSED | Buffered cals:10
+FAILED
+counter = 16
+Successful call count: 4 | Failed call count: 6 | Failure rate %:60.0 | State: OPEN | Buffered cals:10
+FAILED
+counter = 17
+Successful call count: 4 | Failed call count: 6 | Failure rate %:60.0 | State: OPEN | Buffered cals:10
+FAILED
+counter = 18
+Successful call count: 4 | Failed call count: 6 | Failure rate %:60.0 | State: OPEN | Buffered cals:10
+FAILED
+counter = 19
+Successful call count: 4 | Failed call count: 6 | Failure rate %:60.0 | State: OPEN | Buffered cals:10
+FAILED
+counter = 20
+Successful call count: 4 | Failed call count: 6 | Failure rate %:60.0 | State: OPEN | Buffered cals:10
+FAILED
+counter = 21
+Successful call count: 4 | Failed call count: 6 | Failure rate %:60.0 | State: OPEN | Buffered cals:10
+FAILED
+counter = 22
+Successful call count: 4 | Failed call count: 6 | Failure rate %:60.0 | State: OPEN | Buffered cals:10
+FAILED
+counter = 23
+Successful call count: 4 | Failed call count: 6 | Failure rate %:60.0 | State: OPEN | Buffered cals:10
+FAILED
+counter = 24
+Successful call count: 4 | Failed call count: 6 | Failure rate %:60.0 | State: OPEN | Buffered cals:10
+FAILED
+counter = 25
+Successful call count: 4 | Failed call count: 6 | Failure rate %:60.0 | State: OPEN | Buffered cals:10
+FAILED
+counter = 26
+Successful call count: 0 | Failed call count: 1 | Failure rate %:-1.0 | State: HALF_OPEN | Buffered cals:1
+FAILED
+counter = 27
+Hi Dinesh
+I am good. Nice to meet you
+Successful call count: 1 | Failed call count: 1 | Failure rate %:-1.0 | State: HALF_OPEN | Buffered cals:2
+counter = 28
+Hi Dinesh
+I am good. Nice to meet you
+Successful call count: 0 | Failed call count: 0 | Failure rate %:-1.0 | State: CLOSED | Buffered cals:0
+counter = 29
+Hi Dinesh
+I am good. Nice to meet you
+Successful call count: 1 | Failed call count: 0 | Failure rate %:-1.0 | State: CLOSED | Buffered cals:1
+counter = 30
+Hi Dinesh
+I am good. Nice to meet you
+Successful call count: 2 | Failed call count: 0 | Failure rate %:-1.0 | State: CLOSED | Buffered cals:2
+counter = 31
+Hi Dinesh
+I am good. Nice to meet you
+Successful call count: 3 | Failed call count: 0 | Failure rate %:-1.0 | State: CLOSED | Buffered cals:3
+counter = 32
+Hi Dinesh
+I am good. Nice to meet you
+Successful call count: 4 | Failed call count: 0 | Failure rate %:-1.0 | State: CLOSED | Buffered cals:4
+counter = 33
+Hi Dinesh
+I am good. Nice to meet you
+Successful call count: 5 | Failed call count: 0 | Failure rate %:-1.0 | State: CLOSED | Buffered cals:5
+counter = 34
+Hi Dinesh
+I am good. Nice to meet you
+Successful call count: 6 | Failed call count: 0 | Failure rate %:-1.0 | State: CLOSED | Buffered cals:6
+counter = 35
+Hi Dinesh
+I am good. Nice to meet you
+Successful call count: 7 | Failed call count: 0 | Failure rate %:-1.0 | State: CLOSED | Buffered cals:7
+counter = 36
+Hi Dinesh
+I am good. Nice to meet you
+Successful call count: 8 | Failed call count: 0 | Failure rate %:-1.0 | State: CLOSED | Buffered cals:8
+counter = 37
+Successful call count: 8 | Failed call count: 1 | Failure rate %:-1.0 | State: CLOSED | Buffered cals:9
+FAILED
+counter = 38
+Successful call count: 8 | Failed call count: 2 | Failure rate %:20.0 | State: CLOSED | Buffered cals:10
+FAILED
+counter = 39
+Successful call count: 7 | Failed call count: 3 | Failure rate %:30.0 | State: CLOSED | Buffered cals:10
+FAILED
+counter = 40
+Successful call count: 6 | Failed call count: 4 | Failure rate %:40.0 | State: CLOSED | Buffered cals:10
+FAILED
+counter = 41
+Successful call count: 5 | Failed call count: 5 | Failure rate %:50.0 | State: CLOSED | Buffered cals:10
+FAILED
+counter = 42
+Successful call count: 4 | Failed call count: 6 | Failure rate %:60.0 | State: OPEN | Buffered cals:10
+FAILED
+counter = 43
+Successful call count: 4 | Failed call count: 6 | Failure rate %:60.0 | State: OPEN | Buffered cals:10
+FAILED
+counter = 44
+Successful call count: 4 | Failed call count: 6 | Failure rate %:60.0 | State: OPEN | Buffered cals:10
+FAILED
+counter = 45
+Successful call count: 4 | Failed call count: 6 | Failure rate %:60.0 | State: OPEN | Buffered cals:10
+FAILED
+counter = 46
+Successful call count: 4 | Failed call count: 6 | Failure rate %:60.0 | State: OPEN | Buffered cals:10
+FAILED
+counter = 47
+Successful call count: 4 | Failed call count: 6 | Failure rate %:60.0 | State: OPEN | Buffered cals:10
+FAILED
+counter = 48
+Successful call count: 4 | Failed call count: 6 | Failure rate %:60.0 | State: OPEN | Buffered cals:10
+FAILED
+counter = 49
+Successful call count: 4 | Failed call count: 6 | Failure rate %:60.0 | State: OPEN | Buffered cals:10
+FAILED
+counter = 50
+Successful call count: 4 | Failed call count: 6 | Failure rate %:60.0 | State: OPEN | Buffered cals:10
+FAILED
+counter = 51
+Successful call count: 4 | Failed call count: 6 | Failure rate %:60.0 | State: OPEN | Buffered cals:10
+FAILED
+counter = 52
+Successful call count: 0 | Failed call count: 1 | Failure rate %:-1.0 | State: HALF_OPEN | Buffered cals:1
+FAILED
+counter = 53
+Hi Dinesh
+I am good. Nice to meet you
+Successful call count: 1 | Failed call count: 1 | Failure rate %:-1.0 | State: HALF_OPEN | Buffered cals:2
+counter = 54
+Hi Dinesh
+I am good. Nice to meet you
+Successful call count: 0 | Failed call count: 0 | Failure rate %:-1.0 | State: CLOSED | Buffered cals:0
+counter = 55
+Hi Dinesh
+I am good. Nice to meet you
+Successful call count: 1 | Failed call count: 0 | Failure rate %:-1.0 | State: CLOSED | Buffered cals:1
+counter = 56
+Hi Dinesh
+I am good. Nice to meet you
+Successful call count: 2 | Failed call count: 0 | Failure rate %:-1.0 | State: CLOSED | Buffered cals:2
+counter = 57
+Hi Dinesh
+I am good. Nice to meet you
+Successful call count: 3 | Failed call count: 0 | Failure rate %:-1.0 | State: CLOSED | Buffered cals:3
+counter = 58
+Hi Dinesh
+I am good. Nice to meet you
+Successful call count: 4 | Failed call count: 0 | Failure rate %:-1.0 | State: CLOSED | Buffered cals:4
+counter = 59
+Hi Dinesh
+I am good. Nice to meet you
+Successful call count: 5 | Failed call count: 0 | Failure rate %:-1.0 | State: CLOSED | Buffered cals:5
+counter = 60
+Hi Dinesh
+I am good. Nice to meet you
+Successful call count: 6 | Failed call count: 0 | Failure rate %:-1.0 | State: CLOSED | Buffered cals:6
+counter = 61
+Hi Dinesh
+I am good. Nice to meet you
+Successful call count: 7 | Failed call count: 0 | Failure rate %:-1.0 | State: CLOSED | Buffered cals:7
+counter = 62
+Hi Dinesh
+I am good. Nice to meet you
+Successful call count: 8 | Failed call count: 0 | Failure rate %:-1.0 | State: CLOSED | Buffered cals:8
+counter = 63
+Successful call count: 8 | Failed call count: 1 | Failure rate %:-1.0 | State: CLOSED | Buffered cals:9
+FAILED
+counter = 64
+Successful call count: 8 | Failed call count: 2 | Failure rate %:20.0 | State: CLOSED | Buffered cals:10
+FAILED
+counter = 65
+Successful call count: 7 | Failed call count: 3 | Failure rate %:30.0 | State: CLOSED | Buffered cals:10
+FAILED
+counter = 66
+Successful call count: 6 | Failed call count: 4 | Failure rate %:40.0 | State: CLOSED | Buffered cals:10
+FAILED
+counter = 67
+Successful call count: 5 | Failed call count: 5 | Failure rate %:50.0 | State: CLOSED | Buffered cals:10
+FAILED
+counter = 68
+Successful call count: 4 | Failed call count: 6 | Failure rate %:60.0 | State: OPEN | Buffered cals:10
+FAILED
+counter = 69
+Successful call count: 4 | Failed call count: 6 | Failure rate %:60.0 | State: OPEN | Buffered cals:10
+FAILED
+counter = 70
+Successful call count: 4 | Failed call count: 6 | Failure rate %:60.0 | State: OPEN | Buffered cals:10
+FAILED
+counter = 71
+Successful call count: 4 | Failed call count: 6 | Failure rate %:60.0 | State: OPEN | Buffered cals:10
+FAILED
+counter = 72
+Successful call count: 4 | Failed call count: 6 | Failure rate %:60.0 | State: OPEN | Buffered cals:10
+FAILED
+counter = 73
+Successful call count: 4 | Failed call count: 6 | Failure rate %:60.0 | State: OPEN | Buffered cals:10
+FAILED
+counter = 74
+Successful call count: 4 | Failed call count: 6 | Failure rate %:60.0 | State: OPEN | Buffered cals:10
+FAILED
+counter = 75
+Successful call count: 4 | Failed call count: 6 | Failure rate %:60.0 | State: OPEN | Buffered cals:10
+FAILED
+counter = 76
+Successful call count: 4 | Failed call count: 6 | Failure rate %:60.0 | State: OPEN | Buffered cals:10
+FAILED
+counter = 77
+Successful call count: 4 | Failed call count: 6 | Failure rate %:60.0 | State: OPEN | Buffered cals:10
+FAILED
+counter = 78
+Successful call count: 0 | Failed call count: 1 | Failure rate %:-1.0 | State: HALF_OPEN | Buffered cals:1
+FAILED
+counter = 79
+Hi Dinesh
+I am good. Nice to meet you
+Successful call count: 1 | Failed call count: 1 | Failure rate %:-1.0 | State: HALF_OPEN | Buffered cals:2
+counter = 80
+Hi Dinesh
+I am good. Nice to meet you
+Successful call count: 0 | Failed call count: 0 | Failure rate %:-1.0 | State: CLOSED | Buffered cals:0
+.....
+counter = 117
+Successful call count: 7 | Failed call count: 3 | Failure rate %:30.0 | State: CLOSED | Buffered cals:10
+FAILED
+counter = 118
+Successful call count: 6 | Failed call count: 4 | Failure rate %:40.0 | State: CLOSED | Buffered cals:10
+FAILED
+counter = 119
+Successful call count: 5 | Failed call count: 5 | Failure rate %:50.0 | State: CLOSED | Buffered cals:10
+FAILED
+counter = 120
+Successful call count: 4 | Failed call count: 6 | Failure rate %:60.0 | State: OPEN | Buffered cals:10
+FAILED
+
+Process finished with exit code 0
+
+</code></pre>
     </article>
     
 <div class="donation">
@@ -1208,13 +1506,13 @@
     
     
       
-        <a href="https://www.facebook.com/sharer/sharer.php?u=%2fshowcase%2fhugo%2fhugo-theme-zdoc%2f" title="Facebook" aria-label="Facebook Share Button" class="donation__item" target="_blank" rel="noreferrer" data-type="share">
+        <a href="https://www.facebook.com/sharer/sharer.php?u=%2f2020%2f06%2f17%2fresiliene4j-circuitbreaker-ringbitbuffer%2f" title="Facebook" aria-label="Facebook Share Button" class="donation__item" target="_blank" rel="noreferrer" data-type="share">
           <svg data-name="facebook" enable-background="new 0 0 24 24" viewBox="0 0 24 24" width="35" height="35" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="m15.997 3.985h2.191v-3.816c-.378-.052-1.678-.169-3.192-.169-3.159 0-5.323 1.987-5.323 5.639v3.361h-3.486v4.266h3.486v10.734h4.274v-10.733h3.345l.531-4.266h-3.877v-2.939c.001-1.233.333-2.077 2.051-2.077z"/></svg>
         </a>
       
     
       
-        <a href="https://twitter.com/intent/tweet?text=Hugo%20zDoc%20Theme&url=%2fshowcase%2fhugo%2fhugo-theme-zdoc%2f&via=" title="Twitter" aria-label="Twitter Share Button" class="donation__item" target="_blank" rel="noreferrer" data-type="share">
+        <a href="https://twitter.com/intent/tweet?text=Afraid%20you%20don%27t%20understand%20%20Reslience4j%20state%20changes%3a%20Read%20this%20missing%20manual%20on%20Ring%20Bit%20Buffer&url=%2f2020%2f06%2f17%2fresiliene4j-circuitbreaker-ringbitbuffer%2f&via=Dinesh%20Arora" title="Twitter" aria-label="Twitter Share Button" class="donation__item" target="_blank" rel="noreferrer" data-type="share">
           <svg data-name="twitter" enable-background="new 0 0 24 24" viewBox="0 0 24 24" width="35" height="35" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="m21.534 7.113c.976-.693 1.797-1.558 2.466-2.554v-.001c-.893.391-1.843.651-2.835.777 1.02-.609 1.799-1.566 2.165-2.719-.951.567-2.001.967-3.12 1.191-.903-.962-2.19-1.557-3.594-1.557-2.724 0-4.917 2.211-4.917 4.921 0 .39.033.765.114 1.122-4.09-.2-7.71-2.16-10.142-5.147-.424.737-.674 1.58-.674 2.487 0 1.704.877 3.214 2.186 4.089-.791-.015-1.566-.245-2.223-.606v.054c0 2.391 1.705 4.377 3.942 4.835-.401.11-.837.162-1.29.162-.315 0-.633-.018-.931-.084.637 1.948 2.447 3.381 4.597 3.428-1.674 1.309-3.8 2.098-6.101 2.098-.403 0-.79-.018-1.177-.067 2.18 1.405 4.762 2.208 7.548 2.208 8.683 0 14.342-7.244 13.986-14.637z"/></svg>
         </a>
       
@@ -1366,35 +1664,29 @@
     
     <div class="grow"></div>
     
-      <a href="/showcase/hugo/hugo-theme-zzo/" class="pagination-single__right">      
-        <div class="pagination-single__right-title">Hugo Zzo Theme</div>
-        <div class="pagination-single__icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M5 13h11.17l-4.88 4.88c-.39.39-.39 1.03 0 1.42.39.39 1.02.39 1.41 0l6.59-6.59c.39-.39.39-1.02 0-1.41l-6.58-6.6c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L16.17 11H5c-.55 0-1 .45-1 1s.45 1 1 1z"/></svg>
-        </div>
-      </a>
-    
   
 </nav>
     
   
-    <div id="disqus_thread"></div>
-<script>
-  let disqus_config = function () {
-    
-    
-    
-  };
-  (function () {
-    if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-      document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-      return;
+    <div id="comments-gitment"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/default.min.css" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.min.js" crossorigin="anonymous"></script>
+<script type="text/javascript">
+  var gitment = new Gitment({
+    id: '2020-06-16 23:19:49 -0400 EDT',
+    title: 'Afraid you don\x27t understand  Reslience4j state changes: Read this missing manual on Ring Bit Buffer',
+    link: decodeURI(location.href),
+    desc: 'Resilience4j calculates the failure threshold using ringbit buffer. The state of circuitbreaker changes from CLOSED to OPEN when at end of count size the failure rate exceeds the threshold.\nResilience4j provides you two buffers - CLOSED and HALF_OPEN state buffers. Imagine this is our set up\nClosed buffer size = 10\nHalf open buffer size = 5\nFailure rate threshold = 60%\nOpen state count = 10\nWhen the first call comes in the buffer has 0 entries.',
+    owner: 'dinesh19aug',
+    repo: 'javahabit-comments',
+    oauth: {
+      client_id: '15a13931d69702bfb995',
+      client_secret: '6e1f24f2f812d81924ffd40cca240a2d427e3319'
     }
-    var d = document, s = d.createElement('script'); s.async = true;
-    s.src = 'https://' + 'disqus_LO4DkIywMX' + '.disqus.com/embed.js';
-  s.setAttribute('data-timestamp', +new Date());
-  (d.head || d.body).appendChild(s);
-  }) ();
+  });
+  gitment.render('comments-gitment');
 </script>
+<noscript>Please enable JavaScript to view the <a href="https://github.com/imsun/gitment">comments powered by gitment.</a></noscript>
   
 
     <div class="modal micromodal-slide" id="modal" aria-hidden="true">
@@ -2432,10 +2724,6 @@ document.addEventListener('DOMContentLoaded', function () {
             
     
     
-  <a href="/showcase/hugo/hugo-theme-zdoc//index.xml" type="application/rss+xml" title="rss" aria-label="RSS Feed Link">
-    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><circle fill="currentColor" cx="6.18" cy="17.82" r="2.18"/><path fill="currentColor" d="M5.59 10.23c-.84-.14-1.59.55-1.59 1.4 0 .71.53 1.28 1.23 1.4 2.92.51 5.22 2.82 5.74 5.74.12.7.69 1.23 1.4 1.23.85 0 1.54-.75 1.41-1.59-.68-4.2-3.99-7.51-8.19-8.18zm-.03-5.71C4.73 4.43 4 5.1 4 5.93c0 .73.55 1.33 1.27 1.4 6.01.6 10.79 5.38 11.39 11.39.07.73.67 1.28 1.4 1.28.84 0 1.5-.73 1.42-1.56-.73-7.34-6.57-13.19-13.92-13.92z"/></svg>
-  </a>
-
   </div>
 </div>
 
@@ -2458,8 +2746,6 @@ document.addEventListener('DOMContentLoaded', function () {
             </p>
         
 
-        
-            <p class="caption">Powered by <a href="https://gohugo.io/" rel="noreferrer">Hugo</a> and the <a href="https://github.com/zzossig/hugo-theme-zzo" rel="noreferrer">Zzo theme</a></p>
         
     </div> 
 </footer>
