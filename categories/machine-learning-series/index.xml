@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
     <title>Machine Learning series on Home</title>
     <link>/categories/machine-learning-series/</link>
@@ -8,23 +13,46 @@
     <language>en</language>
     <managingEditor>dinesh19aug@gmail.com (Dinesh Arora)</managingEditor>
     <webMaster>dinesh19aug@gmail.com (Dinesh Arora)</webMaster>
-    <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
+    <copyright>©2023, All Rights Reserved</copyright>
     <lastBuildDate>Tue, 31 Dec 2019 00:04:50 +0900</lastBuildDate>
     
         <atom:link href="/categories/machine-learning-series/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    
+
       
       <item>
         <title>Machine Learning Series</title>
         <link>/talks/series/</link>
         <pubDate>Tue, 31 Dec 2019 00:04:50 +0900</pubDate>
         <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Tue, 31 Dec 2019 00:04:50 +0900</atom:modified>
         <guid>/talks/series/</guid>
-        <description>  Part -1: How to pre-process and clean up data Part 2: Simple linear regression Part 3: Undesrtanding the P-Value Part 4: Multiple Linear Regression using machine learning Part 5: Backward elimination strategy Part 6: Support vector regression Part 7: Regression using Decision Tree algorithm Part 8: Logistics regression  </description>
+        <description> Part -1: How to pre-process and clean up data Part 2: Simple linear regression Part 3: Undesrtanding the P-Value Part 4: Multiple Linear Regression using machine learning Part 5: Backward elimination strategy Part 6: Support vector regression Part 7: Regression using Decision Tree algorithm Part 8: Logistics regression </description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        
+        
+        
+        
+          
+            
+          
+        
+        
+          
+            
+              <category>Machine Learning series</category>
+            
+          
+        
+        
+          
+            
+          
+        
       </item>
       
+
     
   </channel>
 </rss>

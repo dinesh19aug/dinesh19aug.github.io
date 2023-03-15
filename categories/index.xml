@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
   <channel>
     <title>Categories on Home</title>
     <link>/categories/</link>
@@ -8,21 +13,29 @@
     <language>en</language>
     <managingEditor>dinesh19aug@gmail.com (Dinesh Arora)</managingEditor>
     <webMaster>dinesh19aug@gmail.com (Dinesh Arora)</webMaster>
-    <copyright>&amp;copy;{year}, All Rights Reserved</copyright>
+    <copyright>©2023, All Rights Reserved</copyright>
     <lastBuildDate>Tue, 16 Jun 2020 23:19:49 -0400</lastBuildDate>
     
         <atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    
+
       
       <item>
         <title>Tech Notes</title>
         <link>/categories/tech-notes/</link>
         <pubDate>Tue, 16 Jun 2020 23:19:49 -0400</pubDate>
         <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        
         <guid>/categories/tech-notes/</guid>
         <description></description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        
+        
+        
+        
+        
+        
       </item>
       
       <item>
@@ -30,8 +43,17 @@
         <link>/categories/machine-learning/</link>
         <pubDate>Mon, 27 Jan 2020 22:39:52 -0500</pubDate>
         <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        
         <guid>/categories/machine-learning/</guid>
         <description></description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        
+        
+        
+        
+        
+        
       </item>
       
       <item>
@@ -39,8 +61,17 @@
         <link>/categories/machine-learning-series/</link>
         <pubDate>Tue, 31 Dec 2019 00:04:50 +0900</pubDate>
         <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        
         <guid>/categories/machine-learning-series/</guid>
         <description></description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        
+        
+        
+        
+        
+        
       </item>
       
       <item>
@@ -48,10 +79,20 @@
         <link>/categories/uncategorized/</link>
         <pubDate>Thu, 23 Apr 2015 20:49:08 +0000</pubDate>
         <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        
         <guid>/categories/uncategorized/</guid>
         <description></description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        
+        
+        
+        
+        
+        
       </item>
       
+
     
   </channel>
 </rss>

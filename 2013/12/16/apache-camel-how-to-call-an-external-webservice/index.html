@@ -1,23 +1,26 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
-<head>
-    <meta charset="utf-8">
+<head prefix="og: http://ogp.me/ns#">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Apache Camel : How to call  java webservice – Home</title>
     
 
 
-<script src="/js/enquire.min.aa37bdcb743826eecdae5c5d177fc7d6552340f1b4378ffaa9c82b2c6111400b.js"></script>
+  
+  <script defer src="/js/fuse.min.32195737929df2c8096e855a5789cbb3f1331224d9169e8705493e7008f47df8.js"></script>
 
-<script defer src="/js/lazysizes.min.5e11d056075a05065b9c0bfec44084a113fc2976c2952ec804dedb61c7662db9.js"></script>
 
-<script defer src="/js/fuse.min.c4bee9a8d44273d6154fe86006923d4131eb2e8069d8897687137c6f37f553e3.js"></script>
 
-<script defer src="/js/helper/getParents.min.1618c696be7c98933f9a92677f518b512a74e55bdbb976b09936b4182e93181b.js"></script>
+<script src="/js/enquire.min.dfb99dee1e029d51d6cfb672d847929890b1585402de17f5ed092edd72a688b4.js"></script>
 
-<script defer src="/js/helper/fadeinout.min.93a331f96194789a542f33690bbe4f0c102c7e78ffc018217f5a1c33010bad91.js"></script>
+<script defer src="/js/lazysizes.min.fb649fcae62177dfe63e67081ddceb830b5ce1f05a4184e9bbb7d87ac4b8f4e5.js"></script>
+
+<script defer src="/js/helper/getParents.min.086022fb02d7a1517e33c2670bffb976b3e80bcacd9caeee0c6a586064f20e42.js"></script>
+
+<script defer src="/js/helper/fadeinout.min.3ce954c8aea3b69cc5e6f734d8273ba4cd48d3a7987dbdca145849bc4b8fc296.js"></script>
 
 <script defer src="/js/helper/closest.min.js"></script>
   
@@ -80,6 +83,107 @@
 
 
   document.addEventListener('DOMContentLoaded', function () {
+    
+    var navCollapseBtn = document.querySelector('.navbar__burger');
+    navCollapseBtn ? navCollapseBtn.addEventListener('click', function (e) {
+      var navCollapse = document.querySelector('.navbarm__collapse');
+
+      if (navCollapse) {
+        var dataOpen = navCollapse.getAttribute('data-open');
+
+        if (dataOpen === 'true') {
+          navCollapse.setAttribute('data-open', 'false');
+          navCollapse.style.maxHeight = 0;
+          navCollapseBtn.classList.remove('is-active');
+        } else {
+          navCollapse.setAttribute('data-open', 'true');
+          navCollapse.style.maxHeight = navCollapse.scrollHeight + "px";
+          navCollapseBtn.classList.add('is-active');
+        }
+      }
+    }) : null;
+    
+
+
+    
+    var tables = document.querySelectorAll('.single__contents > table');
+    for (let i = 0; i < tables.length; i++) {
+      var table = tables[i];
+      var wrapper = document.createElement('div');
+      wrapper.className = 'table-wrapper';
+      table.parentElement.replaceChild(wrapper, table);
+      wrapper.appendChild(table);
+    }
+    
+
+
+    
+    var footNoteRefs = document.querySelectorAll('.footnote-ref');
+    var footNoteBackRefs = document.querySelectorAll('.footnote-backref');
+
+    footNoteRefs ? 
+    footNoteRefs.forEach(function(elem, idx) {
+      elem.onmouseenter = function () {
+        if (navbar.classList.contains('scrolling')) {
+          navbar.classList.remove('scrolling');
+        }
+      }
+
+      elem.onmouseleave = function () {
+        if (!navbar.classList.contains('scrolling')) {
+          setTimeout(function () {
+            navbar.classList.add('scrolling');
+          }, 100);
+        }
+      }
+
+      elem.onclick = function () {
+        if (!navbar.classList.contains('scrolling')) {
+          navbar.classList.remove('navbar--show');
+          navbar.classList.remove('navbar--hide');
+          navbar.classList.add('navbar--hide');
+        }
+      }
+    }) : null;
+
+    footNoteBackRefs ? 
+    footNoteBackRefs.forEach(function(elem, idx) {
+      elem.onmouseenter = function () {
+        if (navbar.classList.contains('scrolling')) {
+          navbar.classList.remove('scrolling');
+        }
+      }
+
+      elem.onmouseleave = function () {
+        if (!navbar.classList.contains('scrolling')) {
+          setTimeout(function() {
+            navbar.classList.add('scrolling');
+          }, 100);
+        }
+      }
+
+      elem.onclick = function () {
+        if (!navbar.classList.contains('scrolling')) {
+          navbar.classList.remove('navbar--show');
+          navbar.classList.remove('navbar--hide');
+          navbar.classList.add('navbar--hide');
+        }
+      }
+    }) : null;
+    
+
+
+    
+    var summaryContainer = document.querySelector('.summary__container');
+    var searchResult = document.querySelector('.search-result');
+    var searchResultCloseBtn = document.querySelector('.search-result__close');
+    searchResultCloseBtn ? searchResultCloseBtn.addEventListener('click', function (e) {
+      searchResult.setAttribute('data-display', 'none');
+      summaryContainer.setAttribute('data-display', 'block');
+    }) : null;
+    
+
+
     
     document.querySelectorAll('.tab') ? 
     document.querySelectorAll('.tab').forEach(function(elem, idx) {
@@ -203,9 +307,20 @@
     var notAllowedTitleIds = null;
 
     
+    var tocFolding = JSON.parse("null");
+    
+    var tocLevels = JSON.parse("null");
+    
+    if (tocLevels) {
+      tocLevels = tocLevels.toString();
+    } else {
+      tocLevels = "h1, h2, h3, h4, h5, h6";
+    }
+
+    
     singleContentsElem && singleContentsElem.querySelectorAll(".tab") ?
     singleContentsElem.querySelectorAll(".tab").forEach(function (elem) {
-      elem.querySelectorAll("h1, h2, h3, h4, h5, h6").forEach(function (element) {
+      elem.querySelectorAll(tocLevels).forEach(function (element) {
         notAllowedTitleIds = Array.isArray(notAllowedTitleIds) ?
           notAllowedTitleIds.concat(element.getAttribute('id')) :
           [element.getAttribute('id')];
@@ -214,7 +329,7 @@
 
     
     expandContents ? expandContents.forEach(function(elem) {
-      elem.querySelectorAll("h1, h2, h3, h4, h5, h6").forEach(function (element) {
+      elem.querySelectorAll(tocLevels).forEach(function (element) {
         notAllowedTitleIds = Array.isArray(notAllowedTitleIds) ?
           notAllowedTitleIds.concat(element.getAttribute('id')) :
           [element.getAttribute('id')];
@@ -223,7 +338,7 @@
 
     
     boxContents ? boxContents.forEach(function(elem) {
-      elem.querySelectorAll("h1, h2, h3, h4, h5, h6").forEach(function (element) {
+      elem.querySelectorAll(tocLevels).forEach(function (element) {
         notAllowedTitleIds = Array.isArray(notAllowedTitleIds) ?
           notAllowedTitleIds.concat(element.getAttribute('id')) :
           [element.getAttribute('id')];
@@ -245,16 +360,18 @@
         if (st < 45) {
           return null;
         }
-        
-        if (!navbar.classList.contains('navbar--hide')) {
-          navbar.classList.add('navbar--hide');
-        } else if (navbar.classList.contains('navbar--show')) {
-          navbar.classList.remove('navbar--show');
+
+        if (navbar.classList.contains('scrolling')) {
+          if (!navbar.classList.contains('navbar--hide')) {
+            navbar.classList.add('navbar--hide');
+          } else if (navbar.classList.contains('navbar--show')) {
+            navbar.classList.remove('navbar--show');
+          }
         }
 
         if (singleContentsElem) {
-          if (singleContentsElem.querySelectorAll("h1, h2, h3, h4, h5, h6").length > 0) {
-            singleContentsElem.querySelectorAll("h1, h2, h3, h4, h5, h6").forEach(function (elem) {
+          if (singleContentsElem.querySelectorAll(tocLevels).length > 0) {
+            singleContentsElem.querySelectorAll(tocLevels).forEach(function (elem) {
               if (toggleTocElem && !toggleTocElem.checked) {
                 return null;
               }
@@ -272,14 +389,18 @@
                   tocElem.querySelector('a[href="#' + id + '"]') ?
                     tocElem.querySelector('a[href="#' + id + '"]').classList.add('active') : null;
 
-                  tableOfContentsElem.querySelectorAll('ul') ? 
-                  tableOfContentsElem.querySelectorAll('ul').forEach(function (rootUl) {
-                    rootUl.querySelectorAll('li').forEach(function (liElem) {
-                      liElem.querySelectorAll('ul').forEach(function (ulElem) {
-                        ulElem.style.display = 'none';
-                      });
-                    });
-                  }) : null;
+                  if (false === tocFolding) {
+                    
+                  } else {
+                    tableOfContentsElem.querySelectorAll('ul') ?
+                      tableOfContentsElem.querySelectorAll('ul').forEach(function (rootUl) {
+                        rootUl.querySelectorAll('li').forEach(function (liElem) {
+                          liElem.querySelectorAll('ul').forEach(function (ulElem) {
+                            ulElem.style.display = 'none';
+                          });
+                        });
+                      }) : null;
+                  }
 
                   var curElem = tableOfContentsElem.querySelector("[href='#" + id + "']");
                   if (curElem && curElem.nextElementSibling) {
@@ -312,15 +433,17 @@
           gttBtn.style.display = "none";
         }
 
-        if (navbar.classList.contains('navbar--hide')) {
-          navbar.classList.remove('navbar--hide');
-        } else if (!navbar.classList.contains('navbar--show')) {
-          navbar.classList.add('navbar--show');
+        if (navbar.classList.contains('scrolling')) {
+          if (navbar.classList.contains('navbar--hide')) {
+            navbar.classList.remove('navbar--hide');
+          } else if (!navbar.classList.contains('navbar--show')) {
+            navbar.classList.add('navbar--show');
+          }
         }
 
         if (singleContentsElem) {
-          if (singleContentsElem.querySelectorAll("h1, h2, h3, h4, h5, h6").length > 0) {
-            singleContentsElem.querySelectorAll("h1, h2, h3, h4, h5, h6").forEach(function (elem) {
+          if (singleContentsElem.querySelectorAll(tocLevels).length > 0) {
+            singleContentsElem.querySelectorAll(tocLevels).forEach(function (elem) {
               if (toggleTocElem && !toggleTocElem.checked) {
                 return null;
               }
@@ -338,14 +461,18 @@
                   tocElem.querySelector('a[href="#' + id + '"]') ?
                     tocElem.querySelector('a[href="#' + id + '"]').classList.add('active') : null;
 
-                  tableOfContentsElem.querySelectorAll('ul') ? 
-                  tableOfContentsElem.querySelectorAll('ul').forEach(function (rootUl) {
-                    rootUl.querySelectorAll('li').forEach(function (liElem) {
-                      liElem.querySelectorAll('ul').forEach(function (ulElem) {
-                        ulElem.style.display = 'none';
-                      });
-                    });
-                  }) : null;
+                  if (false === tocFolding) {
+                    
+                  } else {
+                    tableOfContentsElem.querySelectorAll('ul') ?
+                      tableOfContentsElem.querySelectorAll('ul').forEach(function (rootUl) {
+                        rootUl.querySelectorAll('li').forEach(function (liElem) {
+                          liElem.querySelectorAll('ul').forEach(function (ulElem) {
+                            ulElem.style.display = 'none';
+                          });
+                        });
+                      }) : null;
+                  }
 
                   var curElem = tableOfContentsElem.querySelector("[href='#" + id + "']");
                   if (curElem && curElem.nextElementSibling) {
@@ -370,12 +497,16 @@
         }
 
         if (tableOfContentsElem && document.documentElement.scrollTop < 250) {
-          tableOfContentsElem.querySelector('ul') ?
-          tableOfContentsElem.querySelector('ul').querySelectorAll('li').forEach(function (liElem) {
-            liElem.querySelectorAll('ul').forEach(function (ulElem) {
-              ulElem.style.display = 'none';
-            });
-          }) : null;
+          if (false === tocFolding) {
+
+          } else {
+            tableOfContentsElem.querySelector('ul') ?
+              tableOfContentsElem.querySelector('ul').querySelectorAll('li').forEach(function (liElem) {
+                liElem.querySelectorAll('ul').forEach(function (ulElem) {
+                  ulElem.style.display = 'none';
+                });
+              }) : null;
+          }
         }
       }
       lastScrollTop = st <= 0 ? 0 : st;
@@ -384,100 +515,69 @@
 
 
   
-    var navbarBurgerElem = document.querySelector('.navbar__burger');
-    var navbarMenuElem = document.querySelector('.navbar__menu');
-    navbarBurgerElem ?
-    navbarBurgerElem.addEventListener('click', function () {
-      if (navbarBurgerElem.classList.contains('is-active')) {
-        navbarBurgerElem.classList.remove('is-active');
-        navbarMenuElem.classList.remove('is-active');
-      } else {
-        navbarBurgerElem.classList.add('is-active');
-        navbarMenuElem.classList.add('is-active');
-      }
-    }) : null;
-  
-
-
-  
-    var mobileSearchInputElem = document.querySelector('#search-mobile');
-    var mobileSearchClassElem = document.querySelector('.mobile-search');
-    var mobileSearchBtnElem = document.querySelector('#mobileSearchBtn');
-    var mobileSearchCloseBtnElem = document.querySelector('#search-mobile-close');
-    var mobileSearchContainer = document.querySelector('#search-mobile-container');
-    var mobileSearchResultsElem = document.querySelector('#search-mobile-results');
-    var htmlElem = document.querySelector('html');
-
-    if (mobileSearchClassElem) {
-      mobileSearchClassElem.style.display = 'none';
-    }
-
-    mobileSearchBtnElem ? 
-    mobileSearchBtnElem.addEventListener('click', function () {
-      if (mobileSearchContainer) {
-        mobileSearchContainer.style.display = 'block';
-      }
-
-      if (mobileSearchInputElem) {
-        mobileSearchInputElem.focus();
-      }
-
-      if (htmlElem) {
-        htmlElem.style.overflowY = 'hidden';
-      }
-    }) : null;
-
-    mobileSearchCloseBtnElem ? 
-    mobileSearchCloseBtnElem.addEventListener('click', function() {
-      if (mobileSearchContainer) {
-        mobileSearchContainer.style.display = 'none';
-      }
-
-      if (mobileSearchInputElem) {
-        mobileSearchInputElem.value = '';
-      }
-      
-      if (mobileSearchResultsElem) {
-        while (mobileSearchResultsElem.firstChild) {
-          mobileSearchResultsElem.removeChild(mobileSearchResultsElem.firstChild);
-        }
-      }
-
-      if (htmlElem) {
-        htmlElem.style.overflowY = 'visible';
-      }
-    }) : null;
-
-    mobileSearchInputElem ? 
-    mobileSearchInputElem.addEventListener('keydown', function(e) {
-      var keyCode = e.which || e.keyCode;
-      if (e.key === 'Escape' || keyCode === 27) {
-        if (mobileSearchContainer) {
-          mobileSearchContainer.style.display = 'none';
-        }
-        
-        if (mobileSearchInputElem) {
-          mobileSearchInputElem.value = '';
-        }
-
-        if (mobileSearchResultsElem) {
-          while (mobileSearchResultsElem.firstChild) {
-            mobileSearchResultsElem.removeChild(mobileSearchResultsElem.firstChild);
-          }
-        }
-        if (htmlElem) {
-          htmlElem.style.overflowY = 'visible';
-        }
-      }
-    }) : null;
-  
-
-
-  
     var localTheme = localStorage.getItem('theme');
     var rootEleme = document.getElementById('root');
     var selectThemeElem = document.querySelectorAll('.select-theme');
     var selectThemeItemElem = document.querySelectorAll('.select-theme__item');
+    
+    
+    var skinDarkCode = JSON.parse("\"dark\"");
+    
+    var skinLightCode = JSON.parse("\"light\"");
+    
+    var skinHackerCode = JSON.parse("\"hacker\"");
+    
+    var skinSolarizedCode = JSON.parse("\"solarized\"");
+    
+    var skinKimbieCode = JSON.parse("\"kimbie\"");
+
+    var setMetaColor = function(themeColor) {
+      var metaMsapplicationTileColor = document.getElementsByName('msapplication-TileColor')[0];
+      var metaThemeColor = document.getElementsByName('theme-color')[0];
+      var metaMsapplicationNavbuttonColor = document.getElementsByName('msapplication-navbutton-color')[0];
+      var metaAppleMobileWebAappStatusBarStyle = document.getElementsByName('apple-mobile-web-app-status-bar-style')[0];
+
+      if (themeColor.includes('dark')) {
+        metaMsapplicationTileColor.setAttribute('content', '#fcfcfa');
+        metaThemeColor.setAttribute('content', '#403E41');
+        metaMsapplicationNavbuttonColor.setAttribute('content', '#403E41');
+        metaAppleMobileWebAappStatusBarStyle.setAttribute('content', '#403E41');
+      } else if (themeColor.includes('light')) {
+        metaMsapplicationTileColor.setAttribute('content', '#555');
+        metaThemeColor.setAttribute('content', '#eee');
+        metaMsapplicationNavbuttonColor.setAttribute('content', '#eee');
+        metaAppleMobileWebAappStatusBarStyle.setAttribute('content', '#eee');
+      } else if (themeColor.includes('hacker')) {
+        metaMsapplicationTileColor.setAttribute('content', '#e3cd26');
+        metaThemeColor.setAttribute('content', '#252526');
+        metaMsapplicationNavbuttonColor.setAttribute('content', '#252526');
+        metaAppleMobileWebAappStatusBarStyle.setAttribute('content', '#252526');
+      } else if (themeColor.includes('solarized')) {
+        metaMsapplicationTileColor.setAttribute('content', '#d3af86');
+        metaThemeColor.setAttribute('content', '#51412c');
+        metaMsapplicationNavbuttonColor.setAttribute('content', '#51412c');
+        metaAppleMobileWebAappStatusBarStyle.setAttribute('content', '#51412c');
+      } else if (themeColor.includes('kimbie')) {
+        metaMsapplicationTileColor.setAttribute('content', '#586e75');
+        metaThemeColor.setAttribute('content', '#eee8d5');
+        metaMsapplicationNavbuttonColor.setAttribute('content', '#eee8d5');
+        metaAppleMobileWebAappStatusBarStyle.setAttribute('content', '#eee8d5');
+      }
+    }
+
+    var parseSkinCode = function(themeText) {
+      if (themeText === skinDarkCode) {
+        return 'dark';
+      } else if (themeText === skinLightCode) {
+        return 'light';
+      } else if (themeText === skinHackerCode) {
+        return 'hacker';
+      } else if (themeText === skinSolarizedCode) {
+        return 'solarized';
+      } else if (themeText === skinKimbieCode) {
+        return 'kimbie';
+      }
+    }
     
     if (localTheme) {
       selectThemeItemElem ? 
@@ -488,13 +588,18 @@
           elem.classList.remove('is-active');
         }
       }) : null;
+
+      setMetaColor(localTheme);
+    } else {
+      setMetaColor(rootEleme.className);
     }
 
     selectThemeItemElem ? 
     selectThemeItemElem.forEach(function (v, i) {
       v.addEventListener('click', function (e) {
-        var selectedThemeVariant = e.target.text.trim();
+        var selectedThemeVariant = parseSkinCode(e.target.text.trim());
         localStorage.setItem('theme', selectedThemeVariant);
+        setMetaColor(selectedThemeVariant);
 
         rootEleme.removeAttribute('class');
         rootEleme.classList.add('theme__' + selectedThemeVariant);
@@ -524,12 +629,20 @@
           }
         }
 
-        var utterances = document.querySelector('iframe');
+        var utterances = document.getElementById('utterances');
         if (utterances) {
-          utterances.contentWindow.postMessage({
+          utterances.querySelector('iframe').contentWindow.postMessage({
             type: 'set-theme',
             theme: selectedThemeVariant === "dark" || selectedThemeVariant === "hacker" ? 'photon-dark' : selectedThemeVariant === 'kimbie' ? 'github-dark-orange' : 'github-light',
           }, 'https://utteranc.es');
+        }
+
+        var twitterCards = document.querySelectorAll('.twitter-timeline');
+        if (twitterCards) {
+          window.postMessage({
+            type: 'set-twitter-theme',
+            theme: selectedThemeVariant === 'light' || selectedThemeVariant === 'solarized' ? 'light' : 'dark',
+          });
         }
       });
     }) : null;
@@ -537,87 +650,182 @@
 
 
   
-    var baseurl = null;
     
-    var siteBaseURL = JSON.parse("\"/\"");
-    var siteBaseChecker = /\/\w+\//i;
-    var isSlug = siteBaseChecker.test(siteBaseURL);
-    var isThemeSite = location.origin.includes('themes.gohugo.io');
-
+    var baseurl = JSON.parse("\"/\"");
     
-        if (isThemeSite) {
-          baseurl = "\/";
-        } else {
-          if (isSlug) {
-            baseurl = location.origin + siteBaseURL.match(siteBaseChecker)[0];
-          } else {
-            baseurl = location.origin;
-          } 
-        }
+    var permalink = JSON.parse("\"/2013/12/16/apache-camel-how-to-call-an-external-webservice/\"");
     
-
+    var langprefix = JSON.parse("\"\"");
     var searchResults = null;
     var searchMenu = null;
     var searchText = null;
     
     
+    var enableSearch = JSON.parse("true");
+    
+    var searchDistance = JSON.parse("null");
+    
+    var searchThreshold = JSON.parse("null");
+    
+    var searchContent = JSON.parse("null");
+    
     var enableSearchHighlight = JSON.parse("true");
-
+    
+    var searchResultPosition = JSON.parse("null");
+    
+    var sectionType = JSON.parse("\"post\"");
+    
+    var kind = JSON.parse("\"page\"");
+    
     var fuse = null;
 
-    function endsWith(str, suffix) {
-      return str.indexOf(suffix, str.length - suffix.length) !== -1;
+    if (enableSearch) {
+      (function initFuse() {
+        var xhr = new XMLHttpRequest();
+        if (sectionType === "publication" && kind !== "page") {
+          xhr.open('GET', permalink + "index.json");
+        } else {
+          xhr.open('GET', baseurl + langprefix + "/index.json");
+        }
+        
+        xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            fuse = new Fuse(JSON.parse(xhr.response.toString('utf-8')), {
+              keys: sectionType.includes('publication') ? ['title', 'abstract'] : 
+                searchContent ? ['title', 'description', 'content'] : ['title', 'description'],
+              includeMatches: enableSearchHighlight,
+              shouldSort: true, 
+              threshold: searchThreshold ? searchThreshold : 0.4, 
+              location: 0, 
+              distance: searchDistance ? searchDistance : 100, 
+              maxPatternLength: 32,
+              minMatchCharLength: 1,
+              isCaseSensitive: false, 
+              findAllMatches: false, 
+              useExtendedSearch: false, 
+            });
+            window.fuse = fuse;
+          }
+          else {
+            console.error('[' + xhr.status + ']Error:', xhr.statusText);
+          }
+        };
+        xhr.send();
+      })();
     }
 
-    function initFuse() {
-      if (!endsWith(baseurl, "/")) {
-        baseurl = baseurl + '/';
-      };
+    function makeLi(ulElem, obj) {
+      var li = document.createElement('li');
+      li.className = 'search-result__item';
+      
+      var a = document.createElement('a');
+      a.innerHTML = obj.item.title;
+      a.setAttribute('class', 'search-result__item--title');
+      a.setAttribute('href', obj.item.uri);
 
-      var xhr = new XMLHttpRequest();
-      xhr.open('GET', baseurl + "index.json");
-      xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-      xhr.onload = function () {
-        if (xhr.status === 200) {
-          fuse = new Fuse(JSON.parse(xhr.response.toString('utf-8')), {
-            keys: ['title', 'description', 'content'],
-            includeMatches: enableSearchHighlight,
-            shouldSort: true,
-            threshold: 0.4,
-            location: 0,
-            distance: 100,
-            maxPatternLength: 32,
-            minMatchCharLength: 1,
-          });
-        }
-        else {
-          console.error('[' + xhr.status + ']Error:', xhr.statusText);
-        }
-      };
-      xhr.send();
+      var descDiv = document.createElement('div');
+      descDiv.setAttribute('class', 'search-result__item--desc');
+      if (obj.item.description) {
+        descDiv.innerHTML = obj.item.description;
+      } else if (obj.item.content) {
+        descDiv.innerHTML = obj.item.content.substring(0, 225);
+      }
+      
+      li.appendChild(a);
+      li.appendChild(descDiv);
+      ulElem.appendChild(li);
     }
 
-    function renderSearchResults(results) { 
+    function makeHighlightLi(ulElem, obj) {
+      var li = document.createElement('li');
+      li.className = 'search-result__item';
+      var descDiv = null;
+
+      var a = document.createElement('a');
+      a.innerHTML = obj.item.title;
+      a.setAttribute('class', 'search-result__item--title');
+      a.setAttribute('href', obj.item.uri);
+
+      if (obj.matches && obj.matches.length) {
+        for (var i = 0; i < obj.matches.length; i++) {
+          if ('title' === obj.matches[i].key) {
+            a = document.createElement('a');
+            a.innerHTML = generateHighlightedText(obj.matches[i].value, obj.matches[i].indices);
+            a.setAttribute('class', 'search-result__item--title');
+            a.setAttribute('href', obj.item.uri);
+          }
+          
+          if ('description' === obj.matches[i].key) {
+            descDiv = document.createElement('div');
+            descDiv.setAttribute('class', 'search-result__item--desc');
+            descDiv.innerHTML = generateHighlightedText(obj.item.description, obj.matches[i].indices);
+          } else if ('content' === obj.matches[i].key) {
+            if (!descDiv) {
+              descDiv = document.createElement('div');
+              descDiv.setAttribute('class', 'search-result__item--desc');
+              descDiv.innerHTML = generateHighlightedText(obj.item.content.substring(0, 150), obj.matches[i].indices);
+            }
+          } else {
+            if (obj.item.description) {
+              descDiv = document.createElement('div');
+              descDiv.setAttribute('class', 'search-result__item--desc');
+              descDiv.innerHTML = obj.item.description;
+            } else {
+              descDiv = document.createElement('div');
+              descDiv.setAttribute('class', 'search-result__item--desc');
+              descDiv.innerHTML = obj.item.content.substring(0, 150);
+            }
+          }
+        }
+
+        li.appendChild(a);
+        if (descDiv) {
+          li.appendChild(descDiv);
+        }
+        if (li) {
+          ulElem.appendChild(li);
+        }
+      }
+    }
+
+    function renderSearchResultsSide(searchText, results) {
       searchResults = document.getElementById('search-results');
       searchMenu = document.getElementById('search-menu');
       searchResults.setAttribute('class', 'dropdown is-active');
+      
+      var ul = document.createElement('ul');
+      ul.setAttribute('class', 'dropdown-content search-content');
 
-      var content = document.createElement('div');
-      content.setAttribute('class', 'dropdown-content search-content');
-
-      if (results.length > 0) {
+      if (results.length) {
         results.forEach(function (result) {
-          var item = document.createElement('a');
-          item.setAttribute('href', result.uri);
-          item.setAttribute('class', 'dropdown-item');
-          item.innerHTML = '<div class="menu-item"><div class="menu-item__title">📄 ' + result.title + '</div><div class="menu-item__desc">' + (result.description ? result.description : result.content) + '</div></div>';
-          content.appendChild(item);
+          var li = document.createElement('li');
+          var a = document.createElement('a');
+          a.setAttribute('href', result.uri);
+          a.setAttribute('class', 'dropdown-item');
+          a.appendChild(li);
+
+          var titleDiv = document.createElement('div');
+          titleDiv.innerHTML = result.title;
+          titleDiv.setAttribute('class', 'menu-item__title');
+
+          var descDiv = document.createElement('div');
+          descDiv.setAttribute('class', 'menu-item__desc');
+          if (result.description) {
+            descDiv.innerHTML = result.description;
+          } else if (result.content) {
+            descDiv.innerHTML = result.content.substring(0, 150);
+          }
+
+          li.appendChild(titleDiv);
+          li.appendChild(descDiv);
+          ul.appendChild(a);
         });
       } else {
-        var item = document.createElement('span');
-        item.setAttribute('class', 'dropdown-item');
-        item.innerText = 'No results found';
-        content.appendChild(item);
+        var li = document.createElement('li');
+        li.setAttribute('class', 'dropdown-item');
+        li.innerText = 'No results found';
+        ul.appendChild(li);
       }
 
       while (searchMenu.hasChildNodes()) {
@@ -625,30 +833,73 @@
           searchMenu.lastChild
         );
       }
-      searchMenu.appendChild(content);
+      
+      searchMenu.appendChild(ul);
     }
 
-    function renderSearchHighlightResults(results) {      
+    function renderSearchHighlightResultsSide(searchText, results) {
       searchResults = document.getElementById('search-results');
       searchMenu = document.getElementById('search-menu');
       searchResults.setAttribute('class', 'dropdown is-active');
 
-      var content = document.createElement('div');
-      content.setAttribute('class', 'dropdown-content search-content');
+      var ul = document.createElement('ul');
+      ul.setAttribute('class', 'dropdown-content search-content');
 
-      if (results.length > 0) {
+      if (results.length) {
         results.forEach(function (result) {
-          var item = document.createElement('a');
-          item.setAttribute('href', result.item.uri);
-          item.setAttribute('class', 'dropdown-item');
-          item.innerHTML = '<div class="menu-item"><div class="menu-item__title">📄 ' + generateHighlightedText(result.item.title, result.matches[0].indices) + '</div><div class="menu-item__desc">' + (result.matches[1] ? generateHighlightedText(result.item.description, result.matches[1].indices) : result.matches[2] ? generateHighlightedText(result.item.content, result.matches[2].indices) : '') + '</div></div>';
-          content.appendChild(item);
+          var li = document.createElement('li');
+          var a = document.createElement('a');
+          var descDiv = null;
+
+          a.setAttribute('href', result.item.uri);
+          a.setAttribute('class', 'dropdown-item');
+          a.appendChild(li);
+
+          var titleDiv = document.createElement('div');
+          titleDiv.innerHTML = result.item.title;
+          titleDiv.setAttribute('class', 'menu-item__title');
+          
+          if (result.matches && result.matches.length) {
+            for (var i = 0; i < result.matches.length; i++) {
+              if ('title' === result.matches[i].key) {
+                titleDiv.innerHTML = generateHighlightedText(result.matches[i].value, result.matches[i].indices);
+              }
+
+              if ('description' === result.matches[i].key) {
+                descDiv = document.createElement('div');
+                descDiv.setAttribute('class', 'menu-item__desc');
+                descDiv.innerHTML = generateHighlightedText(result.item.description, result.matches[i].indices);
+              } else if ('content' === result.matches[i].key) {
+                if (!descDiv) {
+                  descDiv = document.createElement('div');
+                  descDiv.setAttribute('class', 'menu-item__desc');
+                  descDiv.innerHTML = generateHighlightedText(result.item.content.substring(0, 150), result.matches[i].indices);
+                }
+              } else {
+                if (result.item.description) {
+                  descDiv = document.createElement('div');
+                  descDiv.setAttribute('class', 'menu-item__desc');
+                  descDiv.innerHTML = result.item.description;
+                } else {
+                  descDiv = document.createElement('div');
+                  descDiv.setAttribute('class', 'menu-item__desc');
+                  descDiv.innerHTML = result.item.content.substring(0, 150);
+                }
+              }
+            }
+            
+            li.appendChild(titleDiv);
+            if (descDiv) {
+              li.appendChild(descDiv);
+            }
+            ul.appendChild(a);
+          }
         });
       } else {
-        var item = document.createElement('span');
-        item.setAttribute('class', 'dropdown-item');
-        item.innerText = 'No results found';
-        content.appendChild(item);
+        var li = document.createElement('li');
+        li.setAttribute('class', 'dropdown-item');
+        li.innerText = 'No results found';
+        ul.appendChild(li);
       }
 
       while (searchMenu.hasChildNodes()) {
@@ -656,10 +907,10 @@
           searchMenu.lastChild
         );
       }
-      searchMenu.appendChild(content);
+      searchMenu.appendChild(ul);
     }
 
-    function renderSearchResultsMobile(results) {
+    function renderSearchResultsMobile(searchText, results) {
       searchResults = document.getElementById('search-mobile-results');
 
       var content = document.createElement('div');
@@ -684,29 +935,72 @@
       searchResults.appendChild(content);      
     }
 
-    function renderSearchHighlightResultsMobile(results) {
+    function renderSearchHighlightResultsMobile(searchText, results) {
       searchResults = document.getElementById('search-mobile-results');
 
-      var content = document.createElement('div');
-      content.setAttribute('class', 'mobile-search__content');
+      var ul = document.createElement('div');
+      ul.setAttribute('class', 'mobile-search__content');
 
-      if (results.length > 0) {
+      if (results.length) {
         results.forEach(function (result) {
-          var item = document.createElement('a');
-          item.setAttribute('href', result.item.uri);
-          item.innerHTML = '<div class="mobile-search__item"><div class="mobile-search__item--title">📄 ' + generateHighlightedText(result.item.title, result.matches[0].indices) + '</div><div class="mobile-search__item--desc">' + (result.matches[1] ? generateHighlightedText(result.item.description, result.matches[1].indices) : result.matches[2] ? generateHighlightedText(result.item.content, result.matches[2].indices) : '') + '</div></div>';
-          content.appendChild(item);
+          var li = document.createElement('li');
+          var a = document.createElement('a');
+          var descDiv = null;
+
+          a.setAttribute('href', result.item.uri);
+          a.appendChild(li);
+          li.setAttribute('class', 'mobile-search__item');
+
+          var titleDiv = document.createElement('div');
+          titleDiv.innerHTML = result.item.title;
+          titleDiv.setAttribute('class', 'mobile-search__item--title');
+          
+          if (result.matches && result.matches.length) {
+            for (var i = 0; i < result.matches.length; i++) {
+              if ('title' === result.matches[i].key) {
+                titleDiv.innerHTML = generateHighlightedText(result.matches[i].value, result.matches[i].indices);
+              }
+
+              if ('description' === result.matches[i].key) {
+                descDiv = document.createElement('div');
+                descDiv.setAttribute('class', 'mobile-search__item--desc');
+                descDiv.innerHTML = generateHighlightedText(result.item.description, result.matches[i].indices);
+              } else if ('content' === result.matches[i].key) {
+                if (!descDiv) {
+                  descDiv = document.createElement('div');
+                  descDiv.setAttribute('class', 'mobile-search__item--desc');
+                  descDiv.innerHTML = generateHighlightedText(result.item.content.substring(0, 150), result.matches[i].indices);
+                }
+              } else {
+                if (result.item.description) {
+                  descDiv = document.createElement('div');
+                  descDiv.setAttribute('class', 'mobile-search__item--desc');
+                  descDiv.innerHTML = result.item.description;
+                } else {
+                  descDiv = document.createElement('div');
+                  descDiv.setAttribute('class', 'mobile-search__item--desc');
+                  descDiv.innerHTML = result.item.content.substring(0, 150);
+                }
+              }
+            }
+            
+            li.appendChild(titleDiv);
+            if (descDiv) {
+              li.appendChild(descDiv);
+            }
+            ul.appendChild(a);
+          }
         });
       } else {
         var item = document.createElement('span');
-        content.appendChild(item);
+        ul.appendChild(item);
       }
 
       let wrap = document.getElementById('search-mobile-results');
       while (wrap.firstChild) {
         wrap.removeChild(wrap.firstChild)
       }
-      searchResults.appendChild(content);
+      searchResults.appendChild(ul);
     }
 
     function generateHighlightedText(text, regions) {
@@ -735,28 +1029,41 @@
       return content;
     };
 
-    initFuse();
-
     var searchElem = document.getElementById('search');
     var searchMobile = document.getElementById('search-mobile');
+    var searchResultsContainer = document.getElementById('search-results');
 
-    searchElem ? 
+    searchElem ?
     searchElem.addEventListener('input', function(e) {
-      if (!e.target.value) {
-        document.getElementById('search-results').setAttribute('class', 'dropdown');
-        return null;
-      }
-
-      if (window.innerWidth < 770) {
+      if (!e.target.value | window.innerWidth < 770) {
+        searchResultsContainer ? searchResultsContainer.setAttribute('class', 'dropdown') : null;
+        searchResult ? searchResult.setAttribute('data-display', 'none') : null;
+        summaryContainer ? summaryContainer.setAttribute('data-display', 'block') : null;
         return null;
       }
 
       searchText = e.target.value;
       var results = fuse.search(e.target.value);
-      if (enableSearchHighlight) {
-        renderSearchHighlightResults(results);
+      
+      if (searchResultPosition === "main") {
+        if (enableSearchHighlight) {
+          renderSearchHighlightResultsMain(searchText, results);
+        } else {
+          renderSearchResultsMain(searchText, results);
+        }
       } else {
-        renderSearchResults(results);
+        if (enableSearchHighlight) {
+          renderSearchHighlightResultsSide(searchText, results);
+        } else {
+          renderSearchResultsSide(searchText, results);
+        }
+        
+        var dropdownItems = searchResultsContainer.querySelectorAll('.dropdown-item');
+        dropdownItems ? dropdownItems.forEach(function(item) {
+          item.addEventListener('mousedown', function(e) {
+            e.target.click();
+          });
+        }) : null;
       }
     }) : null;
 
@@ -765,9 +1072,7 @@
       if (window.innerWidth < 770) {
         return null;
       }
-      setTimeout(function () {
-        document.getElementById('search-results').setAttribute('class', 'dropdown');
-      }, 100);
+      searchResultsContainer ? searchResultsContainer.setAttribute('class', 'dropdown') : null;
     }) : null;
 
     searchElem ? 
@@ -776,28 +1081,34 @@
         return null;
       }
       if (!e.target.value) {
-        document.getElementById('search-results').setAttribute('class', 'dropdown');
+        searchResultsContainer ? searchResultsContainer.setAttribute('class', 'dropdown') : null;
         return null;
       }
 
       searchText = e.target.value;
       var results = fuse.search(e.target.value);
-      if (enableSearchHighlight) {
-        renderSearchHighlightResults(results);
-      } else {
-        renderSearchResults(results);
+
+      if (searchResultPosition === "main") {
+        if (enableSearchHighlight) {
+          renderSearchHighlightResultsMain(searchText, results);
+        } else {
+          renderSearchResultsMain(searchText, results);
+        }
+      } else{
+        if (enableSearchHighlight) {
+          renderSearchHighlightResultsSide(searchText, results);
+        } else {
+          renderSearchResultsSide(searchText, results);
+        }
+
+        var dropdownItems = searchResultsContainer.querySelectorAll('.dropdown-item');
+        dropdownItems ? dropdownItems.forEach(function (item) {
+          item.addEventListener('mousedown', function (e) {
+            e.target.click();
+          });
+        }) : null;
       }
     }) : null;
-    
-    function indexInParent(node) {
-      var children = node.parentNode.childNodes;
-      var num = 0;
-      for (var i = 0; i < children.length; i++) {
-        if (children[i] == node) return num;
-        if (children[i].nodeType == 1) num++;
-      }
-      return -1;
-    }
 
     var searchMenuElem = document.getElementById("search-menu");
     var activeItem = document.querySelector('#search-menu .dropdown-item.is-active');
@@ -811,8 +1122,17 @@
         return null;
       }
 
+      if (e.key === 'Escape') {
+        searchResult ? searchResult.setAttribute('data-display', 'none') : null;
+        summaryContainer ? summaryContainer.setAttribute('data-display', 'block') : null;
+      }
+
       var items = document.querySelectorAll('#search-menu .dropdown-item');
       var keyCode = e.which || e.keyCode;
+
+      if (!items || !items.length) {
+        return null;
+      }
       
       if (e.key === 'ArrowDown' || keyCode === 40) {
         if (activeIndex === null) {
@@ -847,9 +1167,8 @@
           document.querySelector(".search-content").scrollTop = overflowedPixel + items[activeIndex].getBoundingClientRect().height;
         }
       } else if (e.key === 'Enter' || keyCode === 13) {
-        var currentItemLink = items[activeIndex].getAttribute('href');
-        if (currentItemLink) {
-          location.href = currentItemLink;
+        if (items[activeIndex] && items[activeIndex].getAttribute('href')) {
+          location.href = items[activeIndex].getAttribute('href');
         }
       } else if (e.key === 'Escape' || keyCode === 27) {
         e.target.value = null;
@@ -871,16 +1190,140 @@
 
       searchText = e.target.value;
       var results = fuse.search(e.target.value);
-      renderSearchResultsMobile(results);
+      renderSearchResultsMobile(searchText, results);
       if (enableSearchHighlight) {
-        renderSearchHighlightResultsMobile(results);
+        renderSearchHighlightResultsMobile(searchText, results);
       } else {
-        renderSearchResultsMobile(results);
+        renderSearchResultsMobile(searchText, results);
       }
     }) : null;
   
+
+
+  
+    var mobileSearchInputElem = document.querySelector('#search-mobile');
+    var mobileSearchClassElem = document.querySelector('.mobile-search');
+    var mobileSearchBtnElems = document.querySelectorAll('.navbar-search');
+    var mobileSearchCloseBtnElem = document.querySelector('#search-mobile-close');
+    var mobileSearchContainer = document.querySelector('#search-mobile-container');
+    var mobileSearchResultsElem = document.querySelector('#search-mobile-results');
+    var htmlElem = document.querySelector('html');
+
+    if (mobileSearchClassElem) {
+      mobileSearchClassElem.style.display = 'none';
+    }
+
+    mobileSearchBtnElems ? 
+    mobileSearchBtnElems.forEach(function (elem, idx) {
+      elem.addEventListener('click', function () {
+        if (mobileSearchContainer) {
+          mobileSearchContainer.style.display = 'block';
+        }
+
+        if (mobileSearchInputElem) {
+          mobileSearchInputElem.focus();
+        }
+
+        if (htmlElem) {
+          htmlElem.style.overflowY = 'hidden';
+        }
+      });
+    }) : null;
+
+    mobileSearchCloseBtnElem ? 
+    mobileSearchCloseBtnElem.addEventListener('click', function() {
+      if (mobileSearchContainer) {
+        mobileSearchContainer.style.display = 'none';
+      }
+
+      if (mobileSearchInputElem) {
+        mobileSearchInputElem.value = '';
+      }
+      
+      if (mobileSearchResultsElem) {
+        while (mobileSearchResultsElem.firstChild) {
+          mobileSearchResultsElem.removeChild(mobileSearchResultsElem.firstChild);
+        }
+      }
+
+      if (htmlElem) {
+        htmlElem.style.overflowY = 'visible';
+      }
+    }) : null;
+
+    mobileSearchInputElem ?
+    mobileSearchInputElem.addEventListener('keydown', function(e) {
+      var keyCode = e.which || e.keyCode;
+      if (e.key === 'Escape' || keyCode === 27) {
+        if (mobileSearchContainer) {
+          mobileSearchContainer.style.display = 'none';
+        }
+        
+        if (mobileSearchInputElem) {
+          mobileSearchInputElem.value = '';
+        }
+
+        if (mobileSearchResultsElem) {
+          while (mobileSearchResultsElem.firstChild) {
+            mobileSearchResultsElem.removeChild(mobileSearchResultsElem.firstChild);
+          }
+        }
+        if (htmlElem) {
+          htmlElem.style.overflowY = 'visible';
+        }
+      }
+    }) : null;
+  
+
+
+  
+    function renderSearchResultsMain(searchText, results) {
+      var searchBody = document.querySelector('.search-result__body');
+      var originUl = searchBody.querySelector('ul');
+      var ul = document.createElement('ul');
+      
+      if (!searchText) {
+        searchResult ? searchResult.setAttribute('data-display', 'none') : null;
+        summaryContainer ? summaryContainer.setAttribute('data-display', 'block') : null;
+      } else if (results) {
+        if (results && results.length) {
+          results.forEach(function (result) {
+            makeLi(ul, result);
+          });
+
+          searchResult ? searchResult.setAttribute('data-display', 'block') : null;
+          summaryContainer ? summaryContainer.setAttribute('data-display', 'none') : null;
+        }
+      }
+
+      originUl.parentNode.replaceChild(ul, originUl);
+    }
+
+    function renderSearchHighlightResultsMain(searchText, results) {
+      var searchBody = document.querySelector('.search-result__body');
+      var originUl = searchBody.querySelector('ul');
+      var ul = document.createElement('ul');
+
+      if (!searchText) {
+        searchResult ? searchResult.setAttribute('data-display', 'none') : null;
+        summaryContainer ? summaryContainer.setAttribute('data-display', 'block') : null;
+      } else if (results) {
+        if (results && results.length) {
+          results.forEach(function (result) {
+            makeHighlightLi(ul, result);
+          });
+
+          searchResult ? searchResult.setAttribute('data-display', 'block') : null;
+          summaryContainer ? summaryContainer.setAttribute('data-display', 'none') : null;
+        }
+      }
+
+      originUl.parentNode.replaceChild(ul, originUl);
+    }
+  
   });
-</script>    
+</script>
+    
     
 
 
@@ -889,10 +1332,15 @@
 
     
 <meta name="description" content="A Morsel Of Code - One Byte At A Time" />
-<meta name="keywords" content="">
+
+
 <meta name="created" content="2013-12-16T03:55:12&#43;0000">
 <meta name="modified" content="2013-12-16T03:55:12&#43;0000">
+<meta property="article:published_time" content="2013-12-16T03:55:12&#43;0000">
+
 <meta name="author" content="Dinesh">
+<meta property="article:author" content="/2013/12/16/apache-camel-how-to-call-an-external-webservice/@Dinesh">
+
 
 <meta property="og:site_name" content="Home">
 <meta property="og:title" content="Apache Camel : How to call  java webservice">
@@ -900,11 +1348,17 @@
 <meta property="og:type" content="article">
 <meta property="og:description" content="A Morsel Of Code - One Byte At A Time">
 
+<meta name="generator" content="Hugo 0.111.3">
+<meta name="msapplication-TileColor" content="#fff">
 
-<meta name="generator" content="Hugo 0.63.2" />
-<meta name="msapplication-TileColor" content="#ffffff">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#fff">
+
+<meta name="msapplication-navbutton-color" content="#fff">
+
+<meta name="apple-mobile-web-app-status-bar-style" content="#fff">
+
 <link rel="canonical" href="/2013/12/16/apache-camel-how-to-call-an-external-webservice/">
+
 <link rel="manifest" href="/manifest.json">
 
   <link rel="apple-touch-icon" sizes="57x57" href="/favicon/apple-icon-57x57.png">
@@ -923,6 +1377,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
   <meta name="msapplication-TileColor" content="#ffffff">
   <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+
 
     <script type="application/ld+json">
   {
@@ -950,6 +1405,7 @@
 </script>
 
     
+  
 <script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
@@ -962,8 +1418,7 @@ if (!doNotTrack) {
 	ga('send', 'pageview');
 }
 </script>
-
-
+  
 <script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
@@ -979,6 +1434,9 @@ if (!doNotTrack) {
 
 
 
+
+
+
     
 </head>
 
@@ -987,13 +1445,17 @@ if (!doNotTrack) {
         var localTheme = localStorage.getItem('theme');
         if (localTheme) {
             document.getElementById('root').className = 'theme__' + localTheme;
-        }        
+        }
     </script>
-    
     <div id="container">
         
+
+
+
+
+
         <div class="wrapper" data-type="post" data-kind="page">
-            <nav class="navbar" role="navigation" aria-label="main navigation" data-dir="ltr">
+            <nav class="navbar scrolling" role="navigation" aria-label="main navigation" data-dir="ltr">
   <div class="navbar__brand">
     
     <a href="/" title="Home" rel="home" class="navbar__logo-link">
@@ -1006,11 +1468,11 @@ if (!doNotTrack) {
       </a>
     
   </div>
+
   
-  
-<div class="theme-mobile">
+<div class="theme theme-mobile" data-ani="true">
   <div class="dropdown">
-    <button class="dropdown-trigger navbar__slide-down" aria-label="Select Theme Button" style="">
+    <button class="dropdown-trigger navbar__slide-down" aria-label="Select Theme Button" style="" data-ani="true">
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="none" d="M24 0H0v24h24V0z"/><path fill="currentColor" d="M6.34 7.93c-3.12 3.12-3.12 8.19 0 11.31C7.9 20.8 9.95 21.58 12 21.58s4.1-.78 5.66-2.34c3.12-3.12 3.12-8.19 0-11.31l-4.95-4.95c-.39-.39-1.02-.39-1.41 0L6.34 7.93zM12 19.59c-1.6 0-3.11-.62-4.24-1.76C6.62 16.69 6 15.19 6 13.59s.62-3.11 1.76-4.24L12 5.1v14.49z"/></svg>      
     </button>
     <div class="dropdown-content select-theme">
@@ -1041,8 +1503,8 @@ if (!doNotTrack) {
   </div>
 </div>
 
-  
-<div id="mobileSearchBtn" class="mobile-search__btn">
+
+<div class="mobile-search__btn navbar-search" data-ani="true">
   <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path d="M15.5 14h-.79l-.28-.27c1.2-1.4 1.82-3.31 1.48-5.34-.47-2.78-2.79-5-5.59-5.34-4.23-.52-7.79 3.04-7.27 7.27.34 2.8 2.56 5.12 5.34 5.59 2.03.34 3.94-.28 5.34-1.48l.27.28v.79l4.25 4.25c.41.41 1.08.41 1.49 0 .41-.41.41-1.08 0-1.49L15.5 14zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
 </div>
 
@@ -1058,18 +1520,88 @@ if (!doNotTrack) {
   </div>
 </div>
 
-  
-  <a role="button" class="navbar__burger" aria-label="menu" aria-expanded="false">
-    <span aria-hidden="true"></span>
-    <span aria-hidden="true"></span>
-    <span aria-hidden="true"></span>
-  </a>  
 
-  <div class="navbar__menu">
+<a role="button" class="navbar__burger" aria-label="menu" aria-expanded="false"
+  data-ani="true">
+  <span aria-hidden="true"></span>
+  <span aria-hidden="true"></span>
+  <span aria-hidden="true"></span>
+</a>
+<div class="navbarm__collapse" data-open="false">
+  <ul dir="ltr">
     
-<div class="theme">
+    
+      
+      
+      
+      
+
+      
+        <li class="navbarm__menu--item ">
+          <a href="/">Posts</a>
+        </li>
+      
+      
+    
+      
+      
+      
+      
+
+      
+        <li class="navbarm__menu--item ">
+          <a href="/archive">Archive</a>
+        </li>
+      
+      
+    
+      
+      
+      
+      
+
+      
+        <li class="navbarm__menu--item ">
+          <a href="/pt">Pt</a>
+        </li>
+      
+      
+    
+      
+      
+      
+      
+
+      
+        <li class="navbarm__menu--item ">
+          <a href="/about">About</a>
+        </li>
+      
+      
+    
+      
+      
+      
+      
+
+      
+        <li class="navbarm__menu--item ">
+          <a href="/talks">Series</a>
+        </li>
+      
+      
+    
+
+    
+  </ul>
+</div>
+  <div class="navbar__menu">
+  
+  
+  
+<div class="theme" data-ani="true">
   <div class="dropdown">
-    <button class="dropdown-trigger navbar__slide-down" aria-label="Select Theme Button">
+    <button class="dropdown-trigger navbar__slide-down" aria-label="Select Theme Button" data-ani="true">
       <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path fill="none" d="M24 0H0v24h24V0z"/><path fill="currentColor" d="M6.34 7.93c-3.12 3.12-3.12 8.19 0 11.31C7.9 20.8 9.95 21.58 12 21.58s4.1-.78 5.66-2.34c3.12-3.12 3.12-8.19 0-11.31l-4.95-4.95c-.39-.39-1.02-.39-1.41 0L6.34 7.93zM12 19.59c-1.6 0-3.11-.62-4.24-1.76C6.62 16.69 6 15.19 6 13.59s.62-3.11 1.76-4.24L12 5.1v14.49z"/></svg>      
     </button>
     <div class="dropdown-content select-theme">
@@ -1100,82 +1632,95 @@ if (!doNotTrack) {
   </div>
 </div>
 
-    
-    
-      
-      
-      
-      
-      
-        <a href="/" class="navbar__menu-item navbar__slide-down " dir="ltr">Posts</a>
-      
-    
-      
-      
-      
-      
-      
-        <a href="/archive" class="navbar__menu-item navbar__slide-down " dir="ltr">Archive</a>
-      
-    
-      
-      
-      
-      
-      
-        <a href="/pt" class="navbar__menu-item navbar__slide-down " dir="ltr">Pt</a>
-      
-    
-      
-      
-      
-      
-      
-        <a href="/about" class="navbar__menu-item navbar__slide-down " dir="ltr">About</a>
-      
-    
-      
-      
-      
-      
-      
-        <a href="/talks" class="navbar__menu-item navbar__slide-down " dir="ltr">Series</a>
-      
-    
-  </div>
+  
+  
+  
+  
+  
+  
+  
+  <a href="/" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">Posts</a>
+  
+  
+  
+  
+  
+  
+  
+  <a href="/archive" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">Archive</a>
+  
+  
+  
+  
+  
+  
+  
+  <a href="/pt" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">Pt</a>
+  
+  
+  
+  
+  
+  
+  
+  <a href="/about" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">About</a>
+  
+  
+  
+  
+  
+  
+  
+  <a href="/talks" class="navbar__menu-item navbar__slide-down " dir="ltr" data-ani="true">Series</a>
+  
+  
+</div>
 </nav>
             
             
 
 <main class="single__main main-main">
   
-  <div class="single">
-    <h2 class="single__title">Apache Camel : How to call  java webservice</h2>
+  
+  <div class="single ">
+    <div class="single__nojs">This page looks best with JavaScript enabled</div>
+    <script>document.querySelector('.single').classList.remove('hide'); document.querySelector('.single__nojs').classList.add('hide');</script>
+    <h2 class="single__title" data-ani="true">Apache Camel : How to call  java webservice</h2>
+    <h3 class="single__subtitle"></h3>
     <div class="single__meta">
       
 <div class="single__infos">
-  <time class="single__info" title="Written At">📅&nbsp;Dec 16, 2013 </time>  &middot; <span class="single__info" title="Reading Time"> ☕ 6 min read </span>&middot; <span class="single__info" title="WRITTEN BY">✍️&nbsp;Dinesh</span>
+  <time class="single__info" title="Written At">📅&nbsp;Dec 16, 2013 </time>
+  
+  &nbsp;&middot;&nbsp; <span class="single__info" title="Reading Time"> ☕&nbsp;6&nbsp;min read </span>
+  
+  &nbsp;&middot;&nbsp; <span class="single__info" title="WRITTEN BY">✍️&nbsp;Dinesh</span>
+  
   <span class="single__info">
     
   </span>
 </div>
-      <div class="single__tags caption">
 
-</div>
-    </div>    
-    <article class="single__contents" data-dir="ltr">
+      
+<ul class="single__tags caption">
+  
+
+</ul>
+
+    </div>
+    <article class="single__contents" data-dir="ltr" data-ani="true">
       
       <p>I have made up my mind to get rid of WSO2 ESB at my office. It is clumsy, buggy, hard to test, no body wants to work on it and the documentation is horrible. I looked at various alternative and <a title="Apache Camel" href="http://camel.apache.org/" target="_blank">Apache Camel</a> was free and easy to set up and work with me.</p>
 <p>To cut the story short, I was able to run most of the example but was struggling with <a title="CXF" href="http://cxf.apache.org/" target="_blank">CXF</a> to call a third party service hosted at a random url. The documentation on the website is focused on exposing web service built in <a title="Apache Camel" href="http://camel.apache.org" target="_blank">Camel</a>. I was finally able to figure this out with a couple of slide show on slideshare.</p>
 <p>Here&rsquo;s the scenario: I have a third party webservice hosted on the web which gives you the the conversion rate between two currencies. I am going to call this web service and log the response.</p>
-<p>As usual I will start from scratch. My webservice is hosted at this url -<a title="http://www.webservicex.net/CurrencyConvertor.asmx?WSDL" href="http://www.webservicex.net/CurrencyConvertor.asmx?WSDL" target="_blank"><a href="http://www.webservicex.net/CurrencyConvertor.asmx?WSDL">http://www.webservicex.net/CurrencyConvertor.asmx?WSDL</a></a>. This webservice exposes a operation called - “ConversionRate&rdquo;.</p>
+<p>As usual I will start from scratch. My webservice is hosted at this url -<a title="http://www.webservicex.net/CurrencyConvertor.asmx?WSDL" href="http://www.webservicex.net/CurrencyConvertor.asmx?WSDL" target="_blank"><a href="http://www.webservicex.net/CurrencyConvertor.asmx?WSDL">http://www.webservicex.net/CurrencyConvertor.asmx?WSDL</a></a>. This webservice exposes a operation called - “ConversionRate&quot;.</p>
 <p>I am using Fuse Ide(free - Developer version) but you can use Intellij Or Eclipse.</p>
 <p>Prerequisites - Must have Maven.</p>
 <p><strong>Step 1:</strong> Create a new Camel-Spring project.</p>
-<p><strong>Step 2:</strong> Add the following dependencies in your <strong>pom.xml. “camel-cxf&rdquo;</strong></p>
+<p><strong>Step 2:</strong> Add the following dependencies in your <strong>pom.xml. “camel-cxf&quot;</strong></p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1186,21 +1731,21 @@ if (!doNotTrack) {
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;scope</span><span class="nt">&gt;</span><span class="nt">&lt;dependency</span><span class="nt">&gt;</span>
-
-      <span class="nt">&lt;groupId</span><span class="nt">&gt;</span>org.apache.camel<span class="nt">&lt;/groupId&gt;</span>
-
-      <span class="nt">&lt;artifactId</span><span class="nt">&gt;</span>camel-cxf<span class="nt">&lt;/artifactId&gt;</span>
-
-      <span class="nt">&lt;version</span><span class="nt">&gt;</span>2.10.0.redhat-60024<span class="nt">&lt;/version&gt;</span>
-
-    <span class="nt">&lt;/dependency&gt;</span><span class="nt">&lt;/scope&gt;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;scope&gt;&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;groupId&gt;</span>org.apache.camel<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;artifactId&gt;</span>camel-cxf<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;version&gt;</span>2.10.0.redhat-60024<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/dependency&gt;&lt;/scope&gt;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>My pom.xml looks like this -</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">  1
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
 </span><span class="lnt">  2
 </span><span class="lnt">  3
 </span><span class="lnt">  4
@@ -1468,278 +2013,278 @@ if (!doNotTrack) {
 </span><span class="lnt">266
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-xml" data-lang="xml">
-<span class="cp">&lt;!-?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
-
- xmlns=&#34;http://maven.apache.org/POM/4.0.0&#34; xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34; xsi:schemaLocation=&#34;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&#34;&gt;
-
-  
-
-   <span class="nt">&lt;modelVersion</span><span class="nt">&gt;</span>4.0.0<span class="nt">&lt;/modelVersion&gt;</span>
-
-  
-
-   <span class="nt">&lt;groupId</span><span class="nt">&gt;</span>com.mycompany<span class="nt">&lt;/groupId&gt;</span>
-
-   <span class="nt">&lt;artifactId</span><span class="nt">&gt;</span>camel-spring<span class="nt">&lt;/artifactId&gt;</span>
-
-   <span class="nt">&lt;packaging</span><span class="nt">&gt;</span>jar<span class="nt">&lt;/packaging&gt;</span>
-
-   <span class="nt">&lt;version</span><span class="nt">&gt;</span>1.0.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
-
-   <span class="nt">&lt;name</span><span class="nt">&gt;</span>A Camel Spring Route<span class="nt">&lt;/name&gt;</span>
-
-   <span class="nt">&lt;url</span><span class="nt">&gt;</span>http://www.myorganization.org<span class="nt">&lt;/url&gt;</span>
-
-   <span class="nt">&lt;properties</span><span class="nt">&gt;</span>
-
-     <span class="nt">&lt;project.build.sourceEncoding</span><span class="nt">&gt;</span>UTF-8<span class="nt">&lt;/project.build.sourceEncoding&gt;</span>
-
-     <span class="nt">&lt;project.reporting.outputEncoding</span><span class="nt">&gt;</span>UTF-8<span class="nt">&lt;/project.reporting.outputEncoding&gt;</span>
-
-   <span class="nt">&lt;/properties&gt;</span>
-
-   <span class="nt">&lt;repositories</span><span class="nt">&gt;</span>
-
-     <span class="nt">&lt;repository</span><span class="nt">&gt;</span>
-
-      <span class="nt">&lt;id</span><span class="nt">&gt;</span>release.fusesource.org<span class="nt">&lt;/id&gt;</span>
-
-       FuseSource Release Repository
-
-       <span class="nt">&lt;url</span><span class="nt">&gt;</span>http://repo.fusesource.com/nexus/content/repositories/releases<span class="nt">&lt;/url&gt;</span>
-
-       <span class="nt">&lt;snapshots</span><span class="nt">&gt;</span>
-
-         <span class="nt">&lt;enabled</span><span class="nt">&gt;</span>false<span class="nt">&lt;/enabled&gt;</span>
-
-       <span class="nt">&lt;/snapshots&gt;</span>
-
-       <span class="nt">&lt;releases</span><span class="nt">&gt;</span>
-
-         <span class="nt">&lt;enabled</span><span class="nt">&gt;</span>true<span class="nt">&lt;/enabled&gt;</span>
-
-       <span class="nt">&lt;/releases&gt;</span>
-
-     <span class="nt">&lt;/repository&gt;</span>
-
-     <span class="nt">&lt;repository</span><span class="nt">&gt;</span>
-
-       <span class="nt">&lt;id</span><span class="nt">&gt;</span>snapshot.fusesource.org<span class="nt">&lt;/id&gt;</span>
-
-       FuseSource Snapshot Repository
-
-       <span class="nt">&lt;url</span><span class="nt">&gt;</span>http://repo.fusesource.com/nexus/content/repositories/snapshots<span class="nt">&lt;/url&gt;</span>
-
-       <span class="nt">&lt;snapshots</span><span class="nt">&gt;</span>
-
-         <span class="nt">&lt;enabled</span><span class="nt">&gt;</span>true<span class="nt">&lt;/enabled&gt;</span>
-
-       <span class="nt">&lt;/snapshots&gt;</span>
-
-       <span class="nt">&lt;releases</span><span class="nt">&gt;</span>
-
-         <span class="nt">&lt;enabled</span><span class="nt">&gt;</span>false<span class="nt">&lt;/enabled&gt;</span>
-
-       <span class="nt">&lt;/releases&gt;</span>
-
-     <span class="nt">&lt;/repository&gt;</span>
-
-   <span class="nt">&lt;/repositories&gt;</span>
-
-   <span class="nt">&lt;pluginRepositories</span><span class="nt">&gt;</span>
-
-     <span class="nt">&lt;pluginRepository</span><span class="nt">&gt;</span>
-
-       <span class="nt">&lt;id</span><span class="nt">&gt;</span>release.fusesource.org<span class="nt">&lt;/id&gt;</span>
-
-       FuseSource Release Repository
-
-       <span class="nt">&lt;url</span><span class="nt">&gt;</span>http://repo.fusesource.com/nexus/content/repositories/releases<span class="nt">&lt;/url&gt;</span>
-
-       <span class="nt">&lt;snapshots</span><span class="nt">&gt;</span>
-
-         <span class="nt">&lt;enabled</span><span class="nt">&gt;</span>false<span class="nt">&lt;/enabled&gt;</span>
-
-       <span class="nt">&lt;/snapshots&gt;</span>
-
-       <span class="nt">&lt;releases</span><span class="nt">&gt;</span>
-
-         <span class="nt">&lt;enabled</span><span class="nt">&gt;</span>true<span class="nt">&lt;/enabled&gt;</span>
-
-       <span class="nt">&lt;/releases&gt;</span>
-
-     <span class="nt">&lt;/pluginRepository&gt;</span>
-
-     <span class="nt">&lt;pluginRepository</span><span class="nt">&gt;</span>
-
-       <span class="nt">&lt;id</span><span class="nt">&gt;</span>snapshot.fusesource.org<span class="nt">&lt;/id&gt;</span>
-
-       FuseSource Snapshot Repository
-
-       <span class="nt">&lt;url</span><span class="nt">&gt;</span>http://repo.fusesource.com/nexus/content/repositories/snapshots<span class="nt">&lt;/url&gt;</span>
-
-       <span class="nt">&lt;snapshots</span><span class="nt">&gt;</span>
-
-         <span class="nt">&lt;enabled</span><span class="nt">&gt;</span>true<span class="nt">&lt;/enabled&gt;</span>
-
-       <span class="nt">&lt;/snapshots&gt;</span>
-
-       <span class="nt">&lt;releases</span><span class="nt">&gt;</span>
-
-         <span class="nt">&lt;enabled</span><span class="nt">&gt;</span>false<span class="nt">&lt;/enabled&gt;</span>
-
-       <span class="nt">&lt;/releases&gt;</span>
-
-     <span class="nt">&lt;/pluginRepository&gt;</span>  
-
-   <span class="nt">&lt;/pluginRepositories&gt;</span>
-
-  
-
-   <span class="nt">&lt;dependencies</span><span class="nt">&gt;</span>
-
-     <span class="nt">&lt;dependency</span><span class="nt">&gt;</span>
-
-       <span class="nt">&lt;groupId</span><span class="nt">&gt;</span>org.apache.camel<span class="nt">&lt;/groupId&gt;</span>
-
-       <span class="nt">&lt;artifactId</span><span class="nt">&gt;</span>camel-core<span class="nt">&lt;/artifactId&gt;</span>
-
-       <span class="nt">&lt;version</span><span class="nt">&gt;</span>2.10.0.redhat-60024<span class="nt">&lt;/version&gt;</span>
-
-     <span class="nt">&lt;/dependency&gt;</span>
-
-     <span class="nt">&lt;dependency</span><span class="nt">&gt;</span>
-
-       <span class="nt">&lt;groupId</span><span class="nt">&gt;</span>org.apache.camel<span class="nt">&lt;/groupId&gt;</span>
-
-       <span class="nt">&lt;artifactId</span><span class="nt">&gt;</span>camel-spring<span class="nt">&lt;/artifactId&gt;</span>
-
-       <span class="nt">&lt;version</span><span class="nt">&gt;</span>2.10.0.redhat-60024<span class="nt">&lt;/version&gt;</span>
-
-     <span class="nt">&lt;/dependency&gt;</span>
-
-     <span class="cp">&lt;!- logging -&gt;</span>
-
-     <span class="nt">&lt;dependency</span><span class="nt">&gt;</span>
-
-       <span class="nt">&lt;groupId</span><span class="nt">&gt;</span>org.slf4j<span class="nt">&lt;/groupId&gt;</span>
-
-       <span class="nt">&lt;artifactId</span><span class="nt">&gt;</span>slf4j-api<span class="nt">&lt;/artifactId&gt;</span>
-
-       <span class="nt">&lt;version</span><span class="nt">&gt;</span>1.6.6<span class="nt">&lt;/version&gt;</span>
-
-     <span class="nt">&lt;/dependency&gt;</span>
-
-     <span class="nt">&lt;dependency</span><span class="nt">&gt;</span>
-
-       <span class="nt">&lt;groupId</span><span class="nt">&gt;</span>org.slf4j<span class="nt">&lt;/groupId&gt;</span>
-
-       <span class="nt">&lt;artifactId</span><span class="nt">&gt;</span>slf4j-log4j12<span class="nt">&lt;/artifactId&gt;</span>
-
-       <span class="nt">&lt;version</span><span class="nt">&gt;</span>1.6.6<span class="nt">&lt;/version&gt;</span>
-
-     <span class="nt">&lt;/dependency&gt;</span>
-
-     <span class="nt">&lt;dependency</span><span class="nt">&gt;</span>
-
-       <span class="nt">&lt;groupId</span><span class="nt">&gt;</span>log4j<span class="nt">&lt;/groupId&gt;</span>
-
-       <span class="nt">&lt;artifactId</span><span class="nt">&gt;</span>log4j<span class="nt">&lt;/artifactId&gt;</span>
-
-       <span class="nt">&lt;version</span><span class="nt">&gt;</span>1.2.17<span class="nt">&lt;/version&gt;</span>
-
-     <span class="nt">&lt;/dependency&gt;</span>
-
-     <span class="cp">&lt;!- testing -&gt;</span>
-
-     <span class="nt">&lt;dependency</span><span class="nt">&gt;</span>
-
-       <span class="nt">&lt;groupId</span><span class="nt">&gt;</span>org.apache.camel<span class="nt">&lt;/groupId&gt;</span>
-
-       <span class="nt">&lt;artifactId</span><span class="nt">&gt;</span>camel-test-spring<span class="nt">&lt;/artifactId&gt;</span>
-
-       <span class="nt">&lt;version</span><span class="nt">&gt;</span>2.10.0.redhat-60024<span class="nt">&lt;/version&gt;</span>
-
-       <span class="nt">&lt;scope</span><span class="nt">&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
-
-     <span class="nt">&lt;/dependency&gt;</span>
-
- <span class="nt">&lt;dependency</span><span class="nt">&gt;</span>
-
-       <span class="nt">&lt;groupId</span><span class="nt">&gt;</span>org.apache.camel<span class="nt">&lt;/groupId&gt;</span>
-
-       <span class="nt">&lt;artifactId</span><span class="nt">&gt;</span>camel-cxf<span class="nt">&lt;/artifactId&gt;</span>
-
-       <span class="nt">&lt;version</span><span class="nt">&gt;</span>2.10.0.redhat-60024<span class="nt">&lt;/version&gt;</span>
-
-     <span class="nt">&lt;/dependency&gt;</span>
-
-   <span class="nt">&lt;/dependencies&gt;</span>
-
-   <span class="nt">&lt;build</span><span class="nt">&gt;</span>
-
-     <span class="nt">&lt;defaultGoal</span><span class="nt">&gt;</span>install<span class="nt">&lt;/defaultGoal&gt;</span>
-
-     <span class="nt">&lt;plugins</span><span class="nt">&gt;</span>
-
-       <span class="nt">&lt;plugin</span><span class="nt">&gt;</span>
-
-         <span class="nt">&lt;groupId</span><span class="nt">&gt;</span>org.apache.maven.plugins<span class="nt">&lt;/groupId&gt;</span>
-
-         <span class="nt">&lt;artifactId</span><span class="nt">&gt;</span>maven-compiler-plugin<span class="nt">&lt;/artifactId&gt;</span>
-
-         <span class="nt">&lt;version</span><span class="nt">&gt;</span>2.5.1<span class="nt">&lt;/version&gt;</span>
-
-         <span class="nt">&lt;configuration</span><span class="nt">&gt;</span>
-
-           <span class="nt">&lt;source</span><span class="nt">&gt;</span>1.6<span class="nt">&lt;/source&gt;</span>
-
-           <span class="nt">&lt;target</span><span class="nt">&gt;</span>1.6<span class="nt">&lt;/target&gt;</span>
-
-         <span class="nt">&lt;/configuration&gt;</span>
-
-       <span class="nt">&lt;/plugin&gt;</span>
-
-       <span class="nt">&lt;plugin</span><span class="nt">&gt;</span>
-
-         <span class="nt">&lt;groupId</span><span class="nt">&gt;</span>org.apache.maven.plugins<span class="nt">&lt;/groupId&gt;</span>
-
-         <span class="nt">&lt;artifactId</span><span class="nt">&gt;</span>maven-resources-plugin<span class="nt">&lt;/artifactId&gt;</span>
-
-         <span class="nt">&lt;version</span><span class="nt">&gt;</span>2.4.3<span class="nt">&lt;/version&gt;</span>
-
-         <span class="nt">&lt;configuration</span><span class="nt">&gt;</span>
-
-           <span class="nt">&lt;encoding</span><span class="nt">&gt;</span>UTF-8<span class="nt">&lt;/encoding&gt;</span>
-
-         <span class="nt">&lt;/configuration&gt;</span>
-
-       <span class="nt">&lt;/plugin&gt;</span>
-
-       <span class="cp">&lt;!- allows the route to be ran via mvn camel:run -&gt;</span>
-
-       <span class="nt">&lt;plugin</span><span class="nt">&gt;</span>
-
-         <span class="nt">&lt;groupId</span><span class="nt">&gt;</span>org.apache.camel<span class="nt">&lt;/groupId&gt;</span>
-
-         <span class="nt">&lt;artifactId</span><span class="nt">&gt;</span>camel-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
-
-         <span class="nt">&lt;version</span><span class="nt">&gt;</span>2.10.0.redhat-60024<span class="nt">&lt;/version&gt;</span>
-
-       <span class="nt">&lt;/plugin&gt;</span>
-
-     <span class="nt">&lt;/plugins&gt;</span>
-
-   <span class="nt">&lt;/build&gt;</span>
-
- <span class="nt">&lt;/project&gt;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cp">&lt;!-?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> xmlns=&#34;http://maven.apache.org/POM/4.0.0&#34; xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34; xsi:schemaLocation=&#34;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd&#34;&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="nt">&lt;modelVersion&gt;</span>4.0.0<span class="nt">&lt;/modelVersion&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="nt">&lt;groupId&gt;</span>com.mycompany<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="nt">&lt;artifactId&gt;</span>camel-spring<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="nt">&lt;packaging&gt;</span>jar<span class="nt">&lt;/packaging&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="nt">&lt;version&gt;</span>1.0.0-SNAPSHOT<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="nt">&lt;name&gt;</span>A Camel Spring Route<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="nt">&lt;url&gt;</span>http://www.myorganization.org<span class="nt">&lt;/url&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="nt">&lt;properties&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">     <span class="nt">&lt;project.build.sourceEncoding&gt;</span>UTF-8<span class="nt">&lt;/project.build.sourceEncoding&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">     <span class="nt">&lt;project.reporting.outputEncoding&gt;</span>UTF-8<span class="nt">&lt;/project.reporting.outputEncoding&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="nt">&lt;/properties&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="nt">&lt;repositories&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">     <span class="nt">&lt;repository&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;id&gt;</span>release.fusesource.org<span class="nt">&lt;/id&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       FuseSource Release Repository
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;url&gt;</span>http://repo.fusesource.com/nexus/content/repositories/releases<span class="nt">&lt;/url&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;snapshots&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">         <span class="nt">&lt;enabled&gt;</span>false<span class="nt">&lt;/enabled&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;/snapshots&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;releases&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">         <span class="nt">&lt;enabled&gt;</span>true<span class="nt">&lt;/enabled&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;/releases&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">     <span class="nt">&lt;/repository&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">     <span class="nt">&lt;repository&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;id&gt;</span>snapshot.fusesource.org<span class="nt">&lt;/id&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       FuseSource Snapshot Repository
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;url&gt;</span>http://repo.fusesource.com/nexus/content/repositories/snapshots<span class="nt">&lt;/url&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;snapshots&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">         <span class="nt">&lt;enabled&gt;</span>true<span class="nt">&lt;/enabled&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;/snapshots&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;releases&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">         <span class="nt">&lt;enabled&gt;</span>false<span class="nt">&lt;/enabled&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;/releases&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">     <span class="nt">&lt;/repository&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="nt">&lt;/repositories&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="nt">&lt;pluginRepositories&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">     <span class="nt">&lt;pluginRepository&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;id&gt;</span>release.fusesource.org<span class="nt">&lt;/id&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       FuseSource Release Repository
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;url&gt;</span>http://repo.fusesource.com/nexus/content/repositories/releases<span class="nt">&lt;/url&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;snapshots&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">         <span class="nt">&lt;enabled&gt;</span>false<span class="nt">&lt;/enabled&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;/snapshots&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;releases&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">         <span class="nt">&lt;enabled&gt;</span>true<span class="nt">&lt;/enabled&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;/releases&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">     <span class="nt">&lt;/pluginRepository&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">     <span class="nt">&lt;pluginRepository&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;id&gt;</span>snapshot.fusesource.org<span class="nt">&lt;/id&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       FuseSource Snapshot Repository
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;url&gt;</span>http://repo.fusesource.com/nexus/content/repositories/snapshots<span class="nt">&lt;/url&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;snapshots&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">         <span class="nt">&lt;enabled&gt;</span>true<span class="nt">&lt;/enabled&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;/snapshots&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;releases&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">         <span class="nt">&lt;enabled&gt;</span>false<span class="nt">&lt;/enabled&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;/releases&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">     <span class="nt">&lt;/pluginRepository&gt;</span>  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="nt">&lt;/pluginRepositories&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="nt">&lt;dependencies&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">     <span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;groupId&gt;</span>org.apache.camel<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;artifactId&gt;</span>camel-core<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;version&gt;</span>2.10.0.redhat-60024<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">     <span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">     <span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;groupId&gt;</span>org.apache.camel<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;artifactId&gt;</span>camel-spring<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;version&gt;</span>2.10.0.redhat-60024<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">     <span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">     <span class="cp">&lt;!- logging -&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">     <span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;groupId&gt;</span>org.slf4j<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;artifactId&gt;</span>slf4j-api<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;version&gt;</span>1.6.6<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">     <span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">     <span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;groupId&gt;</span>org.slf4j<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;artifactId&gt;</span>slf4j-log4j12<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;version&gt;</span>1.6.6<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">     <span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">     <span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;groupId&gt;</span>log4j<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;artifactId&gt;</span>log4j<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;version&gt;</span>1.2.17<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">     <span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">     <span class="cp">&lt;!- testing -&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">     <span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;groupId&gt;</span>org.apache.camel<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;artifactId&gt;</span>camel-test-spring<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;version&gt;</span>2.10.0.redhat-60024<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">     <span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;groupId&gt;</span>org.apache.camel<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;artifactId&gt;</span>camel-cxf<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;version&gt;</span>2.10.0.redhat-60024<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">     <span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="nt">&lt;/dependencies&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="nt">&lt;build&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">     <span class="nt">&lt;defaultGoal&gt;</span>install<span class="nt">&lt;/defaultGoal&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">     <span class="nt">&lt;plugins&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;plugin&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">         <span class="nt">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">         <span class="nt">&lt;artifactId&gt;</span>maven-compiler-plugin<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">         <span class="nt">&lt;version&gt;</span>2.5.1<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">         <span class="nt">&lt;configuration&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">           <span class="nt">&lt;source&gt;</span>1.6<span class="nt">&lt;/source&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">           <span class="nt">&lt;target&gt;</span>1.6<span class="nt">&lt;/target&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">         <span class="nt">&lt;/configuration&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;/plugin&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;plugin&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">         <span class="nt">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">         <span class="nt">&lt;artifactId&gt;</span>maven-resources-plugin<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">         <span class="nt">&lt;version&gt;</span>2.4.3<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">         <span class="nt">&lt;configuration&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">           <span class="nt">&lt;encoding&gt;</span>UTF-8<span class="nt">&lt;/encoding&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">         <span class="nt">&lt;/configuration&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;/plugin&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="cp">&lt;!- allows the route to be ran via mvn camel:run -&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;plugin&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">         <span class="nt">&lt;groupId&gt;</span>org.apache.camel<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">         <span class="nt">&lt;artifactId&gt;</span>camel-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">         <span class="nt">&lt;version&gt;</span>2.10.0.redhat-60024<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;/plugin&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">     <span class="nt">&lt;/plugins&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="nt">&lt;/build&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="nt">&lt;/project&gt;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>Step 2:</strong> Under src/main.resources/META-INF folder(if not there then create one) create file called <strong>camel-context.xml</strong> Your camel file should like this -</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1794,65 +2339,65 @@ if (!doNotTrack) {
 </span><span class="lnt">53
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-xml" data-lang="xml"> <span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
-
- xmlns=&#34;http://www.springframework.org/schema/beans&#34;
-
-         xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34;
-
-         xmlns:cxf=&#34;http://camel.apache.org/schema/cxf&#34;
-
-         xsi:schemaLocation=&#34;
-
-         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-
-         http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
-
-         http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd&#34;&gt;
-
- <span class="nt">&lt;cxf:</span><span class="err">&lt;</span><span class="err">s</span><span class="err">p</span><span class="err">a</span><span class="err">n</span> <span class="na">class=</span><span class="s">&#34;hiddenSpellError&#34;</span><span class="nt">&gt;</span>cxfEndpoint id=&#34;wsdlEndpoint&#34;
-
-                      address=&#34;http://www.webservicex.net/CurrencyConvertor.asmx&#34;
-
-                      endpointName=&#34;c:SOAPOverHTTP&#34;
-
-                      serviceName=&#34;c:CurrencyConvertor&#34;
-
-                      xmlns:s=&#34;http://www.webserviceX.NET&#34;/&gt;
-
-   
-
-   <span class="nt">&lt;camelContext</span> <span class="na">xmlns=</span><span class="s">&#34;http://camel.apache.org/schema/spring&#34;</span><span class="nt">&gt;</span>
-
-   <span class="nt">&lt;route</span><span class="nt">&gt;</span>
-
-         here is a sample which processes the input files
-
-          (leaving them in place - see the <span class="ni">&amp;#8216;</span>noop&#39; flag)
-
-          then performs content based routing on the message using XPath<span class="nt">&lt;/description&gt;</span>
-
-         src/data/order?noop=true&#34;/&gt;
-
-         <span class="nt">&lt;log</span> <span class="na">message=</span><span class="s">&#34;${body}&#34;</span><span class="nt">/&gt;</span>
-
-         wsdl<span class="err">&amp;</span>serviceName={http://www.webserviceX.NET/}CurrencyConvertor<span class="err">&amp;</span>portName={http://www.webserviceX.NET/}CurrencyConvertorSoap<span class="err">&amp;</span>dataFormat=MESSAGE&#34;/&gt;
-
-          <span class="nt">&lt;log</span> <span class="na">message=</span><span class="s">&#34;${body}&#34;</span><span class="nt">/&gt;</span>
-
-     <span class="nt">&lt;/route&gt;</span>
-
- <span class="nt">&lt;/camelContext&gt;</span>
-
-  
-
- <span class="nt">&lt;/beans&gt;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"> <span class="cp">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> xmlns=&#34;http://www.springframework.org/schema/beans&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">         xmlns:xsi=&#34;http://www.w3.org/2001/XMLSchema-instance&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">         xmlns:cxf=&#34;http://camel.apache.org/schema/cxf&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">         xsi:schemaLocation=&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">         http://camel.apache.org/schema/cxf http://camel.apache.org/schema/cxf/camel-cxf.xsd
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">         http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd&#34;&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="nt">&lt;cxf:</span><span class="err">&lt;span</span> <span class="na">class=</span><span class="s">&#34;hiddenSpellError&#34;</span><span class="nt">&gt;</span>cxfEndpoint id=&#34;wsdlEndpoint&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                      address=&#34;http://www.webservicex.net/CurrencyConvertor.asmx&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                      endpointName=&#34;c:SOAPOverHTTP&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                      serviceName=&#34;c:CurrencyConvertor&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                      xmlns:s=&#34;http://www.webserviceX.NET&#34;/&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="nt">&lt;camelContext</span> <span class="na">xmlns=</span><span class="s">&#34;http://camel.apache.org/schema/spring&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="nt">&lt;route&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">         here is a sample which processes the input files
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">          (leaving them in place - see the <span class="ni">&amp;#8216;</span>noop&#39; flag)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">          then performs content based routing on the message using XPath<span class="nt">&lt;/description&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">         src/data/order?noop=true&#34;/&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">         <span class="nt">&lt;log</span> <span class="na">message=</span><span class="s">&#34;${body}&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">         wsdl<span class="err">&amp;</span>serviceName={http://www.webserviceX.NET/}CurrencyConvertor<span class="err">&amp;</span>portName={http://www.webserviceX.NET/}CurrencyConvertorSoap<span class="err">&amp;</span>dataFormat=MESSAGE&#34;/&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">          <span class="nt">&lt;log</span> <span class="na">message=</span><span class="s">&#34;${body}&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">     <span class="nt">&lt;/route&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="nt">&lt;/camelContext&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"> <span class="nt">&lt;/beans&gt;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p><strong>Step 4:</strong> Place the payload or input data xml in src/data/input/order.xml. The <strong>order.xml</strong> should like this -</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1871,29 +2416,29 @@ if (!doNotTrack) {
 </span><span class="lnt">17
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-xml" data-lang="xml"><span class="nt">&lt;soapenv:Envelope</span> <span class="na">xmlns:soapenv=</span><span class="s">&#34;http://schemas.xmlsoap.org/soap/envelope/&#34;</span> <span class="na">xmlns:web=</span><span class="s">&#34;http://www.webserviceX.NET/&#34;</span><span class="nt">&gt;</span>
-
-    <span class="nt">&lt;soapenv:Header</span><span class="nt">/&gt;</span>
-
-    <span class="nt">&lt;soapenv:Body</span><span class="nt">&gt;</span>
-
-       <span class="nt">&lt;web:ConversionRate</span><span class="nt">&gt;</span>
-
-          <span class="nt">&lt;web:FromCurrency</span><span class="nt">&gt;</span>AUD<span class="nt">&lt;/web:FromCurrency&gt;</span>
-
-          <span class="nt">&lt;web:ToCurrency</span><span class="nt">&gt;</span>USD<span class="nt">&lt;/web:ToCurrency&gt;</span>
-
-       <span class="nt">&lt;/web:ConversionRate&gt;</span>
-
-    <span class="cp">&lt;!-&lt;span class=&#34;hiddenSpellError&#34;&gt;</span>soapenv:Body&gt;-&gt;
-
-<span class="nt">&lt;/soapenv:Envelope&gt;</span>
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;soapenv:Envelope</span> <span class="na">xmlns:soapenv=</span><span class="s">&#34;http://schemas.xmlsoap.org/soap/envelope/&#34;</span> <span class="na">xmlns:web=</span><span class="s">&#34;http://www.webserviceX.NET/&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;soapenv:Header/&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;soapenv:Body&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;web:ConversionRate&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">          <span class="nt">&lt;web:FromCurrency&gt;</span>AUD<span class="nt">&lt;/web:FromCurrency&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">          <span class="nt">&lt;web:ToCurrency&gt;</span>USD<span class="nt">&lt;/web:ToCurrency&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">       <span class="nt">&lt;/web:ConversionRate&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cp">&lt;!-&lt;span class=&#34;hiddenSpellError&#34;&gt;</span>soapenv:Body&gt;-&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/soapenv:Envelope&gt;</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>That&rsquo;s it!!!!<br />
 The interesting part is all in the camel-context.xml. Here&rsquo;s what is happening in this file</p>
 <blockquote>
-<p>src/data/order?noop=true&rdquo;/&gt;</p>
+<p>src/data/order?noop=true&quot;/&gt;</p>
 </blockquote>
 <p>This line reads the file order.xml. The option noop=true makes the file to be read again and again. By default this values is false. If this value is false, then after one read, camel marks it as read and when you run the example for second time, it will not read this file.</p>
 <blockquote>
@@ -1901,7 +2446,7 @@ The interesting part is all in the camel-context.xml. Here&rsquo;s what is happe
 </blockquote>
 <p>This line will simply log the contents of <strong>order.xml.</strong></p>
 <blockquote>
-<p>serviceName={http://www.webserviceX.NET/}CurrencyConvertor&amp;portName={http://www.webserviceX.NET/}CurrencyConvertorSoap&amp;dataFormat=MESSAGE&rdquo;/&gt;</p>
+<p>serviceName={http://www.webserviceX.NET/}CurrencyConvertor&amp;portName={http://www.webserviceX.NET/}CurrencyConvertorSoap&amp;dataFormat=MESSAGE&quot;/&gt;</p>
 </blockquote>
 <p>This line tells <strong>cxf</strong> component that it needs to call the webservice -  </p>
 <blockquote>
@@ -1921,7 +2466,7 @@ portName - is the name of the port.</p>
 <p>The last piece is <strong>dataFormat</strong> - <strong>dataFormat=MESSAGE</strong> This tells that the body is of type message.</p>
 <p><strong>Part 2</strong> - In production you would want to avoid writing cxf in the above format as it is prone to error because the string value is very long and difficult to test independently and cannot be reused if you want to call the service in another route. So the best way is to define this as cxf endpoint. All you need to do is slightly modify the <strong>camel-context.xml</strong></p>
 <ol>
-<li>Add this(be sure to remove the earlier version of &lt;to uri=&quot;cxf….&quot;)</li>
+<li>Add this(be sure to remove the earlier version of &lt;to uri=&ldquo;cxf….&rdquo;)</li>
 </ol>
 <blockquote>
 <to uri="cxf:bean:wsdlEndpoint?dataFormat=MESSAGE"/>
@@ -1931,7 +2476,7 @@ portName - is the name of the port.</p>
 </ol>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt">1
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
@@ -1942,22 +2487,22 @@ portName - is the name of the port.</p>
 </span><span class="lnt">9
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-xml" data-lang="xml"> <span class="nt">&lt;cxf:</span><span class="err">&lt;</span><span class="err">s</span><span class="err">p</span><span class="err">a</span><span class="err">n</span> <span class="na">class=</span><span class="s">&#34;hiddenSpellError&#34;</span><span class="nt">&gt;</span>cxfEndpoint id=&#34;wsdlEndpoint&#34;
-
-                     address=&#34;http://www.webservicex.net/CurrencyConvertor.asmx&#34;
-
-                     endpointName=&#34;c:SOAPOverHTTP&#34;
-
-                     serviceName=&#34;c:CurrencyConvertor&#34;
-
-                     xmlns:s=&#34;http://www.webserviceX.NET&#34;/&gt;
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"> <span class="nt">&lt;cxf:</span><span class="err">&lt;span</span> <span class="na">class=</span><span class="s">&#34;hiddenSpellError&#34;</span><span class="nt">&gt;</span>cxfEndpoint id=&#34;wsdlEndpoint&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                     address=&#34;http://www.webservicex.net/CurrencyConvertor.asmx&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                     endpointName=&#34;c:SOAPOverHTTP&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                     serviceName=&#34;c:CurrencyConvertor&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">                     xmlns:s=&#34;http://www.webserviceX.NET&#34;/&gt;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>That&rsquo;s it.</p>
 <p>Now just run the app. This will print the following-</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre class="chroma"><code><span class="lnt"> 1
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
 </span><span class="lnt"> 3
 </span><span class="lnt"> 4
@@ -1974,38 +2519,221 @@ portName - is the name of the port.</p>
 </span><span class="lnt">15
 </span><span class="lnt">16
 </span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre class="chroma"><code class="language-xml" data-lang="xml"> [ead #0 - file://src/data/order] route1                         INFO
-
-<span class="nt">&lt;soapenv:Header</span><span class="nt">/&gt;</span>
-
-<span class="nt">&lt;soapenv:Body</span><span class="nt">&gt;</span>
-
-<span class="nt">&lt;web:ConversionRate</span><span class="nt">&gt;</span>
-
-<span class="nt">&lt;web:FromCurrency</span><span class="nt">&gt;</span>AUD<span class="nt">&lt;/web:FromCurrency&gt;</span>
-
-<span class="nt">&lt;web:ToCurrency</span><span class="nt">&gt;</span>USD<span class="nt">&lt;/web:ToCurrency&gt;</span>
-
-<span class="nt">&lt;/web:ConversionRate&gt;</span>
-
-<span class="nt">&lt;/soapenv:Body&gt;</span>-&gt;
-
-<span class="nt">&lt;/soapenv:Envelope&gt;</span>-&gt;
-
-
-</code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"> [ead #0 - file://src/data/order] route1                         INFO
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;soapenv:Header/&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;soapenv:Body&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;web:ConversionRate&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;web:FromCurrency&gt;</span>AUD<span class="nt">&lt;/web:FromCurrency&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;web:ToCurrency&gt;</span>USD<span class="nt">&lt;/web:ToCurrency&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/web:ConversionRate&gt;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/soapenv:Body&gt;</span>-&gt;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/soapenv:Envelope&gt;</span>-&gt;
+</span></span></code></pre></td></tr></table>
 </div>
 </div><p>~ Enjoy Cameling ….</p>
 
     </article>
     
+    
+<script defer src="/js/clipboard.min.1626706afc88d95ebe1173b553ec732c6dc82a576989315fdf5e7779af738a44.js"></script>
+
+<script defer src="/js/helper/prev.min.js"></script>
+
+<script defer src="/js/helper/prop.min.js"></script>
+<script>
+  'use strict';
+  document.addEventListener('DOMContentLoaded', function () {
+    
+    var clipInit = false;
+    var preChromaElem = document.querySelectorAll('pre.chroma');
+    var langCodeElem = document.querySelectorAll('.language-code');
+    var dollarCodeElem = document.querySelectorAll('div.language-\\$');
+    var gtCodeElem = document.querySelectorAll('div.language-\\>');
+
+    var makeClipboard = function(elem) {
+      var code = elem,
+          text = elem.textContent;
+        
+      if (text.length > 15) {
+        if (!clipInit) {
+          var text, clip = new ClipboardJS('.copy-to-clipboard', {
+            text: function (trigger) {
+              var codeElem = prev(trigger).querySelectorAll('code');
+              if (codeElem.length > 1) {
+                text = prev(trigger).querySelector('code[class^="language-"]').textContent;
+              } else {
+                text = prev(trigger).querySelector('code').textContent;
+              }
+
+              return text.replace(/^\$\s/gm, '');
+            }
+          });
+
+          var inPre;
+          clip.on('success', function (e) {
+            e.clearSelection();
+            inPre = prop(e.trigger.parentNode, 'tagName') == 'PRE';
+            e.trigger.setAttribute('aria-label', 'Copied to clipboard!');
+            e.trigger.classList.add('tooltipped');
+            e.trigger.classList.add('tooltipped-w');
+          });
+
+          clip.on('error', function (e) {
+            inPre = prop(e.trigger.parentNode, 'tagName') == 'PRE';
+            e.trigger.setAttribute('aria-label', e.action.toString());
+            e.trigger.classList.add('tooltipped');
+            e.trigger.classList.add('tooltipped-w');
+          });
+
+          clipInit = true;
+        }
+
+        var notAllowedClass = ['language-mermaid', 'language-viz', 'language-wave', 'language-chart', 'language-msc', 'language-flowchart'];
+        var isNotAllowedIncluded = false;
+        var curClassName = code.getAttribute('class');
+
+        for (var i = 0; i < notAllowedClass.length; i++) {
+          if (curClassName && curClassName.startsWith(notAllowedClass[i])) {
+            isNotAllowedIncluded = true;
+            break;
+          }
+        }
+
+        if (!isNotAllowedIncluded) {
+          if (curClassName) {
+            var newClipboardElem = document.createElement('span');
+            newClipboardElem.setAttribute('class', 'copy-to-clipboard');
+            newClipboardElem.setAttribute('title', 'Copy to clipboard');
+            elem.parentNode.parentNode.insertBefore(newClipboardElem, elem.parentNode.nextElementSibling);
+          }
+        }
+      }
+    }
+
+    var makeSymbolClipboard = function(elem) {
+      var clipboardSpan = document.createElement('span');
+      clipboardSpan.setAttribute('class', 'copy-to-clipboard');
+      clipboardSpan.setAttribute('title', 'Copy to clipboard');
+      elem.parentNode.parentNode.insertBefore(clipboardSpan, elem.parentNode.nextElementSibling);
+    }
+
+    preChromaElem ? 
+    preChromaElem.forEach(function(elem) {
+      elem.querySelectorAll('code').forEach(function(codeElem) {
+        makeClipboard(codeElem);
+      });
+    }) : null;
+    
+    langCodeElem ? 
+    langCodeElem.forEach(function(elem) {
+      elem.querySelectorAll('code').forEach(function (codeElem) {
+        makeClipboard(codeElem);
+      });
+    }) : null;
+
+    dollarCodeElem ? 
+    dollarCodeElem.forEach(function(elem) {
+      elem.querySelectorAll('code').forEach(function (codeElem) {
+        makeSymbolClipboard(codeElem);
+      });
+    }) : null;
+
+    gtCodeElem ?
+    gtCodeElem.forEach(function(elem) {
+      elem.querySelectorAll('code').forEach(function (codeElem) {
+        makeSymbolClipboard(codeElem);
+      });
+    }) : null;
+    
+  });
+</script>
+    <script>
+  'use strict';
+  
+  function wrap(el, wrapper) {
+    el.parentNode.insertBefore(wrapper, el);
+    wrapper.appendChild(el);
+  }
+
+  (function () {
+    var singleContentsElem = document.querySelector('.single__contents');
+    singleContentsElem ? 
+    singleContentsElem.querySelectorAll('pre > code').forEach(function(elem) {
+      var dataLang = elem.getAttribute('data-lang');
+      var dataLangWrapper = document.createElement('div');
+      var code = null;
+      var codeTitle = null;
+
+      if (dataLang && dataLang.includes(':')) {
+        code = dataLang.split(':')[0];
+        codeTitle = dataLang.split(':')[1];
+
+        dataLangWrapper.className = 'language-' + code;
+        dataLangWrapper.setAttribute('data-lang', codeTitle);
+
+        elem.className = 'language-' + code;
+        elem.setAttribute('data-lang', codeTitle);
+        elem.setAttribute('id', codeTitle);
+      } else if (!dataLang) {
+        dataLangWrapper.setAttribute('data-lang', 'Code');
+        dataLangWrapper.className = 'language-code';
+      }
+
+      if (!dataLang || codeTitle) {
+        wrap(elem.parentNode, dataLangWrapper);
+      }
+
+    }) : null;
+  })();
+
+  var langCodeElem = document.querySelectorAll('.language-code');
+  langCodeElem ? langCodeElem.forEach(function (elem) {
+    var newElem = document.createElement('span');
+    newElem.className = 'copy-to-clipboard';
+    newElem.setAttribute('title', 'Copy to clipboard');
+    elem.append(newElem);
+  }) : null;
+  
+
+  
+
+  
+  var dollarCodeElem = document.querySelectorAll('div.language-\\$');
+  var gtCodeElem = document.querySelectorAll('div.language-\\>');
+
+  dollarCodeElem ?
+  dollarCodeElem.forEach(function(elem) {
+    var lnts = elem.parentNode.parentNode ? elem.parentNode.parentNode.querySelectorAll('.lnt') : null;
+    lnts ? 
+    lnts.forEach(function(lnt) {
+      lnt.innerHTML = '$<br/>';
+    }) : null;
+  }) : null;
+
+  gtCodeElem ?
+  gtCodeElem.forEach(function(elem) {
+    var lnts = elem.parentNode.parentNode ? elem.parentNode.parentNode.querySelectorAll('.lnt') : null;
+    lnts ? 
+    lnts.forEach(function(lnt) {
+      lnt.innerHTML = '><br/>';
+    }) : null;
+  }) : null;
+  
+</script>
+    
 <div class="donation">
   <div class="donation__message">
-    Share this post
+    Share on
   </div>
   <div class="donation__icons">
     
@@ -2025,6 +2753,7 @@ portName - is the name of the port.</p>
     
   </div>
 </div>
+
 
     
 <div class="donation">
@@ -2049,7 +2778,7 @@ portName - is the name of the port.</p>
     
 <div class="whoami__gutter"></div>
 <hr class="hr-slash whoami-hr"/>
-<section class="whoami">  
+<section class="whoami">
   <div class="whoami__image-wrapper">
     
     
@@ -2153,6 +2882,7 @@ portName - is the name of the port.</p>
 </section>
 <hr class="hr-slash whoami-hr" />
 
+
     <section class="related">
     
     
@@ -2170,8 +2900,8 @@ portName - is the name of the port.</p>
     
     <div class="grow"></div>
     
-      <a href="/about-me/" class="pagination-single__right">      
-        <div class="pagination-single__right-title">About Me</div>
+      <a href="/2014/01/31/10-intellij-idea-keyboard-shortcuts-must-know/" class="pagination-single__right">      
+        <div class="pagination-single__right-title">10 IntelliJ IDEA Keyboard Shortcuts That You Must Know</div>
         <div class="pagination-single__icon">
           <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0V0z"/><path fill="currentColor" d="M5 13h11.17l-4.88 4.88c-.39.39-.39 1.03 0 1.42.39.39 1.02.39 1.41 0l6.59-6.59c.39-.39.39-1.02 0-1.41l-6.58-6.6c-.39-.39-1.02-.39-1.41 0-.39.39-.39 1.02 0 1.41L16.17 11H5c-.55 0-1 .45-1 1s.45 1 1 1z"/></svg>
         </div>
@@ -2186,7 +2916,7 @@ portName - is the name of the port.</p>
 <script src="https://cdn.jsdelivr.net/gh/theme-next/theme-next-gitment@1/gitment.browser.min.js" crossorigin="anonymous"></script>
 <script type="text/javascript">
   var gitment = new Gitment({
-    id: '2013-12-16 03:55:12 \x2b0000 \x2b0000',
+    id: '2013-12-16 03:55:12 \u002b0000 \u002b0000',
     title: 'Apache Camel : How to call  java webservice',
     link: decodeURI(location.href),
     desc: 'I have made up my mind to get rid of WSO2 ESB at my office. It is clumsy, buggy, hard to test, no body wants to work on it and the documentation is horrible. I looked at various alternative and Apache Camel was free and easy to set up and work with me.\nTo cut the story short, I was able to run most of the example but was struggling with CXF to call a third party service hosted at a random url.',
@@ -2249,7 +2979,7 @@ portName - is the name of the port.</p>
 </div>
 
 
-<script defer src="/js/swipe.min.08ff2be1b74347bad9e267f732f1388d271b2f9d97b6a8a87bd6a510f17c5ad2.js"></script>
+<script defer src="/js/swipe.min.feb438efb7ca009ecd7fc2ac3ad2fced4840990b2798d81f87137f2dc6281f05.js"></script>
 
 <script defer src="/js/micromodal.min.de01b44b2f383056bbcaf6ee921fd385d79108ec1129afd0eb2f3f5a07e11f45.js"></script>
 
@@ -2539,17 +3269,18 @@ document.addEventListener('DOMContentLoaded', function () {
   
 
 
-<section class="sidebar">
+<section class="sidebar hide">
+  <script>document.querySelector('.sidebar').classList.remove('hide')</script>
   <div class="toc__flexbox" data-position="fixed">
-    <h6 class="toc__title">What&#39;s on this Page</h6>
+    <h6 class="toc__title" data-ani="true">What&#39;s on this Page</h6>
     
-      <label class="switch">
+      <label class="switch" data-ani="true">
         <input id="toggle-toc" aria-label="Toggle TOC" type="checkbox" checked>
         <span class="slider round"></span>
       </label>
     
   </div>
-  <div class="toc " data-dir="ltr">
+  <div class="toc " data-dir="ltr" data-folding="false" data-ani="true">
     <nav id="TableOfContents"></nav>
   </div>
 </section>
@@ -2605,7 +3336,13 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       }
 
-      document.getElementsByClassName('navbar__burger')[0].classList.remove('is-active');
+      var navCollapseBtn = document.querySelector('.navbar__burger');
+      var navCollapse = document.getElementsByClassName('navbarm__collapse')[0];
+      if (navCollapse) {
+        navCollapse.setAttribute('data-open', false);
+        navCollapse.style.maxHeight = 0;
+        navCollapseBtn.classList.remove('is-active');
+      }
       document.getElementsByClassName('navbar__menu')[0].classList.remove('is-active');
       document.getElementsByClassName('mobile-search')[0].classList.add('hide');
     },
@@ -2618,7 +3355,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-<script defer src="/js/clipboard.min.c168d3a04c45a631be76437054619a4a3b30107960cb9730be96012fef5762b0.js"></script>
 
 <script defer src="/js/helper/getParents.min.js"></script>
 
@@ -2629,6 +3365,42 @@ document.addEventListener('DOMContentLoaded', function () {
 <script defer src="/js/helper/prop.min.js"></script>
 
 <script defer src="/js/helper/fadeinout.min.js"></script>
+
+<script defer src="/js/helper/throttle.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2654,34 +3426,6 @@ document.addEventListener('DOMContentLoaded', function () {
     var singleContentsElem = document.querySelector('.single__contents');
 
     
-    function wrap(el, wrapper) {
-      el.parentNode.insertBefore(wrapper, el);
-      wrapper.appendChild(el);
-    }
-
-    (function () {
-      singleContentsElem.querySelectorAll('pre > code').forEach(function(elem) {
-        var dataLang = elem.getAttribute('data-lang');
-        if (!dataLang) {
-          var dataLangWrapper = document.createElement('div');
-          dataLangWrapper.setAttribute('data-lang', 'Code');
-          dataLangWrapper.className = 'language-code';
-          wrap(elem.parentNode, dataLangWrapper);
-        }
-      });
-    })();
-
-    var langCodeElem = document.querySelectorAll('.language-code');
-    langCodeElem ? langCodeElem.forEach(function (elem) {
-      var newElem = document.createElement('span');
-      newElem.className = 'copy-to-clipboard';
-      newElem.setAttribute('title', 'Copy to clipboard');
-      elem.append(newElem);
-    }) : null;
-    
-
-
-    
     
     
     var enableBusuanzi = JSON.parse("false");
@@ -2694,6 +3438,8 @@ document.addEventListener('DOMContentLoaded', function () {
     
 
 
+
+    
     
     
     
@@ -2704,27 +3450,48 @@ document.addEventListener('DOMContentLoaded', function () {
     var hideToc = JSON.parse("false");
     var tocFlexbox = document.querySelector('.toc__flexbox');
     var tocFlexboxOuter = document.querySelector('.toc__flexbox--outer');
+    var tocFolding = JSON.parse("null");
     
     if ((enableToc || toc) && document.querySelector('.toc')) {
       var tableOfContentsElem = document.querySelector('.toc').querySelector('#TableOfContents');
-      tableOfContentsElem.querySelectorAll('ul') ?
-      tableOfContentsElem.querySelectorAll('ul').forEach(function (rootUl) {
-        rootUl.querySelectorAll('li').forEach(function (liElem) {
-          liElem.querySelectorAll('ul').forEach(function (ulElem) {
-            ulElem.style.display = 'none';
-          });
-        });
-      }) : null;
+
+      tableOfContentsElem.onmouseenter = function() {
+        if (navbar.classList.contains('scrolling')) {
+          navbar.classList.remove('scrolling');
+        }
+      }
+
+      tableOfContentsElem.onmouseleave = function() {
+        if (!navbar.classList.contains('scrolling')) {
+          navbar.classList.add('scrolling');
+        }
+      }
+
+      if (false === tocFolding) {
+
+      } else {
+        tableOfContentsElem.querySelectorAll('ul') ?
+          tableOfContentsElem.querySelectorAll('ul').forEach(function (rootUl) {
+            rootUl.querySelectorAll('li').forEach(function (liElem) {
+              liElem.querySelectorAll('ul').forEach(function (ulElem) {
+                ulElem.style.display = 'none';
+              });
+            });
+          }) : null;
+      }
 
       if (tableOfContentsElem) {
         if (tableOfContentsElem.querySelectorAll('a').length > 0) {
           tableOfContentsElem.querySelectorAll('a').forEach(function (elem) {
             elem.addEventListener('click', function () {
               var id = elem.getAttribute('id');
-              navbar.classList.remove('navbar--show');
-              navbar.classList.remove('navbar--hide');
-              navbar.classList.add('navbar--hide');
 
+              if (!navbar.classList.contains('scrolling')) {
+                navbar.classList.remove('navbar--show');
+                navbar.classList.remove('navbar--hide');
+                navbar.classList.add('navbar--hide');
+              }
+              
               document.querySelector('.toc').querySelectorAll('a').forEach(function (elem) {
                 elem.classList.remove('active');
               });
@@ -2817,41 +3584,57 @@ document.addEventListener('DOMContentLoaded', function () {
       }) : null;
     }
     
-
-
     
-    var tables = document.querySelectorAll('.single__contents > table');
-    for (let i = 0; i < tables.length; i++) {
-      var table = tables[i];
-      var wrapper = document.createElement('div');
-      wrapper.className = 'table-wrapper';
-      table.parentElement.replaceChild(wrapper, table);
-      wrapper.appendChild(table);
+    
+    
+    
+    var topOffset = 120;
+    var botOffset = 70;
+    var handleWindowResize = function () {
+      if (tocElem) {
+        tocElem.style.maxHeight = (window.innerHeight - topOffset - botOffset) + 'px';
+      }
     }
+    var throttledWindowResize = throttle(handleWindowResize, 300);
+    throttledWindowResize()
+
     
+    window.addEventListener('resize', throttledWindowResize);
+    
+
 
 
     
     var text, clip = new ClipboardJS('.anchor');
     var headers = singleContentsElem.querySelectorAll("h1, h2, h3, h4");
 
+    
+    var languagedir = JSON.parse("\"ltr\"");
+
     headers ? 
     headers.forEach(function (elem) {
+      var size = parseInt(elem.tagName.substr(1), 10) * 2;
       var url = encodeURI(document.location.origin + document.location.pathname);
       var link = url + "#" + elem.getAttribute('id');
       var newElemOuter = document.createElement('span');
       newElemOuter.classList.add('anchor');
       newElemOuter.classList.add('hide');
-      newElemOuter.setAttribute('data-clipboard-text', link);
+      newElemOuter.setAttribute('data-clipboard-text', decodeURI(link));
       newElemOuter.style.position = 'relative';
 
       var newElemInner = document.createElement('span');
-      newElemInner.style.fontSize = '1rem';
       newElemInner.style.position = 'absolute';
-      newElemInner.style.right = '-2rem';
       newElemInner.style.top = '50%';
+      newElemInner.style.left = '0.75rem';
       newElemInner.style.transform = 'translateY(-50%)';
-      newElemInner.innerText = "🔗";
+      newElemInner.innerHTML = `
+<svg fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="${32 - size}px" height="${32 - size}px"><path d="M 5.5625 0 C 4.136719 0 2.707031 0.542969 1.625 1.625 C -0.539063 3.789063 -0.539063 7.335938 1.625 9.5 L 5.28125 13.15625 C 5.667969 13.554688 6.304688 13.558594 6.703125 13.171875 C 7.101563 12.785156 7.105469 12.148438 6.71875 11.75 L 3.03125 8.0625 C 1.632813 6.664063 1.632813 4.429688 3.03125 3.03125 C 4.429688 1.632813 6.664063 1.632813 8.0625 3.03125 L 12.96875 7.9375 C 14.367188 9.335938 14.367188 11.570313 12.96875 12.96875 C 12.804688 13.132813 12.621094 13.25 12.4375 13.375 C 11.980469 13.6875 11.859375 14.308594 12.171875 14.765625 C 12.484375 15.222656 13.105469 15.34375 13.5625 15.03125 C 13.847656 14.835938 14.125 14.625 14.375 14.375 C 16.539063 12.210938 16.539063 8.664063 14.375 6.5 L 9.5 1.625 C 8.417969 0.542969 6.988281 0 5.5625 0 Z M 10.78125 8.875 C 10.738281 8.882813 10.695313 8.894531 10.65625 8.90625 C 10.507813 8.9375 10.371094 9 10.25 9.09375 C 10.039063 9.253906 9.820313 9.429688 9.625 9.625 C 7.460938 11.789063 7.460938 15.335938 9.625 17.5 L 14.5 22.375 C 16.664063 24.539063 20.210938 24.539063 22.375 22.375 C 24.539063 20.210938 24.539063 16.664063 22.375 14.5 L 18.71875 10.875 C 18.476563 10.578125 18.089844 10.441406 17.714844 10.527344 C 17.34375 10.613281 17.050781 10.90625 16.964844 11.277344 C 16.878906 11.652344 17.015625 12.039063 17.3125 12.28125 L 20.96875 15.9375 C 22.367188 17.335938 22.367188 19.570313 20.96875 20.96875 C 19.570313 22.367188 17.335938 22.367188 15.9375 20.96875 L 11.03125 16.0625 C 9.632813 14.664063 9.632813 12.429688 11.03125 11.03125 C 11.152344 10.90625 11.300781 10.820313 11.4375 10.71875 C 11.839844 10.472656 12.015625 9.976563 11.855469 9.53125 C 11.699219 9.085938 11.25 8.8125 10.78125 8.875 Z"/></svg>`;
+
+      if (languagedir === "rtl") {
+        newElemInner.style.left = '-2rem';
+      } else {
+        newElemInner.style.right = '-2rem';
+      }
 
       newElemOuter.append(newElemInner);
       elem.append(newElemOuter);
@@ -2879,87 +3662,8 @@ document.addEventListener('DOMContentLoaded', function () {
       e.trigger.classList.add('tooltipped');
       e.trigger.classList.add('tooltipped-s');
     });
-    
+    // =================================================================
 
-
-    
-    var clipInit = false;
-    var preChromaElem = document.querySelectorAll('pre.chroma');
-    var langCodeElem = document.querySelectorAll('.language-code');
-    var makeClipboard = function(elem) {
-      var code = elem,
-        text = elem.textContent;
-        
-      if (text.length > 15) {
-        if (!clipInit) {
-          var text, clip = new ClipboardJS('.copy-to-clipboard', {
-            text: function (trigger) {
-              var codeElem = prev(trigger).querySelectorAll('code');
-              if (codeElem.length > 1) {
-                text = prev(trigger).querySelector('code[class^="language-"]').textContent;
-              } else {
-                text = prev(trigger).querySelector('code').textContent;
-              }
-
-              return text.replace(/^\$\s/gm, '');
-            }
-          });
-
-          var inPre;
-          clip.on('success', function (e) {
-            e.clearSelection();
-            inPre = prop(e.trigger.parentNode, 'tagName') == 'PRE';
-            e.trigger.setAttribute('aria-label', 'Copied to clipboard!');
-            e.trigger.classList.add('tooltipped');
-            e.trigger.classList.add('tooltipped-w');
-          });
-
-          clip.on('error', function (e) {
-            inPre = prop(e.trigger.parentNode, 'tagName') == 'PRE';
-            e.trigger.setAttribute('aria-label', e.action.toString());
-            e.trigger.classList.add('tooltipped');
-            e.trigger.classList.add('tooltipped-w');
-          });
-
-          clipInit = true;
-        }
-
-        var notAllowedClass = ['language-mermaid', 'language-viz', 'language-wave', 'language-chart', 'language-msc', 'language-flowchart'];
-        var isNotAllowedIncluded = false;
-        var curClassName = code.getAttribute('class');
-
-        for (var i = 0; i < notAllowedClass.length; i++) {
-          if (curClassName && curClassName.startsWith(notAllowedClass[i])) {
-            isNotAllowedIncluded = true;
-            break;
-          }
-        }
-
-        if (!isNotAllowedIncluded) {
-          if (curClassName) {
-            var newClipboardElem = document.createElement('span');
-            newClipboardElem.setAttribute('class', 'copy-to-clipboard');
-            newClipboardElem.setAttribute('title', 'Copy to clipboard');
-            closest(code, 'div.chroma').append(newClipboardElem);
-          }
-        }
-      }
-    }
-
-    preChromaElem ? 
-    preChromaElem.forEach(function(elem) {
-      elem.querySelectorAll('code').forEach(function(codeElem) {
-        makeClipboard(codeElem);
-      });
-    }) : null;
-    
-    langCodeElem ? 
-    langCodeElem.forEach(function(elem) {
-      elem.querySelectorAll('code').forEach(function (codeElem) {
-        makeClipboard(codeElem);
-      });
-    }) : null;
-    
 
 
     
@@ -2994,6 +3698,7 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
     
+
     
 
     
@@ -3011,6 +3716,7 @@ document.addEventListener('DOMContentLoaded', function () {
       renderMathInElement(document.querySelector('.single__contents'), options);
     }
     
+
 
 
     
@@ -3038,9 +3744,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     
 
+    
 
     
+    document.querySelectorAll("mjx-container").forEach(function (x) {
+      x.parentElement.classList += 'has-jax'
+    });
     
+
 
 
     
@@ -3064,6 +3775,7 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
     
+
 
 
     
@@ -3107,6 +3819,7 @@ document.addEventListener('DOMContentLoaded', function () {
     
 
 
+
     
     if (lib && lib.includes('wavedrom')) {
       var wavePrefix = "language-wave";
@@ -3127,6 +3840,7 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
     
+
 
 
     
@@ -3237,6 +3951,7 @@ document.addEventListener('DOMContentLoaded', function () {
             
     
     
+
   </div>
 </div>
 
@@ -3249,22 +3964,33 @@ document.addEventListener('DOMContentLoaded', function () {
 
     <hr />
 
+    <div class="basicflex flexwrap">
+        
+    </div>
+
     <div class="footer__poweredby">
         
                 
             <p class="caption">
                 
-                    ©2020, All Rights Reserved
+                    ©2023, All Rights Reserved
                 
             </p>
         
 
         
+        
     </div> 
 </footer>
         </div>
         
-<div class="wrapper__right" dir="ltr">
+
+
+
+
+
+<div class="wrapper__right hide" data-pad="true" dir="ltr">
+  <script>document.querySelector('.wrapper__right').classList.remove('hide')</script>
   
 </div>
 
