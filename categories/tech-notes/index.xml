@@ -14,11 +14,36 @@
     <managingEditor>dinesh19aug@gmail.com (Dinesh Arora)</managingEditor>
     <webMaster>dinesh19aug@gmail.com (Dinesh Arora)</webMaster>
     <copyright>©2023, All Rights Reserved</copyright>
-    <lastBuildDate>Tue, 16 Jun 2020 23:19:49 -0400</lastBuildDate>
+    <lastBuildDate>Tue, 14 Mar 2023 22:46:04 -0400</lastBuildDate>
     
         <atom:link href="/categories/tech-notes/index.xml" rel="self" type="application/rss+xml" />
     
 
+      
+      <item>
+        <title>Securing React Apps with Keycloak: A Comprehensive Guide</title>
+        <link>/2023/03/14/Securing-react-app-keycloak/</link>
+        <pubDate>Tue, 14 Mar 2023 22:46:04 -0400</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Tue, 14 Mar 2023 22:46:04 -0400</atom:modified>
+        <guid>/2023/03/14/Securing-react-app-keycloak/</guid>
+        <description>While there are a variety of authentication services available, including Firebase Authentication and Auth0, there may be situations in your project where you require greater flexibility and control over your user management and authorization with advanced features.
+In such cases, Keycloak is an ideal choice as it offers a wide range of features out of the box. Keycloak includes built-in support for OpenID Connect and SAML 2.0, as well as integrations with popular social networks like Google, GitHub, Facebook, and Twitter.</description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        <media:content url="//resources/img/keycloak/keycloak.jpeg" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
       
       <item>
         <title>Afraid you don&#39;t understand  Reslience4j state changes: Read this missing manual on Ring Bit Buffer</title>
