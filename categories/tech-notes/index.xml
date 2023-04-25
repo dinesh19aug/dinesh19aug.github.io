@@ -14,11 +14,36 @@
     <managingEditor>dinesh19aug@gmail.com (Dinesh Arora)</managingEditor>
     <webMaster>dinesh19aug@gmail.com (Dinesh Arora)</webMaster>
     <copyright>©2023, All Rights Reserved</copyright>
-    <lastBuildDate>Tue, 14 Mar 2023 22:46:04 -0400</lastBuildDate>
+    <lastBuildDate>Tue, 25 Apr 2023 12:40:27 -0400</lastBuildDate>
     
         <atom:link href="/categories/tech-notes/index.xml" rel="self" type="application/rss+xml" />
     
 
+      
+      <item>
+        <title>Mockito and PowerMock: How to Test Final and Static Methods with Ease</title>
+        <link>/2023/04/25/Mockito-PowerMock-Test-Final-Static-Methods/</link>
+        <pubDate>Tue, 25 Apr 2023 12:40:27 -0400</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Tue, 25 Apr 2023 12:40:27 -0400</atom:modified>
+        <guid>/2023/04/25/Mockito-PowerMock-Test-Final-Static-Methods/</guid>
+        <description>Mockito is a powerful Java testing framework that enables developers to create mock objects for unit testing purposes. It allows developers to test their code in isolation by replacing dependencies with mock objects that simulate the behavior of real objects. Mockito can also be used to test final and static methods, which can be challenging to test with other testing frameworks.
+Testing final and static methods can be tricky because they are tightly coupled to the implementation of the class.</description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        <media:content url="//resources/img/mocking-static-method-calls-with-mockito.png" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
       
       <item>
         <title>Securing React Apps with Keycloak: A Comprehensive Guide</title>

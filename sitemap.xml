@@ -3,7 +3,19 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>/</loc>
-    <lastmod>2023-03-15T00:34:22-04:00</lastmod>
+    <lastmod>2023-04-25T12:40:27-04:00</lastmod>
+  </url><url>
+    <loc>/categories/</loc>
+    <lastmod>2023-04-25T12:40:27-04:00</lastmod>
+  </url><url>
+    <loc>/2023/04/25/Mockito-PowerMock-Test-Final-Static-Methods/</loc>
+    <lastmod>2023-04-25T12:40:27-04:00</lastmod>
+  </url><url>
+    <loc>/posts/</loc>
+    <lastmod>2023-04-25T12:40:27-04:00</lastmod>
+  </url><url>
+    <loc>/categories/tech-notes/</loc>
+    <lastmod>2023-04-25T12:40:27-04:00</lastmod>
   </url><url>
     <loc>/2023/03/15/6-steps-to-become-freelance-developer/</loc>
     <lastmod>2023-03-15T00:34:22-04:00</lastmod>
@@ -11,16 +23,7 @@
     <loc>/categories/advisory/</loc>
     <lastmod>2023-03-15T00:34:22-04:00</lastmod>
   </url><url>
-    <loc>/categories/</loc>
-    <lastmod>2023-03-15T00:34:22-04:00</lastmod>
-  </url><url>
-    <loc>/posts/</loc>
-    <lastmod>2023-03-15T00:34:22-04:00</lastmod>
-  </url><url>
     <loc>/2023/03/14/Securing-react-app-keycloak/</loc>
-    <lastmod>2023-03-14T22:46:04-04:00</lastmod>
-  </url><url>
-    <loc>/categories/tech-notes/</loc>
     <lastmod>2023-03-14T22:46:04-04:00</lastmod>
   </url><url>
     <loc>/2020/06/17/resiliene4j-circuitbreaker-ringbitbuffer/</loc>

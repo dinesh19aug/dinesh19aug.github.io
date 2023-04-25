@@ -14,19 +14,19 @@
     <managingEditor>dinesh19aug@gmail.com (Dinesh Arora)</managingEditor>
     <webMaster>dinesh19aug@gmail.com (Dinesh Arora)</webMaster>
     <copyright>©2023, All Rights Reserved</copyright>
-    <lastBuildDate>Wed, 15 Mar 2023 00:34:22 -0400</lastBuildDate>
+    <lastBuildDate>Tue, 25 Apr 2023 12:40:27 -0400</lastBuildDate>
     
         <atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
     
 
       
       <item>
-        <title>Advisory</title>
-        <link>/categories/advisory/</link>
-        <pubDate>Wed, 15 Mar 2023 00:34:22 -0400</pubDate>
+        <title>Tech Notes</title>
+        <link>/categories/tech-notes/</link>
+        <pubDate>Tue, 25 Apr 2023 12:40:27 -0400</pubDate>
         <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
         
-        <guid>/categories/advisory/</guid>
+        <guid>/categories/tech-notes/</guid>
         <description></description>
         
         <dc:creator>Dinesh Arora</dc:creator>
@@ -39,12 +39,12 @@
       </item>
       
       <item>
-        <title>Tech Notes</title>
-        <link>/categories/tech-notes/</link>
-        <pubDate>Tue, 14 Mar 2023 22:46:04 -0400</pubDate>
+        <title>Advisory</title>
+        <link>/categories/advisory/</link>
+        <pubDate>Wed, 15 Mar 2023 00:34:22 -0400</pubDate>
         <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
         
-        <guid>/categories/tech-notes/</guid>
+        <guid>/categories/advisory/</guid>
         <description></description>
         
         <dc:creator>Dinesh Arora</dc:creator>
