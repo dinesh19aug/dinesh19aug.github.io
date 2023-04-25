@@ -14,11 +14,36 @@
     <managingEditor>dinesh19aug@gmail.com (Dinesh Arora)</managingEditor>
     <webMaster>dinesh19aug@gmail.com (Dinesh Arora)</webMaster>
     <copyright>©2023, All Rights Reserved</copyright>
-    <lastBuildDate>Tue, 25 Apr 2023 12:40:27 -0400</lastBuildDate>
+    <lastBuildDate>Tue, 25 Apr 2023 14:21:22 -0400</lastBuildDate>
     
         <atom:link href="/categories/tech-notes/index.xml" rel="self" type="application/rss+xml" />
     
 
+      
+      <item>
+        <title>Mockito Explained: How to Choose Between Mocks and Spies for Effective Unit Testing</title>
+        <link>/2023/04/25/How-to-Choose-Between-Mocks-and-Spies/</link>
+        <pubDate>Tue, 25 Apr 2023 14:21:22 -0400</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Tue, 25 Apr 2023 14:21:22 -0400</atom:modified>
+        <guid>/2023/04/25/How-to-Choose-Between-Mocks-and-Spies/</guid>
+        <description>Mockito is a popular Java testing framework that provides two types of test doubles: mocks and spies. Although they are both used for testing, they have different purposes and usage. In this post, we will explore the differences between mock and spy in Mockito with more code samples.
+Mock Objects Mock objects are objects that simulate the behavior of real objects. They are used to replace dependencies in unit tests to make the tests run faster and more reliably.</description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        <media:content url="//resources/img/spy-mock.jpeg" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
       
       <item>
         <title>Mockito and PowerMock: How to Test Final and Static Methods with Ease</title>
