@@ -31,7 +31,7 @@
         <atom:modified>Sun, 21 May 2023 16:34:38 -0400</atom:modified>
         <guid>/docker-permissions-solutions-permission-denied/</guid>
         <description>Docker has become the go-to platform for containerization, but encountering the &amp;ldquo;Permission Denied&amp;rdquo; error while connecting to the Docker daemon socket can be frustrating. In this post, we will explore the common causes of this error and provide step-by-step troubleshooting solutions to resolve it.
-Significance of the Docker daemon socket The Docker daemon socket plays a critical role as the communication channel between the Docker client and the Docker daemon. It serves as the interface through which these two components interact and coordinate various operations related to Docker containers and images.</description>
+Significance of the Docker daemon socket The Docker daemon socket plays a critical role as the communication channel between the Docker client and the Docker daemon.</description>
         
         <dc:creator>Dinesh Arora</dc:creator>
         <media:content url="//resources/img/docker-perm-denied.jpeg" medium="image"><media:title type="html">featured image</media:title></media:content>
