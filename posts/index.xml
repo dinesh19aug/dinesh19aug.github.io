@@ -14,11 +14,36 @@
     <managingEditor>dinesh19aug@gmail.com (Dinesh Arora)</managingEditor>
     <webMaster>dinesh19aug@gmail.com (Dinesh Arora)</webMaster>
     <copyright>©2023, All Rights Reserved</copyright>
-    <lastBuildDate>Tue, 25 Apr 2023 14:21:22 -0400</lastBuildDate>
+    <lastBuildDate>Sun, 21 May 2023 15:35:49 -0400</lastBuildDate>
     
         <atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
     
 
+      
+      <item>
+        <title>Boost Your Development Workflow with MirageJS: Creating Realistic Mock APIs for API Testing and Frontend Development</title>
+        <link>/miragejs-mock-api-testing-frontend/</link>
+        <pubDate>Sun, 21 May 2023 15:35:49 -0400</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Sun, 21 May 2023 15:35:49 -0400</atom:modified>
+        <guid>/miragejs-mock-api-testing-frontend/</guid>
+        <description>API testing and frontend development often rely on mock APIs to simulate backend behavior. MirageJS is an excellent tool that simplifies the creation of realistic mock APIs for JavaScript applications. In this blog post, we will explore the features and benefits of MirageJS through a practical example. By the end, you&amp;rsquo;ll have a clear understanding of how MirageJS can enhance your development workflow.
+What is MirageJS? MirageJS is a client-side API mocking library that intercepts requests made by the frontend and provides customizable responses.</description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        <media:content url="//resources/img/mirage.jpeg" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
       
       <item>
         <title>Mockito Explained: How to Choose Between Mocks and Spies for Effective Unit Testing</title>
