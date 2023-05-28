@@ -14,7 +14,7 @@
     <managingEditor>dinesh19aug@gmail.com (Dinesh Arora)</managingEditor>
     <webMaster>dinesh19aug@gmail.com (Dinesh Arora)</webMaster>
     <copyright>©2023, All Rights Reserved</copyright>
-    <lastBuildDate>Sun, 21 May 2023 16:34:38 -0400</lastBuildDate>
+    <lastBuildDate>Sat, 27 May 2023 23:38:14 -0400</lastBuildDate>
     
         <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
@@ -22,6 +22,30 @@
       
       
 
+      
+      <item>
+        <title>TypeScript&#39;s Variable Wars: Battle of let vs. const vs. var – Which One Wins?</title>
+        <link>/typescript-variable-let-var-const/</link>
+        <pubDate>Sat, 27 May 2023 23:38:14 -0400</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Sat, 27 May 2023 23:38:14 -0400</atom:modified>
+        <guid>/typescript-variable-let-var-const/</guid>
+        <description>In the vast world of TypeScript, variable declarations are the building blocks of every program. They enable us to store and manipulate data, providing flexibility and control over our code. However, TypeScript offers three distinct variable declarations: let, const, and var. Each declaration has its own characteristics and use cases. In this professional blog post, we will delve deep into the differences between let, const, and var, accompanied by definitive examples, to understand their unique features and make informed decisions in our TypeScript projects.</description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        <media:content url="//resources/img/var-vs-let-vs-const.png" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
       
       <item>
         <title>Demystifying Docker Permissions: Effective Solutions for &#39;Permission Denied&#39; Errors</title>
