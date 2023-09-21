@@ -25,11 +25,11 @@
       
       <item>
         <title>Git Commit Undo: Mastering Soft and Hard Resets for Local Commits</title>
-        <link>/2023/09/01/how-to-undo-local-git-commits-soft-vs-hard-reset/</link>
+        <link>/how-to-undo-local-git-commits-soft-vs-hard-reset/</link>
         <pubDate>Wed, 20 Sep 2023 20:58:19 -0400</pubDate>
         <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
         <atom:modified>Wed, 20 Sep 2023 20:58:19 -0400</atom:modified>
-        <guid>/2023/09/01/how-to-undo-local-git-commits-soft-vs-hard-reset/</guid>
+        <guid>/how-to-undo-local-git-commits-soft-vs-hard-reset/</guid>
         <description>Hey there, fellow developer! Ever committed something to Git and thought, &amp;ldquo;Oops, I need to take that back!&amp;rdquo;? We&amp;rsquo;ve all been there. The good news is that Git provides us with the tools to undo those local commits without a hassle. In this post, we&amp;rsquo;ll explore why you might want to undo local commits and walk through the steps, including soft and hard resets, with real code samples.
 Use Case: The Oops Moment Imagine this common scenario: you&amp;rsquo;re working on your latest project, happily making progress and committing changes along the way.</description>
         
