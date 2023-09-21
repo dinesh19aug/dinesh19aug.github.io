@@ -30,11 +30,11 @@
         <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
         <atom:modified>Wed, 20 Sep 2023 20:58:19 -0400</atom:modified>
         <guid>/how-to-undo-local-git-commits-soft-vs-hard-reset/</guid>
-        <description>Hey there, fellow developer! Ever committed something to Git and thought, &amp;ldquo;Oops, I need to take that back!&amp;rdquo;? We&amp;rsquo;ve all been there. The good news is that Git provides us with the tools to undo those local commits without a hassle. In this post, we&amp;rsquo;ll explore why you might want to undo local commits and walk through the steps, including soft and hard resets, with real code samples.
-Use Case: The Oops Moment Imagine this common scenario: you&amp;rsquo;re working on your latest project, happily making progress and committing changes along the way.</description>
+        <description>Creating a custom Maven plugin to count the number of dependencies in a project can be a useful addition to your build process, especially when you want to keep track of your project&amp;rsquo;s dependencies. Below, I&amp;rsquo;ll provide a step-by-step guide along with detailed code examples to help you achieve this.
+Step 1: Project Setup First, ensure you have Maven installed on your system. You can check this by running mvn -version in your terminal.</description>
         
         <dc:creator>Dinesh Arora</dc:creator>
-        <media:content url="//resources/img/gitopps.png" medium="image"><media:title type="html">featured image</media:title></media:content>
+        <media:content url="//resources/img/maven-plugin.jpg" medium="image"><media:title type="html">featured image</media:title></media:content>
         
         
         
