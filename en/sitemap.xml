@@ -3,18 +3,21 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>/en/</loc>
-    <lastmod>2023-09-20T20:58:19-04:00</lastmod>
+    <lastmod>2023-09-20T23:31:00-04:00</lastmod>
   </url><url>
     <loc>/en/categories/</loc>
-    <lastmod>2023-09-20T20:58:19-04:00</lastmod>
+    <lastmod>2023-09-20T23:31:00-04:00</lastmod>
   </url><url>
-    <loc>/how-to-undo-local-git-commits-soft-vs-hard-reset/</loc>
-    <lastmod>2023-09-20T20:58:19-04:00</lastmod>
+    <loc>/maven-create-custom-maven-plugin/</loc>
+    <lastmod>2023-09-20T23:31:00-04:00</lastmod>
   </url><url>
     <loc>/en/posts/</loc>
-    <lastmod>2023-09-20T20:58:19-04:00</lastmod>
+    <lastmod>2023-09-20T23:31:00-04:00</lastmod>
   </url><url>
     <loc>/en/categories/tech-notes/</loc>
+    <lastmod>2023-09-20T23:31:00-04:00</lastmod>
+  </url><url>
+    <loc>/how-to-undo-local-git-commits-soft-vs-hard-reset/</loc>
     <lastmod>2023-09-20T20:58:19-04:00</lastmod>
   </url><url>
     <loc>/typescript-variable-let-var-const/</loc>
