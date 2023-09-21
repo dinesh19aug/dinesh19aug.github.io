@@ -1,0 +1,1127 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>Posts on Home</title>
+    <link>/en/posts/</link>
+    <description>Recent content in Posts on Home</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>dinesh19aug@gmail.com (Dinesh Arora)</managingEditor>
+    <webMaster>dinesh19aug@gmail.com (Dinesh Arora)</webMaster>
+    <copyright>©2023, All Rights Reserved</copyright>
+    <lastBuildDate>Wed, 20 Sep 2023 20:58:19 -0400</lastBuildDate>
+    
+        <atom:link href="/en/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+
+      
+      <item>
+        <title>Git Commit Undo: Mastering Soft and Hard Resets for Local Commits</title>
+        <link>/2023/09/01/how-to-undo-local-git-commits-soft-vs-hard-reset/</link>
+        <pubDate>Wed, 20 Sep 2023 20:58:19 -0400</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Wed, 20 Sep 2023 20:58:19 -0400</atom:modified>
+        <guid>/2023/09/01/how-to-undo-local-git-commits-soft-vs-hard-reset/</guid>
+        <description>Hey there, fellow developer! Ever committed something to Git and thought, &amp;ldquo;Oops, I need to take that back!&amp;rdquo;? We&amp;rsquo;ve all been there. The good news is that Git provides us with the tools to undo those local commits without a hassle. In this post, we&amp;rsquo;ll explore why you might want to undo local commits and walk through the steps, including soft and hard resets, with real code samples.
+Use Case: The Oops Moment Imagine this common scenario: you&amp;rsquo;re working on your latest project, happily making progress and committing changes along the way.</description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        <media:content url="//resources/img/gitreset/gitopps.png" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>TypeScript&#39;s Variable Wars: Battle of let vs. const vs. var – Which One Wins?</title>
+        <link>/typescript-variable-let-var-const/</link>
+        <pubDate>Sat, 27 May 2023 23:38:14 -0400</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Sat, 27 May 2023 23:38:14 -0400</atom:modified>
+        <guid>/typescript-variable-let-var-const/</guid>
+        <description>In the vast world of TypeScript, variable declarations are the building blocks of every program. They enable us to store and manipulate data, providing flexibility and control over our code. However, TypeScript offers three distinct variable declarations: let, const, and var. Each declaration has its own characteristics and use cases. In this professional blog post, we will delve deep into the differences between let, const, and var, accompanied by definitive examples, to understand their unique features and make informed decisions in our TypeScript projects.</description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        <media:content url="//resources/img/var-vs-let-vs-const.png" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Demystifying Docker Permissions: Effective Solutions for &#39;Permission Denied&#39; Errors</title>
+        <link>/docker-permissions-solutions-permission-denied/</link>
+        <pubDate>Sun, 21 May 2023 16:34:38 -0400</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Sun, 21 May 2023 16:34:38 -0400</atom:modified>
+        <guid>/docker-permissions-solutions-permission-denied/</guid>
+        <description>Docker has become the go-to platform for containerization, but encountering the &amp;ldquo;Permission Denied&amp;rdquo; error while connecting to the Docker daemon socket can be frustrating. In this post, we will explore the common causes of this error and provide step-by-step troubleshooting solutions to resolve it.
+Significance of the Docker daemon socket The Docker daemon socket plays a critical role as the communication channel between the Docker client and the Docker daemon.</description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        <media:content url="//resources/img/docker-perm-denied.jpeg" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Boost Your Development Workflow with MirageJS: Creating Realistic Mock APIs for API Testing and Frontend Development</title>
+        <link>/miragejs-mock-api-testing-frontend/</link>
+        <pubDate>Sun, 21 May 2023 15:35:49 -0400</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Sun, 21 May 2023 15:35:49 -0400</atom:modified>
+        <guid>/miragejs-mock-api-testing-frontend/</guid>
+        <description>API testing and frontend development often rely on mock APIs to simulate backend behavior. MirageJS is an excellent tool that simplifies the creation of realistic mock APIs for JavaScript applications. In this blog post, we will explore the features and benefits of MirageJS through a practical example. By the end, you&amp;rsquo;ll have a clear understanding of how MirageJS can enhance your development workflow.
+What is MirageJS? MirageJS is a client-side API mocking library that intercepts requests made by the frontend and provides customizable responses.</description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        <media:content url="//resources/img/mirage.jpeg" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Mockito Explained: How to Choose Between Mocks and Spies for Effective Unit Testing</title>
+        <link>/2023/04/25/How-to-Choose-Between-Mocks-and-Spies/</link>
+        <pubDate>Tue, 25 Apr 2023 14:21:22 -0400</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Tue, 25 Apr 2023 14:21:22 -0400</atom:modified>
+        <guid>/2023/04/25/How-to-Choose-Between-Mocks-and-Spies/</guid>
+        <description>Mockito is a popular Java testing framework that provides two types of test doubles: mocks and spies. Although they are both used for testing, they have different purposes and usage. In this post, we will explore the differences between mock and spy in Mockito with more code samples.
+Mock Objects Mock objects are objects that simulate the behavior of real objects. They are used to replace dependencies in unit tests to make the tests run faster and more reliably.</description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        <media:content url="//resources/img/spy-mock.jpeg" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Mockito and PowerMock: How to Test Final and Static Methods with Ease</title>
+        <link>/2023/04/25/Mockito-PowerMock-Test-Final-Static-Methods/</link>
+        <pubDate>Tue, 25 Apr 2023 12:40:27 -0400</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Tue, 25 Apr 2023 12:40:27 -0400</atom:modified>
+        <guid>/2023/04/25/Mockito-PowerMock-Test-Final-Static-Methods/</guid>
+        <description>Mockito is a powerful Java testing framework that enables developers to create mock objects for unit testing purposes. It allows developers to test their code in isolation by replacing dependencies with mock objects that simulate the behavior of real objects. Mockito can also be used to test final and static methods, which can be challenging to test with other testing frameworks.
+Testing final and static methods can be tricky because they are tightly coupled to the implementation of the class.</description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        <media:content url="//resources/img/mocking-static-method-calls-with-mockito.png" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>6 Steps to Becoming a Successful Freelance Developer in the Gig Economy</title>
+        <link>/2023/03/15/6-steps-to-become-freelance-developer/</link>
+        <pubDate>Wed, 15 Mar 2023 00:34:22 -0400</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Wed, 15 Mar 2023 00:34:22 -0400</atom:modified>
+        <guid>/2023/03/15/6-steps-to-become-freelance-developer/</guid>
+        <description>Becoming a successful freelance developer is a dream for many, and with the rise of the gig economy, more and more people are choosing to work for themselves. While being your own boss can be liberating, it&amp;rsquo;s also a challenging journey that requires dedication, hard work, and a bit of luck. In this article, we will explore the steps you can take to become a successful freelance developer.
+The world of freelance development is rapidly growing, and more people than ever are making the jump to become their own boss.</description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        <media:content url="//resources/img/freelancer/freelancer.jpg" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+        
+          
+            
+              <category>Advisory</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Securing React Apps with Keycloak: A Comprehensive Guide</title>
+        <link>/2023/03/14/Securing-react-app-keycloak/</link>
+        <pubDate>Tue, 14 Mar 2023 22:46:04 -0400</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Tue, 14 Mar 2023 22:46:04 -0400</atom:modified>
+        <guid>/2023/03/14/Securing-react-app-keycloak/</guid>
+        <description>While there are a variety of authentication services available, including Firebase Authentication and Auth0, there may be situations in your project where you require greater flexibility and control over your user management and authorization with advanced features.
+In such cases, Keycloak is an ideal choice as it offers a wide range of features out of the box. Keycloak includes built-in support for OpenID Connect and SAML 2.0, as well as integrations with popular social networks like Google, GitHub, Facebook, and Twitter.</description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        <media:content url="//resources/img/keycloak/keycloak.jpeg" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Afraid you don&#39;t understand  Reslience4j state changes: Read this missing manual on Ring Bit Buffer</title>
+        <link>/2020/06/17/resiliene4j-circuitbreaker-ringbitbuffer/</link>
+        <pubDate>Tue, 16 Jun 2020 23:19:49 -0400</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Tue, 16 Jun 2020 23:19:49 -0400</atom:modified>
+        <guid>/2020/06/17/resiliene4j-circuitbreaker-ringbitbuffer/</guid>
+        <description>Resilience4j calculates the failure threshold using ringbit buffer.
+The state of circuitbreaker changes from CLOSED to OPEN when at end of count size the failure rate exceeds the threshold.
+Resilience4j provides you two buffers - CLOSED and HALF_OPEN state buffers. Imagine this is our set up
+Closed buffer size = 10
+Half open buffer size = 5
+Failure rate threshold = 60%
+Open state count = 10
+When the first call comes in the buffer has 0 entries.</description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Sick and tired of doing logistics regression the old way? read this</title>
+        <link>/2020/01/27/logistics-regression-using-python/</link>
+        <pubDate>Mon, 27 Jan 2020 22:39:52 -0500</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Mon, 27 Jan 2020 22:39:52 -0500</atom:modified>
+        <guid>/2020/01/27/logistics-regression-using-python/</guid>
+        <description>So far in the series we have learned about forms on regression models. Each of those models was used to solve a target variable that was a linear number.
+Now we enter a territory where target variables might not be that straight forward. The target variables would be in the form binary, category, etc. Basically anything other than a number. Ex - Cat vs Dog, Yes or No, Reg, Green or Blue.</description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+            
+              <category>Machine learning</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Part 7 Decision tree regression or classification using python</title>
+        <link>/2019/03/02/decision-tree-using-python/</link>
+        <pubDate>Sun, 03 Mar 2019 19:17:12 -0500</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Sun, 03 Mar 2019 19:17:12 -0500</atom:modified>
+        <guid>/2019/03/02/decision-tree-using-python/</guid>
+        <description>In the previous post, we learnt about Support vector regression. In this post, we will see a new way of deciphering information using a simple format of traversing conditions.
+Business Goal: Can you spot the king? The people of Falkland are scared. Their king disguises as a common man and roams among them to gain knowledge about his kingdom and see if his policies are working in his kingdom. When the king is disguised, the common people don&amp;rsquo;t recognize him.</description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+            
+              <category>Machine learning</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Part 6 Support Vector Regression</title>
+        <link>/2019/02/10/part-6-ml-svr/</link>
+        <pubDate>Sat, 16 Feb 2019 00:29:38 -0500</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Sat, 16 Feb 2019 00:29:38 -0500</atom:modified>
+        <guid>/2019/02/10/part-6-ml-svr/</guid>
+        <description>Business Goal: As an owner of MuShu Bike Rental CO. in New York. I want to know how many bicycles will be rented on any given day based on daily temperature, humidity and wind speed. Can you help MuShu Bike Rental CO. to predict the number of daily rentals?
+How to get the dataset? Startup Dataset Support vector Regression notebook Let&amp;rsquo;s solve this problem using SVR - Support Vector Regression.</description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+            
+              <category>Machine learning</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Part 5 Machine Learning Backward Elimination</title>
+        <link>/2019/02/10/part-5-ml-mltr-backward-elimination/</link>
+        <pubDate>Mon, 11 Feb 2019 00:02:28 -0500</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Mon, 11 Feb 2019 00:02:28 -0500</atom:modified>
+        <guid>/2019/02/10/part-5-ml-mltr-backward-elimination/</guid>
+        <description>In the previous post, we learnt about multiple linear regression. The problem with the last approach was that we used all the features without considering that some of the features may not be impacting or playing any role in the outcome. we also talked about 5 ways of reducing the noisy feature. Backward elimination is one of them.
+How to get the dataset? Startup Dataset Multiple Regression notebook What is Backward Elimination?</description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+            
+              <category>Machine learning</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Part 4 Machine Learning Multiple Regression</title>
+        <link>/2019/02/02/part-4-ml-multiple-linear-regression/</link>
+        <pubDate>Sun, 03 Feb 2019 15:22:27 -0500</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Sun, 03 Feb 2019 15:22:27 -0500</atom:modified>
+        <guid>/2019/02/02/part-4-ml-multiple-linear-regression/</guid>
+        <description>In the previous post, we learnt about a P-Value, a prerequisite for learning Multiple Linear Regression.
+Business Problem: In this series, we will take a look at a dataset of 50 startup companies.
+A venture capitalist has hired you as a data scientist and wants you to help him select which type of company he should invest so that he can make the most profit. You need to review spending on R&amp;amp;D, Admin cost, marketing cost and location to make the decision</description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+            
+              <category>Machine learning</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Part 3 Machine Learning Understanding P Value</title>
+        <link>/2019/01/27/part-3-ml-understanding-p-value/</link>
+        <pubDate>Sun, 27 Jan 2019 17:27:19 -0500</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Sun, 27 Jan 2019 17:27:19 -0500</atom:modified>
+        <guid>/2019/01/27/part-3-ml-understanding-p-value/</guid>
+        <description>In the previous post, we learnt about Simple Linear regression. I wanted to start this section with multiple linear regression tutorial but as I was going over the content on the template to run create the regression model, I felt that we need understand P-Value concept before we move ahead.
+So what is P-Value ?
+Before I bore you with stats definition of the P-Value. Let&amp;rsquo;s start with something simple.</description>
+        
+        <dc:creator>Dinesh</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+            
+              <category>Machine learning</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Part 2 Machine Learning Simplelinear Regression</title>
+        <link>/2019/01/22/part-2-ml-simplelinear-regression/</link>
+        <pubDate>Tue, 22 Jan 2019 21:41:47 -0500</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Tue, 22 Jan 2019 21:41:47 -0500</atom:modified>
+        <guid>/2019/01/22/part-2-ml-simplelinear-regression/</guid>
+        <description>In the previous post we learned about data pre-processing. In this post we will review the simplest algorithm - Simple Linear Regression.
+Business Problem: In this series, we are going to learn about Simple Linear Regression. We will review a data set about Salary and Experience in age. As a data scientist, your job is to help the HR department predict the salary of a person based on his years of experience if he or she accepts the job offer.</description>
+        
+        <dc:creator>Dinesh</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+            
+              <category>Machine learning</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Part 1 Machine Learning Data Preprocessing</title>
+        <link>/2019/01/21/part-1-ml-data-preprocessing/</link>
+        <pubDate>Mon, 21 Jan 2019 00:35:54 -0500</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Mon, 21 Jan 2019 00:35:54 -0500</atom:modified>
+        <guid>/2019/01/21/part-1-ml-data-preprocessing/</guid>
+        <description>This is the first of many series on machine learning.
+Get the Dataset Download the following zip files
+Jupyter Notebook &amp;amp; images Data Unzip the folder and copy Files and Data under folder location Machine Learning A-Z Template Folder\Part 1 - Data Preprocessing
+Review the dataset The above dataset shows Country, Age, Salary and Purchased. The field that we need to research is called Dependent field and others are called Independent Field</description>
+        
+        <dc:creator>Dinesh</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+            
+              <category>Machine learning</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Spring Bean vs Spring Component</title>
+        <link>/2018/12/30/spring-bean-vs-component/</link>
+        <pubDate>Sun, 30 Dec 2018 00:35:54 -0500</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Sun, 30 Dec 2018 00:35:54 -0500</atom:modified>
+        <guid>/2018/12/30/spring-bean-vs-component/</guid>
+        <description>The Difference Between @Bean and @Component and When to Use What? This is the most common question that new as well as experienced Spring users get confused about. There are literally hundreds of questions on this Stackoverflow. This article will clear all the confusion.
+Similarities between @Bean and @Autowired @Bean
+@Bean is an annotation based configuration and hence is used in @Configuration based class. This is an explicit way of defining a bean and is also used on the methods defined in configuration class.</description>
+        
+        <dc:creator>Dinesh</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Scala: Tail Recursion</title>
+        <link>/2017/03/20/scala-tail-recursion/</link>
+        <pubDate>Mon, 20 Mar 2017 02:37:02 +0000</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Mon, 20 Mar 2017 02:37:02 +0000</atom:modified>
+        <guid>/2017/03/20/scala-tail-recursion/</guid>
+        <description>Tail recursion is a basic but important concept in Functional programming. Recursive functions has always been a pain point for me. I would be eliminated out of several interview rounds if interviewers places emphasis on recursion. In Java world thankfully, most people I know hate recursion because when nesting goes too deep, it impacts the performance if the nested recursion is more than 100 levels deep.
+Unfortunately(Fortunately), functional programming languages like Scala and Haskell have solved this concept with the term Tail Recursion.</description>
+        
+        <dc:creator>Dinesh</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Understanding Java 8 Lambda final finally variable</title>
+        <link>/2016/06/16/understanding-java-8-lambda-final-finally-variable/</link>
+        <pubDate>Thu, 16 Jun 2016 01:19:10 +0000</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Thu, 16 Jun 2016 01:19:10 +0000</atom:modified>
+        <guid>/2016/06/16/understanding-java-8-lambda-final-finally-variable/</guid>
+        <description>I am a little late to the java 8 party and was trying to quickly get some hands on with lambdas and ran into an issue where I got the error message Variables used in lambda should be final or effectively final . I know what final is but what is effectively final.
+Here is what I was trying to do. I had a HashMap which had values like “one : 1”, “two : 2”, “three : 3” and wanted to replace the String ${one} with 1 etc.</description>
+        
+        <dc:creator>Dinesh</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>How to set up Apache Storm on mac using brew</title>
+        <link>/2015/12/26/how-to-set-up-apache-storm-on-mac-using-brew/</link>
+        <pubDate>Sat, 26 Dec 2015 17:02:46 +0000</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Sat, 26 Dec 2015 17:02:46 +0000</atom:modified>
+        <guid>/2015/12/26/how-to-set-up-apache-storm-on-mac-using-brew/</guid>
+        <description>I am learning about Apache Storm and the guide had long and winding instructions on how to install Apache Storm. I installed the single node using brew and it was a breeze. I did not had to spend time figuring out out if I was installing latest version.
+Pre-requisites:
+Make sure that you have ‘HomeBrew‘ installed. One reason that I prefer ‘brew’ is that I do not have to remember where things are installed and brew manages and fixes any updates that have been introduced.</description>
+        
+        <dc:creator>Dinesh</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Waffle : Windows Single Sign On</title>
+        <link>/2015/09/27/waffle-windows-single-sign-on/</link>
+        <pubDate>Sun, 27 Sep 2015 22:38:03 +0000</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Sun, 27 Sep 2015 22:38:03 +0000</atom:modified>
+        <guid>/2015/09/27/waffle-windows-single-sign-on/</guid>
+        <description>Last week, I was working on an application where I had to do LDAP authentication. My cmpany has been using a very old jar file that had the required code for authenticating and authorizing users. There were two problems for me.
+I had to revisit the documentation on LDAP setting in Jboss 4 and figure how to do the set up. Making changes in login-config.xml etc.
+My new application is using Spring-boot, which comes with built in tomcat libraries.</description>
+        
+        <dc:creator>Dinesh</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>4 ways to set up datasources in Jboss AS 7</title>
+        <link>/2015/07/22/4-ways-to-set-up-datasources-in-jboss-as-7/</link>
+        <pubDate>Wed, 22 Jul 2015 04:44:20 +0000</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Wed, 22 Jul 2015 04:44:20 +0000</atom:modified>
+        <guid>/2015/07/22/4-ways-to-set-up-datasources-in-jboss-as-7/</guid>
+        <description>Last year my company decided to move from JBoss 4.x/5.x to Jboss AS 7. We use Maven and IZPack plugin to create automated deployment to Jboss 4. As a part of IZPack plugin, we would write the install.xmls for various environment, which would help us deploy war files, log.xml, jars, properties file in respective folders. So the advantage was that Jboss-4 allows you to deploy several xxx-ds.xml files in deploy folder and you can have multiple apps deployed in same Jboss and each app uses it’s respective xxx-ds.</description>
+        
+        <dc:creator>Dinesh</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>PowerMock : How to test a private method</title>
+        <link>/2015/04/23/powermock-how-to-test-a-private-method/</link>
+        <pubDate>Thu, 23 Apr 2015 20:49:08 +0000</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Thu, 23 Apr 2015 20:49:08 +0000</atom:modified>
+        <guid>/2015/04/23/powermock-how-to-test-a-private-method/</guid>
+        <description>“I HAVE THE POWER!!” – I had this feeling a few days ago. I will be honest that at work I do not get time to write unit test cases for each and every piece of code that I write. Often when I do have time, I make an effort to write test cases even for the trivial piece of code blocks such as — Check if properties file is present.</description>
+        
+        <dc:creator>Dinesh</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Uncategorized</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Install Or Manage multiple versions of Java on OS X</title>
+        <link>/2015/03/30/install-or-manage-multiple-versions-of-java-on-os-x/</link>
+        <pubDate>Mon, 30 Mar 2015 02:05:00 +0000</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Mon, 30 Mar 2015 02:05:00 +0000</atom:modified>
+        <guid>/2015/03/30/install-or-manage-multiple-versions-of-java-on-os-x/</guid>
+        <description>A few weeks ago my Mac hard drive crashed and I had to get a new grad drive. As part of upgrade, I had to wipe my drive clean and install Yosemite. What I did not realize was that Apple had goofed up Java instlation on Mac, as result of which my IntelliJ idea compalained that it requires legacy Jdk version of Java 6. The dilemma that I had was hwo am I going to mainain the different version of Java.</description>
+        
+        <dc:creator>Dinesh</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Restful Webservice in 7 Steps using Spring boot</title>
+        <link>/2015/01/26/restful-webservice-7-steps-using-spring-boot/</link>
+        <pubDate>Mon, 26 Jan 2015 20:59:12 +0000</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Mon, 26 Jan 2015 20:59:12 +0000</atom:modified>
+        <guid>/2015/01/26/restful-webservice-7-steps-using-spring-boot/</guid>
+        <description>Last week I was working on a new application which required me to build a web service to access it’s functionality. I decided to check out Spring 4 RestController.
+I was amazed at how far we have come from writing all the boiler template code, xmls etc for making a restful call. With Spring4 boot, it was matter of adding simple annotation for RestController.
+I will be honest, I have not been up to date on how to use a Restful webservice, I built a couple of Restful service a couple of year ago, but most of the services in my current project are old school (SOAP calls), so I never got a chance to build one from scratch and at peace.</description>
+        
+        <dc:creator>Dinesh</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>A quick tutorial on SAAJ API</title>
+        <link>/2014/10/17/quick-tutorial-saaj-api/</link>
+        <pubDate>Fri, 17 Oct 2014 20:28:07 +0000</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Fri, 17 Oct 2014 20:28:07 +0000</atom:modified>
+        <guid>/2014/10/17/quick-tutorial-saaj-api/</guid>
+        <description>We ran into an issue last week. I had to call a third party web service that was built in PHP. Anyone who wokrs with Java will tell you that calling a web service is not more 15 minutes coding. You take the wsdl, run wsdl2Java command from Axis2 and start calling the service.
+Like I said before, things are never so straightforward. No matter what version of Axis or CXF we used, we kept getting this error:</description>
+        
+        <dc:creator>Dinesh</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Read / Write Excel file in Java using Apache POI</title>
+        <link>/2014/04/18/apache-poi-tutorial-reading-writing-excel-files-java/</link>
+        <pubDate>Fri, 18 Apr 2014 16:27:58 +0000</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Fri, 18 Apr 2014 16:27:58 +0000</atom:modified>
+        <guid>/2014/04/18/apache-poi-tutorial-reading-writing-excel-files-java/</guid>
+        <description>About a year or two ago I was working with finance team where they wanted to pull the credit card transactions for all the customer using various combinations. Ex –
+– Get the credit card txns for today or certain date.
+– Get the txns for customer who used Mastercard or Visa.
+However they wanted this application to generate a Excel file and save it on their local machine so that they could prepare reports for our CEO.</description>
+        
+        <dc:creator>Dinesh</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>13 Most Common Java Keytool Keystore Commands</title>
+        <link>/2014/03/16/13-common-java-keytool-keystore-commands/</link>
+        <pubDate>Sun, 16 Mar 2014 04:41:03 +0000</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Sun, 16 Mar 2014 04:41:03 +0000</atom:modified>
+        <guid>/2014/03/16/13-common-java-keytool-keystore-commands/</guid>
+        <description>I was working on a project last month where I had to call a third-party web service. The third-party web service wanted me to add a SSL keystore and I struggled. I could have gone to my UNIX Admin and asked him to do this job but decided to learn about all about keystores. I went through couple of forums and SO and ended my spending 2 – 3 hours reading about keystores and commonly used commands.</description>
+        
+        <dc:creator>Dinesh</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>10 IntelliJ IDEA Keyboard Shortcuts That You Must Know</title>
+        <link>/2014/01/31/10-intellij-idea-keyboard-shortcuts-must-know/</link>
+        <pubDate>Fri, 31 Jan 2014 21:09:07 +0000</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Fri, 31 Jan 2014 21:09:07 +0000</atom:modified>
+        <guid>/2014/01/31/10-intellij-idea-keyboard-shortcuts-must-know/</guid>
+        <description>Linux nerds/geeks happily flaunt their keyboard skills when they get a chance. I admit that I am not a shortcut junky but I too have some keyboard shortcuts under my sleeve that I use in day to day work. I have to say that not only have these shortcuts increased my productivity but they have also made my life a lot easier.
+I am sharing my 10 most used shortcuts at work.</description>
+        
+        <dc:creator>Dinesh</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Apache Camel : How to call  java webservice</title>
+        <link>/2013/12/16/apache-camel-how-to-call-an-external-webservice/</link>
+        <pubDate>Mon, 16 Dec 2013 03:55:12 +0000</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Mon, 16 Dec 2013 03:55:12 +0000</atom:modified>
+        <guid>/2013/12/16/apache-camel-how-to-call-an-external-webservice/</guid>
+        <description>I have made up my mind to get rid of WSO2 ESB at my office. It is clumsy, buggy, hard to test, no body wants to work on it and the documentation is horrible. I looked at various alternative and Apache Camel was free and easy to set up and work with me.
+To cut the story short, I was able to run most of the example but was struggling with CXF to call a third party service hosted at a random url.</description>
+        
+        <dc:creator>Dinesh</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Launch Website in Amazon EC2</title>
+        <link>/2013/10/24/launch-website-in-amazon-ec2/</link>
+        <pubDate>Thu, 24 Oct 2013 21:52:13 +0000</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Thu, 24 Oct 2013 21:52:13 +0000</atom:modified>
+        <guid>/2013/10/24/launch-website-in-amazon-ec2/</guid>
+        <description>I wrote this blog about a year ago and left it in the draft because this post somehow was not getting auto saved on WordPress and since its long post it took time for me type, take screenshots and paste. I did not have energy and time to do it all over again. I had a copy of it though in my google drive and I cannot tell you how many times this document has helped me.</description>
+        
+        <dc:creator>Dinesh</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>How to configure JNDI with Spring and Jboss4/5</title>
+        <link>/2013/09/18/how-to-configure-jndi-with-spring-and-jboss45/</link>
+        <pubDate>Wed, 18 Sep 2013 19:27:26 +0000</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Wed, 18 Sep 2013 19:27:26 +0000</atom:modified>
+        <guid>/2013/09/18/how-to-configure-jndi-with-spring-and-jboss45/</guid>
+        <description>This is a simple process but if you try and search on the web you will come across various incomplete solutions which will leave you more confused than you already were. This configuration involves just four simple steps that I will walk through to help you set up JNDI on Jboss. I am using Jboss 4.3, but this should be valid for other version of Jboss as well.
+I have a web application which is built on Spring 3.</description>
+        
+        <dc:creator>Dinesh</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Rails: Jquery is not loading</title>
+        <link>/2013/08/01/rails-jquery-is-not-loading/</link>
+        <pubDate>Thu, 01 Aug 2013 03:53:51 +0000</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Thu, 01 Aug 2013 03:53:51 +0000</atom:modified>
+        <guid>/2013/08/01/rails-jquery-is-not-loading/</guid>
+        <description>It’s been a while I have posted anything. I have been extremly busy and have been working on an extremely critical project where we were asked to become PCI 2.0 compliant. I worked on some interesting problems however today I will be discussing on something trivial and discuss my frustration about Rails. I have to admit that a number of times I thought I should just give up and start learning Python or stick to my forte i.</description>
+        
+        <dc:creator>Dinesh</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>How to post parameters to a url using Ajax/Javascript between two website</title>
+        <link>/2013/05/15/how-to-post-parameters-to-a-url-using-ajaxjavascript-between-two-website/</link>
+        <pubDate>Wed, 15 May 2013 03:33:28 +0000</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Wed, 15 May 2013 03:33:28 +0000</atom:modified>
+        <guid>/2013/05/15/how-to-post-parameters-to-a-url-using-ajaxjavascript-between-two-website/</guid>
+        <description>I am working a new project and I recently ran into an interesting problem. One of the web site that I keep up at work was supposed to take the user to another website which required me to add post parameters.
+EX - www.mywebsite.makeapayment.com ==&amp;gt; Collects Billing information ex - name, amount, address etc.==&amp;gt; Post this information to www.vendor-website.com.
+I did not realize the problem until I started coding and my colleague pointed out that as soon as www.</description>
+        
+        <dc:creator>Dinesh</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Using multiple profiles in Maven &#43; Eclipse</title>
+        <link>/2013/03/07/using-multiple-profiles-in-maven-eclipse/</link>
+        <pubDate>Thu, 07 Mar 2013 22:32:04 +0000</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Thu, 07 Mar 2013 22:32:04 +0000</atom:modified>
+        <guid>/2013/03/07/using-multiple-profiles-in-maven-eclipse/</guid>
+        <description>It’s possible that many of you already knew this but if not then here’ some basic info on Maven profiles. I have been using maven for over 2 and half years now, and have been copy pasting assembly and install files. I never bothered to know how Maven figures out how to read assembly and install file names. For example-
+PROBLEM:
+For all my projects I have been using assembly-jboss.xml to put the file/directory information and telling maven about my desired directory structure i.</description>
+        
+        <dc:creator>Dinesh</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>How to send email in PhoneGap (Android) using a gmail account</title>
+        <link>/2012/09/23/how-to-send-email-in-phonegap-android-using-a-gmail-account/</link>
+        <pubDate>Sun, 23 Sep 2012 05:26:13 +0000</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Sun, 23 Sep 2012 05:26:13 +0000</atom:modified>
+        <guid>/2012/09/23/how-to-send-email-in-phonegap-android-using-a-gmail-account/</guid>
+        <description>For the last one month, I have been working on an android app for a grocery store.
+I have been using PhoneGap to develop the solution as the client wanted both Android and Iphone version.
+I have tried building the app in native Android but going through the hassle of designing css was just too much for me and plus I did not had time to learn Iphone development.
+There was a short learning phase for PhoneGap and the results were awesome.</description>
+        
+        <dc:creator>Dinesh</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>How To Share Any Folder On Mac Via Built-in Web Server</title>
+        <link>/2012/07/13/share-any-folder-on-mac-via-built-in-web-server/</link>
+        <pubDate>Fri, 13 Jul 2012 02:43:59 +0000</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Fri, 13 Jul 2012 02:43:59 +0000</atom:modified>
+        <guid>/2012/07/13/share-any-folder-on-mac-via-built-in-web-server/</guid>
+        <description>So what&amp;rsquo;s new here? Well I was playing around with Phonegap to build a small android and ios app. I was able to build a small weather app using Yahoo weather api but then I came across Sencha Touch 2.
+I wanted to build the same app in Sencha Touch and compare the two platforms for developing mobile apps and as ap part of its get started tutorial I had to drop the Sencha Touch in a web server.</description>
+        
+        <dc:creator>Dinesh</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Saving files in Amazon S3 using Carrierwave and Fog Gem</title>
+        <link>/2012/06/03/saving-files-in-amazon-s3-using-carrierwave-and-fog-gem/</link>
+        <pubDate>Sun, 03 Jun 2012 04:57:16 +0000</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Sun, 03 Jun 2012 04:57:16 +0000</atom:modified>
+        <guid>/2012/06/03/saving-files-in-amazon-s3-using-carrierwave-and-fog-gem/</guid>
+        <description>Long long time ago in a far far away land….. I am just kidding. So I needed a gem to do file uploads(in my case images but you can upload anything) and I was looking at various options. Paperclip is a popular option but there is a new kid on the block (so i read in various forums)… Carrierwave.
+Now I have not used Paperclip but what I read was that Carrierwave is more flexible and powerful than Paperclip so if are interested then keep reading.</description>
+        
+        <dc:creator>Dinesh</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Installing Rails on Mac OSX</title>
+        <link>/2012/05/30/installing-rails-on-mac-osx/</link>
+        <pubDate>Wed, 30 May 2012 03:12:21 +0000</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Wed, 30 May 2012 03:12:21 +0000</atom:modified>
+        <guid>/2012/05/30/installing-rails-on-mac-osx/</guid>
+        <description>I struggled a lot doing this on my mac. I prepared steps and notes while I was upgrading. here are the steps for mac osx. This works for Mac OSX 10.6+
+============ Section 1 =================
+Install and update Ruby 1.9 on MAC OSX Snow leopard 10.6.5
+Install RVM
+Installation instruction: http://rvm.beginrescueend.com/rvm/install/ – In Treminal Run the following command:
+bash &amp;lt; &amp;lt;( curl http://rvm.beginrescueend.com/releases/ … all-latest )
+– type in terminal: version=$(curl http://rvm.</description>
+        
+        <dc:creator>Dinesh</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Setting up IMAP settings for hotmail account on Iphone and android</title>
+        <link>/2012/05/29/setting-up-imap-settings-for-hotmail-account-on-iphone-and-android/</link>
+        <pubDate>Tue, 29 May 2012 00:06:30 +0000</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Tue, 29 May 2012 00:06:30 +0000</atom:modified>
+        <guid>/2012/05/29/setting-up-imap-settings-for-hotmail-account-on-iphone-and-android/</guid>
+        <description>Yes, there are still a few lost soul who still have a Hotmail account and I am one of them :-).
+I have used Iphone in the past and use an android phone now, however I always complained that I was not able to set up an IMAP account for Hotmail. I always had a POP3 account 🙁
+What does IMAP and POP3 mean? – For beginner who do not understand what is IMAP and POP3, here’s a small description.</description>
+        
+        <dc:creator>Dinesh</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Engineyard, Rails 3.x, NGINX, PASSENGER ASSETS NOT DISPLAYED</title>
+        <link>/2012/01/28/engineyard-rails-3-x-nginx-passenger-assets-not-displayed/</link>
+        <pubDate>Sat, 28 Jan 2012 08:48:01 +0000</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Sat, 28 Jan 2012 08:48:01 +0000</atom:modified>
+        <guid>/2012/01/28/engineyard-rails-3-x-nginx-passenger-assets-not-displayed/</guid>
+        <description>CAUTION: Please excuse the diction/grammar/spelling. It’s 3 AM and I am in a hurry to sleep as I need to drop my friends to airport in exactly 4 hrs.
+So I was trying to set up this new application for my wife. I was using galleria plugin to show a slide like image. Everything was working fine in development so I decided to see how it would look like in production environment if it was deployed in a cloud or virtual server.</description>
+        
+        <dc:creator>Dinesh</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
+      
+
+    
+  </channel>
+</rss>

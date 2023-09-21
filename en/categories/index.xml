@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>Categories on Home</title>
+    <link>/en/categories/</link>
+    <description>Recent content in Categories on Home</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>dinesh19aug@gmail.com (Dinesh Arora)</managingEditor>
+    <webMaster>dinesh19aug@gmail.com (Dinesh Arora)</webMaster>
+    <copyright>©2023, All Rights Reserved</copyright>
+    <lastBuildDate>Wed, 20 Sep 2023 20:58:19 -0400</lastBuildDate>
+    
+        <atom:link href="/en/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+
+      
+      <item>
+        <title>Tech Notes</title>
+        <link>/en/categories/tech-notes/</link>
+        <pubDate>Wed, 20 Sep 2023 20:58:19 -0400</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        
+        <guid>/en/categories/tech-notes/</guid>
+        <description></description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
+      
+      <item>
+        <title>Advisory</title>
+        <link>/en/categories/advisory/</link>
+        <pubDate>Wed, 15 Mar 2023 00:34:22 -0400</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        
+        <guid>/en/categories/advisory/</guid>
+        <description></description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
+      
+      <item>
+        <title>Machine learning</title>
+        <link>/en/categories/machine-learning/</link>
+        <pubDate>Mon, 27 Jan 2020 22:39:52 -0500</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        
+        <guid>/en/categories/machine-learning/</guid>
+        <description></description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
+      
+      <item>
+        <title>Machine Learning series</title>
+        <link>/en/categories/machine-learning-series/</link>
+        <pubDate>Tue, 31 Dec 2019 00:04:50 +0900</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        
+        <guid>/en/categories/machine-learning-series/</guid>
+        <description></description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
+      
+      <item>
+        <title>Uncategorized</title>
+        <link>/en/categories/uncategorized/</link>
+        <pubDate>Thu, 23 Apr 2015 20:49:08 +0000</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        
+        <guid>/en/categories/uncategorized/</guid>
+        <description></description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        
+        
+        
+        
+        
+        
+      </item>
+      
+
+    
+  </channel>
+</rss>

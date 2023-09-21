@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>Machine learning on Home</title>
+    <link>/en/categories/machine-learning/</link>
+    <description>Recent content in Machine learning on Home</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>dinesh19aug@gmail.com (Dinesh Arora)</managingEditor>
+    <webMaster>dinesh19aug@gmail.com (Dinesh Arora)</webMaster>
+    <copyright>©2023, All Rights Reserved</copyright>
+    <lastBuildDate>Mon, 27 Jan 2020 22:39:52 -0500</lastBuildDate>
+    
+        <atom:link href="/en/categories/machine-learning/index.xml" rel="self" type="application/rss+xml" />
+    
+
+      
+      <item>
+        <title>Sick and tired of doing logistics regression the old way? read this</title>
+        <link>/2020/01/27/logistics-regression-using-python/</link>
+        <pubDate>Mon, 27 Jan 2020 22:39:52 -0500</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Mon, 27 Jan 2020 22:39:52 -0500</atom:modified>
+        <guid>/2020/01/27/logistics-regression-using-python/</guid>
+        <description>So far in the series we have learned about forms on regression models. Each of those models was used to solve a target variable that was a linear number.
+Now we enter a territory where target variables might not be that straight forward. The target variables would be in the form binary, category, etc. Basically anything other than a number. Ex - Cat vs Dog, Yes or No, Reg, Green or Blue.</description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+            
+              <category>Machine learning</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Part 7 Decision tree regression or classification using python</title>
+        <link>/2019/03/02/decision-tree-using-python/</link>
+        <pubDate>Sun, 03 Mar 2019 19:17:12 -0500</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Sun, 03 Mar 2019 19:17:12 -0500</atom:modified>
+        <guid>/2019/03/02/decision-tree-using-python/</guid>
+        <description>In the previous post, we learnt about Support vector regression. In this post, we will see a new way of deciphering information using a simple format of traversing conditions.
+Business Goal: Can you spot the king? The people of Falkland are scared. Their king disguises as a common man and roams among them to gain knowledge about his kingdom and see if his policies are working in his kingdom. When the king is disguised, the common people don&amp;rsquo;t recognize him.</description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+            
+              <category>Machine learning</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Part 6 Support Vector Regression</title>
+        <link>/2019/02/10/part-6-ml-svr/</link>
+        <pubDate>Sat, 16 Feb 2019 00:29:38 -0500</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Sat, 16 Feb 2019 00:29:38 -0500</atom:modified>
+        <guid>/2019/02/10/part-6-ml-svr/</guid>
+        <description>Business Goal: As an owner of MuShu Bike Rental CO. in New York. I want to know how many bicycles will be rented on any given day based on daily temperature, humidity and wind speed. Can you help MuShu Bike Rental CO. to predict the number of daily rentals?
+How to get the dataset? Startup Dataset Support vector Regression notebook Let&amp;rsquo;s solve this problem using SVR - Support Vector Regression.</description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+            
+              <category>Machine learning</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Part 5 Machine Learning Backward Elimination</title>
+        <link>/2019/02/10/part-5-ml-mltr-backward-elimination/</link>
+        <pubDate>Mon, 11 Feb 2019 00:02:28 -0500</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Mon, 11 Feb 2019 00:02:28 -0500</atom:modified>
+        <guid>/2019/02/10/part-5-ml-mltr-backward-elimination/</guid>
+        <description>In the previous post, we learnt about multiple linear regression. The problem with the last approach was that we used all the features without considering that some of the features may not be impacting or playing any role in the outcome. we also talked about 5 ways of reducing the noisy feature. Backward elimination is one of them.
+How to get the dataset? Startup Dataset Multiple Regression notebook What is Backward Elimination?</description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+            
+              <category>Machine learning</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Part 4 Machine Learning Multiple Regression</title>
+        <link>/2019/02/02/part-4-ml-multiple-linear-regression/</link>
+        <pubDate>Sun, 03 Feb 2019 15:22:27 -0500</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Sun, 03 Feb 2019 15:22:27 -0500</atom:modified>
+        <guid>/2019/02/02/part-4-ml-multiple-linear-regression/</guid>
+        <description>In the previous post, we learnt about a P-Value, a prerequisite for learning Multiple Linear Regression.
+Business Problem: In this series, we will take a look at a dataset of 50 startup companies.
+A venture capitalist has hired you as a data scientist and wants you to help him select which type of company he should invest so that he can make the most profit. You need to review spending on R&amp;amp;D, Admin cost, marketing cost and location to make the decision</description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+            
+              <category>Machine learning</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Part 3 Machine Learning Understanding P Value</title>
+        <link>/2019/01/27/part-3-ml-understanding-p-value/</link>
+        <pubDate>Sun, 27 Jan 2019 17:27:19 -0500</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Sun, 27 Jan 2019 17:27:19 -0500</atom:modified>
+        <guid>/2019/01/27/part-3-ml-understanding-p-value/</guid>
+        <description>In the previous post, we learnt about Simple Linear regression. I wanted to start this section with multiple linear regression tutorial but as I was going over the content on the template to run create the regression model, I felt that we need understand P-Value concept before we move ahead.
+So what is P-Value ?
+Before I bore you with stats definition of the P-Value. Let&amp;rsquo;s start with something simple.</description>
+        
+        <dc:creator>Dinesh</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+            
+              <category>Machine learning</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Part 2 Machine Learning Simplelinear Regression</title>
+        <link>/2019/01/22/part-2-ml-simplelinear-regression/</link>
+        <pubDate>Tue, 22 Jan 2019 21:41:47 -0500</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Tue, 22 Jan 2019 21:41:47 -0500</atom:modified>
+        <guid>/2019/01/22/part-2-ml-simplelinear-regression/</guid>
+        <description>In the previous post we learned about data pre-processing. In this post we will review the simplest algorithm - Simple Linear Regression.
+Business Problem: In this series, we are going to learn about Simple Linear Regression. We will review a data set about Salary and Experience in age. As a data scientist, your job is to help the HR department predict the salary of a person based on his years of experience if he or she accepts the job offer.</description>
+        
+        <dc:creator>Dinesh</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+            
+              <category>Machine learning</category>
+            
+          
+        
+        
+      </item>
+      
+      <item>
+        <title>Part 1 Machine Learning Data Preprocessing</title>
+        <link>/2019/01/21/part-1-ml-data-preprocessing/</link>
+        <pubDate>Mon, 21 Jan 2019 00:35:54 -0500</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Mon, 21 Jan 2019 00:35:54 -0500</atom:modified>
+        <guid>/2019/01/21/part-1-ml-data-preprocessing/</guid>
+        <description>This is the first of many series on machine learning.
+Get the Dataset Download the following zip files
+Jupyter Notebook &amp;amp; images Data Unzip the folder and copy Files and Data under folder location Machine Learning A-Z Template Folder\Part 1 - Data Preprocessing
+Review the dataset The above dataset shows Country, Age, Salary and Purchased. The field that we need to research is called Dependent field and others are called Independent Field</description>
+        
+        <dc:creator>Dinesh</dc:creator>
+        
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+            
+              <category>Machine learning</category>
+            
+          
+        
+        
+      </item>
+      
+
+    
+  </channel>
+</rss>

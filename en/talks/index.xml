@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>Series on Home</title>
+    <link>/en/talks/</link>
+    <description>Recent content in Series on Home</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>dinesh19aug@gmail.com (Dinesh Arora)</managingEditor>
+    <webMaster>dinesh19aug@gmail.com (Dinesh Arora)</webMaster>
+    <copyright>©2023, All Rights Reserved</copyright>
+    <lastBuildDate>Mon, 30 Dec 2019 11:14:14 +0900</lastBuildDate>
+    
+        <atom:link href="/en/talks/index.xml" rel="self" type="application/rss+xml" />
+    
+
+      
+      <item>
+        <title>Machine Learning Series</title>
+        <link>/en/talks/series/</link>
+        <pubDate>Tue, 31 Dec 2019 00:04:50 +0900</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Tue, 31 Dec 2019 00:04:50 +0900</atom:modified>
+        <guid>/en/talks/series/</guid>
+        <description> Part -1: How to pre-process and clean up data Part 2: Simple linear regression Part 3: Undesrtanding the P-Value Part 4: Multiple Linear Regression using machine learning Part 5: Backward elimination strategy Part 6: Support vector regression Part 7: Regression using Decision Tree algorithm Part 8: Logistics regression </description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        
+        
+        
+        
+          
+            
+          
+        
+        
+          
+            
+              <category>Machine Learning series</category>
+            
+          
+        
+        
+          
+            
+          
+        
+      </item>
+      
+
+    
+  </channel>
+</rss>

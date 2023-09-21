@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" 
+  xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+  xmlns:dc="http://purl.org/dc/elements/1.1/" 
+  xmlns:atom="http://www.w3.org/2005/Atom" 
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/" 
+  xmlns:media="http://search.yahoo.com/mrss/">
+  <channel>
+    <title>Advisory on Home</title>
+    <link>/en/categories/advisory/</link>
+    <description>Recent content in Advisory on Home</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <managingEditor>dinesh19aug@gmail.com (Dinesh Arora)</managingEditor>
+    <webMaster>dinesh19aug@gmail.com (Dinesh Arora)</webMaster>
+    <copyright>©2023, All Rights Reserved</copyright>
+    <lastBuildDate>Wed, 15 Mar 2023 00:34:22 -0400</lastBuildDate>
+    
+        <atom:link href="/en/categories/advisory/index.xml" rel="self" type="application/rss+xml" />
+    
+
+      
+      <item>
+        <title>6 Steps to Becoming a Successful Freelance Developer in the Gig Economy</title>
+        <link>/2023/03/15/6-steps-to-become-freelance-developer/</link>
+        <pubDate>Wed, 15 Mar 2023 00:34:22 -0400</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Wed, 15 Mar 2023 00:34:22 -0400</atom:modified>
+        <guid>/2023/03/15/6-steps-to-become-freelance-developer/</guid>
+        <description>Becoming a successful freelance developer is a dream for many, and with the rise of the gig economy, more and more people are choosing to work for themselves. While being your own boss can be liberating, it&amp;rsquo;s also a challenging journey that requires dedication, hard work, and a bit of luck. In this article, we will explore the steps you can take to become a successful freelance developer.
+The world of freelance development is rapidly growing, and more people than ever are making the jump to become their own boss.</description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        <media:content url="//resources/img/freelancer/freelancer.jpg" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+        
+          
+            
+              <category>Advisory</category>
+            
+          
+        
+        
+      </item>
+      
+
+    
+  </channel>
+</rss>
