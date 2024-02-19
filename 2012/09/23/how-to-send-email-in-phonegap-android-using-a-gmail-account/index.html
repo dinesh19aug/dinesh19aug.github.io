@@ -1348,7 +1348,7 @@
 <meta property="og:type" content="article">
 <meta property="og:description" content="A Morsel Of Code - One Byte At A Time">
 
-<meta name="generator" content="Hugo 0.118.2">
+<meta name="generator" content="Hugo 0.121.1">
 <meta name="msapplication-TileColor" content="#fff">
 
 <meta name="theme-color" content="#fff">
@@ -1406,7 +1406,7 @@
 
     
   
-<script type="application/javascript">
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -1419,7 +1419,7 @@ if (!doNotTrack) {
 }
 </script>
   
-<script type="application/javascript">
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
@@ -1772,54 +1772,54 @@ if (!doNotTrack) {
 </span><span class="lnt">47
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">com.dinesh.pb</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.apache.cordova.api.Plugin</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.apache.cordova.api.PluginResult</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.apache.cordova.api.PluginResult.Status</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.json.JSONArray</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">org.json.JSONException</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">android.annotation.SuppressLint</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">android.content.Intent</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">android.text.Html</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">com.dinesh.pb.utility.Mail</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"> 
-</span></span><span class="line"><span class="cl"><span class="nd">@SuppressLint</span><span class="o">(</span><span class="s">&#34;ParserError&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">EmailComposer</span> <span class="kd">extends</span> <span class="n">Plugin</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">ACTION_SEND_EMAIL</span> <span class="o">=</span> <span class="s">&#34;sendEmail&#34;</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="nd">@Override</span>
-</span></span><span class="line"><span class="cl"> <span class="kd">public</span> <span class="n">PluginResult</span> <span class="nf">execute</span><span class="o">(</span><span class="n">String</span> <span class="n">action</span><span class="o">,</span> <span class="n">JSONArray</span> <span class="n">arg1</span><span class="o">,</span> <span class="n">String</span> <span class="n">callbackId</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"> <span class="n">PluginResult</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PluginResult</span><span class="o">(</span><span class="n">Status</span><span class="o">.</span><span class="na">INVALID_ACTION</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl"> <span class="k">if</span> <span class="o">(</span><span class="n">action</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">ACTION_SEND_EMAIL</span><span class="o">))</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"> <span class="k">try</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"> <span class="n">String</span> <span class="n">message</span> <span class="o">=</span> <span class="n">arg1</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="n">0</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl"> <span class="k">this</span><span class="o">.</span><span class="na">sendEmailViaGmail</span><span class="o">(</span><span class="n">message</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl"> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PluginResult</span><span class="o">(</span><span class="n">Status</span><span class="o">.</span><span class="na">OK</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="o">}</span>
-</span></span><span class="line"><span class="cl"> <span class="k">catch</span> <span class="o">(</span><span class="n">JSONException</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PluginResult</span><span class="o">(</span><span class="n">Status</span><span class="o">.</span><span class="na">JSON_EXCEPTION</span><span class="o">,</span> <span class="n">ex</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
-</span></span><span class="line"><span class="cl"> <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"> <span class="c1">// TODO Auto-generated catch block
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl"> <span class="o">}</span>
-</span></span><span class="line"><span class="cl"> <span class="o">}</span>
-</span></span><span class="line"><span class="cl"> <span class="k">return</span> <span class="n">result</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"> <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="kd">private</span> <span class="kt">void</span> <span class="nf">sendEmailViaGmail</span><span class="o">(</span><span class="n">String</span> <span class="n">body</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="o">{</span>
-</span></span><span class="line"><span class="cl"> <span class="n">Mail</span> <span class="n">m</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Mail</span><span class="o">(</span><span class="s">&#34;From_email_address@gmail.com&#34;</span><span class="o">,</span> <span class="s">&#34;your password&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl"> <span class="n">String</span><span class="o">[]</span> <span class="n">toArr</span> <span class="o">=</span> <span class="o">{</span><span class="s">&#34;TO_EMAIL_ADDRESS@gmail.com&#34;</span><span class="o">};</span>
-</span></span><span class="line"><span class="cl"> <span class="n">m</span><span class="o">.</span><span class="na">set_to</span><span class="o">(</span><span class="n">toArr</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl"> <span class="n">m</span><span class="o">.</span><span class="na">set_from</span><span class="o">(</span><span class="s">&#34;FROM_EMAIL_ADDRESS@gmail.com&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl"> <span class="n">m</span><span class="o">.</span><span class="na">set_body</span><span class="o">(</span><span class="n">body</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl"> <span class="n">m</span><span class="o">.</span><span class="na">set_subject</span><span class="o">(</span><span class="s">&#34;TEST SUBJECT&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl"> <span class="kt">boolean</span> <span class="n">sendFlag</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="na">send</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.dinesh.pb</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.cordova.api.Plugin</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.cordova.api.PluginResult</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.apache.cordova.api.PluginResult.Status</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.json.JSONArray</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">org.json.JSONException</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">android.annotation.SuppressLint</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">android.content.Intent</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">android.text.Html</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">com.dinesh.pb.utility.Mail</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@SuppressLint</span><span class="p">(</span><span class="s">&#34;ParserError&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">EmailComposer</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Plugin</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">ACTION_SEND_EMAIL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;sendEmail&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="kd">public</span><span class="w"> </span><span class="n">PluginResult</span><span class="w"> </span><span class="nf">execute</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">action</span><span class="p">,</span><span class="w"> </span><span class="n">JSONArray</span><span class="w"> </span><span class="n">arg1</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">callbackId</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">PluginResult</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">PluginResult</span><span class="p">(</span><span class="n">Status</span><span class="p">.</span><span class="na">INVALID_ACTION</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">action</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="n">ACTION_SEND_EMAIL</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">arg1</span><span class="p">.</span><span class="na">getString</span><span class="p">(</span><span class="n">0</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">sendEmailViaGmail</span><span class="p">(</span><span class="n">message</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">PluginResult</span><span class="p">(</span><span class="n">Status</span><span class="p">.</span><span class="na">OK</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">JSONException</span><span class="w"> </span><span class="n">ex</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">PluginResult</span><span class="p">(</span><span class="n">Status</span><span class="p">.</span><span class="na">JSON_EXCEPTION</span><span class="p">,</span><span class="w"> </span><span class="n">ex</span><span class="p">.</span><span class="na">getMessage</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="c1">// TODO Auto-generated catch block</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="na">printStackTrace</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">result</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="kd">private</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">sendEmailViaGmail</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">body</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">Mail</span><span class="w"> </span><span class="n">m</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Mail</span><span class="p">(</span><span class="s">&#34;From_email_address@gmail.com&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;your password&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">toArr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">&#34;TO_EMAIL_ADDRESS@gmail.com&#34;</span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="na">set_to</span><span class="p">(</span><span class="n">toArr</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="na">set_from</span><span class="p">(</span><span class="s">&#34;FROM_EMAIL_ADDRESS@gmail.com&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="na">set_body</span><span class="p">(</span><span class="n">body</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="na">set_subject</span><span class="p">(</span><span class="s">&#34;TEST SUBJECT&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="n">sendFlag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">m</span><span class="p">.</span><span class="na">send</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>Step 4. copy this Mail.java in package of your choice. My package name is com.dinesh.pb.utility.</p>
 <div class="highlight"><div class="chroma">
@@ -1994,175 +1994,175 @@ if (!doNotTrack) {
 </span><span class="lnt">168
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nn">com.dinesh.pb.utility</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.util.Date</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">java.util.Properties</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.activation.CommandMap</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.activation.DataHandler</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.activation.DataSource</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.activation.FileDataSource</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.activation.MailcapCommandMap</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.mail.BodyPart</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.mail.Multipart</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.mail.PasswordAuthentication</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.mail.Session</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.mail.Transport</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.mail.internet.InternetAddress</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.mail.internet.MimeBodyPart</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.mail.internet.MimeMessage</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">javax.mail.internet.MimeMultipart</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Mail</span> <span class="kd">extends</span> <span class="n">javax</span><span class="o">.</span><span class="na">mail</span><span class="o">.</span><span class="na">Authenticator</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"> <span class="kd">private</span> <span class="n">String</span> <span class="n">_user</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"> <span class="kd">private</span> <span class="n">String</span> <span class="n">_pass</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="kd">private</span> <span class="n">String</span><span class="o">[]</span> <span class="n">_to</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"> <span class="kd">private</span> <span class="n">String</span> <span class="n">_from</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="kd">private</span> <span class="n">String</span> <span class="n">_port</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"> <span class="kd">private</span> <span class="n">String</span> <span class="n">_sport</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="kd">private</span> <span class="n">String</span> <span class="n">_host</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="kd">private</span> <span class="n">String</span> <span class="n">_subject</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"> <span class="kd">private</span> <span class="n">String</span> <span class="n">_body</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">_auth</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">_debuggable</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="kd">private</span> <span class="n">Multipart</span> <span class="n">_multipart</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="kd">public</span> <span class="nf">Mail</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"> <span class="n">_host</span> <span class="o">=</span> <span class="s">&#34;smtp.gmail.com&#34;</span><span class="o">;</span> <span class="c1">// default smtp server
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="n">_port</span> <span class="o">=</span> <span class="s">&#34;465&#34;</span><span class="o">;</span> <span class="c1">// default smtp port
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="n">_sport</span> <span class="o">=</span> <span class="s">&#34;465&#34;</span><span class="o">;</span> <span class="c1">// default socketfactory port
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl"> <span class="n">_user</span> <span class="o">=</span> <span class="s">&#34;&#34;</span><span class="o">;</span> <span class="c1">// username
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="n">_pass</span> <span class="o">=</span> <span class="s">&#34;&#34;</span><span class="o">;</span> <span class="c1">// password
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="n">_from</span> <span class="o">=</span> <span class="s">&#34;&#34;</span><span class="o">;</span> <span class="c1">// email sent from
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="n">_subject</span> <span class="o">=</span> <span class="s">&#34;&#34;</span><span class="o">;</span> <span class="c1">// email subject
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="n">_body</span> <span class="o">=</span> <span class="s">&#34;&#34;</span><span class="o">;</span> <span class="c1">// email body
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl"> <span class="n">_debuggable</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span> <span class="c1">// debug mode on or off - default off
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="n">_auth</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span> <span class="c1">// smtp authentication - default on
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl"> <span class="n">_multipart</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MimeMultipart</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="c1">// There is something wrong with MailCap, javamail can not find a handler for the multipart/mixed part, so this bit needs to be added.
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="n">MailcapCommandMap</span> <span class="n">mc</span> <span class="o">=</span> <span class="o">(</span><span class="n">MailcapCommandMap</span><span class="o">)</span> <span class="n">CommandMap</span><span class="o">.</span><span class="na">getDefaultCommandMap</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl"> <span class="n">mc</span><span class="o">.</span><span class="na">addMailcap</span><span class="o">(</span><span class="s">&#34;text/html;; x-java-content-handler=com.sun.mail.handlers.text_html&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl"> <span class="n">mc</span><span class="o">.</span><span class="na">addMailcap</span><span class="o">(</span><span class="s">&#34;text/xml;; x-java-content-handler=com.sun.mail.handlers.text_xml&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl"> <span class="n">mc</span><span class="o">.</span><span class="na">addMailcap</span><span class="o">(</span><span class="s">&#34;text/plain;; x-java-content-handler=com.sun.mail.handlers.text_plain&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl"> <span class="n">mc</span><span class="o">.</span><span class="na">addMailcap</span><span class="o">(</span><span class="s">&#34;multipart/*;; x-java-content-handler=com.sun.mail.handlers.multipart_mixed&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl"> <span class="n">mc</span><span class="o">.</span><span class="na">addMailcap</span><span class="o">(</span><span class="s">&#34;message/rfc822;; x-java-content-handler=com.sun.mail.handlers.message_rfc822&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl"> <span class="n">CommandMap</span><span class="o">.</span><span class="na">setDefaultCommandMap</span><span class="o">(</span><span class="n">mc</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl"> <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="kd">public</span> <span class="nf">Mail</span><span class="o">(</span><span class="n">String</span> <span class="n">user</span><span class="o">,</span> <span class="n">String</span> <span class="n">pass</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"> <span class="k">this</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="n">_user</span> <span class="o">=</span> <span class="n">user</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"> <span class="n">_pass</span> <span class="o">=</span> <span class="n">pass</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"> <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">send</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"> <span class="n">Properties</span> <span class="n">props</span> <span class="o">=</span> <span class="n">_setProperties</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="k">if</span><span class="o">(!</span><span class="n">_user</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&#34;&#34;</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">_pass</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&#34;&#34;</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="n">_to</span><span class="o">.</span><span class="na">length</span> <span class="o">&gt;</span> <span class="n">0</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">_from</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&#34;&#34;</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">_subject</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&#34;&#34;</span><span class="o">)</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">_body</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="s">&#34;&#34;</span><span class="o">))</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"> <span class="n">Session</span> <span class="n">session</span> <span class="o">=</span> <span class="n">Session</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="n">props</span><span class="o">,</span> <span class="k">this</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="n">MimeMessage</span> <span class="n">msg</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MimeMessage</span><span class="o">(</span><span class="n">session</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="n">msg</span><span class="o">.</span><span class="na">setFrom</span><span class="o">(</span><span class="k">new</span> <span class="n">InternetAddress</span><span class="o">(</span><span class="n">_from</span><span class="o">));</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="n">InternetAddress</span><span class="o">[]</span> <span class="n">addressTo</span> <span class="o">=</span> <span class="k">new</span> <span class="n">InternetAddress</span><span class="o">[</span><span class="n">_to</span><span class="o">.</span><span class="na">length</span><span class="o">];</span>
-</span></span><span class="line"><span class="cl"> <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">_to</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"> <span class="n">addressTo</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="n">InternetAddress</span><span class="o">(</span><span class="n">_to</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
-</span></span><span class="line"><span class="cl"> <span class="o">}</span>
-</span></span><span class="line"><span class="cl"> <span class="n">msg</span><span class="o">.</span><span class="na">setRecipients</span><span class="o">(</span><span class="n">MimeMessage</span><span class="o">.</span><span class="na">RecipientType</span><span class="o">.</span><span class="na">TO</span><span class="o">,</span> <span class="n">addressTo</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="n">msg</span><span class="o">.</span><span class="na">setSubject</span><span class="o">(</span><span class="n">_subject</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl"> <span class="n">msg</span><span class="o">.</span><span class="na">setSentDate</span><span class="o">(</span><span class="k">new</span> <span class="n">Date</span><span class="o">());</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="c1">// setup message body
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="n">BodyPart</span> <span class="n">messageBodyPart</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MimeBodyPart</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl"> <span class="n">messageBodyPart</span><span class="o">.</span><span class="na">setText</span><span class="o">(</span><span class="n">_body</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl"> <span class="n">_multipart</span><span class="o">.</span><span class="na">addBodyPart</span><span class="o">(</span><span class="n">messageBodyPart</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="c1">// Put parts in message
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="n">msg</span><span class="o">.</span><span class="na">setContent</span><span class="o">(</span><span class="n">_multipart</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="c1">// send email
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="n">Transport</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">msg</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"> <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"> <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"> <span class="o">}</span>
-</span></span><span class="line"><span class="cl"> <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="kd">public</span> <span class="kt">void</span> <span class="nf">addAttachment</span><span class="o">(</span><span class="n">String</span> <span class="n">filename</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"> <span class="n">BodyPart</span> <span class="n">messageBodyPart</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MimeBodyPart</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl"> <span class="n">DataSource</span> <span class="n">source</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileDataSource</span><span class="o">(</span><span class="n">filename</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl"> <span class="n">messageBodyPart</span><span class="o">.</span><span class="na">setDataHandler</span><span class="o">(</span><span class="k">new</span> <span class="n">DataHandler</span><span class="o">(</span><span class="n">source</span><span class="o">));</span>
-</span></span><span class="line"><span class="cl"> <span class="n">messageBodyPart</span><span class="o">.</span><span class="na">setFileName</span><span class="o">(</span><span class="n">filename</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="n">_multipart</span><span class="o">.</span><span class="na">addBodyPart</span><span class="o">(</span><span class="n">messageBodyPart</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl"> <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="kd">public</span> <span class="n">String</span><span class="o">[]</span> <span class="nf">get_to</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"> <span class="k">return</span> <span class="n">_to</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"> <span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">set_to</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">_to</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"> <span class="k">this</span><span class="o">.</span><span class="na">_to</span> <span class="o">=</span> <span class="n">_to</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"> <span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">String</span> <span class="nf">get_from</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"> <span class="k">return</span> <span class="n">_from</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"> <span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">set_from</span><span class="o">(</span><span class="n">String</span> <span class="n">_from</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"> <span class="k">this</span><span class="o">.</span><span class="na">_from</span> <span class="o">=</span> <span class="n">_from</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"> <span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">String</span> <span class="nf">get_body</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"> <span class="k">return</span> <span class="n">_body</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"> <span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">set_body</span><span class="o">(</span><span class="n">String</span> <span class="n">_body</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"> <span class="k">this</span><span class="o">.</span><span class="na">_body</span> <span class="o">=</span> <span class="n">_body</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"> <span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="nd">@Override</span>
-</span></span><span class="line"><span class="cl"> <span class="kd">public</span> <span class="n">PasswordAuthentication</span> <span class="nf">getPasswordAuthentication</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"> <span class="k">return</span> <span class="k">new</span> <span class="n">PasswordAuthentication</span><span class="o">(</span><span class="n">_user</span><span class="o">,</span> <span class="n">_pass</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl"> <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="kd">private</span> <span class="n">Properties</span> <span class="nf">_setProperties</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"> <span class="n">Properties</span> <span class="n">props</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Properties</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;mail.smtp.host&#34;</span><span class="o">,</span> <span class="n">_host</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="k">if</span><span class="o">(</span><span class="n">_debuggable</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"> <span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;mail.debug&#34;</span><span class="o">,</span> <span class="s">&#34;true&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl"> <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="k">if</span><span class="o">(</span><span class="n">_auth</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"> <span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;mail.smtp.auth&#34;</span><span class="o">,</span> <span class="s">&#34;true&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl"> <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;mail.smtp.port&#34;</span><span class="o">,</span> <span class="n">_port</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl"> <span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;mail.smtp.socketFactory.port&#34;</span><span class="o">,</span> <span class="n">_sport</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl"> <span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;mail.smtp.socketFactory.class&#34;</span><span class="o">,</span> <span class="s">&#34;javax.net.ssl.SSLSocketFactory&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl"> <span class="n">props</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;mail.smtp.socketFactory.fallback&#34;</span><span class="o">,</span> <span class="s">&#34;false&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="k">return</span> <span class="n">props</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"> <span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">String</span> <span class="nf">get_subject</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"> <span class="k">return</span> <span class="n">_subject</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"> <span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">set_subject</span><span class="o">(</span><span class="n">String</span> <span class="n">_subject</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"> <span class="k">this</span><span class="o">.</span><span class="na">_subject</span> <span class="o">=</span> <span class="n">_subject</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"> <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"> <span class="c1">// more of the getters and setters …..
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span> <span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nn">com.dinesh.pb.utility</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.Date</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.Properties</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.activation.CommandMap</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.activation.DataHandler</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.activation.DataSource</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.activation.FileDataSource</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.activation.MailcapCommandMap</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.mail.BodyPart</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.mail.Multipart</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.mail.PasswordAuthentication</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.mail.Session</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.mail.Transport</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.mail.internet.InternetAddress</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.mail.internet.MimeBodyPart</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.mail.internet.MimeMessage</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">javax.mail.internet.MimeMultipart</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Mail</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">javax</span><span class="p">.</span><span class="na">mail</span><span class="p">.</span><span class="na">Authenticator</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">_user</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">_pass</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">_to</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">_from</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">_port</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">_sport</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">_host</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">_subject</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">_body</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="kd">private</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="n">_auth</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="kd">private</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="n">_debuggable</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="kd">private</span><span class="w"> </span><span class="n">Multipart</span><span class="w"> </span><span class="n">_multipart</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="kd">public</span><span class="w"> </span><span class="nf">Mail</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">_host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;smtp.gmail.com&#34;</span><span class="p">;</span><span class="w"> </span><span class="c1">// default smtp server</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">_port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;465&#34;</span><span class="p">;</span><span class="w"> </span><span class="c1">// default smtp port</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">_sport</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;465&#34;</span><span class="p">;</span><span class="w"> </span><span class="c1">// default socketfactory port</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">_user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;&#34;</span><span class="p">;</span><span class="w"> </span><span class="c1">// username</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">_pass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;&#34;</span><span class="p">;</span><span class="w"> </span><span class="c1">// password</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">_from</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;&#34;</span><span class="p">;</span><span class="w"> </span><span class="c1">// email sent from</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">_subject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;&#34;</span><span class="p">;</span><span class="w"> </span><span class="c1">// email subject</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">_body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;&#34;</span><span class="p">;</span><span class="w"> </span><span class="c1">// email body</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">_debuggable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w"> </span><span class="c1">// debug mode on or off - default off</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">_auth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w"> </span><span class="c1">// smtp authentication - default on</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">_multipart</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">MimeMultipart</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="c1">// There is something wrong with MailCap, javamail can not find a handler for the multipart/mixed part, so this bit needs to be added.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">MailcapCommandMap</span><span class="w"> </span><span class="n">mc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">MailcapCommandMap</span><span class="p">)</span><span class="w"> </span><span class="n">CommandMap</span><span class="p">.</span><span class="na">getDefaultCommandMap</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">mc</span><span class="p">.</span><span class="na">addMailcap</span><span class="p">(</span><span class="s">&#34;text/html;; x-java-content-handler=com.sun.mail.handlers.text_html&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">mc</span><span class="p">.</span><span class="na">addMailcap</span><span class="p">(</span><span class="s">&#34;text/xml;; x-java-content-handler=com.sun.mail.handlers.text_xml&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">mc</span><span class="p">.</span><span class="na">addMailcap</span><span class="p">(</span><span class="s">&#34;text/plain;; x-java-content-handler=com.sun.mail.handlers.text_plain&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">mc</span><span class="p">.</span><span class="na">addMailcap</span><span class="p">(</span><span class="s">&#34;multipart/*;; x-java-content-handler=com.sun.mail.handlers.multipart_mixed&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">mc</span><span class="p">.</span><span class="na">addMailcap</span><span class="p">(</span><span class="s">&#34;message/rfc822;; x-java-content-handler=com.sun.mail.handlers.message_rfc822&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">CommandMap</span><span class="p">.</span><span class="na">setDefaultCommandMap</span><span class="p">(</span><span class="n">mc</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="kd">public</span><span class="w"> </span><span class="nf">Mail</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">user</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">pass</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="k">this</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">_user</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">user</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">_pass</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pass</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="kd">public</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="nf">send</span><span class="p">()</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">Properties</span><span class="w"> </span><span class="n">props</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_setProperties</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">_user</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">_pass</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">_to</span><span class="p">.</span><span class="na">length</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">0</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">_from</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">_subject</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">!</span><span class="n">_body</span><span class="p">.</span><span class="na">equals</span><span class="p">(</span><span class="s">&#34;&#34;</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">Session</span><span class="w"> </span><span class="n">session</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Session</span><span class="p">.</span><span class="na">getInstance</span><span class="p">(</span><span class="n">props</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">MimeMessage</span><span class="w"> </span><span class="n">msg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">MimeMessage</span><span class="p">(</span><span class="n">session</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">msg</span><span class="p">.</span><span class="na">setFrom</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">InternetAddress</span><span class="p">(</span><span class="n">_from</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">InternetAddress</span><span class="o">[]</span><span class="w"> </span><span class="n">addressTo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">InternetAddress</span><span class="o">[</span><span class="n">_to</span><span class="p">.</span><span class="na">length</span><span class="o">]</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">_to</span><span class="p">.</span><span class="na">length</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">addressTo</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">InternetAddress</span><span class="p">(</span><span class="n">_to</span><span class="o">[</span><span class="n">i</span><span class="o">]</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">msg</span><span class="p">.</span><span class="na">setRecipients</span><span class="p">(</span><span class="n">MimeMessage</span><span class="p">.</span><span class="na">RecipientType</span><span class="p">.</span><span class="na">TO</span><span class="p">,</span><span class="w"> </span><span class="n">addressTo</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">msg</span><span class="p">.</span><span class="na">setSubject</span><span class="p">(</span><span class="n">_subject</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">msg</span><span class="p">.</span><span class="na">setSentDate</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">Date</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="c1">// setup message body</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">BodyPart</span><span class="w"> </span><span class="n">messageBodyPart</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">MimeBodyPart</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">messageBodyPart</span><span class="p">.</span><span class="na">setText</span><span class="p">(</span><span class="n">_body</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">_multipart</span><span class="p">.</span><span class="na">addBodyPart</span><span class="p">(</span><span class="n">messageBodyPart</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="c1">// Put parts in message</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">msg</span><span class="p">.</span><span class="na">setContent</span><span class="p">(</span><span class="n">_multipart</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="c1">// send email</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">Transport</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">msg</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">addAttachment</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">filename</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">Exception</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">BodyPart</span><span class="w"> </span><span class="n">messageBodyPart</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">MimeBodyPart</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">DataSource</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">FileDataSource</span><span class="p">(</span><span class="n">filename</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">messageBodyPart</span><span class="p">.</span><span class="na">setDataHandler</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">DataHandler</span><span class="p">(</span><span class="n">source</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">messageBodyPart</span><span class="p">.</span><span class="na">setFileName</span><span class="p">(</span><span class="n">filename</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">_multipart</span><span class="p">.</span><span class="na">addBodyPart</span><span class="p">(</span><span class="n">messageBodyPart</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="nf">get_to</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">_to</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">set_to</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">_to</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">_to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_to</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">get_from</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">_from</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">set_from</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">_from</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">_from</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_from</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">get_body</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">_body</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">set_body</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">_body</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">_body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_body</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="kd">public</span><span class="w"> </span><span class="n">PasswordAuthentication</span><span class="w"> </span><span class="nf">getPasswordAuthentication</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">PasswordAuthentication</span><span class="p">(</span><span class="n">_user</span><span class="p">,</span><span class="w"> </span><span class="n">_pass</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="kd">private</span><span class="w"> </span><span class="n">Properties</span><span class="w"> </span><span class="nf">_setProperties</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">Properties</span><span class="w"> </span><span class="n">props</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Properties</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">props</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&#34;mail.smtp.host&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">_host</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="k">if</span><span class="p">(</span><span class="n">_debuggable</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">props</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&#34;mail.debug&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;true&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="k">if</span><span class="p">(</span><span class="n">_auth</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">props</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&#34;mail.smtp.auth&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;true&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">props</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&#34;mail.smtp.port&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">_port</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">props</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&#34;mail.smtp.socketFactory.port&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">_sport</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">props</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&#34;mail.smtp.socketFactory.class&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;javax.net.ssl.SSLSocketFactory&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="n">props</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="s">&#34;mail.smtp.socketFactory.fallback&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;false&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">props</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="nf">get_subject</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">_subject</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">set_subject</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">_subject</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">_subject</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_subject</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="c1">// more of the getters and setters …..</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>Step 5: Update the config.xml and add the details about the new plugin class EmailComposer.java.</p>
 <p>Mine looks like this -</p>
@@ -3756,7 +3756,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 
             <p class="caption">
                 
-                    ©2023, All Rights Reserved
+                    ©2024, All Rights Reserved
                 
             </p>
         

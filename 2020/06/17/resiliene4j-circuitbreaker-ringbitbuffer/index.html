@@ -1350,7 +1350,7 @@
 <meta property="og:type" content="article">
 <meta property="og:description" content="Understanding how Resilience4j ringbit buffer works, is the key to understanding the internal working of [Resilience4j](https://resilience4j.readme.io/) circuit breaker state change. If you don&#39;t know this then you are missing how the buffer counts and hence you will fall into the trap of missing open/close counts in the logs.">
 
-<meta name="generator" content="Hugo 0.118.2">
+<meta name="generator" content="Hugo 0.121.1">
 <meta name="msapplication-TileColor" content="#fff">
 
 <meta name="theme-color" content="#fff">
@@ -1408,7 +1408,7 @@
 
     
   
-<script type="application/javascript">
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -1421,7 +1421,7 @@ if (!doNotTrack) {
 }
 </script>
   
-<script type="application/javascript">
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
@@ -1745,11 +1745,11 @@ After end of 25th call, the state would change to HALF_OPEN and half open bucket
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="o">.</span><span class="na">failureRateThreshold</span><span class="o">(</span><span class="n">60</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">                                                                        <span class="o">.</span><span class="na">waitDurationInOpenState</span><span class="o">(</span><span class="n">Duration</span><span class="o">.</span><span class="na">ofSeconds</span><span class="o">(</span><span class="n">10</span><span class="o">))</span>
-</span></span><span class="line"><span class="cl">                                                                        <span class="o">.</span><span class="na">permittedNumberOfCallsInHalfOpenState</span><span class="o">(</span><span class="n">3</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">                                                                        <span class="o">.</span><span class="na">slidingWindowSize</span><span class="o">(</span><span class="n">10</span><span class="o">)</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="p">.</span><span class="na">failureRateThreshold</span><span class="p">(</span><span class="n">60</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                                                                        </span><span class="p">.</span><span class="na">waitDurationInOpenState</span><span class="p">(</span><span class="n">Duration</span><span class="p">.</span><span class="na">ofSeconds</span><span class="p">(</span><span class="n">10</span><span class="p">))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                                                                        </span><span class="p">.</span><span class="na">permittedNumberOfCallsInHalfOpenState</span><span class="p">(</span><span class="n">3</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                                                                        </span><span class="p">.</span><span class="na">slidingWindowSize</span><span class="p">(</span><span class="n">10</span><span class="p">)</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>Logs: Pay special attention to Buffered calls and you see that buffer is emptied after state swutches from HALF_OPEN to CLOSED</p>
 <pre tabindex="0"><code>
@@ -3472,7 +3472,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 
             <p class="caption">
                 
-                    ©2023, All Rights Reserved
+                    ©2024, All Rights Reserved
                 
             </p>
         

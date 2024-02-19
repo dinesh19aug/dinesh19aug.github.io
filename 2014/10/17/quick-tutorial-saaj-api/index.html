@@ -1348,7 +1348,7 @@
 <meta property="og:type" content="article">
 <meta property="og:description" content="A Morsel Of Code - One Byte At A Time">
 
-<meta name="generator" content="Hugo 0.118.2">
+<meta name="generator" content="Hugo 0.121.1">
 <meta name="msapplication-TileColor" content="#fff">
 
 <meta name="theme-color" content="#fff">
@@ -1406,7 +1406,7 @@
 
     
   
-<script type="application/javascript">
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
 	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -1419,7 +1419,7 @@ if (!doNotTrack) {
 }
 </script>
   
-<script type="application/javascript">
+<script>
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
@@ -1729,20 +1729,20 @@ if (!doNotTrack) {
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">Caused</span> <span class="n">by</span><span class="o">:</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">axiom</span><span class="o">.</span><span class="na">soap</span><span class="o">.</span><span class="na">SOAPProcessingException</span><span class="o">:</span> <span class="n">Transport</span> <span class="n">level</span> <span class="n">information</span> <span class="n">does</span> <span class="n">not</span> <span class="n">match</span> <span class="n">with</span> <span class="n">SOAP</span> <span class="n">Message</span> <span class="n">namespace</span> <span class="n">URI</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">axis2</span><span class="o">.</span><span class="na">builder</span><span class="o">.</span><span class="na">BuilderUtil</span><span class="o">.</span><span class="na">validateSOAPVersion</span><span class="o">(</span><span class="n">BuilderUtil</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="n">772</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">axis2</span><span class="o">.</span><span class="na">builder</span><span class="o">.</span><span class="na">SOAPBuilder</span><span class="o">.</span><span class="na">processDocument</span><span class="o">(</span><span class="n">SOAPBuilder</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="n">58</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">axis2</span><span class="o">.</span><span class="na">transport</span><span class="o">.</span><span class="na">TransportUtils</span><span class="o">.</span><span class="na">createDocumentElement</span><span class="o">(</span><span class="n">TransportUtils</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="n">179</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">axis2</span><span class="o">.</span><span class="na">transport</span><span class="o">.</span><span class="na">TransportUtils</span><span class="o">.</span><span class="na">createSOAPMessage</span><span class="o">(</span><span class="n">TransportUtils</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="n">145</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">at</span> <span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">axis2</span><span class="o">.</span><span class="na">transport</span><span class="o">.</span><span class="na">TransportUtils</span><span class="o">.</span><span class="na">createSOAPMessage</span><span class="o">(</span><span class="n">TransportUtils</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="n">108</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="o">&amp;</span><span class="err">#</span><span class="n">8230</span><span class="o">;</span> <span class="n">13</span> <span class="n">more</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="n">Caused</span><span class="w"> </span><span class="n">by</span><span class="p">:</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="na">apache</span><span class="p">.</span><span class="na">axiom</span><span class="p">.</span><span class="na">soap</span><span class="p">.</span><span class="na">SOAPProcessingException</span><span class="p">:</span><span class="w"> </span><span class="n">Transport</span><span class="w"> </span><span class="n">level</span><span class="w"> </span><span class="n">information</span><span class="w"> </span><span class="n">does</span><span class="w"> </span><span class="n">not</span><span class="w"> </span><span class="n">match</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">SOAP</span><span class="w"> </span><span class="n">Message</span><span class="w"> </span><span class="n">namespace</span><span class="w"> </span><span class="n">URI</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="na">apache</span><span class="p">.</span><span class="na">axis2</span><span class="p">.</span><span class="na">builder</span><span class="p">.</span><span class="na">BuilderUtil</span><span class="p">.</span><span class="na">validateSOAPVersion</span><span class="p">(</span><span class="n">BuilderUtil</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="n">772</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="na">apache</span><span class="p">.</span><span class="na">axis2</span><span class="p">.</span><span class="na">builder</span><span class="p">.</span><span class="na">SOAPBuilder</span><span class="p">.</span><span class="na">processDocument</span><span class="p">(</span><span class="n">SOAPBuilder</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="n">58</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="na">apache</span><span class="p">.</span><span class="na">axis2</span><span class="p">.</span><span class="na">transport</span><span class="p">.</span><span class="na">TransportUtils</span><span class="p">.</span><span class="na">createDocumentElement</span><span class="p">(</span><span class="n">TransportUtils</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="n">179</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="na">apache</span><span class="p">.</span><span class="na">axis2</span><span class="p">.</span><span class="na">transport</span><span class="p">.</span><span class="na">TransportUtils</span><span class="p">.</span><span class="na">createSOAPMessage</span><span class="p">(</span><span class="n">TransportUtils</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="n">145</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="n">org</span><span class="p">.</span><span class="na">apache</span><span class="p">.</span><span class="na">axis2</span><span class="p">.</span><span class="na">transport</span><span class="p">.</span><span class="na">TransportUtils</span><span class="p">.</span><span class="na">createSOAPMessage</span><span class="p">(</span><span class="n">TransportUtils</span><span class="p">.</span><span class="na">java</span><span class="p">:</span><span class="n">108</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="o">&amp;</span><span class="err">#</span><span class="n">8230</span><span class="p">;</span><span class="w"> </span><span class="n">13</span><span class="w"> </span><span class="n">more</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>Now what this usually means is that client and server are using different version of SOAP(1.1 vs 1.2). For a long time my colleague tried to look for a solution on various forums, blogs etc. and everyone confirmed the same that the issue is at the service provider end. However, the same service was being used by 20 other vendors without an issue. Our Canada office reported that they were able to call the service without any issue albeit in PHP(OOPS!!).</p>
 <p>One fine afternoon it just struck me that Axis, CXF etc. are nothing but a wrapper around Java’s SAAJ API. Imagine how did developers call services before Axis and CXF? They coded QNAME, SOAPMessage manually! Lo and Behold but I went down to … let’s call it low level programming because I had to write code for all the XML node element, define namespaces etc.. which was not fun at all.</p>
@@ -1798,48 +1798,48 @@ if (!doNotTrack) {
 </span><span class="lnt">41
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">soapenv</span><span class="o">:</span><span class="n">Envelope</span> <span class="n">xmlns</span><span class="o">:</span><span class="n">soapenv</span><span class="o">=&amp;</span><span class="err">#</span><span class="n">8221</span><span class="o">;</span><span class="n">http</span><span class="o">:</span><span class="c1">//schemas.xmlsoap.org/soap/envelope/&amp;#8221; xmlns:urn=&amp;#8221;urn:http://com.mycompany.IamDoingSomething&amp;#8221;&gt;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">soapenv</span><span class="o">:</span><span class="n">Header</span><span class="o">/&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">soapenv</span><span class="o">:</span><span class="n">Body</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">urn</span><span class="o">:</span><span class="n">getPresaleByAddress</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">stnum</span><span class="o">&gt;</span><span class="n">123</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">stnumsuff</span><span class="o">&gt;&lt;/</span><span class="n">stnumsuff</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">stnam</span><span class="o">&gt;</span><span class="n">Forest</span><span class="o">&lt;/</span><span class="n">stnam</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">sttyp</span><span class="o">&gt;</span><span class="n">DR</span><span class="o">&lt;/</span><span class="n">sttyp</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">stdir</span><span class="o">&gt;&lt;/</span><span class="n">stdir</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">loctypa</span><span class="o">&gt;&lt;/</span><span class="n">loctypa</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">locnuma</span><span class="o">&gt;&lt;/</span><span class="n">locnuma</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">loctypb</span><span class="o">&gt;&lt;/</span><span class="n">loctypb</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">locnumb</span><span class="o">&gt;&lt;/</span><span class="n">locnumb</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">muni</span><span class="o">&gt;</span><span class="n">OTTAWA</span><span class="o">&lt;/</span><span class="n">muni</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">post</span><span class="o">&gt;</span><span class="n">K1A1A1</span><span class="o">&lt;/</span><span class="n">post</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="o">&lt;</span><span class="n">prov</span><span class="o">&gt;</span><span class="n">on</span><span class="o">&lt;/</span><span class="n">prov</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="o">&lt;!--&lt;</span><span class="n">span</span> <span class="n">class</span><span class="o">=</span><span class="s">&#34;hiddenSpellError&#34;</span> <span class="n">pre</span><span class="o">=</span><span class="s">&#34;&#34;</span> <span class="n">data</span><span class="o">-</span><span class="n">mce</span><span class="o">-</span><span class="n">bogus</span><span class="o">=</span><span class="s">&#34;1&#34;</span><span class="o">--&gt;</span><span class="n">urn</span><span class="o">:</span><span class="n">getPresaleByAddress</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="o">&lt;!--&lt;</span><span class="n">span</span> <span class="n">class</span><span class="o">=</span><span class="s">&#34;hiddenSpellError&#34;</span> <span class="n">pre</span><span class="o">=</span><span class="s">&#34;&#34;</span> <span class="n">data</span><span class="o">-</span><span class="n">mce</span><span class="o">-</span><span class="n">bogus</span><span class="o">=</span><span class="s">&#34;1&#34;</span><span class="o">--&gt;</span><span class="n">soapenv</span><span class="o">:</span><span class="n">Body</span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="o">&lt;!--&lt;</span><span class="n">span</span> <span class="n">class</span><span class="o">=</span><span class="s">&#34;hiddenSpellError&#34;</span> <span class="n">pre</span><span class="o">=</span><span class="s">&#34;&#34;</span> <span class="n">data</span><span class="o">-</span><span class="n">mce</span><span class="o">-</span><span class="n">bogus</span><span class="o">=</span><span class="s">&#34;1&#34;</span><span class="o">--&gt;</span><span class="n">soapenv</span><span class="o">:</span><span class="n">Envelope</span><span class="o">&gt;</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="o">&lt;</span><span class="n">soapenv</span><span class="p">:</span><span class="n">Envelope</span><span class="w"> </span><span class="n">xmlns</span><span class="p">:</span><span class="n">soapenv</span><span class="o">=&amp;</span><span class="err">#</span><span class="n">8221</span><span class="p">;</span><span class="n">http</span><span class="p">:</span><span class="c1">//schemas.xmlsoap.org/soap/envelope/&amp;#8221; xmlns:urn=&amp;#8221;urn:http://com.mycompany.IamDoingSomething&amp;#8221;&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="o">&lt;</span><span class="n">soapenv</span><span class="p">:</span><span class="n">Header</span><span class="o">/&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="o">&lt;</span><span class="n">soapenv</span><span class="p">:</span><span class="n">Body</span><span class="o">&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="o">&lt;</span><span class="n">urn</span><span class="p">:</span><span class="n">getPresaleByAddress</span><span class="o">&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="o">&lt;</span><span class="n">stnum</span><span class="o">&gt;</span><span class="n">123</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="o">&lt;</span><span class="n">stnumsuff</span><span class="o">&gt;&lt;/</span><span class="n">stnumsuff</span><span class="o">&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="o">&lt;</span><span class="n">stnam</span><span class="o">&gt;</span><span class="n">Forest</span><span class="o">&lt;/</span><span class="n">stnam</span><span class="o">&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="o">&lt;</span><span class="n">sttyp</span><span class="o">&gt;</span><span class="n">DR</span><span class="o">&lt;/</span><span class="n">sttyp</span><span class="o">&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="o">&lt;</span><span class="n">stdir</span><span class="o">&gt;&lt;/</span><span class="n">stdir</span><span class="o">&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="o">&lt;</span><span class="n">loctypa</span><span class="o">&gt;&lt;/</span><span class="n">loctypa</span><span class="o">&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="o">&lt;</span><span class="n">locnuma</span><span class="o">&gt;&lt;/</span><span class="n">locnuma</span><span class="o">&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="o">&lt;</span><span class="n">loctypb</span><span class="o">&gt;&lt;/</span><span class="n">loctypb</span><span class="o">&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="o">&lt;</span><span class="n">locnumb</span><span class="o">&gt;&lt;/</span><span class="n">locnumb</span><span class="o">&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="o">&lt;</span><span class="n">muni</span><span class="o">&gt;</span><span class="n">OTTAWA</span><span class="o">&lt;/</span><span class="n">muni</span><span class="o">&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="o">&lt;</span><span class="n">post</span><span class="o">&gt;</span><span class="n">K1A1A1</span><span class="o">&lt;/</span><span class="n">post</span><span class="o">&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="o">&lt;</span><span class="n">prov</span><span class="o">&gt;</span><span class="n">on</span><span class="o">&lt;/</span><span class="n">prov</span><span class="o">&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="o">&lt;!--&lt;</span><span class="n">span</span><span class="w"> </span><span class="kd">class</span><span class="err">=&#34;</span><span class="nc">hiddenSpellError</span><span class="s">&#34; pre=&#34;&#34; data-mce-bogus=&#34;</span><span class="n">1</span><span class="s">&#34;--&gt;urn:getPresaleByAddress&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">&gt; &lt;!--&lt;span class=&#34;</span><span class="n">hiddenSpellError</span><span class="s">&#34; pre=&#34;&#34; data-mce-bogus=&#34;</span><span class="n">1</span><span class="s">&#34;--&gt;soapenv:Body&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">&gt;
+</span></span></span><span class="line"><span class="cl"><span class="s">
+</span></span></span><span class="line"><span class="cl"><span class="s">&gt; &lt;!--&lt;span class=&#34;</span><span class="n">hiddenSpellError</span><span class="s">&#34; pre=&#34;&#34; data-mce-bogus=&#34;</span><span class="n">1</span><span class="s">&#34;--&gt;soapenv:Envelope&gt;
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>and I need to send this message to web service url “http://some-webservice-url.com”</p>
 <p><strong>STEPS</strong></p>
@@ -1853,10 +1853,10 @@ if (!doNotTrack) {
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">MessageFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="n">MessageFactory</span><span class="o">.</span><span class="na">newInstance</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">SOAPMessage</span> <span class="n">message</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">createMessage</span><span class="o">();</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="n">MessageFactory</span><span class="w"> </span><span class="n">factory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MessageFactory</span><span class="p">.</span><span class="na">newInstance</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="n">SOAPMessage</span><span class="w"> </span><span class="n">message</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">factory</span><span class="p">.</span><span class="na">createMessage</span><span class="p">();</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>Result:</p>
 <div class="highlight"><div class="chroma">
@@ -1905,14 +1905,14 @@ if (!doNotTrack) {
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="o">&gt;</span>  <span class="n">SOAPBody</span> <span class="n">body</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="na">getSOAPBody</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">SOAPFactory</span> <span class="n">soapFactory</span> <span class="o">=</span> <span class="n">SOAPFactory</span><span class="o">.</span><span class="na">newInstance</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">Name</span> <span class="n">bodyName</span> <span class="o">=</span> <span class="n">soapFactory</span><span class="o">.</span><span class="na">createName</span><span class="o">(&amp;</span><span class="err">#</span><span class="n">8220</span><span class="o">;</span><span class="n">getPresaleByAddress</span><span class="o">&amp;</span><span class="err">#</span><span class="n">8221</span><span class="o">;,&amp;</span><span class="err">#</span><span class="n">8221</span><span class="o">;</span><span class="n">urn</span><span class="o">&amp;</span><span class="err">#</span><span class="n">8221</span><span class="o">;,</span> <span class="o">&amp;</span><span class="err">#</span><span class="n">8220</span><span class="o">;</span><span class="n">http</span><span class="o">:</span><span class="c1">//com.mycompany.IamDoingSomething&amp;#8221;);
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">SOAPBodyElement</span> <span class="n">bodyElement</span> <span class="o">=</span> <span class="n">body</span><span class="o">.</span><span class="na">addBodyElement</span><span class="o">(</span><span class="n">bodyName</span><span class="o">);</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w">  </span><span class="n">SOAPBody</span><span class="w"> </span><span class="n">body</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">message</span><span class="p">.</span><span class="na">getSOAPBody</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="n">SOAPFactory</span><span class="w"> </span><span class="n">soapFactory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SOAPFactory</span><span class="p">.</span><span class="na">newInstance</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="n">bodyName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">soapFactory</span><span class="p">.</span><span class="na">createName</span><span class="p">(</span><span class="o">&amp;</span><span class="err">#</span><span class="n">8220</span><span class="p">;</span><span class="n">getPresaleByAddress</span><span class="o">&amp;</span><span class="err">#</span><span class="n">8221</span><span class="p">;,</span><span class="o">&amp;</span><span class="err">#</span><span class="n">8221</span><span class="p">;</span><span class="n">urn</span><span class="o">&amp;</span><span class="err">#</span><span class="n">8221</span><span class="p">;,</span><span class="w"> </span><span class="o">&amp;</span><span class="err">#</span><span class="n">8220</span><span class="p">;</span><span class="n">http</span><span class="p">:</span><span class="c1">//com.mycompany.IamDoingSomething&amp;#8221;);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="n">SOAPBodyElement</span><span class="w"> </span><span class="n">bodyElement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">body</span><span class="p">.</span><span class="na">addBodyElement</span><span class="p">(</span><span class="n">bodyName</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>Result:</p>
 <div class="highlight"><div class="chroma">
@@ -1949,17 +1949,17 @@ if (!doNotTrack) {
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">MimeHeaders</span> <span class="n">headers</span> <span class="o">=</span> <span class="n">soapMessage</span><span class="o">.</span><span class="na">getMimeHeaders</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">headers</span><span class="o">.</span><span class="na">addHeader</span><span class="o">(&amp;</span><span class="err">#</span><span class="n">8220</span><span class="o">;</span><span class="n">SOAPAction</span><span class="o">&amp;</span><span class="err">#</span><span class="n">8221</span><span class="o">;,</span> <span class="n">leonidUrl</span><span class="o">+</span> <span class="o">&amp;</span><span class="err">#</span><span class="n">8220</span><span class="o">;/</span><span class="n">getPresaleByAddress</span><span class="o">&amp;</span><span class="err">#</span><span class="n">8221</span><span class="o">;);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">SOAPPart</span> <span class="n">soapPart</span> <span class="o">=</span> <span class="n">soapMessage</span><span class="o">.</span><span class="na">getSOAPPart</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="c1">// SOAP Envelope
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">SOAPEnvelope</span> <span class="n">envelope</span> <span class="o">=</span> <span class="n">soapPart</span><span class="o">.</span><span class="na">getEnvelope</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">envelope</span><span class="o">.</span><span class="na">addNamespaceDeclaration</span><span class="o">(&amp;</span><span class="err">#</span><span class="n">8220</span><span class="o">;</span><span class="n">urn</span><span class="o">&amp;</span><span class="err">#</span><span class="n">8221</span><span class="o">;,</span> <span class="o">&amp;</span><span class="err">#</span><span class="n">8220</span><span class="o">;</span><span class="n">urn</span><span class="o">:</span><span class="n">http</span><span class="o">:</span><span class="c1">//com.mycompany.IamDoingSomething&amp;#8221;);
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="n">MimeHeaders</span><span class="w"> </span><span class="n">headers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">soapMessage</span><span class="p">.</span><span class="na">getMimeHeaders</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="n">headers</span><span class="p">.</span><span class="na">addHeader</span><span class="p">(</span><span class="o">&amp;</span><span class="err">#</span><span class="n">8220</span><span class="p">;</span><span class="n">SOAPAction</span><span class="o">&amp;</span><span class="err">#</span><span class="n">8221</span><span class="p">;,</span><span class="w"> </span><span class="n">leonidUrl</span><span class="o">+</span><span class="w"> </span><span class="o">&amp;</span><span class="err">#</span><span class="n">8220</span><span class="p">;</span><span class="o">/</span><span class="n">getPresaleByAddress</span><span class="o">&amp;</span><span class="err">#</span><span class="n">8221</span><span class="p">;);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="n">SOAPPart</span><span class="w"> </span><span class="n">soapPart</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">soapMessage</span><span class="p">.</span><span class="na">getSOAPPart</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="c1">// SOAP Envelope</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="n">SOAPEnvelope</span><span class="w"> </span><span class="n">envelope</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">soapPart</span><span class="p">.</span><span class="na">getEnvelope</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="n">envelope</span><span class="p">.</span><span class="na">addNamespaceDeclaration</span><span class="p">(</span><span class="o">&amp;</span><span class="err">#</span><span class="n">8220</span><span class="p">;</span><span class="n">urn</span><span class="o">&amp;</span><span class="err">#</span><span class="n">8221</span><span class="p">;,</span><span class="w"> </span><span class="o">&amp;</span><span class="err">#</span><span class="n">8220</span><span class="p">;</span><span class="n">urn</span><span class="p">:</span><span class="n">http</span><span class="p">:</span><span class="c1">//com.mycompany.IamDoingSomething&amp;#8221;);</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="5">
@@ -1972,10 +1972,10 @@ if (!doNotTrack) {
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">String</span> <span class="n">authorization</span> <span class="o">=</span> <span class="k">new</span> <span class="n">sun</span><span class="o">.</span><span class="na">misc</span><span class="o">.</span><span class="na">BASE64Encoder</span><span class="o">().</span><span class="na">encode</span><span class="o">((&amp;</span><span class="err">#</span><span class="n">8220</span><span class="o">;</span><span class="n">myUserName</span><span class="o">&amp;</span><span class="err">#</span><span class="n">8221</span><span class="o">;+&amp;</span><span class="err">#</span><span class="n">8221</span><span class="o">;:&amp;</span><span class="err">#</span><span class="n">8221</span><span class="o">;+&amp;</span><span class="err">#</span><span class="n">8221</span><span class="o">;</span><span class="n">myPassword</span><span class="o">&amp;</span><span class="err">#</span><span class="n">8221</span><span class="o">;).</span><span class="na">getBytes</span><span class="o">());</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">headers</span><span class="o">.</span><span class="na">addHeader</span><span class="o">(&amp;</span><span class="err">#</span><span class="n">8220</span><span class="o">;</span><span class="n">Authorization</span><span class="o">&amp;</span><span class="err">#</span><span class="n">8221</span><span class="o">;,</span> <span class="o">&amp;</span><span class="err">#</span><span class="n">8220</span><span class="o">;</span><span class="n">Basic</span> <span class="o">&amp;</span><span class="err">#</span><span class="n">8221</span><span class="o">;</span> <span class="o">+</span> <span class="n">authorization</span><span class="o">);</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">authorization</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">sun</span><span class="p">.</span><span class="na">misc</span><span class="p">.</span><span class="na">BASE64Encoder</span><span class="p">().</span><span class="na">encode</span><span class="p">((</span><span class="o">&amp;</span><span class="err">#</span><span class="n">8220</span><span class="p">;</span><span class="n">myUserName</span><span class="o">&amp;</span><span class="err">#</span><span class="n">8221</span><span class="p">;</span><span class="o">+&amp;</span><span class="err">#</span><span class="n">8221</span><span class="p">;:</span><span class="o">&amp;</span><span class="err">#</span><span class="n">8221</span><span class="p">;</span><span class="o">+&amp;</span><span class="err">#</span><span class="n">8221</span><span class="p">;</span><span class="n">myPassword</span><span class="o">&amp;</span><span class="err">#</span><span class="n">8221</span><span class="p">;).</span><span class="na">getBytes</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="n">headers</span><span class="p">.</span><span class="na">addHeader</span><span class="p">(</span><span class="o">&amp;</span><span class="err">#</span><span class="n">8220</span><span class="p">;</span><span class="n">Authorization</span><span class="o">&amp;</span><span class="err">#</span><span class="n">8221</span><span class="p">;,</span><span class="w"> </span><span class="o">&amp;</span><span class="err">#</span><span class="n">8220</span><span class="p">;</span><span class="n">Basic</span><span class="w"> </span><span class="o">&amp;</span><span class="err">#</span><span class="n">8221</span><span class="p">;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">authorization</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="6">
 <li>Add child elements</li>
@@ -2003,26 +2003,26 @@ if (!doNotTrack) {
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">QName</span> <span class="n">bodyName</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QName</span><span class="o">(&amp;</span><span class="err">#</span><span class="n">8220</span><span class="o">;</span><span class="n">urn</span><span class="o">:</span><span class="n">http</span><span class="o">:</span><span class="c1">//com.mycompany.IamDoingSomething&amp;#8221;,&amp;#8221;getPresaleByAddress&amp;#8221;,&amp;#8221;urn&amp;#8221;) ;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">SOAPBodyElement</span> <span class="n">bodyElement</span> <span class="o">=</span> <span class="n">body</span><span class="o">.</span><span class="na">addBodyElement</span><span class="o">(</span><span class="n">bodyName</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">QName</span> <span class="n">node_name</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QName</span><span class="o">(</span><span class="n">qName</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">SOAPElement</span> <span class="n">node_element</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="k">try</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">node_element</span> <span class="o">=</span> <span class="n">bodyElement</span><span class="o">.</span><span class="na">addChildElement</span><span class="o">(&amp;</span><span class="err">#</span><span class="n">8220</span><span class="o">;</span><span class="n">stnum</span><span class="o">&amp;</span><span class="err">#</span><span class="n">8221</span><span class="o">;);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="k">if</span><span class="o">(</span><span class="n">hasNodeValue</span><span class="o">){</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">node_element</span><span class="o">.</span><span class="na">addTextNode</span><span class="o">(&amp;</span><span class="err">#</span><span class="n">8220</span><span class="o">;</span><span class="n">123</span><span class="o">&amp;</span><span class="err">#</span><span class="n">8221</span><span class="o">;);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="n">QName</span><span class="w"> </span><span class="n">bodyName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">QName</span><span class="p">(</span><span class="o">&amp;</span><span class="err">#</span><span class="n">8220</span><span class="p">;</span><span class="n">urn</span><span class="p">:</span><span class="n">http</span><span class="p">:</span><span class="c1">//com.mycompany.IamDoingSomething&amp;#8221;,&amp;#8221;getPresaleByAddress&amp;#8221;,&amp;#8221;urn&amp;#8221;) ;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="n">SOAPBodyElement</span><span class="w"> </span><span class="n">bodyElement</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">body</span><span class="p">.</span><span class="na">addBodyElement</span><span class="p">(</span><span class="n">bodyName</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="n">QName</span><span class="w"> </span><span class="n">node_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">QName</span><span class="p">(</span><span class="n">qName</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="n">SOAPElement</span><span class="w"> </span><span class="n">node_element</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="n">node_element</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bodyElement</span><span class="p">.</span><span class="na">addChildElement</span><span class="p">(</span><span class="o">&amp;</span><span class="err">#</span><span class="n">8220</span><span class="p">;</span><span class="n">stnum</span><span class="o">&amp;</span><span class="err">#</span><span class="n">8221</span><span class="p">;);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="k">if</span><span class="p">(</span><span class="n">hasNodeValue</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="n">node_element</span><span class="p">.</span><span class="na">addTextNode</span><span class="p">(</span><span class="o">&amp;</span><span class="err">#</span><span class="n">8220</span><span class="p">;</span><span class="n">123</span><span class="o">&amp;</span><span class="err">#</span><span class="n">8221</span><span class="p">;);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>Result:</p>
 <div class="highlight"><div class="chroma">
@@ -2044,11 +2044,11 @@ if (!doNotTrack) {
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">SOAPConnectionFactory</span> <span class="n">soapConnectionFactory</span> <span class="o">=</span> <span class="n">SOAPConnectionFactory</span><span class="o">.</span><span class="na">newInstance</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">SOAPConnection</span> <span class="n">connection</span> <span class="o">=</span> <span class="n">soapConnectionFactory</span><span class="o">.</span><span class="na">createConnection</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="n">SOAPConnectionFactory</span><span class="w"> </span><span class="n">soapConnectionFactory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SOAPConnectionFactory</span><span class="p">.</span><span class="na">newInstance</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="n">SOAPConnection</span><span class="w"> </span><span class="n">connection</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">soapConnectionFactory</span><span class="p">.</span><span class="na">createConnection</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>SOAP messages are sent and received over a connection. This connection is represented by a SOAPConnection object, which goes from the sender directly to its destination. This kind of connection is called a point-to-point connection because it goes from one endpoint to another endpoint. Messages sent using the SAAJ API are called request-response messages. They are sent over a SOAPConnection object with the method call, which sends a message (a request) and then blocks until it receives the reply (a response).</p>
 <ol start="8">
@@ -2065,14 +2065,14 @@ if (!doNotTrack) {
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="c1">// Create an endpoint point which is either URL or String type
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">java</span><span class="o">.</span><span class="na">net</span><span class="o">.</span><span class="na">URL</span> <span class="n">endpoint</span> <span class="o">=</span> <span class="k">new</span> <span class="n">URL</span><span class="o">(&amp;</span><span class="err">#</span><span class="n">8220</span><span class="o">;</span><span class="n">http</span><span class="o">:</span><span class="c1">//some-webservice-url.com&amp;#8221;);
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">&gt;</span>
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="c1">// Send a SOAPMessage (request) and then wait for SOAPMessage (response)
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">SOAPMessage</span> <span class="n">response</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="na">call</span><span class="o">(</span><span class="n">message</span><span class="o">,</span> <span class="n">endpoint</span><span class="o">);</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="c1">// Create an endpoint point which is either URL or String type</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="n">java</span><span class="p">.</span><span class="na">net</span><span class="p">.</span><span class="na">URL</span><span class="w"> </span><span class="n">endpoint</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">URL</span><span class="p">(</span><span class="o">&amp;</span><span class="err">#</span><span class="n">8220</span><span class="p">;</span><span class="n">http</span><span class="p">:</span><span class="c1">//some-webservice-url.com&amp;#8221;);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="c1">// Send a SOAPMessage (request) and then wait for SOAPMessage (response)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="n">SOAPMessage</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">connection</span><span class="p">.</span><span class="na">call</span><span class="p">(</span><span class="n">message</span><span class="p">,</span><span class="w"> </span><span class="n">endpoint</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><ol start="9">
 <li>Print the SOAP Response XML</li>
@@ -2092,18 +2092,18 @@ if (!doNotTrack) {
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">Transformer</span> <span class="n">transformer</span> <span class="o">=</span> <span class="n">transformerFactory</span><span class="o">.</span><span class="na">newTransformer</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">Source</span> <span class="n">sourceContent</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="na">getSOAPPart</span><span class="o">().</span><span class="na">getContent</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">ByteArrayOutputStream</span> <span class="n">outputStream</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ByteArrayOutputStream</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">StreamResult</span> <span class="n">result</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StreamResult</span><span class="o">(</span><span class="n">outputStream</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">transformer</span><span class="o">.</span><span class="na">transform</span><span class="o">(</span><span class="n">sourceContent</span><span class="o">,</span> <span class="n">result</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(&amp;</span><span class="err">#</span><span class="n">8220</span><span class="o">;</span><span class="n">nResponse</span> <span class="n">SOAP</span> <span class="n">Message</span> <span class="o">::</span><span class="n">n</span> <span class="o">{}&amp;</span><span class="err">#</span><span class="n">8221</span><span class="o">;</span> <span class="o">,</span> <span class="n">result</span><span class="o">.</span><span class="na">getOutputStream</span><span class="o">().</span><span class="na">toString</span><span class="o">());</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="o">&gt;</span><span class="w"> </span><span class="n">Transformer</span><span class="w"> </span><span class="n">transformer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">transformerFactory</span><span class="p">.</span><span class="na">newTransformer</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="n">Source</span><span class="w"> </span><span class="n">sourceContent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">response</span><span class="p">.</span><span class="na">getSOAPPart</span><span class="p">().</span><span class="na">getContent</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="n">ByteArrayOutputStream</span><span class="w"> </span><span class="n">outputStream</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ByteArrayOutputStream</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="n">StreamResult</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">StreamResult</span><span class="p">(</span><span class="n">outputStream</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="n">transformer</span><span class="p">.</span><span class="na">transform</span><span class="p">(</span><span class="n">sourceContent</span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">&gt;</span><span class="w"> </span><span class="n">log</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="o">&amp;</span><span class="err">#</span><span class="n">8220</span><span class="p">;</span><span class="n">nResponse</span><span class="w"> </span><span class="n">SOAP</span><span class="w"> </span><span class="n">Message</span><span class="w"> </span><span class="p">::</span><span class="n">n</span><span class="w"> </span><span class="p">{}</span><span class="o">&amp;</span><span class="err">#</span><span class="n">8221</span><span class="p">;</span><span class="w"> </span><span class="p">,</span><span class="w"> </span><span class="n">result</span><span class="p">.</span><span class="na">getOutputStream</span><span class="p">().</span><span class="na">toString</span><span class="p">());</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>That’s it!!</p>
 <p>There are many other things that you can do with SAAJ. To read more about SAAJ and it’s capabilities you can read <a title="here" href="http://docs.oracle.com/javaee/5/tutorial/doc/bnbhg.html" target="_blank">here</a> and <a title="here" href="http://java.boot.by/wsd-guide/ch05s04.html" target="_blank">here</a></p>
@@ -3540,7 +3540,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 
             <p class="caption">
                 
-                    ©2023, All Rights Reserved
+                    ©2024, All Rights Reserved
                 
             </p>
         

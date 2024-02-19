@@ -13,12 +13,36 @@
     <language>en</language>
     <managingEditor>dinesh19aug@gmail.com (Dinesh Arora)</managingEditor>
     <webMaster>dinesh19aug@gmail.com (Dinesh Arora)</webMaster>
-    <copyright>©2023, All Rights Reserved</copyright>
-    <lastBuildDate>Wed, 20 Sep 2023 23:31:00 -0400</lastBuildDate>
+    <copyright>©2024, All Rights Reserved</copyright>
+    <lastBuildDate>Thu, 12 Oct 2023 13:28:08 -0500</lastBuildDate>
     
         <atom:link href="/en/categories/tech-notes/index.xml" rel="self" type="application/rss+xml" />
     
 
+      
+      <item>
+        <title>Jenkins vs GitHub actions: Which CI CD Tool Is Right?</title>
+        <link>/jenkins-vs-github-actions-which-cicd-tool-is-right/</link>
+        <pubDate>Thu, 12 Oct 2023 13:28:08 -0500</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Thu, 12 Oct 2023 13:28:08 -0500</atom:modified>
+        <guid>/jenkins-vs-github-actions-which-cicd-tool-is-right/</guid>
+        <description>In today&amp;rsquo;s rapidly evolving software development landscape, implementing effective Continuous Integration and Continuous Deployment (CI/CD) practices is crucial for teams aiming to deliver high-quality software efficiently. With a plethora of CI/CD tools available, selecting the right one for your project can be a daunting task. Among the top contenders, Jenkins and GitHub Actions stand out as robust solutions offering powerful automation capabilities. In this comprehensive guide, we will delve into the features, similarities, and differences between Jenkins and GitHub Actions to help you make an informed decision for your CI/CD needs.</description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        <media:content url="//resources/img/github-vs-jenkins.jpeg" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
       
       <item>
         <title>Mastering Maven Create Custom Maven Plugin</title>
@@ -31,7 +55,7 @@
 Step 1: Project Setup First, ensure you have Maven installed on your system. You can check this by running mvn -version in your terminal.</description>
         
         <dc:creator>Dinesh Arora</dc:creator>
-        <media:content url="//resources/img/maven-plugin.jpg" medium="image"><media:title type="html">featured image</media:title></media:content>
+        <media:content url="//resources/img/maven-plugin.jpeg" medium="image"><media:title type="html">featured image</media:title></media:content>
         
         
         
