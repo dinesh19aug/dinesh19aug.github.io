@@ -3,18 +3,21 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>/en/</loc>
-    <lastmod>2023-10-12T13:28:08-05:00</lastmod>
+    <lastmod>2024-05-18T21:48:01-04:00</lastmod>
   </url><url>
     <loc>/en/categories/</loc>
-    <lastmod>2023-10-12T13:28:08-05:00</lastmod>
-  </url><url>
-    <loc>/jenkins-vs-github-actions-which-cicd-tool-is-right/</loc>
-    <lastmod>2023-10-12T13:28:08-05:00</lastmod>
+    <lastmod>2024-05-18T21:48:01-04:00</lastmod>
   </url><url>
     <loc>/en/posts/</loc>
-    <lastmod>2023-10-12T13:28:08-05:00</lastmod>
+    <lastmod>2024-05-18T21:48:01-04:00</lastmod>
   </url><url>
     <loc>/en/categories/tech-notes/</loc>
+    <lastmod>2024-05-18T21:48:01-04:00</lastmod>
+  </url><url>
+    <loc>/how-ssl-https-works/</loc>
+    <lastmod>2024-05-18T21:48:01-04:00</lastmod>
+  </url><url>
+    <loc>/jenkins-vs-github-actions-which-cicd-tool-is-right/</loc>
     <lastmod>2023-10-12T13:28:08-05:00</lastmod>
   </url><url>
     <loc>/maven-create-custom-maven-plugin/</loc>

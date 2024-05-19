@@ -14,11 +14,35 @@
     <managingEditor>dinesh19aug@gmail.com (Dinesh Arora)</managingEditor>
     <webMaster>dinesh19aug@gmail.com (Dinesh Arora)</webMaster>
     <copyright>©2024, All Rights Reserved</copyright>
-    <lastBuildDate>Thu, 12 Oct 2023 13:28:08 -0500</lastBuildDate>
+    <lastBuildDate>Sat, 18 May 2024 21:48:01 -0400</lastBuildDate>
     
         <atom:link href="/en/posts/index.xml" rel="self" type="application/rss+xml" />
     
 
+      
+      <item>
+        <title>This is how SSL certificates work: Https explained in 15 minutes</title>
+        <link>/how-ssl-https-works/</link>
+        <pubDate>Sat, 18 May 2024 21:48:01 -0400</pubDate>
+        <author>dinesh19aug@gmail.com (Dinesh Arora)</author>
+        <atom:modified>Sat, 18 May 2024 21:48:01 -0400</atom:modified>
+        <guid>/how-ssl-https-works/</guid>
+        <description>The world of online security may seem complex, but understanding the basics of how SSL certificates work and why HTTPS is essential can empower you to make safer choices online. Just like Jane, you can navigate the digital landscape with confidence, knowing that your data is protected from prying eyes. So next time you browse the web, remember the story of Jane and the coffee shop hacker, and choose secure, trusted websites for your online activities.</description>
+        
+        <dc:creator>Dinesh Arora</dc:creator>
+        <media:content url="//resources/img/how-ssl-works.jpeg" medium="image"><media:title type="html">featured image</media:title></media:content>
+        
+        <media:content url="//resources/img/how-ssl-works.jpeg" medium="image"><media:title type="html">meta image</media:title></media:content>
+        
+        
+          
+            
+              <category>Tech Notes</category>
+            
+          
+        
+        
+      </item>
       
       <item>
         <title>Jenkins vs GitHub actions: Which CI CD Tool Is Right?</title>
